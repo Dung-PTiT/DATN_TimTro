@@ -1,0 +1,50 @@
+.toolbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  color: white;
+  font-weight: 600;
+  z-index: 1000;
+}
+
+.div-header-client {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.div-header-info {
+  text-align: end;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.example-button-row {
+  display: flex;
+}
+
+.example-button-row .mat-button-base {
+  margin: 18px 8px 18px 0;
+}
+
+.mat-toolbar {
+  font-size: 14px;
+  padding-top: 10px;
+  background-color: #ffffff;
+}
+
+.mat-toolbar-title{
+  color: #000;
+}
+
+.mat-toolbar-title:hover {
+  color: #feb800;
+  text-decoration: none;
+}

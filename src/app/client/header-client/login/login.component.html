@@ -1,0 +1,36 @@
+<mat-card class="card-login">
+  <mat-card-title class="title">Đăng nhập</mat-card-title>
+  <mat-divider></mat-divider>
+  <div class="row pt-4">
+    <div class="col-5 pl-0">
+      <form class="text-center">
+        <input type="email" class="form-control mb-4" placeholder="E-mail" style="font-size: 13px;">
+        <input type="password" class="form-control mb-4" placeholder="Mật khẩu" style="font-size: 13px;">
+        <div style="text-align: end">
+          <a href="" style="font-size: 13px">Quên tài khoản?</a>
+        </div>
+        <button mdbBtn block="true" class="btn-login my-4" type="submit">Đăng nhập</button>
+        <p style="font-size: 13px">Chưa có tài khoản?<a routerLink="/register" class="ml-2">Đăng ký</a></p>
+      </form>
+    </div>
+    <div class="col-2">
+      <p>Hoặc</p>
+    </div>
+    <div class="col-5 div-login-service">
+      <div class="row">
+        <a title="Đăng nhập với google" href="" class="login-link-service">
+          <img src="./assets/images/google.jpg" class="login-icon-service">
+          <span class="login-title-service">Đăng nhập với google</span>
+        </a>
+      </div>
+      <div class="row">
+        <a title="Đăng nhập với facebook" href="" class="login-link-service mt-4"
+           style="background-color: #3b5998; color: #ffffff">
+          <img src="./assets/images/facebook.png" class="login-icon-service">
+          <span class="login-title-service">Đăng nhập với facebook</span>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="text-center mt-5"><a routerlink="" href="" style="font-size: 13px">Quay lại trang chủ</a></div>
+</mat-card>

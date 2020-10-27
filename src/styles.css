@@ -13,10 +13,30 @@
   background: #feb800;
 }
 
-.container{
-  padding: 0!important;
+html{
+  scroll-behavior: smooth;
 }
 
-.bg-color-feb800{
+.container {
+  padding: 0 !important;
+}
+
+.active {
+  color: #feb800 !important;
+}
+
+.text-color-feb800 {
+  color: #feb800 !important;
+}
+
+.bg-color-feb800 {
   background-color: #feb800 !important;
+}
+
+.border-color-feb800{
+  border: 1px solid #feb800 !important;
+}
+
+.font-size-14{
+  font-size: 14px!important;
 }

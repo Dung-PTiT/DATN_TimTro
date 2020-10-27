@@ -8,15 +8,25 @@
     <div class="example-button-row div-header-info">
       <div>
         <mat-toolbar>
-          <a href="" class="mat-toolbar-title"><span>Trang chủ</span></a>
+          <a href="" class="mat-toolbar-title active"><span>Trang chủ</span></a>
           <a href="" class="mat-toolbar-title ml-3"><span>Cho thuê</span></a>
-          <a href="" class="mat-toolbar-title ml-3"><span>Hướng dẫn</span></a>
           <a href="" class="mat-toolbar-title ml-3"><span>Nạp tiền</span></a>
-          <a href="" class="mat-toolbar-title ml-3"><span>Bảng giá dịch vụ</span></a>
+          <a href="" class="mat-toolbar-title ml-3"><span>Bảng giá</span></a>
+          <div ngbDropdown class="ml-3">
+            <button class="btn border-color-feb800 font-size-14"
+                    id="dropdownBasic1" ngbDropdownToggle>Tham gia
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem class="mat-toolbar-title font-size-14" [routerLink]="['/login']">
+                Đăng nhập
+              </button>
+              <button ngbDropdownItem [routerLink]="['/register']" class="mat-toolbar-title font-size-14">Đăng ký
+              </button>
+            </div>
+          </div>
         </mat-toolbar>
       </div>
-      <button mat-stroked-button class="text-dark" [routerLink]="['/login']">Đăng nhập</button>
-      <button mat-stroked-button class="bg-color-feb800" [routerLink]="['/register']">Đăng ký</button>
+      <button mat-stroked-button class="bg-color-feb800">Đăng tin</button>
     </div>
   </div>
 </div>

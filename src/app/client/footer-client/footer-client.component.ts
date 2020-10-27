@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {faInbox, faMapMarker, faPhone} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-footer-client',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FooterClientComponent implements OnInit {
 
-  constructor() { }
+  faMapMarker = faMapMarker;
+  faPhone = faPhone;
+  faInbox = faInbox;
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

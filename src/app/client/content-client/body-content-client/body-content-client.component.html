@@ -1,0 +1,64 @@
+<div class="container" id="href-tim-kiem-nhanh">
+  <mat-card class="card-body-content-client">
+    <mat-card-title class="title text-center font-weight-bold mb-5">Tìm nhà cho thuê</mat-card-title>
+    <div class="row">
+      <div class="col-sm-12 col-md-6">
+        <div class="search-form-key">
+          <p style="font-weight: 700">Tìm kiếm nhanh theo từ khóa</p>
+          <form class="form-search" [formGroup]="searchForm">
+            <mat-form-field class="mat-form-field-search">
+              <input matInput type="text" placeholder="Nhập địa điểm, khu vực bạn quan tâm"
+                     [matAutocomplete]="auto" formControlName="searchInp">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <button mat-stroked-button class="text-white bg-color-feb800 ml-4" [routerLink]="['/login']"
+                    style="min-width: 90px">
+              Tìm kiếm
+            </button>
+          </form>
+          <p style="font-weight: 700" class="pt-4">Tìm kiếm nhiều:
+            <a href="" class="ml-2">Hà Đông</a>
+            <a href="" class="ml-2">Thanh Xuân</a>
+          </p>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6" style="border-left: 1px solid #feb800">
+        <p style="font-weight: 700">Tìm kiếm theo các tiêu chí</p>
+        <div ngbDropdown class="ml-3">
+          <button class="btn border-color-feb800 font-size-14"
+                  id="loaiTro" ngbDropdownToggle>Loại
+          </button>
+          <div ngbDropdownMenu aria-labelledby="loaiTro">
+            <button ngbDropdownItem class="mat-toolbar-title font-size-14">
+              Phòng trọ, nhà trọ
+            </button>
+            <button ngbDropdownItem class="mat-toolbar-title font-size-14">
+              Nhà thuê nguyên căn
+            </button>
+            <button ngbDropdownItem class="mat-toolbar-title font-size-14">
+              Cho thuê căn hộ
+            </button>
+            <button ngbDropdownItem class="mat-toolbar-title font-size-14">
+              Tìm người ở ghếp
+            </button>
+            <button ngbDropdownItem class="mat-toolbar-title font-size-14">
+              Cho thuê mặt bằng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card class="card-body-content-client mt-0" style="border-radius: 0;">
+    <!--    <mat-drawer-container class="example-container">-->
+    <!--      <mat-drawer mode="side" opened>-->
+    <!--        <p class="title text-start font-weight-bold">Phòng trọ sạch đẹp > Giá hợp lý > Đầy đủ tiện nghi</p>-->
+    <!--      </mat-drawer>-->
+    <!--      <mat-drawer-content>Main content</mat-drawer-content>-->
+    <!--    </mat-drawer-container>-->
+  </mat-card>
+</div>

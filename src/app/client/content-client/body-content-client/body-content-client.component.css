@@ -1,0 +1,28 @@
+.card-body-content-client {
+  margin: 30px 0 0px 0;
+  border: 1px solid #feb800;
+  border-bottom-color: white;
+  border-top-left-radius: 38%;
+  border-top-right-radius: 38%;
+}
+
+.form-search {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.mat-form-field-search {
+  width: 100%;
+  text-align: center;
+  border: 1px solid #feb800;
+  border-radius: 20px;
+}
+
+.example-container {
+  width: 400px;
+  height: 200px;
+  margin: 10px;
+  border: 1px solid #555;
+}
+

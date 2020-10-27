@@ -6,17 +6,16 @@
   border: 2px solid #f2f2f2;
   border-radius: 0 !important;
   box-shadow: 0 5px 20px rgba(0, 0, 0, .2);
-  padding: 20px!important;
+  padding: 20px !important;
 }
 
-.card-login .title{
-  font-size: 20px!important;
+.card-login .title {
+  font-size: 20px !important;
   font-weight: bold;
   text-align: center;
-  color: #feb800;
 }
 
-.div-login-service{
+.div-login-service {
   background-color: #fff;
   border: 1px solid #f2f2f2;
   color: #666;
@@ -27,30 +26,30 @@
   position: relative;
   width: 100%;
   font-size: 14px;
+  margin-top: 75px;
 }
 
-.login-link-service{
-  width:100%;
+.login-link-service {
+  width: 100%;
 }
 
-.login-icon-service{
-  left: 10px;
+.login-icon-service {
   position: absolute;
   vertical-align: middle;
   width: 20px;
 }
 
-.login-title-service{
+.login-title-service {
   margin: auto;
   vertical-align: middle;
 }
 
-.btn-login{
+.btn-login {
   background-color: #48509a;
   color: white;
 }
 
-.div-login-service a{
+.div-login-service a {
   align-items: center;
   border-radius: 3px;
   box-shadow: 0 2px 2px -2px #dedede;
@@ -61,4 +60,46 @@
   width: 100%;
   font-size: 14px;
 }
+
+.middle-login {
+  min-height: 265px;
+  float: left;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.middle-login:before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  background: #aaa;
+}
+
+.middle-login .middle-login-text {
+  display: table-cell;
+  vertical-align: middle;
+  position: relative;
+}
+
+.middle-login .middle-login-text span {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #aaa;
+  padding: 0;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 13px;
+}
+
+
 

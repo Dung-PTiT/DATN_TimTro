@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-header-client',
@@ -14,4 +13,5 @@ export class HeaderClientComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 }

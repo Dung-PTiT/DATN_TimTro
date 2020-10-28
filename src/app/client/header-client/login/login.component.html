@@ -2,9 +2,9 @@
   <mat-card-title class="title">Đăng nhập</mat-card-title>
   <div class="row pt-4 pl-3 pr-3">
     <div class="col-5 pl-0">
-      <form class="text-center">
-        <input type="email" class="form-control mb-4" placeholder="Email" style="font-size: 13px;">
-        <input type="password" class="form-control mb-4" placeholder="Mật khẩu" style="font-size: 13px;">
+      <form class="text-center" [formGroup]="loginForm" (submit)="login()">
+        <input type="text" class="form-control mb-4" placeholder="Tên đăng nhập" formControlName="inputUsername" style="font-size: 13px;">
+        <input type="password" class="form-control mb-4" placeholder="Mật khẩu" formControlName="inputPassword" style="font-size: 13px;">
         <div style="text-align: end">
           <a href="" style="font-size: 13px">Quên tài khoản?</a>
         </div>

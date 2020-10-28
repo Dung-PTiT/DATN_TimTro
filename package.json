@@ -33,7 +33,10 @@
     "bootstrap": "^4.5.0",
     "bootstrap-select": "^1.13.18",
     "font-awesome": "^4.7.0",
+    "httpclient": "^0.1.0",
     "jquery": "^3.5.1",
+    "moment": "latest",
+    "ngx-cookie-service": "latest",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

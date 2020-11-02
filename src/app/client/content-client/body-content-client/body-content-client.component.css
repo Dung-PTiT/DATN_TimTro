@@ -1,9 +1,10 @@
 .card-body-content-client {
   margin: 30px 0 0px 0;
-  border: 1px solid #feb800;
-  border-bottom-color: white;
-  border-top-left-radius: 38%;
-  border-top-right-radius: 38%;
+  /*border: 1px solid #feb800;*/
+  /*border-bottom-color: white;*/
+  border-top-left-radius: 20%;
+  border-top-right-radius: 20%;
+  box-shadow: none;
 }
 
 .form-search {
@@ -25,4 +26,139 @@
   margin: 10px;
   border: 1px solid #555;
 }
+
+.product-thumb {
+  width: 100%;
+  height: 150px;
+  position: relative;
+}
+
+.product-thumb a img {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px 4px 0 0;
+  object-fit: cover;
+}
+
+.product-media {
+  font-weight: bold;
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  color: #fff;
+  z-index: 3;
+}
+
+.home-product-bound {
+  padding: 8px 12px 10px 12px;
+  border-top: none;
+  box-sizing: border-box;
+  border-radius: 0 0 4px 4px;
+}
+
+.product-title a {
+  margin-top: 10px;
+  display: -webkit-box;
+  height: 40px;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
+  -webkit-box-orient: vertical;
+  color: #004e7f;
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 4px;
+}
+
+.product-price {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  color: #2c2f36;
+  width: auto;
+  float: left;
+  margin-right: 8px;
+}
+
+.divide-dot {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  color: #747c87;
+  float: left;
+}
+
+.product-m2 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  color: #2c2f36;
+  width: auto;
+  float: left;
+  margin-left: 8px;
+}
+
+.product-address {
+  display: inline-block;
+  width: 100%;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  margin: 4px 0 6px 0;
+  color: #2c2f36;
+}
+
+.product-address a {
+  color: #2c2f36;
+  text-decoration: none;
+}
+
+.product-date {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: #747c87;
+  cursor: default;
+  position: relative;
+  display: inline-block;
+}
+
+.product-date:hover .tooltip-time {
+  visibility: visible;
+}
+
+.tooltip-time {
+  visibility: hidden;
+  color: #fff;
+  background: rgba(10, 13, 20, .8);
+  border-radius: 4px;
+  padding: 6px 12px;
+  position: absolute;
+  z-index: 1;
+  margin-left: 8px;
+  top: -6px;
+  line-height: 20px;
+}
+
+.product-favorite {
+  display: inline-block;
+  float: right;
+}
+
+.category-list mat-list-item a{
+  text-decoration: none;
+  color: #000000;
+}
+
+.category-list mat-list-item a:hover{
+  color: #feb800;
+}
+
 

@@ -32,14 +32,20 @@ export class LoginComponent implements OnInit {
   login() {
     this.authenticationService.login(this.loginForm.controls.inputUsername.value, this.loginForm.controls.inputPassword.value).subscribe(resp => {
       if (resp.success) {
-        console.log(resp.data);
         this.oAuthResponseToken = resp.data as OAuthResponseToken;
         if (this.oAuthResponseToken != null) {
           this.cookieService.set(AppConfig.COOKIE_TOKEN_NAME, this.oAuthResponseToken.token,
             moment(new Date()).add(this.oAuthResponseToken.expireTime, 'ms').toDate());
-          console.log("Thành công");
         }
       }
     });
+  }
+
+  oauthGoogle() {
+    location.href = AppConfig.GOOGLE_AUTH_URL;
+  }
+
+  oauthFacebook() {
+    location.href = AppConfig.FACEBOOK_AUTH_URL;
   }
 }

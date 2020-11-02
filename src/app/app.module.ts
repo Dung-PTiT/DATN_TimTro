@@ -41,7 +41,13 @@ import {MatInputModule} from "@angular/material/input";
 import {MatSelectModule} from "@angular/material/select";
 import {NgbDropdownModule} from "@ng-bootstrap/ng-bootstrap";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatListModule} from "@angular/material/list";
+import { UrlRedirectComponent } from './redirect/url-redirect/url-redirect.component';
+import {AuthenticationService} from "./service/authentication.service";
+import {CookieService} from "ngx-cookie-service";
+import {JwtInterceptor} from "./filter/jwt.interceptor";
 
 @NgModule({
   declarations: [
@@ -54,7 +60,8 @@ import {HttpClientModule} from "@angular/common/http";
     AppClientComponent,
     LoginComponent,
     RegisterComponent,
-    BodyContentClientComponent
+    BodyContentClientComponent,
+    UrlRedirectComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -87,9 +94,15 @@ import {HttpClientModule} from "@angular/common/http";
     BadgeModule,
     MatSelectModule,
     NgbDropdownModule,
-    HttpClientModule
+    HttpClientModule,
+    MatTooltipModule,
+    MatListModule
   ],
-  providers: [],
+  providers: [
+    AuthenticationService,
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+    CookieService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

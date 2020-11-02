@@ -19,4 +19,8 @@ export class AuthenticationService {
   login(username: string, password: string): Observable<any> {
     return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/login', {username: username, password: password});
   }
+
+  getCurrentUser(): Observable<any> {
+    return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/get-current-user');
+  }
 }

@@ -12,8 +12,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/user/get-by-username")
-    public DataResponse<User> getByUsername(@RequestParam("username") String username) {
-        return new DataResponse<>(true, userService.getByUsername(username));
-    }
+//    @GetMapping("/user/get-by-username")
+//    public DataResponse<User> getByUsername(@RequestParam("username") String username) {
+//        return new DataResponse<>(true, userService.get(username));
+//    }
 }

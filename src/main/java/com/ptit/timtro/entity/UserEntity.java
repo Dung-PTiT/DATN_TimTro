@@ -2,6 +2,8 @@ package com.ptit.timtro.entity;
 
 import javax.persistence.*;
 
+import com.ptit.timtro.security.AuthProvider;
+import com.ptit.timtro.security.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,14 +19,36 @@ import javax.persistence.Table;
 public class UserEntity {
 
     @Id
-    @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "image_url", columnDefinition = "blob")
+    private String imageUrl;
+
+    @Column(name = "email_verified", nullable = false)
+    private Boolean emailVerified = false;
+
+    @Column(name = "provider_id")
+    private String providerId;
+
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Column(name = "auth_provider")
+    @Enumerated(EnumType.STRING)
+    private AuthProvider authProvider;
 }
 

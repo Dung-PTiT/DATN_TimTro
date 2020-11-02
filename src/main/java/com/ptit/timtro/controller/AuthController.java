@@ -1,7 +1,12 @@
 package com.ptit.timtro.controller;
 
-import com.ptit.timtro.jwt.JwtTokenProvider;
-import com.ptit.timtro.util.CustomUserDetails;
+import com.ptit.timtro.security.AdvancedSecurityContextHolder;
+import com.ptit.timtro.security.AuthenticatedUserInfo;
+import com.ptit.timtro.security.TokenProvider;
+import com.ptit.timtro.security.UserPrincipal;
+import com.ptit.timtro.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.ptit.timtro.service.UserService;
+import com.ptit.timtro.util.AuthTokenResponse;
 import com.ptit.timtro.util.DataResponse;
 import com.ptit.timtro.util.LoginRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,41 +20,72 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/auth")
 public class AuthController {
+
+    @Autowired
+    private TokenProvider tokenProvider;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private JwtTokenProvider jwtTokenProvider;
+    HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @PostMapping("/login")
-    public DataResponse<String> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
-        // Xác thực từ username và password.
+    @PostMapping("/auth/login")
+    public DataResponse<AuthTokenResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         loginRequest.getUsername(),
                         loginRequest.getPassword()
                 )
         );
-
-        // Nếu không xảy ra exception tức là thông tin hợp lệ
-        // Set thông tin authentication vào Security Context
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        // Trả về jwt cho người dùng.
-        String jwt = jwtTokenProvider.generateToken((CustomUserDetails) authentication.getPrincipal());
-        return new DataResponse<>(true, jwt);
+        AuthTokenResponse tokenResponse = tokenProvider.createToken(authentication);
+        return new DataResponse<>(true, tokenResponse);
     }
 
-    @PostMapping("/create-password")
-    public DataResponse<String> createPassword(@RequestParam("password") String password) {
-        String pass = passwordEncoder.encode(password);
-        return new DataResponse<>(true, pass);
+    @GetMapping("/auth/logout")
+    public DataResponse<String> logout() {
+        // TODO Làm gì đó đề thu hồi token của nó lại. Nếu không sẽ có lỗi về bảo mật nghiêm trọng
+        return new DataResponse<>(true, "Logout");
     }
+
+    @PostMapping("/auth/gen-pass")
+    public DataResponse<String> genPass(@RequestParam("password") String password) {
+        String newPass = passwordEncoder.encode(password);
+        return new DataResponse<>(true, newPass);
+    }
+
+    @GetMapping("/auth/get-current-user")
+    public DataResponse<AuthenticatedUserInfo> getAuthenticatedUserInfo() {
+        UserPrincipal userPrincipal = AdvancedSecurityContextHolder.getUserPrincipal();
+        AuthenticatedUserInfo userInfo = new AuthenticatedUserInfo();
+        userInfo.setVip(userPrincipal.getVip());
+        userInfo.setName(userPrincipal.getName());
+        userInfo.setUsername(userPrincipal.getUsername());
+        userInfo.setImageUrl(userPrincipal.getImageUrl());
+        return new DataResponse<>(true, userInfo);
+    }
+
+//    @PostMapping("/auth/signup")
+//    public DataResponse<String> registerUser(@Valid @RequestBody SignUpReq signUpReq) {
+//        if (userService.existsByEmail(signUpReq.getEmail())) {
+//            throw new BadRequestException("Email address already in use.");
+//        }
+//        if (userService.existsByEmail(signUpReq.getEmail())) {
+//            throw new BadRequestException("Email address already in use.");
+//        }
+//        UserDTO user = new UserDTO();
+//        user.setUsername(signUpReq.getUsername());
+//        user.setName(signUpReq.getName());
+//        user.setEmail(signUpReq.getEmail());
+//        user.setPassword(signUpReq.getPassword());
+//        user.setAuthProvider(AuthProvider.local);
+//        userService.create(user);
+//        return new DataResponse<>(true, "User registered successfully!");
+//    }
+
 }

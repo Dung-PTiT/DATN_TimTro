@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "app.auth.token-expiration-msec",
+      "type": "java.lang.String",
+      "description": "Description for app.auth.token-expiration-msec."
+    },
+    {
+      "name": "app.oauth2.authorized-redirect-uris",
+      "type": "java.lang.String",
+      "description": "Description for app.oauth2.authorized-redirect-uris."
+    },
+    {
+      "name": "app.auth.token-secret",
+      "type": "java.lang.String",
+      "description": "Description for app.auth.token-secret."
+    }
+  ] }

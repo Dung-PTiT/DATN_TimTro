@@ -18,4 +18,6 @@ public interface UserDAO {
     UserEntity getByUsername(String username);
 
     UserEntity getByEmail(String email);
+
+    UserEntity checkExistedUser(String email, String typeAuthProvider);
 }

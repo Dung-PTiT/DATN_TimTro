@@ -58,4 +58,13 @@ public class UserDAOImpl implements UserDAO {
             return null;
         }
     }
+
+    @Override
+    public UserEntity checkExistedUser(String email, String typeAuthProvider) {
+        try {
+            return entityManager.createQuery("select u from UserEntity u where u.email = '" + email + "' and u.authProvider = '" + typeAuthProvider + "'", UserEntity.class).getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 }

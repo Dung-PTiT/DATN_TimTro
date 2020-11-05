@@ -1,8 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs";
-import {map, startWith} from "rxjs/operators";
+import {
+  faCalendarMinus,
+  faDollarSign,
+  faHeart,
+  faImage,
+  faMapMarkerAlt,
+  faSearch
+} from "@fortawesome/free-solid-svg-icons";
 import {FormControl, FormGroup} from "@angular/forms";
-import {faHeart, faImage, faSearch} from "@fortawesome/free-solid-svg-icons";
+import {map, startWith} from "rxjs/operators";
 
 interface Food {
   value: string;
@@ -10,19 +17,23 @@ interface Food {
 }
 
 @Component({
-  selector: 'app-body-content-client',
-  templateUrl: './body-content-client.component.html',
-  styleUrls: ['./body-content-client.component.css']
+  selector: 'app-dashboard-client',
+  templateUrl: './dashboard-client.component.html',
+  styleUrls: ['./dashboard-client.component.css']
 })
-
-export class BodyContentClientComponent implements OnInit {
+export class DashboardClientComponent implements OnInit {
 
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
   faSearch = faSearch;
   faImage = faImage;
   faHeart = faHeart;
+  faDollarSign = faDollarSign;
+  faMapMarkerAlt = faMapMarkerAlt;
+  faCalendarMinus = faCalendarMinus;
   searchForm: FormGroup;
+
+  first:number = 1;
 
   foods: Food[] = [
     {value: 'steak-0', viewValue: 'Steak'},

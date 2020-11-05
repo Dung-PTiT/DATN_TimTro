@@ -1,3 +1,8 @@
+.carousel-caption {
+  align-items: center;
+  bottom: 100px;
+}
+
 .card-body-content-client {
   margin: 30px 0 0px 0;
   /*border: 1px solid #feb800;*/

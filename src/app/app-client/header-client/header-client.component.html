@@ -1,0 +1,49 @@
+<div class="toolbar" role="banner">
+  <div class="container div-header-client">
+    <div>
+      <a title="Nhà trọ tốt" href="">
+        <img width="100" src="./assets/images/logo3.png"/>
+      </a>
+    </div>
+    <div class="example-button-row div-header-info">
+      <mat-toolbar>
+        <a href="" class="mat-toolbar-title active"><span>Trang chủ</span></a>
+        <a href="" class="mat-toolbar-title ml-3"><span>Cho thuê</span></a>
+        <a href="" class="mat-toolbar-title ml-3"><span>Nạp tiền</span></a>
+        <a href="" class="mat-toolbar-title ml-3"><span>Bảng giá</span></a>
+        <div ngbDropdown container="body">
+          <span ngbDropdownToggle class="ml-4 text-color-feb800">Đăng nhập | Đăng ký</span>
+          <div ngbDropdownMenu class="mt-2">
+            <button ngbDropdownItem class="font-size-14" [routerLink]="['/login']">
+              <fa-icon [icon]="faSignInAlt"></fa-icon>
+              <span class="ml-4">Đăng nhập</span>
+            </button>
+            <button ngbDropdownItem [routerLink]="['/register']" class="font-size-14">
+              <fa-icon [icon]="faUserPlus"></fa-icon>
+              <span class="ml-4">Đăng ký</span>
+            </button>
+          </div>
+        </div>
+        <div ngbDropdown container="body">
+          <img ngbDropdownToggle class="ml-3" [matTooltip]="currentUser?.name ? currentUser.name : nameBaseUser"
+               matTooltipPosition="below"
+               width="30" [src]="currentUser?.imageUrl ? currentUser.imageUrl : userBaseUrl"
+               style="border-radius: 10px; border: 1px solid #feb800">
+          <div ngbDropdownMenu class="mt-2">
+            <button ngbDropdownItem>Thông tin tài khoản</button>
+            <button ngbDropdownItem>Quản lý bài đăng</button>
+            <button ngbDropdownItem>Quản lý bình luận</button>
+            <button ngbDropdownItem>Nạp tiền</button>
+            <button ngbDropdownItem>Lịch sử nạp tiền</button>
+            <button ngbDropdownItem>Đăng xuất</button>
+          </div>
+        </div>
+      </mat-toolbar>
+      <button mat-stroked-button class="bg-color-feb800 pr-4" matTooltip="Bấm để đăng tin" matTooltipPosition="below">
+        <fa-icon [icon]="faUpload"></fa-icon>
+        <span class="ml-2">Đăng tin</span>
+      </button>
+    </div>
+  </div>
+</div>
+

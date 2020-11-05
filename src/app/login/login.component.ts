@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {FormControl, FormGroup} from "@angular/forms";
-import {AuthenticationService} from "../../../service/authentication.service";
+import {AuthenticationService} from "../service/authentication.service";
 import {CookieService} from "ngx-cookie-service";
-import {OAuthResponseToken} from "../../../model/OAuthResponseToken";
-import {AppConfig} from "../../../util/app-config";
+import {OAuthResponseToken} from "../model/OAuthResponseToken";
+import {AppConfig} from "../util/app-config";
 import * as moment from 'moment';
 
 @Component({

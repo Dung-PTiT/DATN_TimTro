@@ -157,13 +157,20 @@
   float: right;
 }
 
-.category-list mat-list-item a{
+.category-list mat-list-item a {
   text-decoration: none;
   color: #000000;
 }
 
-.category-list mat-list-item a:hover{
+.category-list mat-list-item a:hover {
   color: #feb800;
 }
 
+agm-map {
+  height: 500px;
+}
 
+.card:hover {
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .3);
+  z-index: 1;
+}

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ContentClientRoutingModule } from './content-client-routing.module';
 import {ContentClientComponent} from "./content-client.component";
 import {DashboardClientComponent} from "./dashboard-client/dashboard-client.component";
-import {CarouselModule} from "angular-bootstrap-md";
+import {ButtonsModule, CarouselModule, WavesModule} from "angular-bootstrap-md";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -16,6 +16,8 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {MatSelectModule} from "@angular/material/select";
 import {MatListModule} from "@angular/material/list";
 import { PostDetailsComponent } from './post-details/post-details.component';
+import {AgmCoreModule} from "@agm/core";
+import {MatCarouselModule} from "@ngmodule/material-carousel";
 
 
 @NgModule({
@@ -37,7 +39,13 @@ import { PostDetailsComponent } from './post-details/post-details.component';
     MatTooltipModule,
     FontAwesomeModule,
     MatSelectModule,
-    MatListModule
+    MatListModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCu8BQn5PRVzfQ6-_dgpUQRIqej_CTY2Qc'
+    }),
+    WavesModule,
+    MatCarouselModule,
+    ButtonsModule
   ]
 })
 export class ContentClientModule { }

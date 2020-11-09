@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
         if (this.oAuthResponseToken != null) {
           this.cookieService.set(AppConfig.COOKIE_TOKEN_NAME, this.oAuthResponseToken.token,
             moment(new Date()).add(this.oAuthResponseToken.expireTime, 'ms').toDate());
+          location.href = "/";
         }
       }
     });

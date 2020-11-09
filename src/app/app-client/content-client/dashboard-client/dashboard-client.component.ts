@@ -31,7 +31,14 @@ export class DashboardClientComponent implements OnInit {
   faDollarSign = faDollarSign;
   faMapMarkerAlt = faMapMarkerAlt;
   faCalendarMinus = faCalendarMinus;
-  searchForm: FormGroup;
+  searchForm : FormGroup;
+
+  constructor() {
+    this.searchForm = new FormGroup({
+      searchInp: new FormControl()
+    });
+  }
+
 
   first:number = 1;
 
@@ -49,20 +56,10 @@ export class DashboardClientComponent implements OnInit {
     {value: 'tacos-10', viewValue: 'Tacos'}
   ];
 
+  lat = 20.981149;
+  lng = 105.787480;
+
   ngOnInit() {
-    this.searchForm = new FormGroup({
-      searchInp: new FormControl("")
-    });
-    this.filteredOptions = this.searchForm.controls.searchInp.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value))
-      );
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
 }

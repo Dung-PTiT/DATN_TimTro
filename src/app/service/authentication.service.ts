@@ -23,4 +23,8 @@ export class AuthenticationService {
   getCurrentUser(): Observable<any> {
     return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/get-current-user');
   }
+
+  logout(): Observable<any> {
+    return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/logout');
+  }
 }

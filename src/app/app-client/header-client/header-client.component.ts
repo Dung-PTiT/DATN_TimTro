@@ -34,4 +34,10 @@ export class HeaderClientComponent implements OnInit {
     }
   }
 
+  logout() {
+    this.authenticationService.logout().subscribe(resp => {
+      this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
+      location.href = "/";
+    });
+  }
 }

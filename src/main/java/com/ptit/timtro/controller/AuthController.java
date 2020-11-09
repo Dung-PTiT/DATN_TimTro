@@ -5,7 +5,6 @@ import com.ptit.timtro.security.AuthenticatedUserInfo;
 import com.ptit.timtro.security.TokenProvider;
 import com.ptit.timtro.security.UserPrincipal;
 import com.ptit.timtro.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
-import com.ptit.timtro.service.UserService;
 import com.ptit.timtro.util.AuthTokenResponse;
 import com.ptit.timtro.util.DataResponse;
 import com.ptit.timtro.util.LoginRequest;
@@ -49,7 +48,6 @@ public class AuthController {
 
     @GetMapping("/auth/logout")
     public DataResponse<String> logout() {
-        // TODO Làm gì đó đề thu hồi token của nó lại. Nếu không sẽ có lỗi về bảo mật nghiêm trọng
         return new DataResponse<>(true, "Logout");
     }
 

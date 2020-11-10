@@ -1,21 +1,30 @@
 <div class="container mt-4">
-  <div>
-    <p>Địa chỉ: Nhà 74, ngõ 159 Phùng Khoang, Nam Từ Liêm, Hà Nội</p>
+  <div class="row mt-2 mb-2">
+    <div class="col-12" style="display: flex;">
+      <div class="ml-4 post-menu" (click)="scrollToElement(anh)">
+        <span class="post-menu-text">Hình ảnh</span>
+      </div>
+      <div class="ml-4 post-menu" (click)="scrollToElement(thongTinChung)">
+        <span class="post-menu-text">Thông tin chung</span>
+      </div>
+      <div class="ml-4 post-menu">
+        <span class="post-menu-text">Thông tin chi tiết</span>
+      </div>
+      <div class="ml-4 post-menu" (click)="scrollToElement(banDo)">
+        <span class="post-menu-text">Xem bản đồ</span>
+      </div>
+    </div>
   </div>
   <div class="row">
     <div class="col-12 col-lg-9">
-      <div>
-        <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+      <div #anh>
+        <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'" style="">
           <mdb-carousel-item>
             <div class="view w-100 post-image">
               <img class="d-block w-100"
                    src="https://cdn.chotot.com/xGc2LxcFP6F4IQe77Eta4hYRvpsyt3ISjfAArPL6swE/preset:view/plain/4f7d051ba268c73641e31ec3bda39740-2691556976759253326.jpg"
                    alt="First slide">
               <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
-            </div>
-            <div class="carousel-caption">
-              <h3 class="h3-responsive">Light mask</h3>
-              <p>First text</p>
             </div>
           </mdb-carousel-item>
           <mdb-carousel-item>
@@ -25,10 +34,6 @@
                    alt="Second slide">
               <div class="mask rgba-black-strong waves-light" mdbWavesEffect></div>
             </div>
-            <div class="carousel-caption">
-              <h3 class="h3-responsive">Strong mask</h3>
-              <p>Secondary text</p>
-            </div>
           </mdb-carousel-item>
           <mdb-carousel-item>
             <div class="view w-100 post-image">
@@ -37,15 +42,88 @@
                    alt="Third slide">
               <div class="mask rgba-black-slight waves-light" mdbWavesEffect></div>
             </div>
-            <div class="carousel-caption">
-              <h3 class="h3-responsive">Slight mask</h3>
-              <p>Third text</p>
-            </div>
           </mdb-carousel-item>
         </mdb-carousel>
       </div>
-      <div>
 
+      <div #thongTinChung class="post-title" style="margin: 30px 0 30px 0">
+        <h5>Cho thuê phòng chung cư mini đầy đủ tiện nghi tại Trung Kính, Cầu Giấy</h5>
+        <h6 class="text-grey">Số 35 ngõ 2, Phố Trung Kính, Phường Trung Hòa, Cầu Giấy, Hà Nội</h6>
+      </div>
+
+      <div class="row pt-4 pb-4 post-header-content">
+        <div class="col-4">
+          <h6 class="text-grey">Mức giá: </h6>
+          <h6 class="font-weight-bold">
+            3.2 triệu/tháng
+          </h6>
+        </div>
+        <div class="col-4">
+          <h6 class="text-grey">Diện tích: </h6>
+          <h6 class="font-weight-bold">
+            30m2
+          </h6>
+        </div>
+        <div class="col-4" style="display: flex; justify-content: space-around; align-items: center">
+          <div>
+            <button class="btn-action">
+              <span class="p-1 pb-0">Chia sẻ</span>
+            </button>
+          </div>
+          <div>
+            <button class="btn-action">
+              <span class="p-1 pb-0">Lưu tin</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div #thongTinChiTiet>
+        <div class="row">
+          <div class="col-12">
+            <div>
+              <h6> Thông tin mô tả</h6>
+              <p>- Cho thuê căn hộ mini MỚI XÂY 100% - rộng rãi thoáng mát, sạch sẽ, an ninh, giờ giấc tự do, có bếp nấu
+                ăn riêng trong phòng, và đã trang bị ĐẦY ĐỦ TIỆN NGHI, bạn chỉ cần xách vali vào ở.</p>
+              <p>- Tòa nhà tọa lạc tại KDC mát mẻ, văn minh lịch sự, thật sự là một nơi an cư lý tướng tưởng cho bạn sau
+                những ngày lao động mệt mỏi.</p>
+              <p>- Địa chỉ: ĐƯỜNG HOÀNG HOA THÁM, PHƯỜNG 13, TÂN BÌNH.</p>
+              <p>*** Nội thất phòng gồm có:</p>
+              <p>- Gác xếp thiết kế cao rộng, hiện đại</p>
+              <p>- WC cao cấp, rộng rãi.</p>
+              <p>- Giường + nệm êm ái.</p>
+              <p>- Tủ quần áo.</p>
+              <p>- Bàn + ghế làm việc.</p>
+              <p>- Máy lạnh.</p>
+              <p>- Bếp nấu ăn.</p>
+              <p>- Wifi cáp quang tốc độ cao.</p>
+              <p>- MÁY GIẶT CHUNG TIÊN LỢI VÀ SÂN PHƠI ĐỒ RỘNG RÃI, SẠCH SẼ.</p>
+              <p>*** TẤT CẢ ĐỀU MỚI 100% CHƯA QUA 1 LẦN SỬ DỤNG ***</p>
+              <p>*** Dịch vụ chuyên nghiệp:</p>
+              <p>- Hệ thống cửa ra vào bằng vân tay đảm bảo an toàn, an ninh tuyệt đối.</p>
+              <p>- Giờ giấc ra vào tự do 24/7 .</p>
+              <p>- Có đội hỗ trợ khắc phục sự cố điện, nước ngay khi có yêu cầu.</p>
+              <p>- Chân thành - Chuyên nghiệp - Rõ ràng. Bạn sẽ luôn được hỗ trợ tối đa trong suốt quá trình ở.</p>
+              <p>*** ĐẶC BIỆT: SIÊU KHUYẾN MÃI GIẢM GIÁ MỪNG KHAI TRƯƠNG - CHỈ 1 LẦN .</p>
+              <p>- Quá nhiều tiện ích và dịch vụ tốt cho một giá phòng hết sức bình dân đúng không nào, bạn còn chần chờ
+                gì nữa mà không liên hệ xem phòng ngay để chọn được nơi an cư ưng ý của bạn.</p>
+              <p>---------------------------------------------</p>
+              <p>Điện thoại liên hệ: <strong style="color: red;">0909539172</strong></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div #banDo>
+        <div class="col-12 p-0">
+          <h6>Xem trên bản đồ</h6>
+          <p>Địa chỉ: Nhà 74, ngõ 159 Phùng Khoang, Nam Từ Liêm, Hà Nội</p>
+          <agm-map [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude" [zoom]="13">
+            <agm-marker [latitude]="markerInfo.latitude"
+                        [longitude]="markerInfo.longitude"
+                        [iconUrl]="markerInfo.icon">
+            </agm-marker>
+          </agm-map>
+        </div>
       </div>
     </div>
     <div class="col-6 col-lg-3">

@@ -31,26 +31,26 @@
           <div class="text-center">
             <p style="font-weight: 700">Tìm kiếm nhanh theo từ khóa</p>
           </div>
-<!--          <div [formGroup]="searchForm">-->
-            <form class="form-search" [formGroup]="searchForm">
-              <mat-form-field appearance="none" class="mat-form-field-search">
-                <input matInput type="text" placeholder="Nhập địa điểm, khu vực bạn quan tâm"
-                       [matAutocomplete]="auto" formControlName="searchInp">
-                <mat-autocomplete #auto="matAutocomplete">
-                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                    {{option}}
-                  </mat-option>
-                </mat-autocomplete>
-              </mat-form-field>
-              <button mat-stroked-button matTooltip="Tìm kiếm" class="text-white bg-color-feb800 ml-4">
-                <fa-icon [icon]="faSearch"></fa-icon>
-              </button>
-            </form>
-            <p style="font-weight: 700" class="pt-4">Tìm kiếm nhiều:
-              <a href="" class="ml-2">Hà Đông</a>
-              <a href="" class="ml-2">Thanh Xuân</a>
-            </p>
-<!--          </div>-->
+          <!--          <div [formGroup]="searchForm">-->
+          <form class="form-search" [formGroup]="searchForm">
+            <mat-form-field appearance="none" class="mat-form-field-search">
+              <input matInput type="text" placeholder="Nhập địa điểm, khu vực bạn quan tâm"
+                     [matAutocomplete]="auto" formControlName="searchInp">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <button mat-stroked-button matTooltip="Tìm kiếm" class="text-white bg-color-feb800 ml-4">
+              <fa-icon [icon]="faSearch"></fa-icon>
+            </button>
+          </form>
+          <p style="font-weight: 700" class="pt-4">Tìm kiếm nhiều:
+            <a href="" class="ml-2">Hà Đông</a>
+            <a href="" class="ml-2">Thanh Xuân</a>
+          </p>
+          <!--          </div>-->
         </div>
       </div>
       <div class="col-sm-12 col-md-6">
@@ -117,8 +117,11 @@
   </mat-card>
   <div class="row pt-3">
     <div class="col-12">
-      <agm-map [latitude]="lat" [longitude]="lng" [zoom]="13">
-        <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+      <agm-map [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude" [zoom]="13">
+        <agm-marker [latitude]="markerInfo.latitude"
+                    [longitude]="markerInfo.longitude"
+                    [iconUrl]="markerInfo.icon">
+        </agm-marker>
       </agm-map>
     </div>
     <div class="col-12">

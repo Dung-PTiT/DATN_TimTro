@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {
   faCalendarMinus,
@@ -9,7 +9,6 @@ import {
   faSearch
 } from "@fortawesome/free-solid-svg-icons";
 import {FormControl, FormGroup} from "@angular/forms";
-import {map, startWith} from "rxjs/operators";
 
 interface Food {
   value: string;
@@ -31,7 +30,8 @@ export class DashboardClientComponent implements OnInit {
   faDollarSign = faDollarSign;
   faMapMarkerAlt = faMapMarkerAlt;
   faCalendarMinus = faCalendarMinus;
-  searchForm : FormGroup;
+  searchForm: FormGroup;
+  markerInfo: MarkerInfo;
 
   constructor() {
     this.searchForm = new FormGroup({
@@ -40,7 +40,7 @@ export class DashboardClientComponent implements OnInit {
   }
 
 
-  first:number = 1;
+  first: number = 1;
 
   foods: Food[] = [
     {value: 'steak-0', viewValue: 'Steak'},
@@ -56,10 +56,16 @@ export class DashboardClientComponent implements OnInit {
     {value: 'tacos-10', viewValue: 'Tacos'}
   ];
 
-  lat = 20.981149;
-  lng = 105.787480;
-
   ngOnInit() {
+    this.markerInfo = new MarkerInfo(20.981149, 105.787480, "./assets/images/marker3.png");
   }
 
+}
+
+export class MarkerInfo {
+  constructor(
+    public latitude: number,
+    public longitude: number,
+    public icon: string) {
+  }
 }

@@ -57,7 +57,7 @@ export class DashboardClientComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.markerInfo = new MarkerInfo(20.981149, 105.787480, "./assets/images/marker3.png");
+    this.markerInfo = new MarkerInfo(20.981149, 105.787480, "./assets/images/marker3.png", "abc");
   }
 
 }
@@ -66,6 +66,7 @@ export class MarkerInfo {
   constructor(
     public latitude: number,
     public longitude: number,
-    public icon: string) {
+    public icon: string,
+    public address: string) {
   }
 }

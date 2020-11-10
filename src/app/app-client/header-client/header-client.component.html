@@ -29,13 +29,27 @@
                matTooltipPosition="below"
                width="30" [src]="currentUser?.imageUrl ? currentUser.imageUrl : userBaseUrl"
                style="border-radius: 10px; border: 1px solid #feb800">
-          <div ngbDropdownMenu class="mt-2">
-            <button ngbDropdownItem>Thông tin tài khoản</button>
-            <button ngbDropdownItem>Quản lý bài đăng</button>
-            <button ngbDropdownItem>Quản lý bình luận</button>
-            <button ngbDropdownItem>Nạp tiền</button>
-            <button ngbDropdownItem>Lịch sử nạp tiền</button>
-            <button ngbDropdownItem (click) = "logout()">Đăng xuất</button>
+          <div ngbDropdownMenu class="mt-2" style="font-size: 13px">
+            <button ngbDropdownItem>
+              <fa-icon class="mr-2" [icon]="faUserCircle"></fa-icon>
+              Thông tin tài khoản
+            </button>
+            <button ngbDropdownItem>
+              <fa-icon class="mr-2" [icon]="faListUl"></fa-icon>
+              Quản lý bài đăng
+            </button>
+            <button ngbDropdownItem>
+              <fa-icon class="mr-2" [icon]="faComments"></fa-icon>
+              Quản lý bình luận
+            </button>
+            <button ngbDropdownItem>
+              <fa-icon class="mr-2" [icon]="faMoneyCheckAlt"></fa-icon>
+              Nạp tiền
+            </button>
+            <button ngbDropdownItem (click)="logout()">
+              <fa-icon class="mr-2" [icon]="faSignOutAlt"></fa-icon>
+              Đăng xuất
+            </button>
           </div>
         </div>
       </mat-toolbar>

@@ -1,6 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {faSignInAlt, faUpload, faUserPlus} from "@fortawesome/free-solid-svg-icons";
+import {
+  faComments,
+  faListUl, faMoneyCheckAlt,
+  faSignInAlt,
+  faSignOutAlt,
+  faUpload,
+  faUserCircle,
+  faUserPlus
+} from "@fortawesome/free-solid-svg-icons";
 import {AuthenticationService} from "../../service/authentication.service";
 import {CookieService} from "ngx-cookie-service";
 import {AppConfig} from "../../util/app-config";
@@ -21,6 +29,11 @@ export class HeaderClientComponent implements OnInit {
   faUpload = faUpload;
   faSignInAlt = faSignInAlt;
   faUserPlus = faUserPlus;
+  faUserCircle = faUserCircle;
+  faListUl = faListUl;
+  faSignOutAlt = faSignOutAlt;
+  faComments = faComments;
+  faMoneyCheckAlt = faMoneyCheckAlt;
   currentUser: UserPrincipal;
   nameBaseUser: string = 'Tài khoản';
   userBaseUrl: string = './assets/images/user.jpg';

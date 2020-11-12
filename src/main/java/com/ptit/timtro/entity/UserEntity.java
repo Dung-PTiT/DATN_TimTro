@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -50,5 +51,8 @@ public class UserEntity {
     @Column(name = "auth_provider")
     @Enumerated(EnumType.STRING)
     private AuthProvider authProvider;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
+    private Set<PostEntity> posts;
 }
 

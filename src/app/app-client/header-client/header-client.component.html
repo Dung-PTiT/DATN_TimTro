@@ -30,9 +30,9 @@
                width="30" [src]="currentUser?.imageUrl ? currentUser.imageUrl : userBaseUrl"
                style="border-radius: 10px; border: 1px solid #feb800">
           <div ngbDropdownMenu class="mt-2" style="font-size: 13px">
-            <button ngbDropdownItem>
+            <button ngbDropdownItem [routerLink]="['/manage/user']">
               <fa-icon class="mr-2" [icon]="faUserCircle"></fa-icon>
-              Thông tin tài khoản
+              Cập nhật thông tin
             </button>
             <button ngbDropdownItem>
               <fa-icon class="mr-2" [icon]="faListUl"></fa-icon>
@@ -53,7 +53,8 @@
           </div>
         </div>
       </mat-toolbar>
-      <button mat-stroked-button class="bg-color-feb800 pr-4" matTooltip="Bấm để đăng tin" matTooltipPosition="below">
+      <button mat-stroked-button class="bg-color-feb800 pr-4" [routerLink]="['/manage']"
+              matTooltip="Bấm để đăng tin" matTooltipPosition="below">
         <fa-icon [icon]="faUpload"></fa-icon>
         <span class="ml-2">Đăng tin</span>
       </button>

@@ -1,0 +1,11 @@
+.side-bar-left-item {
+  display: flex;
+  color: #000000;
+  text-decoration: none;
+  padding: 5px;
+}
+
+.side-bar-left-item:hover {
+  background-color: #feb800;
+}
+

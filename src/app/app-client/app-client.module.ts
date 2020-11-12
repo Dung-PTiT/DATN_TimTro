@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { AppClientRoutingModule } from './app-client-routing.module';
+import {AppClientRoutingModule} from './app-client-routing.module';
 import {AppClientComponent} from "./app-client.component";
 import {HeaderClientComponent} from "./header-client/header-client.component";
 import {FooterClientComponent} from "./footer-client/footer-client.component";
@@ -38,6 +38,8 @@ import {MatListModule} from "@angular/material/list";
 import {LoginComponent} from "../login/login.component";
 import {RegisterComponent} from "../register/register.component";
 import {ContentClientModule} from "./content-client/content-client.module";
+import {ManageActionComponent} from './content-client/manage-action/manage-action.component';
+import {ManageActionModule} from "./content-client/manage-action/manage-action.module";
 
 
 @NgModule({
@@ -47,6 +49,7 @@ import {ContentClientModule} from "./content-client/content-client.module";
     FooterClientComponent,
     LoginComponent,
     RegisterComponent,
+    ManageActionComponent,
   ],
   imports: [
     CommonModule,
@@ -81,7 +84,9 @@ import {ContentClientModule} from "./content-client/content-client.module";
     HttpClientModule,
     MatTooltipModule,
     MatListModule,
-    ContentClientModule
+    ContentClientModule,
+    ManageActionModule
   ]
 })
-export class AppClientModule { }
+export class AppClientModule {
+}

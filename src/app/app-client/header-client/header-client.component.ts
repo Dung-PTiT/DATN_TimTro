@@ -53,4 +53,8 @@ export class HeaderClientComponent implements OnInit {
       location.href = "/";
     });
   }
+
+  createPost() {
+
+  }
 }

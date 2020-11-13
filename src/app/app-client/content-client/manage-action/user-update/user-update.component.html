@@ -1,1 +1,31 @@
-<p>user-update works!</p>
+<div style="margin: 20px 10px 0 20px">
+  <h5>Cập nhật thông tin tài khoản</h5>
+  <mat-divider></mat-divider>
+  <div class="row mt-5">
+    <div class="col-3 text-center">
+      <div>
+        <img width="200" src="./assets/images/avatar.png" style="border-radius: 50%"/>
+      </div>
+      <button type="file" class="btn btn-info mt-3 p-0">
+        <fa-icon [icon]="faUpload" class="mr-1"></fa-icon>
+        Đổi ảnh
+      </button>
+    </div>
+    <div class="col-9">
+      <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="Tên | Tên Tài khoản">
+          <p>Tên người dùng</p>
+          <p>Tên tài khoản</p>
+          <p>Ngày tham gia</p>
+        </mat-tab>
+        <mat-tab label="Đổi mật khẩu">
+          <p>Đổi mật khẩu</p>
+        </mat-tab>
+        <mat-tab label="Thông tin liên hệ">
+          <p>Email</p>
+          <p>Số điện thoại</p>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>

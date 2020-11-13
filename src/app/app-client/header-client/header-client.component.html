@@ -34,7 +34,7 @@
               <fa-icon class="mr-2" [icon]="faUserCircle"></fa-icon>
               Cập nhật thông tin
             </button>
-            <button ngbDropdownItem>
+            <button ngbDropdownItem [routerLink]="['/manage/post']">
               <fa-icon class="mr-2" [icon]="faListUl"></fa-icon>
               Quản lý bài đăng
             </button>
@@ -53,7 +53,7 @@
           </div>
         </div>
       </mat-toolbar>
-      <button mat-stroked-button class="bg-color-feb800 pr-4" [routerLink]="['/manage']"
+      <button mat-stroked-button class="bg-color-feb800 pr-4" [routerLink]="['/manage/post/create']"
               matTooltip="Bấm để đăng tin" matTooltipPosition="below">
         <fa-icon [icon]="faUpload"></fa-icon>
         <span class="ml-2">Đăng tin</span>

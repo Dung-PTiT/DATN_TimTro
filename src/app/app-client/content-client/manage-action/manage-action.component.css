@@ -9,3 +9,128 @@
   background-color: #feb800;
 }
 
+.post-menu {
+  height: 26px;
+}
+
+.post-menu:hover {
+  /*border: 1px solid #feb800;*/
+  border-radius: 10px;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .3);
+}
+
+.post-menu-text {
+  text-decoration: none;
+  color: #2c2f36;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
+}
+
+.post-menu-text:hover {
+  text-decoration: none;
+  color: #feb800;
+  font-weight: bold;
+}
+
+.post-image {
+  width: 100%;
+  height: 450px;
+}
+
+/* resize images */
+.post-image img {
+  width: 100%;
+  height: auto;
+}
+
+.profile-user {
+  text-align: center;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.profile-info {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #333;
+  text-decoration: none;
+}
+
+.profile-image {
+  margin: 15px 0 15px 0;
+}
+
+.profile-more {
+  flex: 1;
+}
+
+.profile-name {
+  font-size: 13px;
+  flex: 1;
+  line-height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  margin: 15px 0 15px 0;
+}
+
+.btn-more {
+  font-size: 12px;
+  border-radius: 10px;
+  border: 1px solid #fe9900;
+  margin: 10px 0 10px 0;
+  background-color: #ffffff;
+}
+
+.btn-more:hover {
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .3);
+  background-color: rgba(221, 240, 255, 0.21) !important;
+}
+
+.btn-action {
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #fe9900;
+  background-color: #ffffff;
+}
+
+.btn-action:hover {
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .3);
+  background-color: rgba(221, 240, 255, 0.21) !important;
+}
+
+.text-grey {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  color: #747c87;
+  width: auto;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.post-header-content {
+  display: flex;
+  margin: 30px 0 30px 0;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.post-content {
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.post-end-content {
+  margin: 20px 0 20px 0;
+  border: 1px solid #e5e5e5;
+  text-align: center;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .3);
+}
+

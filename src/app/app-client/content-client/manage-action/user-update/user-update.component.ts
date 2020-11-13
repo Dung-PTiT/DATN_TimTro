@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {faHeart, faUpload} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-user-update',
@@ -8,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class UserUpdateComponent implements OnInit {
 
   constructor() { }
+
+  faUpload = faUpload;
 
   ngOnInit(): void {
   }

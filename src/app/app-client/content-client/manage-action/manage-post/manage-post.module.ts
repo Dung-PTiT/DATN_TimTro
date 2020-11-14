@@ -10,12 +10,12 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatSelectModule} from "@angular/material/select";
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {AgmCoreModule} from "@agm/core";
 import {MatInputModule} from "@angular/material/input";
-
+import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 
 @NgModule({
   declarations: [PostCreateComponent],
@@ -36,6 +36,8 @@ import {MatInputModule} from "@angular/material/input";
       apiKey: 'AIzaSyCu8BQn5PRVzfQ6-_dgpUQRIqej_CTY2Qc'
     }),
     MatInputModule,
+    CKEditorModule,
+    FormsModule
   ]
 })
 export class ManagePostModule {

@@ -1,16 +1,19 @@
 package com.ptit.timtro.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "district")
+@Entity
+@Table(name = "district")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class DistrictEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,5 +30,5 @@ public class DistrictEntity {
     private ProvinceEntity provinceEntity;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "districtEntity")
-    private Set<WardEntity> wards;
+    private List<WardEntity> wards;
 }

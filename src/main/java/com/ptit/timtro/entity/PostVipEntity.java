@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "post_vip")
+@Entity
+@Table(name = "post_vip")
 public class PostVipEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

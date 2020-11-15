@@ -25,7 +25,7 @@ public class DistrictEntity {
     @Column(name = "prefix", nullable = false, length = 50)
     private String prefix;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "province_id", nullable = false)
     private ProvinceEntity provinceEntity;
 

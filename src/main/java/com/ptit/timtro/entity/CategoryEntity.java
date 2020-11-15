@@ -1,16 +1,19 @@
 package com.ptit.timtro.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "category")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class CategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,4 +24,7 @@ public class CategoryEntity {
 
     @Column(name = "description", nullable = false, length = 255)
     private String description;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "categoryEntity")
+    private List<PostEntity> posts;
 }

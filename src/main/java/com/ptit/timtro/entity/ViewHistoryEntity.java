@@ -12,15 +12,12 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "comment")
+@Table(name = "view_history")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class CommentEntity {
+public class ViewHistoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "content", nullable = false, columnDefinition = "blob")
-    private String content;
 
     @Column(name = "create_time", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)

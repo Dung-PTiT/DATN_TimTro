@@ -2,6 +2,7 @@ package com.ptit.timtro.entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.ptit.timtro.security.AuthProvider;
 import com.ptit.timtro.security.Role;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -17,6 +19,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Entity
 @Table(name = "user")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserEntity {
 
     @Id
@@ -53,6 +56,15 @@ public class UserEntity {
     private AuthProvider authProvider;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
-    private Set<PostEntity> posts;
+    private List<PostEntity> posts;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
+    private List<CommentEntity> comments;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
+    private List<FavoriteEntity> favorites;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
+    private List<ViewHistoryEntity> viewHistories;
 }
 

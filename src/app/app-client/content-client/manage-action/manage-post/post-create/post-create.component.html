@@ -73,13 +73,16 @@
         <div class="row mt-3">
           <div class="col-6">
             <span>Thể loại</span>
-            <div class="mt-2">
-              <select class="browser-default custom-select">
-                <option value="1">Thuê phòng</option>
-                <option value="2">Thuê nhà</option>
-                <option value="3">Tìm ở ghép</option>
-              </select>
+            <div>
+              <mat-form-field appearance="fill">
+                <mat-select [(value)]="selected">
+                  <mat-option value="1">Thuê phòng</mat-option>
+                  <mat-option value="2">Thuê nhà</mat-option>
+                  <mat-option value="3">Tìm ở ghép</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
+            <p>You selected: {{selected}}</p>
           </div>
           <div class="col-6">
             <span>Số điện thoại</span>
@@ -105,6 +108,23 @@
                 <mat-label>Diện tích - m2</mat-label>
                 <input type="number" matInput placeholder="Nhập diện tích">
               </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4">
+          <h6>Tọa độ nơi cho thuê</h6>
+          <div class="row mt-3">
+            <div class="col-6">
+              <span>Vĩ độ</span>
+              <div class="mt-2">
+                <p class="p-2 bg-light">{{markerInfo.latitude}}</p>
+              </div>
+            </div>
+            <div class="col-6">
+              <span>Kinh độ</span>
+              <div class="mt-2">
+                <p class="p-2 bg-light">{{markerInfo.longitude}}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -158,9 +178,28 @@
       </div>
     </div>
     <div class="col-4">
-      <agm-map [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude" [zoom]="13">
+      <div>
+        <div>
+          <span class="text-grey">Click vào vị trí trên bản đồ để đánh dấu địa chỉ</span>
+        </div>
+        <div>Tọa độ hiện tại:
+          <div class="d-flex">
+            <p class="font-weight-bold mr-1" matTooltip="Vĩ độ">[{{markerInfo.latitude}}</p>
+            <span> , </span>
+            <p class="ml-1 font-weight-bold" matTooltip="Kinh độ">{{markerInfo.longitude}}]</p>
+          </div>
+        </div>
+      </div>
+      <agm-map #agmMap [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude" [zoom]="13"
+               (mapClick)="getLocation($event)">
         <agm-marker [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude"
                     [iconUrl]="markerInfo.icon">
+
+          <agm-info-window [disableAutoPan]="false" #infoWindow>
+            <div class="d-flex">
+              <span class="ml-2 font-weight-bold">{{markerInfo.address}}</span>
+            </div>
+          </agm-info-window>
         </agm-marker>
       </agm-map>
     </div>

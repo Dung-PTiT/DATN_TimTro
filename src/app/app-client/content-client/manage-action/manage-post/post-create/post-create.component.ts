@@ -7,6 +7,7 @@ import {MarkerInfo} from "../../../dashboard-client/dashboard-client.component";
 import {AddressService} from "../../../../../service/address.service";
 import {Provinces} from "../../../../../model/address/Provinces";
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {AgmMap, MapsAPILoader} from "@agm/core";
 
 @Component({
   selector: 'app-post-create',
@@ -15,12 +16,13 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 })
 export class PostCreateComponent implements OnInit {
 
-  public Editor = ClassicEditor;
+  Editor = ClassicEditor;
   province: Provinces;
   provinceList: Provinces[];
   markerInfo: MarkerInfo;
+  selected = 'Thuê nhà';
 
-  constructor(public addressService: AddressService) {
+  constructor(public addressService: AddressService, private apiloader: MapsAPILoader) {
   }
 
   /** form select */
@@ -33,6 +35,8 @@ export class PostCreateComponent implements OnInit {
   public filteredProvinces: ReplaySubject<Provinces[]> = new ReplaySubject<Provinces[]>(1);
 
   @ViewChild('provinceSelect') provinceSelect: MatSelect;
+
+  @ViewChild(AgmMap, {static: true}) public agmMap: AgmMap;
 
   /** Subject that emits when the component has been destroyed. */
   private _onDestroy = new Subject<void>();
@@ -51,7 +55,11 @@ export class PostCreateComponent implements OnInit {
           this.filterProvinces();
         });
     });
-    this.markerInfo = new MarkerInfo(20.981149, 105.787480, "./assets/images/marker3.png", "abc");
+    this.markerInfo = new MarkerInfo(20.981149, 105.787480, "./assets/images/marker3.png", "Nhà 74, ngõ 127, Phùng Khoang, Nam Từ Liêm, Hà Nội");
+  }
+
+  getLocation(event) {
+    this.markerInfo = new MarkerInfo(event.coords.lat, event.coords.lng, "./assets/images/marker3.png", "Nhà 74, ngõ 127, Phùng Khoang, Nam Từ Liêm, Hà Nội");
   }
 
   callType(value) {

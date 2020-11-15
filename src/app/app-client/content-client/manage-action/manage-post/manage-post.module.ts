@@ -16,6 +16,7 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {AgmCoreModule} from "@agm/core";
 import {MatInputModule} from "@angular/material/input";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [PostCreateComponent],
@@ -37,7 +38,8 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
     }),
     MatInputModule,
     CKEditorModule,
-    FormsModule
+    FormsModule,
+    MatTooltipModule
   ]
 })
 export class ManagePostModule {

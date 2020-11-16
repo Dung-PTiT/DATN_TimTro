@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Ward {
+public class Image {
     private Integer id;
-    private String name;
-    private String prefix;
-    private District district;
+    private String imageUrl;
 }

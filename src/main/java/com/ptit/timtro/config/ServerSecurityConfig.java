@@ -81,7 +81,7 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**",
                         "/v2/api-docs/**", "/auth/login", "/auth/create-password",
-                        "/oauth/**", "/oauth2/**","/auth/gen-pass", "/address/**").permitAll()
+                        "/oauth/**", "/oauth2/**","/auth/gen-pass", "/address/**", "/post/get-all").permitAll()
                 .anyRequest().authenticated(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
         // Thêm một lớp Filter kiểm tra jwt
         http.oauth2Login()

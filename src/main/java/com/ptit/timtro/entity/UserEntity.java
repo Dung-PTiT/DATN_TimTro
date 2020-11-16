@@ -55,6 +55,9 @@ public class UserEntity {
     @Enumerated(EnumType.STRING)
     private AuthProvider authProvider;
 
+    @Column(name = "phone_number")
+    private Integer phoneNumber;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
     private List<PostEntity> posts;
 

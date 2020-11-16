@@ -5,13 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class Ward {
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
+public class ViewHistory {
     private Integer id;
-    private String name;
-    private String prefix;
-    private District district;
+    private Date createTime;
+    private User user;
+    private Post post;
 }

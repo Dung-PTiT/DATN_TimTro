@@ -6,10 +6,7 @@ import com.ptit.timtro.service.DistrictService;
 import com.ptit.timtro.service.ProvinceService;
 import com.ptit.timtro.util.DataResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,7 +24,7 @@ public class AddressController {
         return new DataResponse<>(true, provinceService.getAll());
     }
 
-    @PostMapping("/address/province/get-by-id")
+    @GetMapping("/address/province/get-by-id")
     public DataResponse<Province> getProvinceById(@RequestParam("id") Integer id) {
         return new DataResponse<>(true, provinceService.getById(id));
     }
@@ -37,7 +34,7 @@ public class AddressController {
         return new DataResponse<>(true, districtService.getAll());
     }
 
-    @PostMapping("/address/district/get-by-id")
+    @GetMapping("/address/district/get-by-id")
     public DataResponse<District> getDistrictById(@RequestParam("id") Integer id) {
         return new DataResponse<>(true, districtService.getById(id));
     }

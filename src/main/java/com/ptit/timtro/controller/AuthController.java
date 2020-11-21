@@ -61,10 +61,10 @@ public class AuthController {
     public DataResponse<AuthenticatedUserInfo> getAuthenticatedUserInfo() {
         UserPrincipal userPrincipal = AdvancedSecurityContextHolder.getUserPrincipal();
         AuthenticatedUserInfo userInfo = new AuthenticatedUserInfo();
-        userInfo.setVip(userPrincipal.getVip());
         userInfo.setName(userPrincipal.getName());
         userInfo.setUsername(userPrincipal.getUsername());
         userInfo.setImageUrl(userPrincipal.getImageUrl());
+        userInfo.setRole(userPrincipal.getAuthorities().stream().findFirst().get().toString());
         return new DataResponse<>(true, userInfo);
     }
 

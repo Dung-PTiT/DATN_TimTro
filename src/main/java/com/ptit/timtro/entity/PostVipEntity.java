@@ -27,7 +27,4 @@ public class PostVipEntity {
 
     @Column(name = "description", nullable = false, length = 255)
     private String description;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "postVipEntity")
-    private List<PostEntity> posts;
 }

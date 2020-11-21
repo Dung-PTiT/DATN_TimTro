@@ -21,24 +21,11 @@ public class PostServiceImpl implements PostService {
     @Override
     public void create(Post post) {
         PostEntity postEntity = new PostEntity();
-
-//        private String address;
-//        private List<Image> images;
-//        private User user;
-//        private List<Comment> comments;
-//        private Category category;
-//        private PostVip postVip;
-//        private List<Tag> tags;
-//        private MultipartFile[] files;
-
         postEntity.setTitle(post.getTitle());
         postEntity.setContent(post.getContent());
-        postEntity.setCreateDate(post.getCreateDate());
-        postEntity.setEndDate(post.getEndDate());
         postEntity.setPrice(post.getPrice());
         postEntity.setAcreage(post.getAcreage());
         postEntity.setView(post.getView());
-        postEntity.setDescription(post.getDescription());
         postEntity.setStatus(post.getStatus());
         postEntity.setLatitude(post.getLatitude());
         postEntity.setLongitude(post.getLongitude());
@@ -54,12 +41,9 @@ public class PostServiceImpl implements PostService {
                 post.setId(postEntity.getId());
                 post.setTitle(postEntity.getTitle());
                 post.setContent(postEntity.getContent());
-                post.setCreateDate(postEntity.getCreateDate());
-                post.setEndDate(postEntity.getEndDate());
                 post.setPrice(postEntity.getPrice());
                 post.setAcreage(postEntity.getAcreage());
                 post.setView(postEntity.getView());
-                post.setDescription(postEntity.getDescription());
                 //set address
                 WardEntity wardEntity = postEntity.getWardEntity();
                 DistrictEntity districtEntity = wardEntity.getDistrictEntity();
@@ -77,14 +61,6 @@ public class PostServiceImpl implements PostService {
                         postEntity.getCategoryEntity().getId(),
                         postEntity.getCategoryEntity().getName(),
                         postEntity.getCategoryEntity().getDescription(),
-                        null
-                ));
-
-                post.setPostVip(new PostVip(
-                        postEntity.getPostVipEntity().getId(),
-                        postEntity.getPostVipEntity().getName(),
-                        postEntity.getPostVipEntity().getPrice(),
-                        postEntity.getPostVipEntity().getDescription(),
                         null
                 ));
 

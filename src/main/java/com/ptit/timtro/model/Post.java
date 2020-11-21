@@ -17,12 +17,9 @@ public class Post {
     private Integer id;
     private String title;
     private String content;
-    private Date createDate;
-    private Date endDate;
     private Integer price;
     private Integer acreage;
     private Integer view;
-    private String description;
     private String address;
     private String status;
     private Double latitude;
@@ -32,7 +29,6 @@ public class Post {
     private Ward ward;
     private List<Comment> comments;
     private Category category;
-    private PostVip postVip;
     private List<Tag> tags;
     private MultipartFile[] files;
 }

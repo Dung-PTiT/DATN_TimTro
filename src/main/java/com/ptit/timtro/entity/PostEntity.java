@@ -28,14 +28,6 @@ public class PostEntity {
     @Column(name = "content", columnDefinition = "blob")
     private String content;
 
-    @Column(name = "create_time", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date createDate;
-
-    @Column(name = "end_time", nullable = false)
-    @Temporal(TemporalType.DATE)
-    private Date endDate;
-
     @Column(name = "price", nullable = false)
     private Integer price;
 
@@ -44,9 +36,6 @@ public class PostEntity {
 
     @Column(name = "view", nullable = false)
     private Integer view;
-
-    @Column(name = "description", length = 255)
-    private String description;
 
     @Column(name = "address", nullable = false, length = 255)
     private String address;
@@ -77,10 +66,6 @@ public class PostEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity categoryEntity;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "post_vip_id", nullable = false)
-    private PostVipEntity postVipEntity;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "postEntity")
     private List<FavoriteEntity> favorites;

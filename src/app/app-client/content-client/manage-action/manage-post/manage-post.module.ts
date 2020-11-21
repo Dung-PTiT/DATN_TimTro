@@ -17,6 +17,7 @@ import {AgmCoreModule} from "@agm/core";
 import {MatInputModule} from "@angular/material/input";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [PostCreateComponent],
@@ -39,7 +40,8 @@ import {MatTooltipModule} from "@angular/material/tooltip";
     MatInputModule,
     CKEditorModule,
     FormsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatIconModule
   ]
 })
 export class ManagePostModule {

@@ -48,10 +48,15 @@ export class HeaderClientComponent implements OnInit {
   }
 
   logout() {
-    this.authenticationService.logout().subscribe(resp => {
-      this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
+    if (this.cookieService.get(AppConfig.COOKIE_TOKEN_NAME) == '') {
       location.href = "/";
-    });
+    } else {
+      this.authenticationService.logout().subscribe(resp => {
+        this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
+        this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
+        location.href = "/";
+      });
+    }
   }
 
   createPost() {

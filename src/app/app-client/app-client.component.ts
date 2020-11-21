@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthenticationService} from "../service/authentication.service";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-app-client',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppClientComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authenticationService: AuthenticationService,
+              private cookieService: CookieService) {
+  }
 
   ngOnInit(): void {
+    this.authenticationService.isLogin();
   }
 
 }

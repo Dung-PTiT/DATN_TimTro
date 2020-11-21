@@ -7,106 +7,103 @@
         <h6>Địa chỉ cho thuê</h6>
         <div class="mt-4">
           <mat-form-field>
-            <mat-select #provinceSelect (change)="callType(provinceSelect.value)" [formControl]="provinceCtrl"
+            <mat-select #provinceSelect [formControl]="provinceCtrl"
                         placeholder="Tỉnh/Thành phố">
               <mat-option>
                 <ngx-mat-select-search [formControl]="provinceFilterCtrl"></ngx-mat-select-search>
               </mat-option>
               <mat-option *ngFor="let province of filteredProvinces | async" [value]="province">
-                {{province.name}}
+                {{province?.name ? province.name : ''}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="ml-4">
-            <mat-select #provinceSelect (change)="callType(provinceSelect.value)" [formControl]="provinceCtrl"
-                        placeholder="Tỉnh/Thành phố">
+            <mat-select #districtSelect [formControl]="districtCtrl"
+                        placeholder="Quận/Huyện">
               <mat-option>
-                <ngx-mat-select-search [formControl]="provinceFilterCtrl"></ngx-mat-select-search>
+                <ngx-mat-select-search [formControl]="districtFilterCtrl"></ngx-mat-select-search>
               </mat-option>
-              <mat-option *ngFor="let province of filteredProvinces | async" [value]="province">
-                {{province.name}}
+              <mat-option *ngFor="let district of filteredDistricts | async" [value]="district">
+                {{(district?.prefix ? district.prefix : '') + ' ' + (district?.name ? district.name : '')}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="ml-4">
-            <mat-select #provinceSelect (change)="callType(provinceSelect.value)" [formControl]="provinceCtrl"
-                        placeholder="Tỉnh/Thành phố">
+            <mat-select #wardSelect [formControl]="wardCtrl"
+                        placeholder="Phường/Xã">
               <mat-option>
-                <ngx-mat-select-search [formControl]="provinceFilterCtrl"></ngx-mat-select-search>
+                <ngx-mat-select-search [formControl]="wardFilterCtrl"></ngx-mat-select-search>
               </mat-option>
-              <mat-option *ngFor="let province of filteredProvinces | async" [value]="province">
-                {{province.name}}
+              <mat-option *ngFor="let ward of filteredWards | async" [value]="ward">
+                {{(ward?.prefix ? ward.prefix : '') + ' ' + (ward?.name ? ward.name : '')}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="mt-3 w-100">
             <mat-label>Thôn/Xóm</mat-label>
-            <input matInput placeholder="Nhập địa chỉ thôn, xóm">
+            <input matInput placeholder="Nhập địa chỉ thôn, xóm" [formControl]="villageCtrl">
           </mat-form-field>
         </div>
         <div class="mt-3 d-flex">
-          <p>Địa chỉ chính xác</p>
-          <textarea rows="2" class="font-weight-bold text-dark" matInput placeholder="Thông tin địa chỉ chính xác"
-                    disabled>
-              Nhà 74, ngõ 127, Phùng Khoang, Nam Từ Liêm, Hà Nội
-            </textarea>
+          <span style="width: 20%;">Địa chỉ chính xác</span>
+          <textarea rows="2" class="font-weight-bold text-dark" [formControl]="addressCtrl"
+                    matInput disabled>
+          </textarea>
         </div>
       </div>
       <div class="mt-4">
-        <h6>
-          Thông tin cho thuê
-        </h6>
+        <h6>Thông tin cho thuê</h6>
         <div>
           <mat-form-field class="w-100">
             <mat-label>Tiêu đề</mat-label>
-            <input matInput placeholder="Nhập tiêu đề bài đăng">
+            <input matInput [formControl]="titlePostCtrl">
           </mat-form-field>
         </div>
         <div class="mt-2">
           <span>Mô tả chi tiết</span>
           <div>
-            <ckeditor [editor]="Editor"
-                      data="<p>Hello, csharp corner!</p><br/><br/><b>This is demo for ckeditor 5 with angular 8</br>">
+            <ckeditor [editor]="editor" (change)="onChange($event)">
             </ckeditor>
           </div>
         </div>
         <div class="row mt-3">
           <div class="col-6">
-            <span>Thể loại</span>
+            <span>Loại dịch vụ</span>
             <div>
-              <mat-form-field appearance="fill">
-                <mat-select [(value)]="selected">
-                  <mat-option value="1">Thuê phòng</mat-option>
-                  <mat-option value="2">Thuê nhà</mat-option>
-                  <mat-option value="3">Tìm ở ghép</mat-option>
+              <mat-form-field appearance="fill" style="width: 100%">
+                <mat-label>Chọn</mat-label>
+                <mat-select [formControl]="categoryCtrl">
+                  <mat-option *ngFor="let category of categoryList" [value]="category">{{category.name}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-            <p>You selected: {{selected}}</p>
           </div>
           <div class="col-6">
             <span>Số điện thoại</span>
-            <div class="mt-2">
-              <p class="p-2 bg-light">0352464242</p>
+            <div>
+              <mat-form-field class="mt-1 w-100">
+                <mat-label>Liên hệ</mat-label>
+                <input type="number" matInput placeholder="VD: 0352464242" [formControl]="phoneNumberCtrl">
+              </mat-form-field>
             </div>
           </div>
         </div>
         <div class="row mt-3">
           <div class="col-6">
-            <span>Giá cho thuê</span>
+            <span>Giá cho thuê (Triệu VNĐ/Tháng)</span>
             <div>
               <mat-form-field class="mt-1 w-100">
                 <mat-label>Giá - VNĐ</mat-label>
-                <input type="number" matInput placeholder="Nhập giá">
+                <input type="number" matInput placeholder="VD: 3000000" [formControl]="priceCtrl">
               </mat-form-field>
             </div>
           </div>
           <div class="col-6">
-            <span>Diện tích</span>
+            <span>Diện tích (m2)</span>
             <div>
               <mat-form-field class="mt-1 w-100">
                 <mat-label>Diện tích - m2</mat-label>
-                <input type="number" matInput placeholder="Nhập diện tích">
+                <input type="number" matInput placeholder="Nhập diện tích" [formControl]="acreageCtrl">
               </mat-form-field>
             </div>
           </div>
@@ -130,51 +127,31 @@
         </div>
       </div>
       <div class="mt-4">
-        <h6>Hình ảnh</h6>
-        <span>Cập nhật hình ảnh rõ ràng sẽ cho thuê nhanh hơn</span>
-      </div>
-      <div class="mt-4">
-        <h6>Hình thức đăng tin</h6>
+        <h6>Tiện ích</h6>
         <div class="row">
-          <div class="col-4">
-            <span>Thể loại</span>
-            <div class="mt-2">
-              <select class="browser-default custom-select">
-                <option value="0">Tin thường</option>
-                <option value="1">Vip 1</option>
-                <option value="2">Vip 2</option>
-                <option value="2">Vip 3</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-4">
-            <span>Chọn loại dịch vụ</span>
-            <div class="mt-2">
-              <select class="browser-default custom-select">
-                <option value="1">Theo ngày</option>
-                <option value="2">Theo tuần</option>
-                <option value="3">Theo tháng</option>
-                <option value="3">Theo quý</option>
-                <option value="3">Theo năm</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-4">
-            <span>Thời gian</span>
-            <div class="mt-2">
-              <select class="browser-default custom-select">
-                <option value="1">1 ngày</option>
-                <option value="2">1 tuần</option>
-                <option value="2">1 tháng</option>
-                <option value="2">1 quý</option>
-                <option value="2">1 năm</option>
-              </select>
-            </div>
+          <div class="col-12">
+            <mat-form-field class="w-100">
+              <mat-select placeholder="Chọn những tiện ích đang có" [formControl]="tagCtrl" multiple>
+                <mat-option *ngFor="let tag of tagList" [value]="tag">{{tag.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
           </div>
         </div>
       </div>
+      <div class="mt-4">
+        <div class="d-flex justify-content-between">
+          <h6>Hình ảnh</h6>
+          <button mat-icon-button matTooltip="Gỡ ảnh" matTooltipPosition="left">
+            <fa-icon class="text-danger" [icon]="faTrash"></fa-icon>
+          </button>
+        </div>
+        <div>
+          <input type='file' (change)="onSelectFile($event)" multiple>
+          <img *ngFor='let url of urls' [src]="url" height="100"> <br/>
+        </div>
+      </div>
       <div class="mt-4" style="text-align: end">
-        <button mat-button class="bg-info text-white font-weight-bold">Lưu bài đăng</button>
+        <button mat-button class="bg-info text-white font-weight-bold" (click)="createPost()">Lưu bài đăng</button>
       </div>
     </div>
     <div class="col-4">

@@ -6,11 +6,13 @@ import {CookieService} from "ngx-cookie-service";
 import {OAuthResponseToken} from "../model/OAuthResponseToken";
 import {AppConfig} from "../util/app-config";
 import * as moment from 'moment';
+import {UserPrincipal} from "../model/UserPrincipal";
+import {subscribeOn} from "rxjs/operators";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css' ]
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 

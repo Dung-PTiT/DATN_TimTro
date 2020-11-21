@@ -6,7 +6,7 @@
       </a>
     </div>
     <div class="example-button-row div-header-info">
-      <mat-toolbar>
+      <mat-toolbar style="font-weight: 400">
         <a href="" class="mat-toolbar-title active"><span>Trang chủ</span></a>
         <a href="" class="mat-toolbar-title ml-3"><span>Cho thuê</span></a>
         <a href="" class="mat-toolbar-title ml-3"><span>Nạp tiền</span></a>
@@ -53,8 +53,9 @@
           </div>
         </div>
       </mat-toolbar>
-      <button mat-stroked-button class="bg-color-feb800 pr-4" [routerLink]="['/manage/post/create']"
-              matTooltip="Bấm để đăng tin" matTooltipPosition="below">
+      <button mat-stroked-button class="pr-4" [routerLink]="['/manage/post/create']"
+              matTooltip="Bấm để đăng tin" matTooltipPosition="below"
+              style="color:initial; border-color: darkorange; line-height: 30px">
         <fa-icon [icon]="faUpload"></fa-icon>
         <span class="ml-2">Đăng tin</span>
       </button>

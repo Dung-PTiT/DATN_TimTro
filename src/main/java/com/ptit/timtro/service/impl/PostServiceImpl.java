@@ -1,13 +1,26 @@
 package com.ptit.timtro.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ptit.timtro.dao.PostDAO;
 import com.ptit.timtro.entity.*;
 import com.ptit.timtro.model.*;
+import com.ptit.timtro.security.AdvancedSecurityContextHolder;
+import com.ptit.timtro.security.UserPrincipal;
 import com.ptit.timtro.service.PostService;
+import com.ptit.timtro.util.FileDir;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,16 +32,44 @@ public class PostServiceImpl implements PostService {
     private PostDAO postDAO;
 
     @Override
-    public void create(Post post) {
+    public PostEntity create(Post post) {
         PostEntity postEntity = new PostEntity();
         postEntity.setTitle(post.getTitle());
         postEntity.setContent(post.getContent());
         postEntity.setPrice(post.getPrice());
         postEntity.setAcreage(post.getAcreage());
-        postEntity.setView(post.getView());
-        postEntity.setStatus(post.getStatus());
+        postEntity.setAddress(post.getAddress());
+        postEntity.setView(0);
+        postEntity.setStatus("false");
         postEntity.setLatitude(post.getLatitude());
         postEntity.setLongitude(post.getLongitude());
+        try {
+
+            postEntity.setWardEntity(new WardEntity(
+                    new ObjectMapper().readValue(post.getWardStr(), Ward.class).getId(),
+                    null, null, null, null)
+            );
+
+            postEntity.setCategoryEntity(new CategoryEntity(
+                    new ObjectMapper().readValue(post.getCategoryStr(), Category.class).getId(),
+                    null, null, null));
+
+            List<Tag> tags = new ObjectMapper().readValue(post.getTagsStr(), new TypeReference<List<Tag>>() {
+            });
+            List<TagEntity> tagEntities = new ArrayList<>();
+            for (Tag tag : tags) {
+                tagEntities.add(new TagEntity(tag.getId(), null, null, null));
+            }
+            postEntity.setTags(tagEntities);
+
+            UserEntity userEntity = new UserEntity();
+            userEntity.setId(AdvancedSecurityContextHolder.getUserPrincipal().getId());
+            postEntity.setUserEntity(userEntity);
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return postDAO.create(postEntity);
     }
 
     @Override

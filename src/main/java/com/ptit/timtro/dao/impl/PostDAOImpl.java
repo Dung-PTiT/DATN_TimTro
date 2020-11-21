@@ -17,8 +17,9 @@ public class PostDAOImpl implements PostDAO {
     private EntityManager entityManager;
 
     @Override
-    public void create(PostEntity postEntity) {
+    public PostEntity create(PostEntity postEntity) {
         entityManager.persist(postEntity);
+        return postEntity;
     }
 
     @Override

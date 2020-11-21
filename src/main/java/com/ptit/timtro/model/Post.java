@@ -26,9 +26,12 @@ public class Post {
     private Double longitude;
     private List<Image> images;
     private User user;
+    private String wardStr;
     private Ward ward;
     private List<Comment> comments;
+    private String categoryStr;
     private Category category;
+    private String tagsStr;
     private List<Tag> tags;
     private MultipartFile[] files;
 }

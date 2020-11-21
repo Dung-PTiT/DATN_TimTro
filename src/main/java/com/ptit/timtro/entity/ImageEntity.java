@@ -18,7 +18,7 @@ public class ImageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "image_url", length = 255)
+    @Column(name = "image_url", length = 255, nullable = false)
     private String imageUrl;
 
     @ManyToOne(fetch = FetchType.EAGER)

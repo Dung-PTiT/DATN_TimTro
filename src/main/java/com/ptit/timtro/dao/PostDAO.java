@@ -5,7 +5,7 @@ import com.ptit.timtro.entity.PostEntity;
 import java.util.List;
 
 public interface PostDAO {
-    void create(PostEntity postEntity);
+    PostEntity create(PostEntity postEntity);
 
     List<PostEntity> getAll();
 }

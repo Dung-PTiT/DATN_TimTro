@@ -23,28 +23,10 @@
     <div class="col-12 col-lg-9">
       <div #anh>
         <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
-          <mdb-carousel-item>
-            <div class="view w-100 post-image">
-              <img class="d-block w-100"
-                   src="https://cdn.chotot.com/xGc2LxcFP6F4IQe77Eta4hYRvpsyt3ISjfAArPL6swE/preset:view/plain/4f7d051ba268c73641e31ec3bda39740-2691556976759253326.jpg"
-                   alt="First slide">
-              <div class="mask rgba-black-light waves-light" mdbWavesEffect></div>
-            </div>
-          </mdb-carousel-item>
-          <mdb-carousel-item>
-            <div class="view w-100 post-image">
-              <img class="d-block w-100"
-                   src="https://cdn.chotot.com/80olbAqyfRX4EIF4i5HVh65zw2rxpmfFUazZK3n9vfU/preset:view/plain/313c2bcdc45117bf4b846abcea02215e-2691556977278562969.jpg"
-                   alt="Second slide">
-              <div class="mask rgba-black-strong waves-light" mdbWavesEffect></div>
-            </div>
-          </mdb-carousel-item>
-          <mdb-carousel-item>
-            <div class="view w-100 post-image">
-              <img class="d-block w-100"
-                   src="https://cdn.chotot.com/-UPEtlcpepF1TDlQpxEEyCz43CYX5WPYDuZVnaP5oYc/preset:view/plain/6c0cd9d59a92c4296974199ed2e5f74e-2691556977408769639.jpg"
-                   alt="Third slide">
-              <div class="mask rgba-black-slight waves-light" mdbWavesEffect></div>
+          <mdb-carousel-item *ngFor="let image of images">
+            <div class="product-thumb">
+              <img [src]="image?.imageUrl ? (PREFIX_URL +  image.imageUrl ) : (PREFIX_URL + DEFAULT_IMAGE)">
+              <div class="mask rgba-black-light waves-black" mdbWavesEffect></div>
             </div>
           </mdb-carousel-item>
         </mdb-carousel>
@@ -53,11 +35,11 @@
       <div #thongTinChiTiet class="post-title" style="margin: 30px 0 30px 0">
         <h5>
           <fa-icon class="mr-2 text-info" [icon]="faHandPointRight"></fa-icon>
-          Cho thuê phòng chung cư mini đầy đủ tiện nghi tại Trung Kính, Cầu Giấy
+          {{post?.title ? post?.title : ''}}
         </h5>
         <h6 class="text-grey">
           <fa-icon class="mr-2 text-danger" [icon]="faMapMarkerAlt"></fa-icon>
-          Số 35 ngõ 2, Phố Trung Kính, Phường Trung Hòa, Cầu Giấy, Hà Nội
+          {{post?.address ? post.address : ''}}
         </h6>
       </div>
 
@@ -65,13 +47,13 @@
         <div class="col-4">
           <h6 class="text-grey">Mức giá: </h6>
           <h6 class="font-weight-bold">
-            3.2 triệu/tháng
+            {{post?.price ? post.price : ''}} triệu/tháng
           </h6>
         </div>
         <div class="col-4">
           <h6 class="text-grey">Diện tích: </h6>
           <h6 class="font-weight-bold">
-            30m2
+            {{post?.acreage ? post.acreage : ''}} m2
           </h6>
         </div>
         <div class="col-4" style="display: flex; justify-content: space-around; align-items: center">
@@ -94,32 +76,38 @@
           <div class="col-12">
             <div>
               <h6 class="font-weight-bold"> Thông tin mô tả</h6>
-              <p>- Cho thuê căn hộ mini MỚI XÂY 100% - rộng rãi thoáng mát, sạch sẽ, an ninh, giờ giấc tự do, có bếp nấu
-                ăn riêng trong phòng, và đã trang bị ĐẦY ĐỦ TIỆN NGHI, bạn chỉ cần xách vali vào ở.</p>
-              <p>- Tòa nhà tọa lạc tại KDC mát mẻ, văn minh lịch sự, thật sự là một nơi an cư lý tướng tưởng cho bạn sau
-                những ngày lao động mệt mỏi.</p>
-              <p>- Địa chỉ: ĐƯỜNG HOÀNG HOA THÁM, PHƯỜNG 13, TÂN BÌNH.</p>
-              <p>*** Nội thất phòng gồm có:</p>
-              <p>- Gác xếp thiết kế cao rộng, hiện đại</p>
-              <p>- WC cao cấp, rộng rãi.</p>
-              <p>- Giường + nệm êm ái.</p>
-              <p>- Tủ quần áo.</p>
-              <p>- Bàn + ghế làm việc.</p>
-              <p>- Máy lạnh.</p>
-              <p>- Bếp nấu ăn.</p>
-              <p>- Wifi cáp quang tốc độ cao.</p>
-              <p>- MÁY GIẶT CHUNG TIÊN LỢI VÀ SÂN PHƠI ĐỒ RỘNG RÃI, SẠCH SẼ.</p>
-              <p>*** TẤT CẢ ĐỀU MỚI 100% CHƯA QUA 1 LẦN SỬ DỤNG ***</p>
-              <p>*** Dịch vụ chuyên nghiệp:</p>
-              <p>- Hệ thống cửa ra vào bằng vân tay đảm bảo an toàn, an ninh tuyệt đối.</p>
-              <p>- Giờ giấc ra vào tự do 24/7 .</p>
-              <p>- Có đội hỗ trợ khắc phục sự cố điện, nước ngay khi có yêu cầu.</p>
-              <p>- Chân thành - Chuyên nghiệp - Rõ ràng. Bạn sẽ luôn được hỗ trợ tối đa trong suốt quá trình ở.</p>
-              <p>*** ĐẶC BIỆT: SIÊU KHUYẾN MÃI GIẢM GIÁ MỪNG KHAI TRƯƠNG - CHỈ 1 LẦN .</p>
-              <p>- Quá nhiều tiện ích và dịch vụ tốt cho một giá phòng hết sức bình dân đúng không nào, bạn còn chần chờ
-                gì nữa mà không liên hệ xem phòng ngay để chọn được nơi an cư ưng ý của bạn.</p>
-              <p>---------------------------------------------</p>
-              <p>Điện thoại liên hệ: <strong style="color: red;">0909539172</strong></p>
+              <div [innerHTML]="post?.content ? post.content: ''">
+
+<!--                <p>- Cho thuê căn hộ mini MỚI XÂY 100% - rộng rãi thoáng mát, sạch sẽ, an ninh, giờ giấc tự do, có bếp-->
+<!--                  nấu-->
+<!--                  ăn riêng trong phòng, và đã trang bị ĐẦY ĐỦ TIỆN NGHI, bạn chỉ cần xách vali vào ở.</p>-->
+<!--                <p>- Tòa nhà tọa lạc tại KDC mát mẻ, văn minh lịch sự, thật sự là một nơi an cư lý tướng tưởng cho bạn-->
+<!--                  sau-->
+<!--                  những ngày lao động mệt mỏi.</p>-->
+<!--                <p>- Địa chỉ: ĐƯỜNG HOÀNG HOA THÁM, PHƯỜNG 13, TÂN BÌNH.</p>-->
+<!--                <p>*** Nội thất phòng gồm có:</p>-->
+<!--                <p>- Gác xếp thiết kế cao rộng, hiện đại</p>-->
+<!--                <p>- WC cao cấp, rộng rãi.</p>-->
+<!--                <p>- Giường + nệm êm ái.</p>-->
+<!--                <p>- Tủ quần áo.</p>-->
+<!--                <p>- Bàn + ghế làm việc.</p>-->
+<!--                <p>- Máy lạnh.</p>-->
+<!--                <p>- Bếp nấu ăn.</p>-->
+<!--                <p>- Wifi cáp quang tốc độ cao.</p>-->
+<!--                <p>- MÁY GIẶT CHUNG TIÊN LỢI VÀ SÂN PHƠI ĐỒ RỘNG RÃI, SẠCH SẼ.</p>-->
+<!--                <p>*** TẤT CẢ ĐỀU MỚI 100% CHƯA QUA 1 LẦN SỬ DỤNG ***</p>-->
+<!--                <p>*** Dịch vụ chuyên nghiệp:</p>-->
+<!--                <p>- Hệ thống cửa ra vào bằng vân tay đảm bảo an toàn, an ninh tuyệt đối.</p>-->
+<!--                <p>- Giờ giấc ra vào tự do 24/7 .</p>-->
+<!--                <p>- Có đội hỗ trợ khắc phục sự cố điện, nước ngay khi có yêu cầu.</p>-->
+<!--                <p>- Chân thành - Chuyên nghiệp - Rõ ràng. Bạn sẽ luôn được hỗ trợ tối đa trong suốt quá trình ở.</p>-->
+<!--                <p>*** ĐẶC BIỆT: SIÊU KHUYẾN MÃI GIẢM GIÁ MỪNG KHAI TRƯƠNG - CHỈ 1 LẦN .</p>-->
+<!--                <p>- Quá nhiều tiện ích và dịch vụ tốt cho một giá phòng hết sức bình dân đúng không nào, bạn còn chần-->
+<!--                  chờ-->
+<!--                  gì nữa mà không liên hệ xem phòng ngay để chọn được nơi an cư ưng ý của bạn.</p>-->
+<!--                <p>-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</p>-->
+<!--                <p>Điện thoại liên hệ: <strong style="color: red;">0909539172</strong></p>-->
+              </div>
             </div>
           </div>
         </div>
@@ -127,14 +115,17 @@
       <div #banDo class="row">
         <div class="col-12">
           <h6 class="font-weight-bold">Xem trên bản đồ</h6>
-          <p>Địa chỉ: Nhà 74, ngõ 159 Phùng Khoang, Nam Từ Liêm, Hà Nội</p>
-          <agm-map [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude" [zoom]="13">
-            <agm-marker *ngFor="let marker of markerInfoList" [latitude]="marker.latitude"
-                        [longitude]="marker.longitude"
-                        [iconUrl]="marker.icon">
+          <p>{{post?.address ? post.address : ''}}</p>
+          <agm-map [latitude]="post?.latitude ? post.latitude : 0"
+                   [longitude]="post?.longitude ? post.longitude : 0"
+                   [zoom]="13">
+            <agm-marker [latitude]="post?.latitude ? post.latitude : 0"
+                        [longitude]="post?.longitude ? post.longitude : 0"
+                        [iconUrl]="markerAddress">
               <agm-info-window
-                [latitude]="marker.latitude"
-                [longitude]="marker.longitude">{{marker.address}}
+                [latitude]="post?.latitude ? post.latitude : 0"
+                [longitude]="post?.longitude ? post.longitude : 0">
+                {{post?.address ? post.address : ''}}
               </agm-info-window>
             </agm-marker>
           </agm-map>

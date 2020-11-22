@@ -61,48 +61,42 @@
           <mat-form-field appearance="outline" class="ml-3">
             <mat-label>Loại</mat-label>
             <mat-select>
-              <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
+              <mat-option>
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="outline" class="ml-3">
             <mat-label>Tỉnh thành</mat-label>
             <mat-select>
-              <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
+              <mat-option>
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="outline" class="ml-3">
             <mat-label>Quận huyện</mat-label>
             <mat-select>
-              <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
+              <mat-option>
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="outline" class="ml-3">
             <mat-label>Đường phố</mat-label>
             <mat-select>
-              <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
+              <mat-option>
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="outline" class="ml-3">
             <mat-label>Khoảng giá</mat-label>
             <mat-select>
-              <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
+              <mat-option>
               </mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="outline" class="ml-3">
             <mat-label>Diện tích</mat-label>
             <mat-select>
-              <mat-option *ngFor="let food of foods" [value]="food.value">
-                {{food.viewValue}}
+              <mat-option>
               </mat-option>
             </mat-select>
           </mat-form-field>
@@ -124,215 +118,41 @@
         </agm-marker>
       </agm-map>
     </div>
-    <div class="col-12">
+    <div class="col-12 mt-3">
       <p class="title text-start font-weight-bold">Phòng trọ sạch đẹp > Giá hợp lý > Đầy đủ tiện nghi</p>
     </div>
     <div class="col-12 col-lg-9">
       <div class="row">
-        <div class="col-sm-6 col-lg-4 mt-2">
+        <div class="col-sm-6 col-lg-4 mt-2" *ngFor="let post of posts">
           <div class="card">
             <div class="product-thumb">
-              <a [routerLink]="['post', first]">
-                <img src="https://file4.batdongsan.com.vn/crop/257x147/2019/12/11/20191211153323-83eb_wm.jpg">
+              <a [routerLink]="['post', post.id]">
+                <img
+                  [src]="post.images[0]?.imageUrl ? (PREFIX_URL +  post.images[0].imageUrl ) : (PREFIX_URL + DEFAULT_IMAGE)">
               </a>
-              <span class="product-media" matTooltip="Số lượng ảnh" matTooltipPosition="left">
-                12
+              <span class="product-media text-primary" matTooltip="Số lượng ảnh" matTooltipPosition="left">
                 <fa-icon [icon]="faImage"></fa-icon>
+                {{post.images.length}}
               </span>
             </div>
             <div class="home-product-bound">
               <div class="product-title">
-                <a href="" class="font-weight-bold text-decoration-none">Nhà 4 tầng mới xây 20 phòng tại ngõ 123 Trung
-                  Kính cho thuê khép kín, giá 1,5tr và 1,6tr</a>
+                <a [routerLink]="['post', post.id]" class="font-weight-bold text-decoration-none">
+                  {{post.title}}
+                </a>
               </div>
               <div class="product-price">
                 <fa-icon [icon]="faDollarSign" class="mr-1 text-color-feb800" matTooltip="Giá"></fa-icon>
-                2.5 triệu/tháng
+                {{post.price}} triệu/tháng
               </div>
               <span class="divide-dot">·</span>
-              <div class="product-m2">20 m2</div>
+              <div class="product-m2">{{post.acreage}} m2</div>
               <div class="product-address">
-                <fa-icon [icon]="faMapMarkerAlt" class="mr-1 text-danger" matTooltip="Địa chỉ"></fa-icon>
-                <a href="" title="Cầu Giấy">Cầu Giấy</a>,
-                <a href="" title="Hà Nội">Hà Nội</a>
+                <fa-icon [icon]="faMapMarkerAlt" class="mr-1 text-danger" matTooltip="Dịch vụ"></fa-icon>
+                <span title="Cầu Giấy">{{post.address}}</span>
               </div>
               <div class="product-date">
                 <fa-icon [icon]="faCalendarMinus" class="mr-1" matTooltip="Ngày đăng"></fa-icon>
-                3 ngày trước
-                <span class="tooltip-time">30/10/2020</span>
-              </div>
-              <button mat-icon-button class="product-favorite" matTooltip="Bấm để lưu tin" matTooltipPosition="left">
-                <fa-icon [icon]="faHeart"></fa-icon>
-              </button>
-            </div>
-          </div>
-          <div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4 mt-2">
-          <div class="card">
-            <div class="product-thumb">
-              <a>
-                <img src="https://file4.batdongsan.com.vn/crop/257x147/2019/12/11/20191211153323-83eb_wm.jpg">
-              </a>
-              <span class="product-media" matTooltip="Số lượng ảnh" matTooltipPosition="left">
-                12
-                <fa-icon [icon]="faImage"></fa-icon>
-              </span>
-            </div>
-            <div class="home-product-bound">
-              <div class="product-title">
-                <a href="" class="font-weight-bold text-decoration-none">Nhà 4 tầng mới xây 20 phòng tại ngõ 123 Trung
-                  Kính cho thuê khép kín, giá 1,5tr và 1,6tr</a>
-              </div>
-              <div class="product-price">2.5 triệu/tháng</div>
-              <span class="divide-dot">·</span>
-              <div class="product-m2">20 m2</div>
-              <div class="product-address">
-                <a href="" title="Cầu Giấy">Cầu Giấy</a>,
-                <a href="" title="Hà Nội">Hà Nội</a>
-              </div>
-              <div class="product-date">
-                3 ngày trước
-                <span class="tooltip-time">30/10/2020</span>
-              </div>
-              <button mat-icon-button class="product-favorite" matTooltip="Bấm để lưu tin" matTooltipPosition="left">
-                <fa-icon [icon]="faHeart"></fa-icon>
-              </button>
-            </div>
-          </div>
-          <div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4 mt-2">
-          <div class="card">
-            <div class="product-thumb">
-              <a href="">
-                <img src="https://file4.batdongsan.com.vn/crop/257x147/2019/12/11/20191211153323-83eb_wm.jpg">
-              </a>
-              <span class="product-media" matTooltip="Số lượng ảnh" matTooltipPosition="left">
-                12
-                <fa-icon [icon]="faImage"></fa-icon>
-              </span>
-            </div>
-            <div class="home-product-bound">
-              <div class="product-title">
-                <a href="" class="font-weight-bold text-decoration-none">Nhà 4 tầng mới xây 20 phòng tại ngõ 123 Trung
-                  Kính cho thuê khép kín, giá 1,5tr và 1,6tr</a>
-              </div>
-              <div class="product-price">2.5 triệu/tháng</div>
-              <span class="divide-dot">·</span>
-              <div class="product-m2">20 m2</div>
-              <div class="product-address">
-                <a href="" title="Cầu Giấy">Cầu Giấy</a>,
-                <a href="" title="Hà Nội">Hà Nội</a>
-              </div>
-              <div class="product-date">
-                3 ngày trước
-                <span class="tooltip-time">30/10/2020</span>
-              </div>
-              <button mat-icon-button class="product-favorite" matTooltip="Bấm để lưu tin" matTooltipPosition="left">
-                <fa-icon [icon]="faHeart"></fa-icon>
-              </button>
-            </div>
-          </div>
-          <div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4 mt-2">
-          <div class="card">
-            <div class="product-thumb">
-              <a href="">
-                <img src="https://file4.batdongsan.com.vn/crop/257x147/2019/12/11/20191211153323-83eb_wm.jpg">
-              </a>
-              <span class="product-media" matTooltip="Số lượng ảnh" matTooltipPosition="left">
-                12
-                <fa-icon [icon]="faImage"></fa-icon>
-              </span>
-            </div>
-            <div class="home-product-bound">
-              <div class="product-title">
-                <a href="" class="font-weight-bold text-decoration-none">Nhà 4 tầng mới xây 20 phòng tại ngõ 123 Trung
-                  Kính cho thuê khép kín, giá 1,5tr và 1,6tr</a>
-              </div>
-              <div class="product-price">2.5 triệu/tháng</div>
-              <span class="divide-dot">·</span>
-              <div class="product-m2">20 m2</div>
-              <div class="product-address">
-                <a href="" title="Cầu Giấy">Cầu Giấy</a>,
-                <a href="" title="Hà Nội">Hà Nội</a>
-              </div>
-              <div class="product-date">
-                3 ngày trước
-                <span class="tooltip-time">30/10/2020</span>
-              </div>
-              <button mat-icon-button class="product-favorite" matTooltip="Bấm để lưu tin" matTooltipPosition="left">
-                <fa-icon [icon]="faHeart"></fa-icon>
-              </button>
-            </div>
-          </div>
-          <div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4 mt-2">
-          <div class="card">
-            <div class="product-thumb">
-              <a href="">
-                <img src="https://file4.batdongsan.com.vn/crop/257x147/2019/12/11/20191211153323-83eb_wm.jpg">
-              </a>
-              <span class="product-media" matTooltip="Số lượng ảnh" matTooltipPosition="left">
-                12
-                <fa-icon [icon]="faImage"></fa-icon>
-              </span>
-            </div>
-            <div class="home-product-bound">
-              <div class="product-title">
-                <a href="" class="font-weight-bold text-decoration-none">Nhà 4 tầng mới xây 20 phòng tại ngõ 123 Trung
-                  Kính cho thuê khép kín, giá 1,5tr và 1,6tr</a>
-              </div>
-              <div class="product-price">2.5 triệu/tháng</div>
-              <span class="divide-dot">·</span>
-              <div class="product-m2">20 m2</div>
-              <div class="product-address">
-                <a href="" title="Cầu Giấy">Cầu Giấy</a>,
-                <a href="" title="Hà Nội">Hà Nội</a>
-              </div>
-              <div class="product-date">
-                3 ngày trước
-                <span class="tooltip-time">30/10/2020</span>
-              </div>
-              <button mat-icon-button class="product-favorite" matTooltip="Bấm để lưu tin" matTooltipPosition="left">
-                <fa-icon [icon]="faHeart"></fa-icon>
-              </button>
-            </div>
-          </div>
-          <div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-lg-4 mt-2">
-          <div class="card">
-            <div class="product-thumb">
-              <a href="">
-                <img src="https://file4.batdongsan.com.vn/crop/257x147/2019/12/11/20191211153323-83eb_wm.jpg">
-              </a>
-              <span class="product-media" matTooltip="Số lượng ảnh" matTooltipPosition="left">
-                12
-                <fa-icon [icon]="faImage"></fa-icon>
-              </span>
-            </div>
-            <div class="home-product-bound">
-              <div class="product-title">
-                <a href="" class="font-weight-bold text-decoration-none">Nhà 4 tầng mới xây 20 phòng tại ngõ 123 Trung
-                  Kính cho thuê khép kín, giá 1,5tr và 1,6tr</a>
-              </div>
-              <div class="product-price">2.5 triệu/tháng</div>
-              <span class="divide-dot">·</span>
-              <div class="product-m2">20 m2</div>
-              <div class="product-address">
-                <a href="" title="Cầu Giấy">Cầu Giấy</a>,
-                <a href="" title="Hà Nội">Hà Nội</a>
-              </div>
-              <div class="product-date">
                 3 ngày trước
                 <span class="tooltip-time">30/10/2020</span>
               </div>

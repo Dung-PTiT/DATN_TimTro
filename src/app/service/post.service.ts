@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {AppConfig} from "../util/app-config";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {Observable} from "rxjs";
 
@@ -18,5 +18,14 @@ export class PostService {
 
   createPost(formData: FormData): Observable<any> {
     return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/post/create', formData);
+  }
+
+  getPostById(id: any): Observable<any> {
+    return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/post/get-by-id',
+      {params: new HttpParams().set('id', id)});
+  }
+
+  getAll(): Observable<any> {
+    return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/post/get-all');
   }
 }

@@ -9,11 +9,10 @@ import {
   faSearch
 } from "@fortawesome/free-solid-svg-icons";
 import {FormControl, FormGroup} from "@angular/forms";
-
-interface Food {
-  value: string;
-  viewValue: string;
-}
+import {PostService} from "../../../service/post.service";
+import {Post} from "../../../model/post";
+import {ImageService} from "../../../service/image.service";
+import {AppConfig} from "../../../util/app-config";
 
 @Component({
   selector: 'app-dashboard-client',
@@ -22,7 +21,6 @@ interface Food {
 })
 export class DashboardClientComponent implements OnInit {
 
-  options: string[] = ['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
   faSearch = faSearch;
   faImage = faImage;
@@ -32,29 +30,23 @@ export class DashboardClientComponent implements OnInit {
   faCalendarMinus = faCalendarMinus;
   searchForm: FormGroup;
   markerInfo: MarkerInfo;
+  posts: Array<Post>;
 
-  constructor() {
+  PREFIX_URL = AppConfig.PREFIX_URL;
+  CONTEXT_URL: string;
+  DEFAULT_IMAGE: string = "logo3.png";
+
+  constructor(private postService: PostService, private imageService: ImageService) {
     this.searchForm = new FormGroup({
       searchInp: new FormControl()
     });
+    this.postService.getAll().subscribe(resp => {
+      this.posts = resp.data;
+    });
+
+    this.CONTEXT_URL = "";
+    this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
   }
-
-
-  first: number = 1;
-
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-    {value: 'tacos-3', viewValue: 'Tacos'},
-    {value: 'tacos-4', viewValue: 'Tacos'},
-    {value: 'tacos-5', viewValue: 'Tacos'},
-    {value: 'tacos-6', viewValue: 'Tacos'},
-    {value: 'tacos-7', viewValue: 'Tacos'},
-    {value: 'tacos-8', viewValue: 'Tacos'},
-    {value: 'tacos-9', viewValue: 'Tacos'},
-    {value: 'tacos-10', viewValue: 'Tacos'}
-  ];
 
   ngOnInit() {
     this.markerInfo = new MarkerInfo(20.981149, 105.787480, "./assets/images/marker3.png", "abc");

@@ -41,6 +41,11 @@ public class PostController {
         return new DataResponse<>(true, "OK");
     }
 
+    @GetMapping("/post/get-by-id")
+    public DataResponse<Post> getPostById(@RequestParam("id") Integer id) {
+        return new DataResponse<>(true, postService.getById(id));
+    }
+
     @GetMapping("/post/get-all")
     public DataResponse<List<Post>> getAllProvinces() {
         return new DataResponse<>(true, postService.getAll());

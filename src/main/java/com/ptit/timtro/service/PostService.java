@@ -9,5 +9,7 @@ public interface PostService {
 
     PostEntity create(Post post);
 
+    Post getById(Integer id);
+
     List<Post> getAll();
 }

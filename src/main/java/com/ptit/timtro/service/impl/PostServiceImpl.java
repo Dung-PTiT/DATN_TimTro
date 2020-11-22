@@ -73,6 +73,50 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public Post getById(Integer id) {
+        PostEntity postEntity = postDAO.getById(id);
+        Post post = new Post();
+        post.setId(postEntity.getId());
+        post.setTitle(postEntity.getTitle());
+        post.setContent(postEntity.getContent());
+        post.setPrice(postEntity.getPrice());
+        post.setAcreage(postEntity.getAcreage());
+        post.setView(postEntity.getView());
+        //set address
+        WardEntity wardEntity = postEntity.getWardEntity();
+        DistrictEntity districtEntity = wardEntity.getDistrictEntity();
+        ProvinceEntity provinceEntity = districtEntity.getProvinceEntity();
+        String address = postEntity.getAddress() + ", " + wardEntity.getPrefix() + " " + wardEntity.getName()
+                + ", " + districtEntity.getPrefix() + " " + districtEntity.getName()
+                + ", " + provinceEntity.getName();
+        post.setAddress(address);
+        //end
+        post.setStatus(postEntity.getStatus());
+        post.setLatitude(postEntity.getLatitude());
+        post.setLongitude(postEntity.getLongitude());
+
+        post.setCategory(new Category(
+                postEntity.getCategoryEntity().getId(),
+                postEntity.getCategoryEntity().getName(),
+                postEntity.getCategoryEntity().getDescription(),
+                null
+        ));
+
+        post.setTags(postEntity.getTags().stream().map(tagEntity ->
+                new Tag(tagEntity.getId(),
+                        tagEntity.getName(),
+                        tagEntity.getDescription(),
+                        null))
+                .collect(Collectors.toList()));
+
+        post.setImages(postEntity.getImages().stream().map(imageEntity ->
+                new Image(imageEntity.getId(),
+                        imageEntity.getImageUrl(),
+                        null)).collect(Collectors.toList()));
+        return post;
+    }
+
+    @Override
     public List<Post> getAll() {
         List<PostEntity> postEntities = postDAO.getAll();
         if (postEntities != null) {
@@ -112,6 +156,10 @@ public class PostServiceImpl implements PostService {
                                 null))
                         .collect(Collectors.toList()));
 
+                post.setImages(postEntity.getImages().stream().map(imageEntity ->
+                        new Image(imageEntity.getId(),
+                                imageEntity.getImageUrl(),
+                                null)).collect(Collectors.toList()));
                 return post;
             }).collect(Collectors.toList());
         }

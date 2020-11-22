@@ -7,5 +7,7 @@ import java.util.List;
 public interface PostDAO {
     PostEntity create(PostEntity postEntity);
 
+    PostEntity getById(Integer id);
+
     List<PostEntity> getAll();
 }

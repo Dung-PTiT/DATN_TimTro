@@ -113,6 +113,14 @@ public class PostServiceImpl implements PostService {
                 new Image(imageEntity.getId(),
                         imageEntity.getImageUrl(),
                         null)).collect(Collectors.toList()));
+
+        UserEntity userEntity = postEntity.getUserEntity();
+        User user = new User();
+        user.setId(userEntity.getId());
+        user.setName(userEntity.getName());
+        user.setEmail(userEntity.getEmail());
+        user.setPhoneNumber(userEntity.getPhoneNumber());
+        post.setUser(user);
         return post;
     }
 

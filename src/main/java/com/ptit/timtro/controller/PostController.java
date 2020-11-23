@@ -64,9 +64,9 @@ public class PostController {
             imageService.create(image);
 
             //Save image in folder
-            File uploadDir = new File(fileDir.getFileDir());
+            File uploadDir = new File(fileDir.getFileDir() + postID + "\\");
             uploadDir.mkdirs();
-            String uploadFilePath = fileDir.getFileDir() + "/" + file.getOriginalFilename();
+            String uploadFilePath = fileDir.getFileDir() + "/" + postID + "/" + file.getOriginalFilename();
             byte[] bytes = file.getBytes();
             Path path = Paths.get(uploadFilePath);
             Files.write(path, bytes);

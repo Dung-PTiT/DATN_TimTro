@@ -34,19 +34,20 @@
     "@ngmodule/material-carousel": "^0.6.0",
     "angular-bootstrap-md": "^10.0.0",
     "angular-font-awesome": "^3.1.2",
+    "angular-responsive-carousel": "^1.5.11",
     "angular-socialshare": "^2.3.11",
     "bootstrap": "^4.5.0",
     "bootstrap-select": "^1.13.18",
     "font-awesome": "^4.7.0",
     "httpclient": "^0.1.0",
     "jquery": "^3.5.1",
+    "jwt-decode": "latest",
     "moment": "latest",
     "ngx-cookie-service": "latest",
     "ngx-mat-select-search": "^3.1.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2",
-    "jwt-decode": "latest"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.1001.7",

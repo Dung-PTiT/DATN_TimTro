@@ -128,7 +128,8 @@
             <div class="product-thumb">
               <a [routerLink]="['post', post.id]">
                 <img
-                  [src]="post.images[0]?.imageUrl ? (PREFIX_URL +  post.images[0].imageUrl ) : (PREFIX_URL + DEFAULT_IMAGE)">
+                  [src]="post.images[0]?.imageUrl ?
+                  (PREFIX_URL + '/' + post.id + '/' +  post.images[0].imageUrl ) : (DEFAULT_IMAGE)">
               </a>
               <span class="product-media text-primary" matTooltip="Số lượng ảnh" matTooltipPosition="left">
                 <fa-icon [icon]="faImage"></fa-icon>

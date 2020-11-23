@@ -146,7 +146,7 @@
           </button>
         </div>
         <div>
-          <input type='file' (change)="onSelectFile($event)" multiple>
+          <input type='file' (change)="onSelectFile($event)" multiple accept="image/*">
           <img *ngFor='let url of urls' [src]="url" height="100"> <br/>
         </div>
       </div>

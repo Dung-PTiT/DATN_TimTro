@@ -33,8 +33,8 @@ export class DashboardClientComponent implements OnInit {
   posts: Array<Post>;
 
   PREFIX_URL = AppConfig.PREFIX_URL;
-  CONTEXT_URL: string;
-  DEFAULT_IMAGE: string = "logo3.png";
+  CONTEXT_URL: string = "";
+  DEFAULT_IMAGE: string = "./assets/images/user.jpg";
 
   constructor(private postService: PostService, private imageService: ImageService) {
     this.searchForm = new FormGroup({
@@ -43,8 +43,6 @@ export class DashboardClientComponent implements OnInit {
     this.postService.getAll().subscribe(resp => {
       this.posts = resp.data;
     });
-
-    this.CONTEXT_URL = "";
     this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
   }
 

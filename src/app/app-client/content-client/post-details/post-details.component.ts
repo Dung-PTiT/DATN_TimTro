@@ -36,13 +36,12 @@ export class PostDetailsComponent implements OnInit {
   markerAddress: string = "./assets/images/marker3.png";
 
   PREFIX_URL = AppConfig.PREFIX_URL;
-  CONTEXT_URL: string;
-  DEFAULT_IMAGE: string = "logo3.png";
+  CONTEXT_URL: string = "";
+  DEFAULT_IMAGE: string = "./assets/images/user.jpg";
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private postService: PostService) {
-    this.CONTEXT_URL = "";
     this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
   }
 

@@ -111,7 +111,8 @@
   </mat-card>
   <div class="row pt-3">
     <div class="col-12">
-      <agm-map [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude" [zoom]="13">
+      <agm-map [fullscreenControl]="true" [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude"
+               [zoom]="13">
         <agm-marker [latitude]="markerInfo.latitude"
                     [longitude]="markerInfo.longitude"
                     [iconUrl]="markerInfo.icon">

@@ -11,7 +11,7 @@
         <a href="" class="mat-toolbar-title ml-3"><span>Cho thuê</span></a>
         <a href="" class="mat-toolbar-title ml-3"><span>Nạp tiền</span></a>
         <a href="" class="mat-toolbar-title ml-3"><span>Bảng giá</span></a>
-        <div ngbDropdown container="body">
+        <div ngbDropdown container="body" class="cursor-pointer">
           <span ngbDropdownToggle class="ml-4 text-color-feb800">Đăng nhập | Đăng ký</span>
           <div ngbDropdownMenu class="mt-2">
             <button ngbDropdownItem class="font-size-14" [routerLink]="['/login']">
@@ -24,7 +24,7 @@
             </button>
           </div>
         </div>
-        <div ngbDropdown container="body">
+        <div ngbDropdown container="body" class="cursor-pointer">
           <img ngbDropdownToggle class="ml-3" [matTooltip]="currentUser?.name ? currentUser.name : nameBaseUser"
                matTooltipPosition="below"
                width="30" [src]="currentUser?.imageUrl ? currentUser.imageUrl : userBaseUrl"

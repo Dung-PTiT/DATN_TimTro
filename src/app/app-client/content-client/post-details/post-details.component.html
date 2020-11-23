@@ -1,27 +1,27 @@
 <div class="container mt-4">
   <div class="row mt-2 mb-2">
     <div class="col-12" style="display: flex;">
-      <div class="ml-4 post-menu" (click)="scrollToElement(anh)">
+      <div class="ml-4 post-menu cursor-pointer" (click)="scrollToElement(anh)">
         <span class="post-menu-text">
           <fa-icon class="ml-1 mr-1" [icon]="faImages"></fa-icon>
           Hình ảnh
         </span>
       </div>
-      <div class="ml-4 post-menu" (click)="scrollToElement(thongTinChiTiet)">
+      <div class="ml-4 post-menu cursor-pointer" (click)="scrollToElement(thongTinChiTiet)">
         <span class="post-menu-text">
              <fa-icon class="ml-1 mr-1" [icon]="faAlignRight"></fa-icon>
           Thông tin chi tiết</span>
       </div>
-      <div class="ml-4 post-menu" (click)="scrollToElement(banDo)">
+      <div class="ml-4 post-menu cursor-pointer" (click)="scrollToElement(banDo)">
         <span class="post-menu-text">
-           <fa-icon class="ml-1 mr-1" [icon]="faMapMarkedAlt"></fa-icon>
+           <fa-icon class="ml-1 mr-1" [icon]="faMapMarkerAlt"></fa-icon>
           Xem bản đồ</span>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-12 col-lg-9">
-      <div #anh>
+    <div class="col-12 col-lg-9" style="box-shadow: 0 2px 10px 0 rgba(0,0,0,.1);">
+      <div #anh class="mt-3">
         <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
           <mdb-carousel-item *ngFor="let image of images">
             <div class="view w-100 post-image">
@@ -42,7 +42,6 @@
           {{post?.address ? post.address : ''}}
         </h6>
       </div>
-
       <div class="row pt-4 pb-4 post-header-content">
         <div class="col-4">
           <h6 class="text-grey">Mức giá: </h6>
@@ -75,32 +74,52 @@
         <div class="row">
           <div class="col-12">
             <div>
-              <h6 class="font-weight-bold"> Thông tin mô tả</h6>
-              <div [innerHTML]="post?.content ? post.content: ''"></div>
+              <h6 class="font-weight-bold">
+                <fa-icon [icon]="faBuilding"></fa-icon>
+                Thông tin mô tả
+              </h6>
+              <div class="pl-3 pr-3" [innerHTML]="post?.content ? post.content: ''"></div>
             </div>
           </div>
         </div>
       </div>
       <div #banDo class="row">
         <div class="col-12">
-          <h6 class="font-weight-bold">Xem trên bản đồ</h6>
-          <p>{{post?.address ? post.address : ''}}</p>
+          <h6 class="font-weight-bold">
+            <fa-icon [icon]="faMapMarkerAlt"></fa-icon>
+            Xem trên bản đồ
+          </h6>
+          <p>
+            <span>Địa chỉ cho thuê: </span>
+            <span class="font-weight-bold text-dark">{{post?.address ? post.address : ''}}</span>
+          </p>
+          <div class="form-group">
+            <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
+                   placeholder="Search Nearest Location" autocorrect="off"
+                   autocapitalize="off" spellcheck="off" #search>
+          </div>
+
           <agm-map [latitude]="post?.latitude ? post.latitude : 0"
                    [longitude]="post?.longitude ? post.longitude : 0"
-                   [zoom]="13">
+                   [zoom]="zoom" [fullscreenControl]="true">
+            <agm-direction
+              [origin]="origin" [destination]="destination"
+              [renderOptions]="renderOptions"
+              [markerOptions]="markerOptions">
+            </agm-direction>
             <agm-marker [latitude]="post?.latitude ? post.latitude : 0"
                         [longitude]="post?.longitude ? post.longitude : 0"
-                        [iconUrl]="markerAddress">
+                        [iconUrl]="markerAddress" [markerDraggable]="true"
+                        (dragEnd)="markerDragEnd($event)">
               <agm-info-window
                 [latitude]="post?.latitude ? post.latitude : 0"
                 [longitude]="post?.longitude ? post.longitude : 0">
-                {{post?.address ? post.address : ''}}
+                Địa chỉ: <span class="font-weight-bold text-primary">{{post?.address ? post.address : ''}}</span>
               </agm-info-window>
             </agm-marker>
           </agm-map>
         </div>
       </div>
-
       <div class="row pt-2 pb-2 post-end-content">
         <div class="col-3">
           <h6 class="text-grey">Ngày đăng:</h6>
@@ -119,33 +138,61 @@
           <h6 class="text-grey">1932236</h6>
         </div>
       </div>
-    </div>
-    <div class="col-6 col-lg-3">
-      <div class="profile-user">
-        <div class="profile-info">
-          <div class="profile-image">
-            <img width="50" src="./assets/images/avatar.png" style="border-radius: 30px"/>
+      <div class="row pt-4 pb-4 post-header-content">
+        <div class="col-12 d-flex justify-content-between">
+          <h6 class="text-dark font-weight-bold">Bình luận</h6>
+          <div>
+            <span>6</span>
+            <fa-icon class="ml-2 text-primary" [icon]="faComment"></fa-icon>
           </div>
-          <div class="profile-more">
+        </div>
+        <div class="col-10">
+          <textarea></textarea>
+        </div>
+      </div>
+    </div>
+    <div style="position: relative; display: block; vertical-align: baseline; float: left;}">
+      <div class="col-12 col-lg-3" style="position:fixed; float: left">
+        <div class="profile-user cursor-pointer">
+          <div class="profile-info">
             <div>
-              <div class="profile-name">
-                <b>Trọng Dũng</b>
-              </div>
+              <span>LIÊN HỆ NGAY</span>
+            </div>
+            <!--            <div (click)="router.navigate(['/post/2']);">-->
+            <div>
               <div>
-                <span class="font-weight-bold text-color-feb800">
-                  <fa-icon class="mr-2 text-info" [icon]="faPhone"></fa-icon>
-                  0352464242</span>
-                <button class="ml-4 btn-more bg-white">
-                  <span>Xem thêm</span>
-                </button>
+                <div class="profile-image">
+                  <img width="50" src="./assets/images/avatar.png" style="border-radius: 30px"/>
+                </div>
+                <div class="profile-more">
+                  <div class="profile-name">
+                    <b>{{post?.user ? post.user.name : 'User'}}</b>
+                  </div>
+                </div>
               </div>
             </div>
+            <div>
+              <div>
+                  <span class="font-weight-bold">
+                  <fa-icon class="mr-2 text-info" [icon]="faPhone"></fa-icon>
+                    {{post?.user ? post.user.phoneNumber : 0}}
+                </span>
+              </div>
+              <div class="mt-2">
+                  <span>
+                  <fa-icon class="mr-2 text-danger" [icon]="faEnvelope"></fa-icon>
+                    <a href="mailto:someone@example.com">
+                      {{post?.user ? post.user.email : 'No email'}}
+                    </a>
+                  </span>
+              </div>
+            </div>
+          </div>
+          <div>
           </div>
         </div>
         <div>
         </div>
-      </div>
-      <div>
       </div>
     </div>
   </div>

@@ -13,6 +13,7 @@ import {AuthenticationService} from "../../service/authentication.service";
 import {CookieService} from "ngx-cookie-service";
 import {AppConfig} from "../../util/app-config";
 import {UserPrincipal} from "../../model/UserPrincipal";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-header-client',
@@ -23,7 +24,8 @@ export class HeaderClientComponent implements OnInit {
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
-              private cookieService: CookieService) {
+              private cookieService: CookieService,
+              private http: HttpClient) {
   }
 
   faUpload = faUpload;
@@ -38,6 +40,8 @@ export class HeaderClientComponent implements OnInit {
   nameBaseUser: string = 'Tài khoản';
   userBaseUrl: string = './assets/images/user.jpg';
 
+  USER_SESSION: string = "TimTro";
+
   ngOnInit(): void {
     if (this.cookieService.get(AppConfig.COOKIE_TOKEN_NAME)) {
       this.authenticationService.getCurrentUser().subscribe(resp => {
@@ -48,15 +52,9 @@ export class HeaderClientComponent implements OnInit {
   }
 
   logout() {
-    if (this.cookieService.get(AppConfig.COOKIE_TOKEN_NAME) == '') {
-      location.href = "/";
-    } else {
-      this.authenticationService.logout().subscribe(resp => {
-        this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
-        this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
-        location.href = "/";
-      });
-    }
+    this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
+    this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
+    location.href = "/";
   }
 
   createPost() {

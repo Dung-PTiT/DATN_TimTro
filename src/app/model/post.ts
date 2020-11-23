@@ -1,6 +1,7 @@
 import {Image} from "./image";
 import {Category} from "./Category";
 import {Tag} from "./tag";
+import {UserPrincipal} from "./UserPrincipal";
 
 export class Post {
   id: number;
@@ -16,7 +17,7 @@ export class Post {
   images: Array<Image>;
   category: Category;
   tags: Array<Tag>;
-  // private User user;
+  user: UserPrincipal;
   // private Integer wardId;
   // private List<Comment> comments;
   // private PostVip postVip;

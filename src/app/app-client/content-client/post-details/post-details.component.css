@@ -38,9 +38,8 @@
 
 .profile-user {
   text-align: center;
-  border-radius: 10px;
   margin-bottom: 10px;
-  border: 1px solid #e5e5e5;
+  box-shadow: 0 2px 10px 0 rgba(0,0,0,.1);
 }
 
 .profile-user:hover {
@@ -48,8 +47,7 @@
 }
 
 .profile-info {
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding: 10px 0 10px 0;
   color: #333;
   text-decoration: none;
 }

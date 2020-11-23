@@ -13,7 +13,7 @@
   background: #feb800;
 }
 
-html{
+html {
   scroll-behavior: smooth;
 }
 
@@ -33,10 +33,14 @@ html{
   background-color: #feb800 !important;
 }
 
-.border-color-feb800{
+.border-color-feb800 {
   border: 1px solid #feb800 !important;
 }
 
-.font-size-14{
-  font-size: 14px!important;
+.font-size-14 {
+  font-size: 14px !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }

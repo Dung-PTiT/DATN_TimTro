@@ -21,6 +21,7 @@
   </div>
   <div class="row">
     <div class="col-12 col-lg-9" style="box-shadow: 0 2px 10px 0 rgba(0,0,0,.1);">
+
       <div #anh class="mt-3">
         <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
           <mdb-carousel-item *ngFor="let image of images">
@@ -32,6 +33,7 @@
           </mdb-carousel-item>
         </mdb-carousel>
       </div>
+
       <div #thongTinChiTiet class="post-title" style="margin: 30px 0 30px 0">
         <h5>
           <fa-icon class="mr-2 text-info" [icon]="faHandPointRight"></fa-icon>
@@ -42,6 +44,7 @@
           {{post?.address ? post.address : ''}}
         </h6>
       </div>
+
       <div class="row pt-4 pb-4 post-header-content">
         <div class="col-4">
           <h6 class="text-grey">Mức giá: </h6>
@@ -57,19 +60,20 @@
         </div>
         <div class="col-4" style="display: flex; justify-content: space-around; align-items: center">
           <div>
-            <button class="btn-action">
+            <button class="btn-action" matTooltip="Chia sẻ bài đăng">
               <span class="p-1 pb-0">Chia sẻ</span>
               <fa-icon class="ml-1 text-primary" [icon]="faShare"></fa-icon>
             </button>
           </div>
           <div>
-            <button class="btn-action">
+            <button class="btn-action" matTooltip="Thêm quan tâm">
               <span class="p-1 pb-0">Lưu tin</span>
               <fa-icon class="ml-1 text-danger" [icon]="faHeart"></fa-icon>
             </button>
           </div>
         </div>
       </div>
+
       <div>
         <div class="row">
           <div class="col-12">
@@ -83,7 +87,21 @@
           </div>
         </div>
       </div>
-      <div #banDo class="row">
+
+      <div>
+        <h6 class="font-weight-bold">
+          <fa-icon [icon]="faBuilding"></fa-icon>
+          Tiện ích
+        </h6>
+        <div class="row mt-3 mb-3">
+          <div class="col-3" *ngFor="let tag of (post?.tags ? post.tags : '')">
+            <span>{{tag?.name ? tag.name : 'Không tên'}}</span>
+          </div>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+
+      <div #banDo class="row mt-3">
         <div class="col-12">
           <h6 class="font-weight-bold">
             <fa-icon [icon]="faMapMarkerAlt"></fa-icon>
@@ -93,12 +111,6 @@
             <span>Địa chỉ cho thuê: </span>
             <span class="font-weight-bold text-dark">{{post?.address ? post.address : ''}}</span>
           </p>
-          <div class="form-group">
-            <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
-                   placeholder="Search Nearest Location" autocorrect="off"
-                   autocapitalize="off" spellcheck="off" #search>
-          </div>
-
           <agm-map [latitude]="post?.latitude ? post.latitude : 0"
                    [longitude]="post?.longitude ? post.longitude : 0"
                    [zoom]="zoom" [fullscreenControl]="true">
@@ -109,8 +121,7 @@
             </agm-direction>
             <agm-marker [latitude]="post?.latitude ? post.latitude : 0"
                         [longitude]="post?.longitude ? post.longitude : 0"
-                        [iconUrl]="markerAddress" [markerDraggable]="true"
-                        (dragEnd)="markerDragEnd($event)">
+                        [iconUrl]="markerAddress">
               <agm-info-window
                 [latitude]="post?.latitude ? post.latitude : 0"
                 [longitude]="post?.longitude ? post.longitude : 0">
@@ -120,39 +131,83 @@
           </agm-map>
         </div>
       </div>
+
       <div class="row pt-2 pb-2 post-end-content">
         <div class="col-3">
-          <h6 class="text-grey">Ngày đăng:</h6>
+          <h6 class="text-grey">Ngày tạo:</h6>
           <h6 class="text-grey">10/11/2020</h6>
         </div>
         <div class="col-3">
-          <h6 class="text-grey">Ngày hết hạn:</h6>
+          <h6 class="text-grey">Ngày đăng:</h6>
           <h6 class="text-grey">17/11/2020</h6>
         </div>
         <div class="col-3">
-          <h6 class="text-grey">Loại tin: </h6>
+          <h6 class="text-grey">Ngày hết hạn: </h6>
           <h6 class="text-grey">Tin thường</h6>
         </div>
         <div class="col-3">
-          <h6 class="text-grey">Mã tin: </h6>
+          <h6 class="text-grey">Loại tin: </h6>
           <h6 class="text-grey">1932236</h6>
         </div>
       </div>
+
       <div class="row pt-4 pb-4 post-header-content">
         <div class="col-12 d-flex justify-content-between">
-          <h6 class="text-dark font-weight-bold">Bình luận</h6>
+          <h6 class="text-dark font-weight-bold">Bình luận (11)</h6>
           <div>
             <span>6</span>
             <fa-icon class="ml-2 text-primary" [icon]="faComment"></fa-icon>
           </div>
         </div>
-        <div class="col-10">
-          <textarea></textarea>
+        <div class="col-12 mt-2">
+          <div class="md-form d-flex align-items-center">
+            <textarea id="form7" class="md-textarea md-textarea-auto form-control" mdbInput></textarea>
+            <label for="form7" class="ml-2 mb-0 float-right" matTooltip="Gửi" matTooltipPosition="below">
+              <button mat-button style="border: 1px solid #dcdcdc; border-radius: 10px">
+                <fa-icon [icon]="faPaperPlane" class="text-primary"></fa-icon>
+              </button>
+            </label>
+          </div>
         </div>
+
+        <div class="col-12 mt-3">
+          <div class="user-comment">
+            <span class="user-icon">D</span>
+          </div>
+          <div class="content-comment">
+            <div class="content-comment-full">
+              <span>
+                <span class="user-name">Do Trong Dung</span>
+                Hoan hô Ngài John Kerry đã trở lại chính trường...một chính khách Mỹ rất có thiện cảm với đất nước VIỆT NAM!
+              </span>
+            </div>
+            <div class="content-comment-action d-flex justify-content-between">
+              <div class="d-flex">
+                <p class="cursor-pointer">
+                  Trả lời
+                  <fa-icon [icon]="faReply" class="text-primary ml-1"></fa-icon>
+                </p>
+                <p class="d-flex ml-3 cursor-pointer">
+                  Chỉnh sửa
+                  <fa-icon [icon]="faPencilAlt" class="text-grey ml-1"></fa-icon>
+                </p>
+                <p class="d-flex ml-3 cursor-pointer">
+                  Xóa
+                  <fa-icon [icon]="faTrashAlt" class="text-danger ml-1"></fa-icon>
+                </p>
+              </div>
+              <div class="d-flex">
+                <fa-icon [icon]="faCalenderAlt"></fa-icon>
+                <p class="ml-2">24/11/2020</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
     <div style="position: relative; display: block; vertical-align: baseline; float: left;}">
-      <div class="col-12 col-lg-3" style="position:fixed; float: left">
+      <div class="col-12 col-lg-3" style="position:fixed; float: left; max-width: 22%">
         <div class="profile-user cursor-pointer">
           <div class="profile-info">
             <div>

@@ -1,9 +1,11 @@
-import {Injectable} from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import {CookieService} from "ngx-cookie-service";
 import {AppConfig} from "../util/app-config";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import * as moment from "../login/login.component";
+import {Router} from "@angular/router";
+import {AngularFireAuth} from "@angular/fire/auth";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,11 @@ export class AuthenticationService {
   PREFIX_URL = AppConfig.PREFIX_URL;
   CONTEXT_URL: string;
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
+  constructor(private http: HttpClient,
+              private cookieService: CookieService,
+              // public afAuth: AngularFireAuth,
+              public router: Router,
+              public ngZone: NgZone) {
     this.CONTEXT_URL = "/auth";
   }
 

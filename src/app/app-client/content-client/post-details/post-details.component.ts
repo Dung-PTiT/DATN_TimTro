@@ -2,12 +2,12 @@ import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MarkerInfo} from "../dashboard-client/dashboard-client.component";
 import {
-  faAlignRight, faBuilding, faComment, faEnvelope, faHandPointRight,
+  faAlignRight, faBuilding, faCalendarAlt, faComment, faEllipsisV, faEnvelope, faHandPointRight,
   faHeart,
   faImages,
   faMapMarkedAlt,
-  faMapMarkerAlt, faPhone,
-  faShare
+  faMapMarkerAlt, faPaperPlane, faPencilAlt, faPhone, faReply,
+  faShare, faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import {PostService} from "../../../service/post.service";
 import {AppConfig} from "../../../util/app-config";
@@ -33,6 +33,11 @@ export class PostDetailsComponent implements OnInit {
   faEnvelope = faEnvelope;
   faBuilding = faBuilding;
   faComment = faComment;
+  faPaperPlane = faPaperPlane;
+  faCalenderAlt = faCalendarAlt;
+  faReply = faReply;
+  faPencilAlt = faPencilAlt;
+  faTrashAlt = faTrashAlt;
 
   id: number;
   markerInfo: MarkerInfo;
@@ -52,8 +57,8 @@ export class PostDetailsComponent implements OnInit {
   CONTEXT_URL: string = "";
   DEFAULT_IMAGE: string = "./assets/images/user.jpg";
 
-  @ViewChild('search')
-  public searchElementRef: ElementRef;
+  // @ViewChild('search')
+  // public searchElementRef: ElementRef;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -65,40 +70,16 @@ export class PostDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.zoom = 13;
-
-    //load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder;
-
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-
-          //set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
-        });
-      });
-    });
-
     this.route.params.subscribe((params: Params) => {
       this.id = params['id'];
       this.postService.getPostById(this.id).subscribe(resp => {
         this.post = resp.data;
         this.images = this.post.images;
-        this.origin = {lat: 21.04680262648055, lng: 105.79224315416015};
-        this.destination = {lat: this.post.latitude, lng: this.post.longitude};
+        this.setCurrentLocation(this.post);
       });
+      // this.setCurrentLocation(this.post);
     });
+
   }
 
   public renderOptions = {
@@ -116,42 +97,35 @@ export class PostDetailsComponent implements OnInit {
   }
 
   // Get Current Location Coordinates
-  private setCurrentLocation() {
+  private setCurrentLocation(post) {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.latitude = position.coords.latitude;
         this.longitude = position.coords.longitude;
-        this.zoom = 8;
-        this.getAddress(this.latitude, this.longitude);
+        this.zoom = 12;
+        this.origin = {lat: this.latitude, lng: this.longitude};
+        this.destination = {lat: post.latitude, lng: post.longitude};
+        // this.getAddress(this.latitude, this.longitude);
       });
     }
   }
 
-
-  markerDragEnd(event) {
-    console.log(event);
-    this.latitude = event.coords.lat;
-    this.longitude = event.coords.lng;
-    this.getAddress(this.latitude, this.longitude);
-  }
-
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode({'location': {lat: latitude, lng: longitude}}, (results, status) => {
-      console.log(results);
-      console.log(status);
-      if (status === 'OK') {
-        if (results[0]) {
-          this.zoom = 12;
-          this.address = results[0].formatted_address;
-        } else {
-          window.alert('No results found');
-        }
-      } else {
-        window.alert('Geocoder failed due to: ' + status);
-      }
-
-    });
-  }
+  // getAddress(latitude, longitude) {
+  //   this.geoCoder.geocode({'location': {lat: latitude, lng: longitude}}, (results, status) => {
+  //     console.log(results);
+  //     if (status === 'OK') {
+  //       if (results[0]) {
+  //         this.zoom = 12;
+  //         this.address = results[0].formatted_address;
+  //       } else {
+  //         window.alert('No results found');
+  //       }
+  //     } else {
+  //       window.alert('Geocoder failed due to: ' + status);
+  //     }
+  //
+  //   });
+  // }
 }
 
 

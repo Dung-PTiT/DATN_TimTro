@@ -39,7 +39,7 @@
 .profile-user {
   text-align: center;
   margin-bottom: 10px;
-  box-shadow: 0 2px 10px 0 rgba(0,0,0,.1);
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1);
 }
 
 .profile-user:hover {
@@ -91,13 +91,15 @@ agm-map {
 .btn-action {
   font-size: 16px;
   border-radius: 10px;
-  border: 1px solid #fe9900;
+  border: none;
   background-color: #ffffff;
 }
 
 .btn-action:hover {
-  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .3);
+  font-style: italic;
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .2);
   background-color: rgba(221, 240, 255, 0.21) !important;
+  color: #fe9900;
 }
 
 .text-grey {
@@ -125,7 +127,55 @@ agm-map {
 
 .post-end-content {
   margin: 20px 0 20px 0;
-  border: 1px solid #e5e5e5;
   text-align: center;
-  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .3);
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, .1);
+}
+
+.user-comment {
+  position: relative;
+  float: left;
+}
+
+.user-icon {
+  float: left;
+  width: 36px;
+  height: 36px;
+  background: #E5E5E5;
+  line-height: 36px;
+  text-align: center;
+  color: #fff !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 18px !important;
+  border-radius: 50%;
+}
+
+.user-name {
+  color: #04416D;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.content-comment {
+  padding: 0 0 0 46px;
+  margin-top: 0;
+}
+
+.content-comment-full {
+  line-height: 150%;
+}
+
+.content-comment-action {
+  text-align: left;
+  padding: 0;
+  font-size: 13px;
+  position: relative;
+  margin-top: 10px;
+}
+
+.content-comment-action p:hover {
+  text-decoration: none;
+  color: #feb800;
+  font-style: italic;
+  font-weight: lighter;
 }

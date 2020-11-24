@@ -4,7 +4,7 @@ import {CommonModule} from '@angular/common';
 import {ContentClientRoutingModule} from './content-client-routing.module';
 import {ContentClientComponent} from "./content-client.component";
 import {DashboardClientComponent} from "./dashboard-client/dashboard-client.component";
-import {ButtonsModule, CarouselModule, WavesModule} from "angular-bootstrap-md";
+import {ButtonsModule, CarouselModule, InputsModule, WavesModule} from "angular-bootstrap-md";
 import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -44,13 +44,14 @@ import {AgmDirectionModule} from "agm-direction";
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCu8BQn5PRVzfQ6-_dgpUQRIqej_CTY2Qc',
       // ,
-      language: 'vn',
-      libraries: ['geometry', 'places']
+      // language: 'vn',
+      // libraries: ['geometry', 'places']
     }),
     WavesModule,
     MatCarouselModule,
     ButtonsModule,
-    AgmDirectionModule
+    AgmDirectionModule,
+    InputsModule
   ]
 })
 export class ContentClientModule {

@@ -95,24 +95,20 @@ public class PostServiceImpl implements PostService {
         post.setLatitude(postEntity.getLatitude());
         post.setLongitude(postEntity.getLongitude());
 
-        post.setCategory(new Category(
-                postEntity.getCategoryEntity().getId(),
-                postEntity.getCategoryEntity().getName(),
-                postEntity.getCategoryEntity().getDescription(),
-                null
-        ));
+        post.setCategory(
+                new Category(postEntity.getCategoryEntity().getId(), postEntity.getCategoryEntity().getName(),
+                        postEntity.getCategoryEntity().getDescription(), null)
+        );
 
-        post.setTags(postEntity.getTags().stream().map(tagEntity ->
-                new Tag(tagEntity.getId(),
-                        tagEntity.getName(),
-                        tagEntity.getDescription(),
-                        null))
+        post.setTags(postEntity.getTags().stream().map(
+                tagEntity ->
+                        new Tag(tagEntity.getId(), tagEntity.getName(), tagEntity.getDescription(), null))
                 .collect(Collectors.toList()));
 
-        post.setImages(postEntity.getImages().stream().map(imageEntity ->
-                new Image(imageEntity.getId(),
-                        imageEntity.getImageUrl(),
-                        null)).collect(Collectors.toList()));
+        post.setImages(postEntity.getImages().stream().map(
+                imageEntity ->
+                        new Image(imageEntity.getId(), imageEntity.getImageUrl(), null))
+                .collect(Collectors.toList()));
 
         UserEntity userEntity = postEntity.getUserEntity();
         User user = new User();
@@ -121,6 +117,26 @@ public class PostServiceImpl implements PostService {
         user.setEmail(userEntity.getEmail());
         user.setPhoneNumber(userEntity.getPhoneNumber());
         post.setUser(user);
+
+        List<CommentEntity> commentEntities = postEntity.getComments();
+        post.setComments(commentEntities.stream().map(
+                commentEntity -> {
+                    Comment comment = new Comment();
+                    comment.setId(commentEntity.getId());
+                    comment.setContent(commentEntity.getContent());
+                    comment.setCreateTime(commentEntity.getCreateTime());
+
+                    UserEntity userEntityComment = commentEntity.getUserEntity();
+                    User userComment = new User();
+                    userComment.setId(userEntityComment.getId());
+                    userComment.setName(userEntityComment.getName());
+                    userComment.setImageUrl(userEntityComment.getImageUrl());
+                    comment.setUser(userComment);
+
+                    comment.setPost(null);
+                    return comment;
+                }
+        ).collect(Collectors.toList()));
         return post;
     }
 

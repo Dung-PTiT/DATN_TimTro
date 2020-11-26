@@ -61,6 +61,7 @@ public class AuthController {
     public DataResponse<AuthenticatedUserInfo> getAuthenticatedUserInfo() {
         UserPrincipal userPrincipal = AdvancedSecurityContextHolder.getUserPrincipal();
         AuthenticatedUserInfo userInfo = new AuthenticatedUserInfo();
+        userInfo.setId(userPrincipal.getId());
         userInfo.setName(userPrincipal.getName());
         userInfo.setUsername(userPrincipal.getUsername());
         userInfo.setImageUrl(userPrincipal.getImageUrl());

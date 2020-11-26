@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,9 +23,10 @@ public class CommentEntity {
     @Column(name = "content", nullable = false, columnDefinition = "blob")
     private String content;
 
-    @Column(name = "create_time", nullable = false)
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    @Column(name = "create_time", nullable = false)
+    private Date createTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)

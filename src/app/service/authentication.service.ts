@@ -3,23 +3,19 @@ import {CookieService} from "ngx-cookie-service";
 import {AppConfig} from "../util/app-config";
 import {Observable} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import * as moment from "../login/login.component";
 import {Router} from "@angular/router";
-import {AngularFireAuth} from "@angular/fire/auth";
+import {MainService} from "./main.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
-
-  PREFIX_URL = AppConfig.PREFIX_URL;
-  CONTEXT_URL: string;
+export class AuthenticationService extends MainService {
 
   constructor(private http: HttpClient,
               private cookieService: CookieService,
-              // public afAuth: AngularFireAuth,
               public router: Router,
               public ngZone: NgZone) {
+    super();
     this.CONTEXT_URL = "/auth";
   }
 
@@ -35,7 +31,7 @@ export class AuthenticationService {
     return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/logout');
   }
 
-  isLogin() {
+  checkLogin() {
     if (this.cookieService.get(AppConfig.COOKIE_TOKEN_NAME)) {
       if (this.cookieService.get(AppConfig.COOKIE_ROLE_ACCOUNT)) {
         return true;

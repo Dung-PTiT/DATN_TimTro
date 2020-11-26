@@ -13,7 +13,7 @@ import {District} from "../../../../../model/address/District";
 import {Ward} from "../../../../../model/address/Ward";
 import {ChangeEvent} from "@ckeditor/ckeditor5-angular";
 import {CategoryService} from "../../../../../service/category.service";
-import {Category} from "../../../../../model/Category";
+import {Category} from "../../../../../model/category";
 import {TagService} from "../../../../../service/tag.service";
 import {Tag} from "../../../../../model/tag";
 import {faCoffee, faTrash} from "@fortawesome/free-solid-svg-icons";

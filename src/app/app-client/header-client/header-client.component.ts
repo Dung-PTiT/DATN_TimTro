@@ -12,7 +12,7 @@ import {
 import {AuthenticationService} from "../../service/authentication.service";
 import {CookieService} from "ngx-cookie-service";
 import {AppConfig} from "../../util/app-config";
-import {UserPrincipal} from "../../model/UserPrincipal";
+import {User} from "../../model/user";
 import {HttpClient} from "@angular/common/http";
 
 @Component({
@@ -36,7 +36,7 @@ export class HeaderClientComponent implements OnInit {
   faSignOutAlt = faSignOutAlt;
   faComments = faComments;
   faMoneyCheckAlt = faMoneyCheckAlt;
-  currentUser: UserPrincipal;
+  currentUser: User;
   nameBaseUser: string = 'Tài khoản';
   userBaseUrl: string = './assets/images/user.jpg';
 
@@ -45,7 +45,7 @@ export class HeaderClientComponent implements OnInit {
   ngOnInit(): void {
     if (this.cookieService.get(AppConfig.COOKIE_TOKEN_NAME)) {
       this.authenticationService.getCurrentUser().subscribe(resp => {
-        this.currentUser = resp.data as UserPrincipal;
+        this.currentUser = resp.data as User;
       }, error => {
       });
     }
@@ -54,7 +54,7 @@ export class HeaderClientComponent implements OnInit {
   logout() {
     this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
     this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
-    location.href = "/";
+    location.replace("/");
   }
 
   createPost() {

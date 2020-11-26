@@ -1,19 +1,21 @@
-import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MarkerInfo} from "../dashboard-client/dashboard-client.component";
 import {
-  faAlignRight, faBuilding, faCalendarAlt, faComment, faEllipsisV, faEnvelope, faHandPointRight,
-  faHeart,
-  faImages,
-  faMapMarkedAlt,
-  faMapMarkerAlt, faPaperPlane, faPencilAlt, faPhone, faReply,
-  faShare, faTrashAlt
+  faAlignRight, faBuilding, faCalendarAlt, faComment, faEnvelope,
+  faHandPointRight, faHeart, faImages, faMapMarkedAlt, faMapMarkerAlt,
+  faPaperPlane, faPencilAlt, faPhone, faReply, faShare, faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import {PostService} from "../../../service/post.service";
 import {AppConfig} from "../../../util/app-config";
 import {Post} from "../../../model/post";
 import {Image} from "../../../model/image";
 import {MapsAPILoader} from "@agm/core";
+import {AuthenticationService} from "../../../service/authentication.service";
+import {FormControl} from "@angular/forms";
+import {CommentService} from "../../../service/comment.service";
+import * as moment from 'moment';
+import {User} from "../../../model/user";
 
 @Component({
   selector: 'app-post-details',
@@ -21,35 +23,19 @@ import {MapsAPILoader} from "@agm/core";
   styleUrls: ['./post-details.component.css']
 })
 export class PostDetailsComponent implements OnInit {
-
-  faShare = faShare;
-  faHeart = faHeart;
-  faImages = faImages;
-  faAlignRight = faAlignRight;
-  faHandPointRight = faHandPointRight;
-  faPhone = faPhone;
-  faMapMarkedAlt = faMapMarkedAlt;
-  faMapMarkerAlt = faMapMarkerAlt;
-  faEnvelope = faEnvelope;
-  faBuilding = faBuilding;
-  faComment = faComment;
-  faPaperPlane = faPaperPlane;
-  faCalenderAlt = faCalendarAlt;
-  faReply = faReply;
-  faPencilAlt = faPencilAlt;
-  faTrashAlt = faTrashAlt;
-
   id: number;
   markerInfo: MarkerInfo;
   post: Post;
   images: Array<Image>;
+  comments: Array<Comment>;
   markerAddress: string = "./assets/images/marker3.png";
   zoom: number;
   latitude: number;
   longitude: number;
   address: string;
-  private geoCoder;
+  user: User;
 
+  private geoCoder;
   public origin: any;
   public destination: any;
 
@@ -57,29 +43,38 @@ export class PostDetailsComponent implements OnInit {
   CONTEXT_URL: string = "";
   DEFAULT_IMAGE: string = "./assets/images/user.jpg";
 
+  commentCtrl: FormControl = new FormControl();
+
   // @ViewChild('search')
   // public searchElementRef: ElementRef;
 
   constructor(private router: Router,
-              private route: ActivatedRoute,
+              private activatedRoute: ActivatedRoute,
               private postService: PostService,
               private mapsAPILoader: MapsAPILoader,
-              private ngZone: NgZone) {
+              private ngZone: NgZone,
+              private authenticationService: AuthenticationService,
+              private commentService: CommentService) {
     this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
   }
 
   ngOnInit(): void {
+    if (this.authenticationService.checkLogin()) {
+      this.authenticationService.getCurrentUser().subscribe(resp => {
+        this.user = resp.data;
+      });
+    }
     this.zoom = 13;
-    this.route.params.subscribe((params: Params) => {
+    this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params['id'];
       this.postService.getPostById(this.id).subscribe(resp => {
         this.post = resp.data;
         this.images = this.post.images;
+        this.getCommentByPostId(this.post.id);
         this.setCurrentLocation(this.post);
       });
       // this.setCurrentLocation(this.post);
     });
-
   }
 
   public renderOptions = {
@@ -126,6 +121,58 @@ export class PostDetailsComponent implements OnInit {
   //
   //   });
   // }
+
+  createComment() {
+    if (this.authenticationService.checkLogin()) {
+      this.commentService.createComment(this.commentCtrl.value, this.post.id).subscribe(resp => {
+        this.commentService.getCommentByPostId(this.post.id).subscribe(resp => {
+          this.comments = resp.data;
+          this.commentCtrl.setValue('');
+        });
+      });
+    }
+  }
+
+  deleteComment(commentId) {
+    if (this.authenticationService.checkLogin()) {
+      this.commentService.deleteComment(commentId).subscribe(resp => {
+        this.commentService.getCommentByPostId(this.post.id).subscribe(resp => {
+          this.comments = resp.data;
+        });
+      });
+    }
+  }
+
+  getCommentByPostId(postId) {
+    this.commentService.getCommentByPostId(postId).subscribe(resp => {
+      this.comments = resp.data;
+    });
+  }
+
+  timespan(time: Date) {
+    return moment(time).startOf("second").fromNow();
+  }
+
+  checkLogin() {
+    return this.authenticationService.checkLogin();
+  }
+
+  faShare = faShare;
+  faHeart = faHeart;
+  faImages = faImages;
+  faAlignRight = faAlignRight;
+  faHandPointRight = faHandPointRight;
+  faPhone = faPhone;
+  faMapMarkedAlt = faMapMarkedAlt;
+  faMapMarkerAlt = faMapMarkerAlt;
+  faEnvelope = faEnvelope;
+  faBuilding = faBuilding;
+  faComment = faComment;
+  faPaperPlane = faPaperPlane;
+  faCalenderAlt = faCalendarAlt;
+  faReply = faReply;
+  faPencilAlt = faPencilAlt;
+  faTrashAlt = faTrashAlt;
 }
 
 

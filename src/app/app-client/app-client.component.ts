@@ -14,7 +14,7 @@ export class AppClientComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authenticationService.isLogin();
+    this.authenticationService.checkLogin();
   }
 
 }

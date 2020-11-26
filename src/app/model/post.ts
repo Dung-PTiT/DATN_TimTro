@@ -1,7 +1,7 @@
 import {Image} from "./image";
-import {Category} from "./Category";
+import {Category} from "./category";
 import {Tag} from "./tag";
-import {UserPrincipal} from "./UserPrincipal";
+import {User} from "./user";
 
 export class Post {
   id: number;
@@ -17,10 +17,8 @@ export class Post {
   images: Array<Image>;
   category: Category;
   tags: Array<Tag>;
-  user: UserPrincipal;
+  user: User;
+  comments: Array<Comment>;
   // private Integer wardId;
-  // private List<Comment> comments;
   // private PostVip postVip;
-  // private List<Tag> tags;
-  // private MultipartFile[] files;
 }

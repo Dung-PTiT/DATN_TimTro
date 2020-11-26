@@ -170,12 +170,11 @@ agm-map {
   padding: 0;
   font-size: 13px;
   position: relative;
-  margin-top: 10px;
 }
 
 .content-comment-action p:hover {
   text-decoration: none;
   color: #feb800;
   font-style: italic;
-  font-weight: lighter;
+  font-weight: bold;
 }

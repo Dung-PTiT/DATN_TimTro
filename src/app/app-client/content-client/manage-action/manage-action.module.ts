@@ -9,6 +9,7 @@ import {ManagePostModule} from "./manage-post/manage-post.module";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatButtonModule} from "@angular/material/button";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
     ManageActionRoutingModule,
     MatTabsModule,
     MatButtonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatTooltipModule
   ]
 })
 export class ManageActionModule {

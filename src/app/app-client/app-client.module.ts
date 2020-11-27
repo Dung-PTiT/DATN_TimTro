@@ -40,6 +40,7 @@ import {RegisterComponent} from "../register/register.component";
 import {ContentClientModule} from "./content-client/content-client.module";
 import {ManageActionComponent} from './content-client/manage-action/manage-action.component';
 import {ManageActionModule} from "./content-client/manage-action/manage-action.module";
+import {MatBadgeModule} from "@angular/material/badge";
 
 
 @NgModule({
@@ -85,7 +86,8 @@ import {ManageActionModule} from "./content-client/manage-action/manage-action.m
     MatTooltipModule,
     MatListModule,
     ContentClientModule,
-    ManageActionModule
+    ManageActionModule,
+    MatBadgeModule
   ]
 })
 export class AppClientModule {

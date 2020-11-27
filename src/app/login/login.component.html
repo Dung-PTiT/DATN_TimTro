@@ -3,8 +3,20 @@
   <div class="row pt-4 pl-3 pr-3">
     <div class="col-5 pl-0">
       <form class="text-center" [formGroup]="loginForm" (submit)="login()">
-        <input type="text" class="form-control mb-4" placeholder="Tên đăng nhập" formControlName="inputUsername" style="font-size: 13px;">
-        <input type="password" class="form-control mb-4" placeholder="Mật khẩu" formControlName="inputPassword" style="font-size: 13px;">
+        <div class="mb-4">
+          <input type="text" class="form-control mb-1" placeholder="Tên đăng nhập" formControlName="inputUsername"
+                 style="font-size: 13px;" [ngClass]="{ 'is-invalid': submitted && validator.inputUsername?.errors}">
+          <div *ngIf="submitted && validator.inputUsername?.errors?.required" class="invalid-feedback">
+            Username không để trống
+          </div>
+        </div>
+        <div class="mb-4">
+          <input type="password" class="form-control" placeholder="Mật khẩu" formControlName="inputPassword"
+                 style="font-size: 13px;" [ngClass]="{ 'is-invalid': submitted && validator.inputPassword?.errors}">
+          <div *ngIf="submitted && validator.inputPassword?.errors?.required" class="invalid-feedback">
+            Password không để trống
+          </div>
+        </div>
         <div style="text-align: end">
           <a href="" style="font-size: 13px">Quên tài khoản?</a>
         </div>

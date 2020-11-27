@@ -8,5 +8,6 @@ export class User {
   email: string;
   phoneNumber: number;
   role: Role;
+  createTime: string;
 }
 

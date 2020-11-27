@@ -49,3 +49,24 @@
   color: #feb800;
   text-decoration: none;
 }
+
+.btn-favorite{
+
+}
+
+.btn-favorite{
+  outline: none;
+  box-shadow: none;
+}
+
+.number-favorite{
+  position: absolute;
+  line-height: 10px;
+  font-weight: bold;
+  font-size: 11px;
+  top: 9px;
+  right: 7px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  color: #ffffff;
+}

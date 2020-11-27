@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
         userEntity.setUsername(user.getUsername());
         userEntity.setAuthProvider(user.getAuthProvider());
         userEntity.setRole(Role.MEMBER);
+        userEntity.setCreateTime(user.getCreateTime());
         userDAO.create(userEntity);
     }
 
@@ -44,6 +45,7 @@ public class UserServiceImpl implements UserService {
         user.setName(userEntity.getName());
         user.setEmail(userEntity.getEmail());
         user.setRole(userEntity.getRole().getAuthorityName());
+        user.setCreateTime(userEntity.getCreateTime());
         return user;
     }
 
@@ -58,6 +60,7 @@ public class UserServiceImpl implements UserService {
             user.setId(userEntity.getId());
             user.setName(userEntity.getName());
             user.setEmail(userEntity.getEmail());
+            user.setCreateTime(userEntity.getCreateTime());
             return user;
         }).collect(Collectors.toList());
     }

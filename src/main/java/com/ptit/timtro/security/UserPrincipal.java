@@ -8,10 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 @Setter
@@ -24,6 +21,7 @@ public class UserPrincipal implements UserDetails, OAuth2User {
     private String name;
     private Boolean vip;
     private String imageUrl;
+    private Date createTime;
     private Collection<? extends GrantedAuthority> authorities;
     private Map<String, Object> attributes;
 
@@ -34,6 +32,7 @@ public class UserPrincipal implements UserDetails, OAuth2User {
         userPrincipal.setPassword(userEntity.getPassword());
         userPrincipal.setName(userEntity.getName());
         userPrincipal.setEmail(userEntity.getEmail());
+        userPrincipal.setCreateTime(userEntity.getCreateTime());
         if (userEntity.getImageUrl() != null) userPrincipal.setImageUrl(userEntity.getImageUrl());
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(userEntity.getRole().getAuthorityName()));

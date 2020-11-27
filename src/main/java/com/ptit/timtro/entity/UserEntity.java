@@ -8,9 +8,11 @@ import com.ptit.timtro.security.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -57,6 +59,11 @@ public class UserEntity {
 
     @Column(name = "phone_number")
     private Integer phoneNumber;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time", nullable = false)
+    private Date createTime;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
     private List<PostEntity> posts;

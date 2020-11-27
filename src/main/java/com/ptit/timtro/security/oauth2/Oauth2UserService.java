@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -76,6 +77,9 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
         userEntity.setEmail(oAuth2UserInfo.getEmail());
         userEntity.setImageUrl(oAuth2UserInfo.getImageUrl());
         userEntity.setRole(Role.MEMBER);
+        
+        Date date = new Date();
+        userEntity.setCreateTime(date);
         return userDAO.create(userEntity);
     }
 

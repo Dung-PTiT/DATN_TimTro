@@ -66,6 +66,7 @@ public class AuthController {
         userInfo.setUsername(userPrincipal.getUsername());
         userInfo.setImageUrl(userPrincipal.getImageUrl());
         userInfo.setRole(userPrincipal.getAuthorities().stream().findFirst().get().toString());
+        userInfo.setCreateTime(userPrincipal.getCreateTime());
         return new DataResponse<>(true, userInfo);
     }
 

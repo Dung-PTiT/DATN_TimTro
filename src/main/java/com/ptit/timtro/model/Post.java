@@ -29,6 +29,7 @@ public class Post {
     private String wardStr;
     private Ward ward;
     private List<Comment> comments;
+    private List<Favorite> favorites;
     private String categoryStr;
     private Category category;
     private String tagsStr;

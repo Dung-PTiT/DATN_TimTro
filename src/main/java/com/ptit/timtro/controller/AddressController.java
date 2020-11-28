@@ -21,22 +21,43 @@ public class AddressController {
 
     @GetMapping("/address/province/get-all")
     public DataResponse<List<Province>> getAllProvinces() {
-        return new DataResponse<>(true, provinceService.getAll());
+        try {
+            return new DataResponse<>(true, provinceService.getAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
     }
 
     @GetMapping("/address/province/get-by-id")
     public DataResponse<Province> getProvinceById(@RequestParam("id") Integer id) {
-        return new DataResponse<>(true, provinceService.getById(id));
+        try {
+            return new DataResponse<>(true, provinceService.getById(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
     }
 
     @GetMapping("/address/district/get-all")
     public DataResponse<List<District>> getAllDistricts() {
-        return new DataResponse<>(true, districtService.getAll());
+        try {
+            return new DataResponse<>(true, districtService.getAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
     }
 
     @GetMapping("/address/district/get-by-id")
     public DataResponse<District> getDistrictById(@RequestParam("id") Integer id) {
-        return new DataResponse<>(true, districtService.getById(id));
+        try {
+            return new DataResponse<>(true, districtService.getById(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
+
     }
 }
 

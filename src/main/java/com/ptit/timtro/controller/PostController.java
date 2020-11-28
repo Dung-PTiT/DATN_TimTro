@@ -32,44 +32,58 @@ public class PostController {
 
     @PostMapping("/post/create")
     public DataResponse<String> create(@ModelAttribute Post post) {
-        PostEntity postEntity = postService.create(post);
         try {
+            PostEntity postEntity = postService.create(post);
             saveImage(post.getFiles(), postEntity.getId());
-        } catch (IOException e) {
+            return new DataResponse<>(true, "OK");
+        } catch (Exception e) {
             e.printStackTrace();
+            return new DataResponse<>(false, "Error");
         }
-        return new DataResponse<>(true, "OK");
     }
 
     @GetMapping("/post/get-by-id")
     public DataResponse<Post> getPostById(@RequestParam("id") Integer id) {
-        return new DataResponse<>(true, postService.getById(id));
+        try {
+            return new DataResponse<>(true, postService.getById(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
     }
 
     @GetMapping("/post/get-all")
     public DataResponse<List<Post>> getAllProvinces() {
-        return new DataResponse<>(true, postService.getAll());
+        try {
+            return new DataResponse<>(true, postService.getAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
     }
 
     // Save Files
     private void saveImage(MultipartFile[] files, Integer postID) throws IOException {
-        for (MultipartFile file : files) {
+        try {
+            for (MultipartFile file : files) {
+                //Insert to image table
+                Image image = new Image();
+                image.setImageUrl(file.getOriginalFilename());
+                Post post1 = new Post();
+                post1.setId(postID);
+                image.setPost(post1);
+                imageService.create(image);
 
-            //Insert to image table
-            Image image = new Image();
-            image.setImageUrl(file.getOriginalFilename());
-            Post post1 = new Post();
-            post1.setId(postID);
-            image.setPost(post1);
-            imageService.create(image);
-
-            //Save image in folder
-            File uploadDir = new File(fileDir.getFileDir() + postID + "\\");
-            uploadDir.mkdirs();
-            String uploadFilePath = fileDir.getFileDir() + "/" + postID + "/" + file.getOriginalFilename();
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(uploadFilePath);
-            Files.write(path, bytes);
+                //Save image in folder
+                File uploadDir = new File(fileDir.getFileDir() + postID + "\\");
+                uploadDir.mkdirs();
+                String uploadFilePath = fileDir.getFileDir() + "/" + postID + "/" + file.getOriginalFilename();
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(uploadFilePath);
+                Files.write(path, bytes);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

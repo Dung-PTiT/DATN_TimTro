@@ -137,6 +137,20 @@ public class PostServiceImpl implements PostService {
                     return comment;
                 }
         ).collect(Collectors.toList()));
+
+        List<FavoriteEntity> favoriteEntities = postEntity.getFavorites();
+        post.setFavorites(favoriteEntities.stream().map(favoriteEntity -> {
+            Favorite favorite = new Favorite();
+            favorite.setId(favoriteEntity.getId());
+            favorite.setCreateTime(favoriteEntity.getCreateTime());
+
+            User user1 = new User();
+            user1.setId(favoriteEntity.getUserEntity().getId());
+            favorite.setUser(user1);
+
+            favorite.setPost(null);
+            return favorite;
+        }).collect(Collectors.toList()));
         return post;
     }
 

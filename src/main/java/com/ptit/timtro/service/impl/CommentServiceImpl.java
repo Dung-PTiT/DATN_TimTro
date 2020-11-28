@@ -52,6 +52,27 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Comment getById(Integer id) {
         CommentEntity commentEntity = commentDAO.getById(id);
+        return entityToModel(commentEntity);
+    }
+
+    @Override
+    public List<Comment> getByPostId(Integer id) {
+        List<CommentEntity> commentEntities = commentDAO.getByPostId(id);
+        return commentEntities.stream().map(this::entityToModel).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Comment> getAll() {
+        List<CommentEntity> commentEntities = commentDAO.getAll();
+        return commentEntities.stream().map(this::entityToModel).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean checkExist(Integer id) {
+        return commentDAO.checkExist(id);
+    }
+
+    private Comment entityToModel(CommentEntity commentEntity) {
         Comment comment = new Comment();
         comment.setId(commentEntity.getId());
         comment.setContent(commentEntity.getContent());
@@ -66,54 +87,5 @@ public class CommentServiceImpl implements CommentService {
 
         comment.setPost(null);
         return comment;
-    }
-
-    @Override
-    public List<Comment> getByPostId(Integer id) {
-        List<CommentEntity> commentEntities = commentDAO.getByPostId(id);
-
-        return commentEntities.stream().map(commentEntity -> {
-            Comment comment = new Comment();
-            comment.setId(commentEntity.getId());
-            comment.setContent(commentEntity.getContent());
-            comment.setCreateTime(commentEntity.getCreateTime());
-
-            UserEntity userEntity = commentEntity.getUserEntity();
-            User user = new User();
-            user.setId(userEntity.getId());
-            user.setName(userEntity.getName());
-            user.setImageUrl(userEntity.getImageUrl());
-            comment.setUser(user);
-
-            comment.setPost(null);
-            return comment;
-        }).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Comment> getAll() {
-        List<CommentEntity> commentEntities = commentDAO.getAll();
-
-        return commentEntities.stream().map(commentEntity -> {
-            Comment comment = new Comment();
-            comment.setId(commentEntity.getId());
-            comment.setContent(commentEntity.getContent());
-            comment.setCreateTime(commentEntity.getCreateTime());
-
-            UserEntity userEntity = commentEntity.getUserEntity();
-            User user = new User();
-            user.setId(userEntity.getId());
-            user.setName(userEntity.getName());
-            user.setImageUrl(userEntity.getImageUrl());
-            comment.setUser(user);
-
-            comment.setPost(null);
-            return comment;
-        }).collect(Collectors.toList());
-    }
-
-    @Override
-    public boolean checkExist(Integer id) {
-        return commentDAO.checkExist(id);
     }
 }

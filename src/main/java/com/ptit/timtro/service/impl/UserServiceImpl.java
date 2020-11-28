@@ -39,14 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User get(Integer id) {
-        UserEntity userEntity = userDAO.get(id);
-        User user = new User();
-        user.setId(userEntity.getId());
-        user.setName(userEntity.getName());
-        user.setEmail(userEntity.getEmail());
-        user.setRole(userEntity.getRole().getAuthorityName());
-        user.setCreateTime(userEntity.getCreateTime());
-        return user;
+        return entityToModel(userDAO.get(id));
     }
 
     @Override
@@ -55,14 +48,7 @@ public class UserServiceImpl implements UserService {
         if (userEntities == null) {
             return null;
         }
-        return userEntities.stream().map(userEntity -> {
-            User user = new User();
-            user.setId(userEntity.getId());
-            user.setName(userEntity.getName());
-            user.setEmail(userEntity.getEmail());
-            user.setCreateTime(userEntity.getCreateTime());
-            return user;
-        }).collect(Collectors.toList());
+        return userEntities.stream().map(this::entityToModel).collect(Collectors.toList());
     }
 
     @Override
@@ -88,5 +74,15 @@ public class UserServiceImpl implements UserService {
     public boolean existsByUsername(String username) {
         UserEntity userEntity = userDAO.getByUsername(username);
         return userEntity != null;
+    }
+
+    private User entityToModel(UserEntity userEntity) {
+        User user = new User();
+        user.setId(userEntity.getId());
+        user.setName(userEntity.getName());
+        user.setEmail(userEntity.getEmail());
+        user.setRole(userEntity.getRole().getAuthorityName());
+        user.setCreateTime(userEntity.getCreateTime());
+        return user;
     }
 }

@@ -30,45 +30,70 @@ public class CommentController {
     @PostMapping("/comment/create")
     public DataResponse<String> create(@RequestParam("content") String content,
                                        @RequestParam("postId") Integer postId) {
-        Comment comment = new Comment();
+        try {
+            Comment comment = new Comment();
 
-        comment.setContent(content);
+            comment.setContent(content);
 
-        Date date = new Date();
-        comment.setCreateTime(date);
+            Date date = new Date();
+            comment.setCreateTime(date);
 
-        UserPrincipal userPrincipal = AdvancedSecurityContextHolder.getUserPrincipal();
-        User user = new User();
-        user.setId(userPrincipal.getId());
-        comment.setUser(user);
+            UserPrincipal userPrincipal = AdvancedSecurityContextHolder.getUserPrincipal();
+            User user = new User();
+            user.setId(userPrincipal.getId());
+            comment.setUser(user);
 
-        Post post = new Post();
-        post.setId(postId);
-        comment.setPost(post);
+            Post post = new Post();
+            post.setId(postId);
+            comment.setPost(post);
 
-        commentService.create(comment);
-        return new DataResponse<>(true, "OK");
+            commentService.create(comment);
+            return new DataResponse<>(true, "OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, "Error");
+        }
     }
 
     @PostMapping("/comment/delete")
-    public DataResponse<Boolean> deleteComment(@RequestParam("commentId") Integer commentId) {
-        commentService.delete(commentId);
-        return new DataResponse<>(true, !commentService.checkExist(commentId));
+    public DataResponse<String> deleteComment(@RequestParam("commentId") Integer commentId) {
+        try {
+            commentService.delete(commentId);
+            return new DataResponse<>(true, "OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, "Error");
+        }
     }
 
     @PostMapping("/comment/check-exist")
     public Boolean checkComment(@RequestParam("id") Integer id) {
-        return commentDAO.checkExist(id);
+        try {
+            return commentDAO.checkExist(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @GetMapping("/comment/get-by-post-id")
     public DataResponse<List<Comment>> getCommentByPostId(@RequestParam("id") Integer id) {
-        return new DataResponse<>(true, commentService.getByPostId(id));
+        try {
+            return new DataResponse<>(true, commentService.getByPostId(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
     }
 
     @GetMapping("/comment/get-all")
     public DataResponse<List<Comment>> getAllComments() {
-        return new DataResponse<>(true, commentService.getAll());
+        try {
+            return new DataResponse<>(true, commentService.getAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
     }
 
 }

@@ -16,7 +16,12 @@ public class ImageController {
 
     @GetMapping(value = "/image/get")
     public byte[] uploadImage(@RequestParam("imageUrl") String imageUrl) throws IOException {
-        File serverFile = new File(fileDir.getFileDir() + imageUrl);
-        return Files.readAllBytes(serverFile.toPath());
+        try {
+            File serverFile = new File(fileDir.getFileDir() + imageUrl);
+            return Files.readAllBytes(serverFile.toPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

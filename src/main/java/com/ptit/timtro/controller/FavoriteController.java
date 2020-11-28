@@ -8,41 +8,78 @@ import com.ptit.timtro.security.UserPrincipal;
 import com.ptit.timtro.service.FavoriteService;
 import com.ptit.timtro.util.DataResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
 import java.util.List;
 
-@Repository
+@RestController
 public class FavoriteController {
     @Autowired
     private FavoriteService favoriteService;
 
-    @PostMapping("/comment/create")
-    public DataResponse<String> create(@RequestParam("content") String content,
-                                       @RequestParam("postId") Integer postId) {
-        Favorite favorite = new Favorite();
+    @PostMapping("/favorite/create")
+    public DataResponse<Boolean> create(@RequestParam("postId") Integer postId) {
+        try {
+            UserPrincipal userPrincipal = AdvancedSecurityContextHolder.getUserPrincipal();
+            boolean check = favoriteService.checkPostIdUserId(postId, userPrincipal.getId());
+            if (!check) {
+                try {
+                    Favorite favorite = new Favorite();
 
-        Date date = new Date();
-        favorite.setCreateTime(date);
+                    Date date = new Date();
+                    favorite.setCreateTime(date);
 
-        UserPrincipal userPrincipal = AdvancedSecurityContextHolder.getUserPrincipal();
-        User user = new User();
-        user.setId(userPrincipal.getId());
-        favorite.setUser(user);
+                    User user = new User();
+                    user.setId(userPrincipal.getId());
+                    favorite.setUser(user);
 
-        Post post = new Post();
-        post.setId(postId);
-        favorite.setPost(post);
+                    Post post = new Post();
+                    post.setId(postId);
+                    favorite.setPost(post);
 
-//        favoriteService.create(favorite);
-        return new DataResponse<>(true, "OK");
+                    favoriteService.create(favorite);
+                    return new DataResponse<>(true, true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return new DataResponse<>(false, false);
+            } else {
+                try {
+                    favoriteService.delete(favoriteService.getByPostIdUserId(postId, userPrincipal.getId()).getId());
+                    return new DataResponse<>(true, false);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return new DataResponse<>(false, false);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new DataResponse<>(false, false);
+    }
+
+    @GetMapping("/favorite/get-by-user-id")
+    public DataResponse<List<Favorite>> getFavoriteByUserId(@RequestParam("userId") Integer userId) {
+        try {
+            return new DataResponse<>(true, favoriteService.getByUserId(userId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
     }
 
     @PostMapping("/favorite/get-all")
     public DataResponse<List<Favorite>> getAllFavorites() {
-        return new DataResponse<>(true, favoriteService.getAll());
+        try {
+            return new DataResponse<>(true, favoriteService.getAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
+
     }
 }

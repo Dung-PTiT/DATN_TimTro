@@ -83,7 +83,7 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v2/api-docs/**", "/auth/login", "/auth/create-password",
                         "/oauth/**", "/oauth2/**", "/auth/gen-pass",
                         "/address/**", "/post/get-all", "/post/get-by-id", "/category/get-all", "/tag/get-all",
-                        "/image/**","/comment/**").permitAll()
+                        "/image/**","/comment/**","/favorite/**").permitAll()
                 .anyRequest().authenticated(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
         // Thêm một lớp Filter kiểm tra jwt
         http.oauth2Login()

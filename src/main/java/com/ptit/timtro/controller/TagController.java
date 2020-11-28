@@ -17,6 +17,11 @@ public class TagController {
 
     @GetMapping("/tag/get-all")
     public DataResponse<List<Tag>> getAllTags() {
-        return new DataResponse<>(true, tagService.getAll());
+        try {
+            return new DataResponse<>(true, tagService.getAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
     }
 }

@@ -17,6 +17,11 @@ public class CategoryController {
 
     @GetMapping("/category/get-all")
     public DataResponse<List<Category>> getAllCategories() {
-        return new DataResponse<>(true, categorySerivce.getAll());
+        try {
+            return new DataResponse<>(true, categorySerivce.getAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
     }
 }

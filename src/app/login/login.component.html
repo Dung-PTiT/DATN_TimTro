@@ -10,7 +10,7 @@
             Username không để trống
           </div>
         </div>
-        <div class="mb-4">
+        <div class="mb-2">
           <input type="password" class="form-control" placeholder="Mật khẩu" formControlName="inputPassword"
                  style="font-size: 13px;" [ngClass]="{ 'is-invalid': submitted && validator.inputPassword?.errors}">
           <div *ngIf="submitted && validator.inputPassword?.errors?.required" class="invalid-feedback">

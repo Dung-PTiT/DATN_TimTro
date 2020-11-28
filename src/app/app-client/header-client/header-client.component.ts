@@ -1,9 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {
-  faComments, faHeart, faListUl, faMoneyCheckAlt, faSignInAlt,
+  faComments, faListUl, faMoneyCheckAlt, faSignInAlt,
   faSignOutAlt, faUpload, faUserCircle, faUserPlus
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeart
+} from "@fortawesome/free-regular-svg-icons";
 import {AuthenticationService} from "../../service/authentication.service";
 import {CookieService} from "ngx-cookie-service";
 import {AppConfig} from "../../util/app-config";
@@ -38,10 +41,10 @@ export class HeaderClientComponent implements OnInit {
     }
   }
 
-  logout() {
+  async logout() {
     this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
     this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
-    location.replace("/");
+    location.replace('/');
   }
 
   faUpload = faUpload;

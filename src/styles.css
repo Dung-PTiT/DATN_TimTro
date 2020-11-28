@@ -17,6 +17,10 @@ html {
   scroll-behavior: smooth;
 }
 
+button:focus{
+  outline: none !important;
+}
+
 .container {
   padding: 0 !important;
 }

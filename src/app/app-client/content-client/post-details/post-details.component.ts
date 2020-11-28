@@ -3,9 +3,11 @@ import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MarkerInfo} from "../dashboard-client/dashboard-client.component";
 import {
   faAlignRight, faBuilding, faCalendarAlt, faComment, faEnvelope,
-  faHandPointRight, faHeart, faImages, faMapMarkedAlt, faMapMarkerAlt,
+  faHandPointRight, faImages, faMapMarkedAlt, faMapMarkerAlt,
   faPaperPlane, faPencilAlt, faPhone, faReply, faShare, faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
+import {faHeart as faHeartRegular} from "@fortawesome/free-regular-svg-icons";
+import {faHeart as faHeartSolid} from "@fortawesome/free-solid-svg-icons";
 import {PostService} from "../../../service/post.service";
 import {AppConfig} from "../../../util/app-config";
 import {Post} from "../../../model/post";
@@ -16,6 +18,7 @@ import {FormControl} from "@angular/forms";
 import {CommentService} from "../../../service/comment.service";
 import * as moment from 'moment';
 import {User} from "../../../model/user";
+import {FavoriteService} from "../../../service/favorite.service";
 
 @Component({
   selector: 'app-post-details',
@@ -34,6 +37,7 @@ export class PostDetailsComponent implements OnInit {
   longitude: number;
   address: string;
   user: User;
+  favorite: boolean = false;
 
   private geoCoder;
   public origin: any;
@@ -54,7 +58,8 @@ export class PostDetailsComponent implements OnInit {
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone,
               private authenticationService: AuthenticationService,
-              private commentService: CommentService) {
+              private commentService: CommentService,
+              private favoriteService: FavoriteService) {
     this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
   }
 
@@ -149,6 +154,20 @@ export class PostDetailsComponent implements OnInit {
     });
   }
 
+  createFavorite() {
+    if (this.authenticationService.checkLogin()) {
+      this.favoriteService.createFavorite(this.post.id).subscribe(resp => {
+        if (resp.data == true) {
+          this.favorite = true;
+        } else if (resp.data == false) {
+          this.favorite = false;
+        }
+      });
+    } else {
+      location.replace('/login');
+    }
+  }
+
   timespan(time: Date) {
     return moment(time).startOf("second").fromNow();
   }
@@ -158,7 +177,8 @@ export class PostDetailsComponent implements OnInit {
   }
 
   faShare = faShare;
-  faHeart = faHeart;
+  faHeartRegular = faHeartRegular;
+  faHeartSolid = faHeartSolid;
   faImages = faImages;
   faAlignRight = faAlignRight;
   faHandPointRight = faHandPointRight;

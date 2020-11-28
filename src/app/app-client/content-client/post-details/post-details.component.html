@@ -65,10 +65,18 @@
             </button>
           </div>
           <div>
-            <button class="btn-action" matTooltip="Thêm quan tâm">
-              <span class="p-1 pb-0">Lưu tin</span>
-              <fa-icon class="ml-1 text-danger" [icon]="faHeart"></fa-icon>
-            </button>
+            <div *ngIf="(favorite == false);else remove_favorite">
+              <button class="btn-action" matTooltip="Thêm quan tâm" (click)="createFavorite()">
+                <span class="p-1 pb-0">Lưu tin</span>
+                <fa-icon class="ml-1 text-danger" [icon]="faHeartRegular"></fa-icon>
+              </button>
+            </div>
+            <ng-template #remove_favorite>
+              <button class="btn-action" matTooltip="Gỡ quan tâm" (click)="createFavorite()">
+                <span class="p-1 pb-0">Bỏ lưu</span>
+                <fa-icon class="ml-1 text-danger" [icon]="faHeartSolid"></fa-icon>
+              </button>
+            </ng-template>
           </div>
         </div>
       </div>

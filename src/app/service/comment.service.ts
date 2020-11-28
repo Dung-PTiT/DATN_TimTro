@@ -14,13 +14,13 @@ export class CommentService extends MainService {
     this.CONTEXT_URL = "";
   }
 
-  createComment(content: any, postId: any) {
+  createComment(content: any, postId: any): Observable<any> {
     return this.http.post(
       this.PREFIX_URL + this.CONTEXT_URL + '/comment/create', null,
       {params: {content: content, postId: postId}});
   }
 
-  deleteComment(commentId: any) {
+  deleteComment(commentId: any): Observable<any> {
     return this.http.post(
       this.PREFIX_URL + this.CONTEXT_URL + '/comment/delete', null,
       {params: {commentId: commentId}});

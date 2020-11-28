@@ -1,13 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {
-  faCalendarMinus,
-  faDollarSign,
-  faHeart,
-  faImage,
-  faMapMarkerAlt,
-  faSearch
+  faCalendarMinus, faDollarSign, faImage, faMapMarkerAlt, faSearch
 } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeart
+} from "@fortawesome/free-regular-svg-icons";
 import {FormControl, FormGroup} from "@angular/forms";
 import {PostService} from "../../../service/post.service";
 import {Post} from "../../../model/post";

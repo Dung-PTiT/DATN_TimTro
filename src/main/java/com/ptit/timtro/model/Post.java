@@ -24,10 +24,15 @@ public class Post {
     private String status;
     private Double latitude;
     private Double longitude;
+    private Date createTime;
     private List<Image> images;
     private User user;
     private String wardStr;
     private Ward ward;
+    private String districtStr;
+    private District district;
+    private String provinceStr;
+    private Province province;
     private List<Comment> comments;
     private List<Favorite> favorites;
     private String categoryStr;

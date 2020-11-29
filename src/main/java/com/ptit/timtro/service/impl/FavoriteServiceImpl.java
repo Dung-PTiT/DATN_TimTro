@@ -46,7 +46,18 @@ public class FavoriteServiceImpl implements FavoriteService {
     @Override
     public List<Favorite> getByUserId(Integer id) {
         List<FavoriteEntity> favoriteEntities = favoriteDAO.getByUserId(id);
-        return favoriteEntities.stream().map(this::enityToModel).collect(Collectors.toList());
+        return favoriteEntities.stream().map(favoriteEntity -> {
+            Favorite favorite = new Favorite();
+            favorite.setId(favoriteEntity.getId());
+            favorite.setCreateTime(favoriteEntity.getCreateTime());
+
+            PostEntity postEntity = favoriteEntity.getPostEntity();
+            Post post = new Post();
+            post.setId(postEntity.getId());
+            favorite.setPost(post);
+
+            return favorite;
+        }).collect(Collectors.toList());
     }
 
     @Override

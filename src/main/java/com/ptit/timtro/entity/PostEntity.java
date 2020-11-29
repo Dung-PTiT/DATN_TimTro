@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.swing.text.View;
@@ -49,6 +50,11 @@ public class PostEntity {
     @Column(name = "longitude", nullable = false)
     private Double longitude;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "create_time", nullable = false)
+    private Date createTime;
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "postEntity")
     private List<ImageEntity> images;
 
@@ -62,6 +68,14 @@ public class PostEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ward_id", nullable = false)
     private WardEntity wardEntity;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "district_id", nullable = false)
+    private DistrictEntity districtEntity;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "province_id", nullable = false)
+    private ProvinceEntity provinceEntity;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id", nullable = false)

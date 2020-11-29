@@ -11,6 +11,7 @@ import com.ptit.timtro.security.UserPrincipal;
 import com.ptit.timtro.service.PostService;
 import com.ptit.timtro.util.FileDir;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,10 +45,23 @@ public class PostServiceImpl implements PostService {
         postEntity.setStatus("false");
         postEntity.setLatitude(post.getLatitude());
         postEntity.setLongitude(post.getLongitude());
-        try {
 
+        Date date = new Date();
+        postEntity.setCreateTime(date);
+
+        try {
             postEntity.setWardEntity(new WardEntity(
                     new ObjectMapper().readValue(post.getWardStr(), Ward.class).getId(),
+                    null, null, null, null)
+            );
+
+            postEntity.setDistrictEntity(new DistrictEntity(
+                    new ObjectMapper().readValue(post.getDistrictStr(), District.class).getId(),
+                    null, null, null, null, null)
+            );
+
+            postEntity.setProvinceEntity(new ProvinceEntity(
+                    new ObjectMapper().readValue(post.getProvinceStr(), Province.class).getId(),
                     null, null, null, null)
             );
 
@@ -82,18 +97,32 @@ public class PostServiceImpl implements PostService {
         post.setPrice(postEntity.getPrice());
         post.setAcreage(postEntity.getAcreage());
         post.setView(postEntity.getView());
-        //set address
-        WardEntity wardEntity = postEntity.getWardEntity();
-        DistrictEntity districtEntity = wardEntity.getDistrictEntity();
-        ProvinceEntity provinceEntity = districtEntity.getProvinceEntity();
-        String address = postEntity.getAddress() + ", " + wardEntity.getPrefix() + " " + wardEntity.getName()
-                + ", " + districtEntity.getPrefix() + " " + districtEntity.getName()
-                + ", " + provinceEntity.getName();
-        post.setAddress(address);
-        //end
+        post.setAddress(postEntity.getAddress());
         post.setStatus(postEntity.getStatus());
         post.setLatitude(postEntity.getLatitude());
         post.setLongitude(postEntity.getLongitude());
+        post.setCreateTime(postEntity.getCreateTime());
+
+        WardEntity wardEntity = postEntity.getWardEntity();
+        Ward ward = new Ward();
+        ward.setId(wardEntity.getId());
+        ward.setPrefix(wardEntity.getPrefix());
+        ward.setName(wardEntity.getName());
+        post.setWard(ward);
+
+        DistrictEntity districtEntity = postEntity.getDistrictEntity();
+        District district = new District();
+        district.setId(districtEntity.getId());
+        district.setPrefix(districtEntity.getPrefix());
+        district.setName(districtEntity.getName());
+        post.setDistrict(district);
+
+        ProvinceEntity provinceEntity = postEntity.getProvinceEntity();
+        Province province = new Province();
+        province.setId(provinceEntity.getId());
+        province.setCode(provinceEntity.getCode());
+        province.setName(provinceEntity.getName());
+        post.setProvince(province);
 
         post.setCategory(
                 new Category(postEntity.getCategoryEntity().getId(), postEntity.getCategoryEntity().getName(),
@@ -167,18 +196,32 @@ public class PostServiceImpl implements PostService {
                 post.setPrice(postEntity.getPrice());
                 post.setAcreage(postEntity.getAcreage());
                 post.setView(postEntity.getView());
-                //set address
-                WardEntity wardEntity = postEntity.getWardEntity();
-                DistrictEntity districtEntity = wardEntity.getDistrictEntity();
-                ProvinceEntity provinceEntity = districtEntity.getProvinceEntity();
-                String address = postEntity.getAddress() + ", " + wardEntity.getPrefix() + " " + wardEntity.getName()
-                        + ", " + districtEntity.getPrefix() + " " + districtEntity.getName()
-                        + ", " + provinceEntity.getName();
-                post.setAddress(address);
-                //end
+                post.setAddress(postEntity.getAddress());
                 post.setStatus(postEntity.getStatus());
                 post.setLatitude(postEntity.getLatitude());
                 post.setLongitude(postEntity.getLongitude());
+                post.setCreateTime(postEntity.getCreateTime());
+
+                WardEntity wardEntity = postEntity.getWardEntity();
+                Ward ward = new Ward();
+                ward.setId(wardEntity.getId());
+                ward.setPrefix(wardEntity.getPrefix());
+                ward.setName(wardEntity.getName());
+                post.setWard(ward);
+
+                DistrictEntity districtEntity = postEntity.getDistrictEntity();
+                District district = new District();
+                district.setId(districtEntity.getId());
+                district.setPrefix(districtEntity.getPrefix());
+                district.setName(districtEntity.getName());
+                post.setDistrict(district);
+
+                ProvinceEntity provinceEntity = postEntity.getProvinceEntity();
+                Province province = new Province();
+                province.setId(provinceEntity.getId());
+                province.setCode(provinceEntity.getCode());
+                province.setName(provinceEntity.getName());
+                post.setProvince(province);
 
                 post.setCategory(new Category(
                         postEntity.getCategoryEntity().getId(),

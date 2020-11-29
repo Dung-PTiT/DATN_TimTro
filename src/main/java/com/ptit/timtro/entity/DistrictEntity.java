@@ -31,4 +31,7 @@ public class DistrictEntity {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "districtEntity")
     private List<WardEntity> wards;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "districtEntity")
+    private List<PostEntity> posts;
 }

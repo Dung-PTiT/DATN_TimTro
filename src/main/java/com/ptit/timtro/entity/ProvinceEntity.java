@@ -27,4 +27,7 @@ public class ProvinceEntity {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "provinceEntity")
     private List<DistrictEntity> districts;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "provinceEntity")
+    private List<PostEntity> posts;
 }

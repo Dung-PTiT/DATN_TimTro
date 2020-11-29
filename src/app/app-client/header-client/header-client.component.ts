@@ -36,16 +36,25 @@ export class HeaderClientComponent implements OnInit {
     if (this.cookieService.get(AppConfig.COOKIE_TOKEN_NAME)) {
       this.authenticationService.getCurrentUser().subscribe(resp => {
         this.currentUser = resp.data as User;
-      }, error => {
       });
     }
   }
 
-  async logout() {
-    this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
-    this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
-    location.replace('/');
+  logout() {
+    const promise = new Promise((resolve, reject) => {
+      this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
+      this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
+      if (!this.authenticationService.checkLogin()) {
+        resolve("Success");
+      } else {
+        resolve("Error");
+      }
+    });
+    promise.then((resp) => {
+      location.replace('/');
+    });
   }
+
 
   faUpload = faUpload;
   faSignInAlt = faSignInAlt;

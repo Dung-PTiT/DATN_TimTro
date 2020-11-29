@@ -23,24 +23,37 @@
     <div class="col-12 col-lg-9" style="box-shadow: 0 2px 10px 0 rgba(0,0,0,.1);">
 
       <div #anh class="mt-3">
-        <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+        <mdb-carousel *ngIf="images?.length !=0; else default_image "
+                      class="carousel slide carousel-fade" [animation]="'fade'">
           <mdb-carousel-item *ngFor="let image of images">
             <div class="view w-100 post-image">
               <img class="d-block w-100"
-                   [src]="image?.imageUrl ? (PREFIX_URL +'/'+post.id+'/'+  image.imageUrl ) : (DEFAULT_IMAGE)">
+                   [src]="image?.imageUrl ? (PREFIX_URL +'/'+post?.id+'/'+  image?.imageUrl ) : (DEFAULT_IMAGE)">
               <div class="mask rgba-black-light waves-black" mdbWavesEffect></div>
             </div>
           </mdb-carousel-item>
         </mdb-carousel>
+        <ng-template #default_image>
+          <mdb-carousel class="carousel slide carousel-fade" [animation]="'fade'">
+            <mdb-carousel-item>
+              <div class="view w-100 post-image">
+                <img class="d-block w-100"
+                     [src]="DEFAULT_IMAGE">
+                <div class="mask rgba-black-light waves-black" mdbWavesEffect></div>
+              </div>
+            </mdb-carousel-item>
+          </mdb-carousel>
+        </ng-template>
       </div>
 
       <div #thongTinChiTiet class="post-title" style="margin: 30px 0 30px 0">
         <h5>
-          {{post?.title ? post?.title : ''}}
+          {{post?.title}}
         </h5>
         <h6 class="text-grey">
           <fa-icon class="mr-2 text-danger" [icon]="faMapMarkerAlt"></fa-icon>
-          {{post?.address ? post.address : ''}}
+          {{post?.address}}, {{post?.ward?.prefix}} {{post?.ward?.name}}
+          {{post?.district?.prefix}} {{post?.district?.name}}, {{post?.province.name}}
         </h6>
       </div>
 
@@ -48,13 +61,13 @@
         <div class="col-4">
           <h6 class="text-grey">Mức giá: </h6>
           <h6 class="font-weight-bold">
-            {{post?.price ? post.price : ''}} triệu/tháng
+            {{post?.price}} triệu/tháng
           </h6>
         </div>
         <div class="col-4">
           <h6 class="text-grey">Diện tích: </h6>
           <h6 class="font-weight-bold">
-            {{post?.acreage ? post.acreage : ''}} m2
+            {{post?.acreage}} m2
           </h6>
         </div>
         <div class="col-4" style="display: flex; justify-content: space-around; align-items: center">
@@ -65,16 +78,17 @@
             </button>
           </div>
           <div>
-            <div *ngIf="(favorite == false);else remove_favorite">
+            <div *ngIf="(favoriteStatus == false);else remove_favorite">
               <button class="btn-action" matTooltip="Thêm quan tâm" (click)="createFavorite()">
                 <span class="p-1 pb-0">Lưu tin</span>
-                <fa-icon class="ml-1 text-danger" [icon]="faHeartRegular"></fa-icon>
+                <fa-icon class="ml-1 text-dark" [icon]="faHeartRegular"></fa-icon>
               </button>
             </div>
             <ng-template #remove_favorite>
-              <button class="btn-action" matTooltip="Gỡ quan tâm" (click)="createFavorite()">
+              <button class="btn-action" (click)="createFavorite()"
+                      [matTooltip]="favoriteCreateTime | date: 'hh:mm a dd-MM-yyyy'">
                 <span class="p-1 pb-0">Bỏ lưu</span>
-                <fa-icon class="ml-1 text-danger" [icon]="faHeartSolid"></fa-icon>
+                <fa-icon class="ml-1 text-danger" [icon]="faHeartSolid" matTooltip="Gỡ quan tâm"></fa-icon>
               </button>
             </ng-template>
           </div>
@@ -89,7 +103,7 @@
                 <fa-icon [icon]="faBuilding"></fa-icon>
                 Thông tin mô tả
               </h6>
-              <div class="pl-3 pr-3" [innerHTML]="post?.content ? post.content: ''"></div>
+              <div class="pl-3 pr-3" [innerHTML]="post?.content"></div>
             </div>
           </div>
         </div>
@@ -101,7 +115,7 @@
           Tiện ích
         </h6>
         <div class="row mt-3 mb-3">
-          <div class="col-4" *ngFor="let tag of (post?.tags ? post.tags : '')">
+          <div class="col-4" *ngFor="let tag of (post?.tags)">
             <fa-icon class="mr-2 text-info" [icon]="faHandPointRight"></fa-icon>
             <span class="mt-2 ml-2">{{tag?.name ? tag.name : 'Không tên'}}</span>
           </div>
@@ -117,33 +131,36 @@
           </h6>
           <p>
             <span>Địa chỉ cho thuê: </span>
-            <span class="font-weight-bold text-dark">{{post?.address ? post.address : ''}}</span>
+            <span class="font-weight-bold text-dark">
+              {{post?.address}}, {{post?.ward?.prefix}} {{post?.ward?.name}}
+              {{post?.district?.prefix}} {{post?.district?.name}}, {{post?.province.name}}
+            </span>
           </p>
-          <!--                    <agm-map [latitude]="post?.latitude ? post.latitude : 0"-->
-          <!--                             [longitude]="post?.longitude ? post.longitude : 0"-->
-          <!--                             [zoom]="zoom" [fullscreenControl]="true">-->
-          <!--                      <agm-direction-->
-          <!--                        [origin]="origin" [destination]="destination"-->
-          <!--                        [renderOptions]="renderOptions"-->
-          <!--                        [markerOptions]="markerOptions">-->
-          <!--                      </agm-direction>-->
-          <!--                      <agm-marker [latitude]="post?.latitude ? post.latitude : 0"-->
-          <!--                                  [longitude]="post?.longitude ? post.longitude : 0"-->
-          <!--                                  [iconUrl]="markerAddress">-->
-          <!--                        <agm-info-window-->
-          <!--                          [latitude]="post?.latitude ? post.latitude : 0"-->
-          <!--                          [longitude]="post?.longitude ? post.longitude : 0">-->
-          <!--                          Địa chỉ: <span class="font-weight-bold text-primary">{{post?.address ? post.address : ''}}</span>-->
-          <!--                        </agm-info-window>-->
-          <!--                      </agm-marker>-->
-          <!--                    </agm-map>-->
+<!--                              <agm-map [latitude]="post?.latitude ? post.latitude : 0"-->
+<!--                                       [longitude]="post?.longitude ? post.longitude : 0"-->
+<!--                                       [zoom]="zoom" [fullscreenControl]="true">-->
+<!--                                <agm-direction-->
+<!--                                  [origin]="origin" [destination]="destination"-->
+<!--                                  [renderOptions]="renderOptions"-->
+<!--                                  [markerOptions]="markerOptions">-->
+<!--                                </agm-direction>-->
+<!--                                <agm-marker [latitude]="post?.latitude ? post.latitude : 0"-->
+<!--                                            [longitude]="post?.longitude ? post.longitude : 0"-->
+<!--                                            [iconUrl]="markerAddress">-->
+<!--                                  <agm-info-window-->
+<!--                                    [latitude]="post?.latitude ? post.latitude : 0"-->
+<!--                                    [longitude]="post?.longitude ? post.longitude : 0">-->
+<!--                                    Địa chỉ: <span class="font-weight-bold text-primary">{{post?.address ? post.address : ''}}</span>-->
+<!--                                  </agm-info-window>-->
+<!--                                </agm-marker>-->
+<!--                              </agm-map>-->
         </div>
       </div>
 
       <div class="row pt-2 pb-2 post-end-content">
-        <div class="col-3">
+        <div class="col-3" [matTooltip]="post?.createTime | date: 'hh:mm a'">
           <h6 class="text-grey">Ngày tạo:</h6>
-          <h6 class="text-grey">10/11/2020</h6>
+          <h6 class="text-grey">{{post?.createTime | date: 'dd-MM-yyyy'}}</h6>
         </div>
         <div class="col-3">
           <h6 class="text-grey">Ngày đăng:</h6>
@@ -213,7 +230,7 @@
                         [icon]="faTrashAlt" class="ml-1">
                       </fa-icon>
                     </p>
-                    <p class="ml-2 text-info" matTooltip="{{comment?.createTime |  date: 'hh:mm a dd-MM-yyyy'}}"
+                    <p class="ml-2 text-info" [matTooltip]="comment?.createTime | date: 'hh:mm a dd-MM-yyyy'"
                        matTooltipPosition="below">
                       {{timespan(comment?.createTime)}}
                     </p>
@@ -246,7 +263,7 @@
                 </div>
                 <div class="profile-more">
                   <div class="profile-name">
-                    <b>{{post?.user ? post.user.name : 'User'}}</b>
+                    <b>{{post?.user ? post.user?.name : 'User'}}</b>
                   </div>
                 </div>
               </div>
@@ -255,14 +272,14 @@
               <div>
                   <span class="font-weight-bold">
                   <fa-icon class="mr-2 text-info" [icon]="faPhone"></fa-icon>
-                    {{post?.user ? post.user.phoneNumber : 0}}
+                    {{post?.user ? post.user?.phoneNumber : 0}}
                 </span>
               </div>
               <div class="mt-2">
                   <span>
                   <fa-icon class="mr-2 text-danger" [icon]="faEnvelope"></fa-icon>
                     <a href="mailto:someone@example.com">
-                      {{post?.user ? post.user.email : 'No email'}}
+                      {{post?.user ? post.user?.email : 'No email'}}
                     </a>
                   </span>
               </div>

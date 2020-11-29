@@ -2,6 +2,10 @@ import {Image} from "./image";
 import {Category} from "./category";
 import {Tag} from "./tag";
 import {User} from "./user";
+import {Favorite} from "./favorite";
+import {Ward} from "./address/Ward";
+import {District} from "./address/District";
+import {Provinces} from "./address/Provinces";
 
 export class Post {
   id: number;
@@ -14,11 +18,15 @@ export class Post {
   status: string;
   latitude: number;
   longitude: number;
+  createTime: string;
   images: Array<Image>;
   category: Category;
   tags: Array<Tag>;
   user: User;
   comments: Array<Comment>;
-  // private Integer wardId;
+  favorites: Array<Favorite>;
+  ward: Ward;
+  district: District;
+  province: Provinces;
   // private PostVip postVip;
 }

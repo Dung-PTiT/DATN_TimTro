@@ -196,6 +196,8 @@ export class PostCreateComponent implements OnInit {
     formData.append("latitude", this.markerInfo.latitude.toString());
     formData.append("longitude", this.markerInfo.longitude.toString());
     formData.append("wardStr", JSON.stringify(this.wardCtrl.value));
+    formData.append("districtStr", JSON.stringify(this.districtCtrl.value));
+    formData.append("provinceStr", JSON.stringify(this.provinceCtrl.value));
     formData.append("categoryStr", JSON.stringify(this.categoryCtrl.value));
     formData.append("tagsStr", JSON.stringify(this.tagCtrl.value));
     this.imageList.forEach((file, i) => {

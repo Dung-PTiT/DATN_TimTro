@@ -135,9 +135,9 @@
   display: inline-block;
 }
 
-.product-date:hover .tooltip-time {
-  visibility: visible;
-}
+/*.product-date:hover .tooltip-time {*/
+/*  visibility: visible;*/
+/*}*/
 
 .tooltip-time {
   visibility: hidden;

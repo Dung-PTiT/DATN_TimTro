@@ -19,6 +19,7 @@ import {CommentService} from "../../../service/comment.service";
 import * as moment from 'moment';
 import {User} from "../../../model/user";
 import {FavoriteService} from "../../../service/favorite.service";
+import {Favorite} from "../../../model/favorite";
 
 @Component({
   selector: 'app-post-details',
@@ -31,13 +32,15 @@ export class PostDetailsComponent implements OnInit {
   post: Post;
   images: Array<Image>;
   comments: Array<Comment>;
+  favotites: Array<Favorite>;
   markerAddress: string = "./assets/images/marker3.png";
   zoom: number;
   latitude: number;
   longitude: number;
   address: string;
   user: User;
-  favorite: boolean = false;
+  favoriteStatus: boolean = false;
+  favoriteCreateTime: string;
 
   private geoCoder;
   public origin: any;
@@ -45,7 +48,7 @@ export class PostDetailsComponent implements OnInit {
 
   PREFIX_URL = AppConfig.PREFIX_URL;
   CONTEXT_URL: string = "";
-  DEFAULT_IMAGE: string = "./assets/images/user.jpg";
+  DEFAULT_IMAGE: string = "./assets/images/logo3.png";
 
   commentCtrl: FormControl = new FormControl();
 
@@ -75,6 +78,8 @@ export class PostDetailsComponent implements OnInit {
       this.postService.getPostById(this.id).subscribe(resp => {
         this.post = resp.data;
         this.images = this.post.images;
+        this.favotites = this.post.favorites;
+        this.checkStatusFavorite(this.favotites);
         this.getCommentByPostId(this.post.id);
         this.setCurrentLocation(this.post);
       });
@@ -158,13 +163,25 @@ export class PostDetailsComponent implements OnInit {
     if (this.authenticationService.checkLogin()) {
       this.favoriteService.createFavorite(this.post.id).subscribe(resp => {
         if (resp.data == true) {
-          this.favorite = true;
+          this.favoriteStatus = true;
         } else if (resp.data == false) {
-          this.favorite = false;
+          this.favoriteStatus = false;
         }
       });
     } else {
       location.replace('/login');
+    }
+  }
+
+  checkStatusFavorite(thisFavotites) {
+    if (thisFavotites.length == 0) {
+      this.favoriteStatus = false;
+    }
+    for (let i = 0; i < thisFavotites.length; i++) {
+      if (thisFavotites[i].user.id == this.user.id) {
+        this.favoriteStatus = true;
+        this.favoriteCreateTime = thisFavotites[i].createTime;
+      }
     }
   }
 

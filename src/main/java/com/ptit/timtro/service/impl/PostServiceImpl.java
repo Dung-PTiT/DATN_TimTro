@@ -42,7 +42,7 @@ public class PostServiceImpl implements PostService {
         postEntity.setAcreage(post.getAcreage());
         postEntity.setAddress(post.getAddress());
         postEntity.setView(0);
-        postEntity.setStatus("false");
+        postEntity.setStatus(false);
         postEntity.setLatitude(post.getLatitude());
         postEntity.setLongitude(post.getLongitude());
 
@@ -181,6 +181,70 @@ public class PostServiceImpl implements PostService {
             return favorite;
         }).collect(Collectors.toList()));
         return post;
+    }
+
+    @Override
+    public List<Post> getByUserId(Integer id) {
+        List<PostEntity> postEntities = postDAO.getByUserId(id);
+        if (postEntities != null) {
+            return postEntities.stream().map(postEntity ->
+            {
+                Post post = new Post();
+                post.setId(postEntity.getId());
+                post.setTitle(postEntity.getTitle());
+                post.setContent(postEntity.getContent());
+                post.setPrice(postEntity.getPrice());
+                post.setAcreage(postEntity.getAcreage());
+                post.setView(postEntity.getView());
+                post.setAddress(postEntity.getAddress());
+                post.setStatus(postEntity.getStatus());
+                post.setLatitude(postEntity.getLatitude());
+                post.setLongitude(postEntity.getLongitude());
+                post.setCreateTime(postEntity.getCreateTime());
+
+                WardEntity wardEntity = postEntity.getWardEntity();
+                Ward ward = new Ward();
+                ward.setId(wardEntity.getId());
+                ward.setPrefix(wardEntity.getPrefix());
+                ward.setName(wardEntity.getName());
+                post.setWard(ward);
+
+                DistrictEntity districtEntity = postEntity.getDistrictEntity();
+                District district = new District();
+                district.setId(districtEntity.getId());
+                district.setPrefix(districtEntity.getPrefix());
+                district.setName(districtEntity.getName());
+                post.setDistrict(district);
+
+                ProvinceEntity provinceEntity = postEntity.getProvinceEntity();
+                Province province = new Province();
+                province.setId(provinceEntity.getId());
+                province.setCode(provinceEntity.getCode());
+                province.setName(provinceEntity.getName());
+                post.setProvince(province);
+
+                post.setCategory(new Category(
+                        postEntity.getCategoryEntity().getId(),
+                        postEntity.getCategoryEntity().getName(),
+                        postEntity.getCategoryEntity().getDescription(),
+                        null
+                ));
+
+                post.setTags(postEntity.getTags().stream().map(tagEntity ->
+                        new Tag(tagEntity.getId(),
+                                tagEntity.getName(),
+                                tagEntity.getDescription(),
+                                null))
+                        .collect(Collectors.toList()));
+
+                post.setImages(postEntity.getImages().stream().map(imageEntity ->
+                        new Image(imageEntity.getId(),
+                                imageEntity.getImageUrl(),
+                                null)).collect(Collectors.toList()));
+                return post;
+            }).collect(Collectors.toList());
+        }
+        return null;
     }
 
     @Override

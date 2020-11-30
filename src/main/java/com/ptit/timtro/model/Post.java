@@ -21,7 +21,7 @@ public class Post {
     private Integer acreage;
     private Integer view;
     private String address;
-    private String status;
+    private Boolean status;
     private Double latitude;
     private Double longitude;
     private Date createTime;

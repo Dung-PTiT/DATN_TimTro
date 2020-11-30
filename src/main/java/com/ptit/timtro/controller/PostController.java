@@ -52,6 +52,16 @@ public class PostController {
         }
     }
 
+    @GetMapping("/post/get-by-user-id")
+    public DataResponse<List<Post>> getPostUserId(@RequestParam("userId") Integer userId) {
+        try {
+            return new DataResponse<>(true, postService.getByUserId(userId));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
+    }
+
     @GetMapping("/post/get-all")
     public DataResponse<List<Post>> getAllProvinces() {
         try {

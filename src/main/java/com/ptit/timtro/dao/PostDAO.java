@@ -9,5 +9,7 @@ public interface PostDAO {
 
     PostEntity getById(Integer id);
 
+    List<PostEntity> getByUserId(Integer id);
+
     List<PostEntity> getAll();
 }

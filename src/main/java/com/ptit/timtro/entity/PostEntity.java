@@ -41,8 +41,8 @@ public class PostEntity {
     @Column(name = "address", nullable = false, length = 255)
     private String address;
 
-    @Column(name = "status", nullable = false, length = 255)
-    private String status;
+    @Column(name = "status", nullable = false)
+    private Boolean status;
 
     @Column(name = "latitude", nullable = false)
     private Double latitude;
@@ -87,7 +87,7 @@ public class PostEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "postEntity")
     private List<ViewHistoryEntity> viewHistories;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "post_tag",
             joinColumns = {@JoinColumn(name = "post_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_post_post_tag"))},
             inverseJoinColumns = {@JoinColumn(name = "tag_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_post_tag_tag"))},

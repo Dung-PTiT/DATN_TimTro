@@ -11,5 +11,7 @@ public interface PostService {
 
     Post getById(Integer id);
 
+    List<Post> getByUserId(Integer id);
+
     List<Post> getAll();
 }

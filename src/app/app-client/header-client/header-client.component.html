@@ -34,13 +34,17 @@
               <fa-icon class="mr-2" [icon]="faUserCircle"></fa-icon>
               Cập nhật thông tin
             </button>
-            <button ngbDropdownItem [routerLink]="['/manage/post']">
+            <button ngbDropdownItem [routerLink]="['/manage/post/list']">
               <fa-icon class="mr-2" [icon]="faListUl"></fa-icon>
               Quản lý bài đăng
             </button>
-            <button ngbDropdownItem>
+            <button ngbDropdownItem [routerLink]="['/manage/comment']">
               <fa-icon class="mr-2" [icon]="faComments"></fa-icon>
-              Quản lý bình luận
+              Bình luận
+            </button>
+            <button ngbDropdownItem [routerLink]="['/manage/favorite']">
+              <fa-icon class="mr-2" [icon]="faHeart"></fa-icon>
+              Quan tâm
             </button>
             <button ngbDropdownItem>
               <fa-icon class="mr-2" [icon]="faMoneyCheckAlt"></fa-icon>

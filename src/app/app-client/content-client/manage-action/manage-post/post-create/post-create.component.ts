@@ -17,6 +17,7 @@ import {Category} from "../../../../../model/category";
 import {TagService} from "../../../../../service/tag.service";
 import {Tag} from "../../../../../model/tag";
 import {faCoffee, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-post-create',
@@ -72,7 +73,8 @@ export class PostCreateComponent implements OnInit {
               private postService: PostService,
               private categoryService: CategoryService,
               private tagService: TagService,
-              private apiloader: MapsAPILoader) {
+              private apiloader: MapsAPILoader,
+              private router: Router) {
     ClassicEditor.defaultConfig = {
       toolbar: {
         items: [
@@ -203,8 +205,11 @@ export class PostCreateComponent implements OnInit {
     this.imageList.forEach((file, i) => {
       formData.append("files[" + i + "]", file);
     });
-
-    this.postService.createPost(formData).subscribe(resp => (console.log(resp)));
+    this.postService.createPost(formData).subscribe(resp => {
+      if(resp.success == true){
+        this.router.navigate(['/manage/post/list']);
+      }
+    });
   }
 
   //Image

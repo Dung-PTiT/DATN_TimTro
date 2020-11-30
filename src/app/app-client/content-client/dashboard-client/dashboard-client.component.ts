@@ -14,6 +14,7 @@ import {AuthenticationService} from "../../../service/authentication.service";
 import {FavoriteService} from "../../../service/favorite.service";
 import {User} from "../../../model/user";
 import {Favorite} from "../../../model/favorite";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard-client',
@@ -70,7 +71,6 @@ export class DashboardClientComponent implements OnInit {
         });
       });
     }
-
   }
 
   createFavorite(postId: any) {
@@ -89,6 +89,10 @@ export class DashboardClientComponent implements OnInit {
     } else {
       location.replace('/login');
     }
+  }
+
+  timespan(time: Date) {
+    return moment(time).startOf("second").fromNow();
   }
 }
 

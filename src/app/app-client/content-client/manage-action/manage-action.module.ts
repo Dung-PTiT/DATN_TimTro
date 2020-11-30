@@ -10,10 +10,12 @@ import {MatTabsModule} from "@angular/material/tabs";
 import {MatButtonModule} from "@angular/material/button";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import { CommentComponent } from './comment/comment.component';
+import { FavoriteComponent } from './favorite/favorite.component';
 
 
 @NgModule({
-  declarations: [UserUpdateComponent, ManagePostComponent],
+  declarations: [UserUpdateComponent, ManagePostComponent, CommentComponent, FavoriteComponent],
   imports: [
     CommonModule,
     MatListModule,

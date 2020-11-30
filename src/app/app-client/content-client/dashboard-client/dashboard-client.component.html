@@ -143,23 +143,23 @@
                   {{post?.title}}
                 </a>
               </div>
-              <div class="product-price">
+              <div class="product-price mt-1 mb-1">
                 <fa-icon [icon]="faDollarSign" class="mr-1 text-color-feb800" matTooltip="Giá"></fa-icon>
-                {{post?.price}} triệu/tháng
+                {{post?.price | currency : "VND"}} triệu/tháng
               </div>
               <span class="divide-dot">·</span>
-              <div class="product-m2">{{post?.acreage}} m2</div>
-              <div class="product-address">
+              <div class="product-m2 mt-1 mb-1">{{post?.acreage}} m2</div>
+              <div class="product-address mt-1 mb-1">
                 <fa-icon [icon]="faMapMarkerAlt" class="mr-1 text-danger"></fa-icon>
                 <span>
                   {{post?.address}}, {{post?.ward?.prefix}} {{post?.ward?.name}}
                   {{post?.district?.prefix}} {{post?.district?.name}}, {{post?.province.name}}
                 </span>
               </div>
-              <div class="product-date">
+              <div class="product-date mt-1 mb-1">
                 <fa-icon [icon]="faCalendarMinus" class="mr-1"></fa-icon>
-                <span [matTooltip]="post?.createTime | date: 'hh:mm a'" matTooltipPosition="right">
-                  {{post?.createTime | date: 'dd-MM-yyyy'}}
+                <span [matTooltip]="post?.createTime | date: 'hh:mm a dd-MM-yyyy'" matTooltipPosition="right">
+                   {{timespan(post?.createTime)}}
                 </span>
               </div>
               <button mat-icon-button class="product-favorite"

@@ -18,9 +18,11 @@ import {MatInputModule} from "@angular/material/input";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatIconModule} from "@angular/material/icon";
+import { PostListComponent } from './post-list/post-list.component';
+import {MatTableModule} from "@angular/material/table";
 
 @NgModule({
-  declarations: [PostCreateComponent],
+  declarations: [PostCreateComponent, PostListComponent],
   imports: [
     CommonModule,
     ManagePostRoutingModule,
@@ -41,7 +43,8 @@ import {MatIconModule} from "@angular/material/icon";
     CKEditorModule,
     FormsModule,
     MatTooltipModule,
-    MatIconModule
+    MatIconModule,
+    MatTableModule
   ]
 })
 export class ManagePostModule {

@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: "manage", component: ManageActionComponent,
     loadChildren: "./manage-action/manage-action.module#ManageActionModule",
-    canActivate: [UrlSecurity], data: {roles: ["MEMBER"]}
+    canActivate: [UrlSecurity], data: {roles: ["MEMBER", "ADMIN"]}
   }
 ];
 

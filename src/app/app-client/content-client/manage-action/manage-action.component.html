@@ -4,7 +4,8 @@
       <div class="profile-user">
         <div class="profile-info">
           <div class="profile-image">
-            <img width="50" class="box-shadow" [src]="user?.imageUrl ? user.imageUrl : DEFAULT_IMAGE" style="border-radius: 30px"/>
+            <img width="50" class="box-shadow" [src]="user?.imageUrl ? user.imageUrl : DEFAULT_IMAGE"
+                 style="border-radius: 30px"/>
           </div>
           <div class="profile-more">
             <div>
@@ -32,7 +33,7 @@
       </div>
     </div>
     <div class="mt-4">
-      <div href="" class="side-bar-left-item" [routerLink]="['/manage/user']">
+      <div class="side-bar-left-item" [routerLink]="['/manage/user']">
         <div>
           <fa-icon [icon]="faEdit"></fa-icon>
         </div>
@@ -42,27 +43,7 @@
       </div>
     </div>
     <div class="mt-2">
-      <div href="" class="side-bar-left-item">
-        <div>
-          <fa-icon [icon]="faHeart"></fa-icon>
-        </div>
-        <div class="ml-3">
-          <span>Bài viết quan tâm</span>
-        </div>
-      </div>
-    </div>
-    <div class="mt-2">
-      <div href="" class="side-bar-left-item">
-        <div>
-          <fa-icon [icon]="faComments"></fa-icon>
-        </div>
-        <div class="ml-3">
-          <span>Bình luận</span>
-        </div>
-      </div>
-    </div>
-    <div class="mt-2">
-      <div href="" class="side-bar-left-item">
+      <div class="side-bar-left-item" [routerLink]="['/manage/post/list']">
         <div>
           <fa-icon [icon]="faList"></fa-icon>
         </div>
@@ -72,7 +53,27 @@
       </div>
     </div>
     <div class="mt-2">
-      <div href="" class="side-bar-left-item">
+      <div class="side-bar-left-item" [routerLink]="['/manage/comment']">
+        <div>
+          <fa-icon [icon]="faComments"></fa-icon>
+        </div>
+        <div class="ml-3">
+          <span>Bình luận</span>
+        </div>
+      </div>
+    </div>
+    <div class="mt-2">
+      <div class="side-bar-left-item" [routerLink]="['/manage/favorite']">
+        <div>
+          <fa-icon [icon]="faHeart"></fa-icon>
+        </div>
+        <div class="ml-3">
+          <span>Quan tâm</span>
+        </div>
+      </div>
+    </div>
+    <div class="mt-2">
+      <div class="side-bar-left-item">
         <div>
           <fa-icon [icon]="faMoneyCheckAlt"></fa-icon>
         </div>
@@ -82,17 +83,7 @@
       </div>
     </div>
     <div class="mt-2">
-      <div href="" class="side-bar-left-item">
-        <div>
-          <fa-icon [icon]="faHistory"></fa-icon>
-        </div>
-        <div class="ml-3">
-          <span>Lịch sử nạp tiền</span>
-        </div>
-      </div>
-    </div>
-    <div class="mt-2">
-      <div href="" class="side-bar-left-item">
+      <div class="side-bar-left-item">
         <div>
           <fa-icon [icon]="faHistory"></fa-icon>
         </div>

@@ -1,0 +1,12 @@
+table {
+  width: 100%;
+}
+
+table th {
+  text-align: center;
+}
+
+.select-custom {
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+}

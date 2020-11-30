@@ -28,12 +28,12 @@
 
       <ng-container matColumnDef="number">
         <th mat-header-cell class="pl-0" *matHeaderCellDef style="width: 6%;"> STT</th>
-        <td mat-cell class="pl-0" *matCellDef="let post"> {{post?.id}} </td>
+        <td mat-cell  class="pl-0" *matCellDef="let post"> {{post?.id}} </td>
       </ng-container>
 
       <ng-container matColumnDef="image">
         <th mat-header-cell *matHeaderCellDef style="width: 10%"> Ảnh đại diện</th>
-        <td mat-cell *matCellDef="let post">
+        <td mat-cell  *matCellDef="let post">
           <img width="100" class="pt-2 pb-2"
                [src]="post.images[0]?.imageUrl ?
                (PREFIX_URL + '/' + post?.id + '/' +  post?.images[0]?.imageUrl ) : (DEFAULT_IMAGE)">
@@ -42,32 +42,32 @@
 
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef style="width: 20%"> Tiêu đề</th>
-        <td mat-cell *matCellDef="let post"> {{post?.title}} </td>
+        <td mat-cell  *matCellDef="let post"> {{post?.title}} </td>
       </ng-container>
 
       <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef> Giá</th>
-        <td mat-cell *matCellDef="let post"> {{post?.price | currency : "VND"}} </td>
+        <td mat-cell  *matCellDef="let post"> {{post?.price | currency : "VND"}} </td>
       </ng-container>
 
       <ng-container matColumnDef="startDate">
         <th mat-header-cell *matHeaderCellDef> Ngày bắt đầu</th>
-        <td mat-cell *matCellDef="let post"> {{post?.createTime | date: 'dd-MM-yyyy'}} </td>
+        <td mat-cell  *matCellDef="let post"> {{post?.createTime | date: 'dd-MM-yyyy'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="endDate">
         <th mat-header-cell *matHeaderCellDef> Ngày kết thúc</th>
-        <td mat-cell *matCellDef="let post"> {{post?.createTime | date: 'dd-MM-yyyy'}} </td>
+        <td mat-cell  *matCellDef="let post"> {{post?.createTime | date: 'dd-MM-yyyy'}} </td>
       </ng-container>
 
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef> Trạng thái</th>
-        <td mat-cell *matCellDef="let post"> {{post?.status}} </td>
+        <td mat-cell  *matCellDef="let post"> {{post?.status}} </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef> Tác vụ</th>
-        <td mat-cell *matCellDef="let post">
+        <td mat-cell  *matCellDef="let post">
           <fa-icon [icon]="faLongArrowAltUp" class="text-color-feb800 cursor-pointer"
                    matTooltip="Đăng" matTooltipPosition="below">
           </fa-icon>

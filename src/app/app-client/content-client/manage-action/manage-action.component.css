@@ -6,7 +6,7 @@
 }
 
 .side-bar-left-item:hover {
-  background-color: #feb800;
+  background-color: rgba(254, 184, 0, 0.12);
   cursor: pointer;
 }
 

@@ -230,6 +230,7 @@ export class PostCreateComponent implements OnInit {
       }
     }
     this.imageList.push(event.target.files[0]);
+    console.log(this.urls);
   }
 
   // Search Province

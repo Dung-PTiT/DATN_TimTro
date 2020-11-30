@@ -18,6 +18,11 @@ export class PostService extends MainService {
     return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/post/create', formData);
   }
 
+  deletePost(id: any): Observable<any> {
+    return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/post/delete', null,
+      {params: {id: id}});
+  }
+
   getPostByUserId(userId: any): Observable<any> {
     return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/post/get-by-user-id',
       {params: new HttpParams().set('userId', userId)});

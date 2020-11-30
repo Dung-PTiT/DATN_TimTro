@@ -6,8 +6,7 @@ import {Post} from "../../../../../model/post";
 import {AppConfig} from "../../../../../util/app-config";
 import {faEllipsisV, faLongArrowAltUp, faPencilAlt, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
-import {faArrowUp} from "@fortawesome/free-solid-svg-icons/faArrowUp";
-
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-post-list',
@@ -16,16 +15,13 @@ import {faArrowUp} from "@fortawesome/free-solid-svg-icons/faArrowUp";
 })
 export class PostListComponent implements OnInit {
 
-  displayedColumns: string[] = [
-    'number', 'image', 'title', 'price', 'startDate', 'endDate', 'status', 'action'
-  ];
-
   PREFIX_URL = AppConfig.PREFIX_URL;
   CONTEXT_URL: string = "";
   DEFAULT_IMAGE: string = "./assets/images/logo3.png";
 
   user: User;
   posts: Array<Post>;
+  displayedColumns: string[] = [];
 
   constructor(private authenticationService: AuthenticationService,
               private postService: PostService,
@@ -34,12 +30,15 @@ export class PostListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.displayedColumns = [
+      'number', 'image', 'title', 'price', 'startDate', 'endDate', 'status', 'action'
+    ];
+
     if (this.authenticationService.checkLogin()) {
       this.authenticationService.getCurrentUser().subscribe(resp => {
         this.user = resp.data;
         this.postService.getPostByUserId(this.user.id).subscribe(resp => {
           this.posts = resp.data;
-          console.log(this.posts);
         });
       });
     }
@@ -50,7 +49,27 @@ export class PostListComponent implements OnInit {
   }
 
   deletePost(postId: any) {
-    console.log(postId);
+    Swal.fire({
+      title: 'Bạn muốn xóa bài?',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Hủy',
+      confirmButtonText: 'Xóa',
+      customClass: 'swal-confirm-style',
+    }).then((result) => {
+      if (result.value) {
+        this.postService.deletePost(postId).subscribe(resp => {
+          if (resp.success == true) {
+            this.postService.getPostByUserId(this.user.id).subscribe(resp => {
+              this.posts = resp.data;
+            });
+          } else {
+            console.log("Error");
+          }
+        });
+      }
+    })
+
   }
 
   viewPost(postId: any) {

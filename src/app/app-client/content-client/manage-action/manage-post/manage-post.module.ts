@@ -18,8 +18,10 @@ import {MatInputModule} from "@angular/material/input";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatIconModule} from "@angular/material/icon";
-import { PostListComponent } from './post-list/post-list.component';
+import {PostListComponent } from './post-list/post-list.component';
 import {MatTableModule} from "@angular/material/table";
+import {CdkTableModule} from "@angular/cdk/table";
+import {ButtonsModule, IconsModule, WavesModule} from "angular-bootstrap-md";
 
 @NgModule({
   declarations: [PostCreateComponent, PostListComponent],
@@ -44,7 +46,8 @@ import {MatTableModule} from "@angular/material/table";
     FormsModule,
     MatTooltipModule,
     MatIconModule,
-    MatTableModule
+    CdkTableModule,
+    MatTableModule,
   ]
 })
 export class ManagePostModule {

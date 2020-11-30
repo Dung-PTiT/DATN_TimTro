@@ -9,6 +9,8 @@ public interface PostService {
 
     PostEntity create(Post post);
 
+    void delete(Integer id);
+
     Post getById(Integer id);
 
     List<Post> getByUserId(Integer id);

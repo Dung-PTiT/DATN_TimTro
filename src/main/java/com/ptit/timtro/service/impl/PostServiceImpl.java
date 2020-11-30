@@ -88,6 +88,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public void delete(Integer id) {
+        postDAO.delete(id);
+    }
+
+    @Override
     public Post getById(Integer id) {
         PostEntity postEntity = postDAO.getById(id);
         Post post = new Post();

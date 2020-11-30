@@ -13,10 +13,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 public class PostController {
@@ -35,6 +38,20 @@ public class PostController {
         try {
             PostEntity postEntity = postService.create(post);
             saveImage(post.getFiles(), postEntity.getId());
+            return new DataResponse<>(true, "OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, "Error");
+        }
+    }
+
+    @PostMapping("/post/delete")
+    public DataResponse<String> delete(@RequestParam("id") Integer id) {
+        try {
+            postService.delete(id);
+            Arrays.stream(Objects.requireNonNull(new File(fileDir.getFileDir() + id).listFiles())).forEach(File::delete);
+            Path path = FileSystems.getDefault().getPath(fileDir.getFileDir() + id);
+            Files.deleteIfExists(path);
             return new DataResponse<>(true, "OK");
         } catch (Exception e) {
             e.printStackTrace();

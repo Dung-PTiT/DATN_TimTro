@@ -23,6 +23,11 @@ public class PostDAOImpl implements PostDAO {
     }
 
     @Override
+    public void delete(Integer id) {
+        entityManager.remove(getById(id));
+    }
+
+    @Override
     public PostEntity getById(Integer id) {
         return entityManager.createQuery("select p from PostEntity p where p.id = " + id + "", PostEntity.class).getSingleResult();
     }

@@ -16,7 +16,7 @@ import {CategoryService} from "../../../../../service/category.service";
 import {Category} from "../../../../../model/category";
 import {TagService} from "../../../../../service/tag.service";
 import {Tag} from "../../../../../model/tag";
-import {faCoffee, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faCloudUploadAlt, faCoffee, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 
 @Component({
@@ -25,6 +25,9 @@ import {Router} from "@angular/router";
   styleUrls: ['./post-create.component.css']
 })
 export class PostCreateComponent implements OnInit {
+
+  faCloudUploadAlt = faCloudUploadAlt;
+  faTrash = faTrash;
 
   markerInfo: MarkerInfo;
   editor = ClassicEditor;
@@ -215,8 +218,6 @@ export class PostCreateComponent implements OnInit {
   //Image
   urls = [];
 
-  faTrash = faTrash;
-
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       let filesAmount = event.target.files.length;
@@ -230,7 +231,10 @@ export class PostCreateComponent implements OnInit {
       }
     }
     this.imageList.push(event.target.files[0]);
-    console.log(this.urls);
+  }
+
+  removeImages(){
+    this.urls = [];
   }
 
   // Search Province

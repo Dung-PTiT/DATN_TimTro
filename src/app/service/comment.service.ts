@@ -31,4 +31,9 @@ export class CommentService extends MainService {
       {params: new HttpParams().set('id', id)});
   }
 
+  getCommentByUserId(id: any): Observable<any> {
+    return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/comment/get-by-user-id',
+      {params: new HttpParams().set('id', id)});
+  }
+
 }

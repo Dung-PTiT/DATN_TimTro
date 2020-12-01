@@ -4,7 +4,14 @@ import {PostService} from "../../../../../service/post.service";
 import {User} from "../../../../../model/user";
 import {Post} from "../../../../../model/post";
 import {AppConfig} from "../../../../../util/app-config";
-import {faEllipsisV, faLongArrowAltUp, faPencilAlt, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {
+  faComments,
+  faEllipsisV,
+  faHeart,
+  faLongArrowAltUp,
+  faPencilAlt,
+  faTrash
+} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
@@ -31,7 +38,7 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     this.displayedColumns = [
-      'number', 'image', 'title', 'price', 'startDate', 'endDate', 'status', 'action'
+      'number', 'image', 'title', 'price', 'startDate', 'endDate','comment', 'favorite', 'status', 'action'
     ];
 
     if (this.authenticationService.checkLogin()) {
@@ -69,7 +76,6 @@ export class PostListComponent implements OnInit {
         });
       }
     })
-
   }
 
   viewPost(postId: any) {
@@ -80,4 +86,6 @@ export class PostListComponent implements OnInit {
   faPencilAlt = faPencilAlt;
   faEllipsisV = faEllipsisV;
   faLongArrowAltUp = faLongArrowAltUp;
+  faComments = faComments;
+  faHeat = faHeart;
 }

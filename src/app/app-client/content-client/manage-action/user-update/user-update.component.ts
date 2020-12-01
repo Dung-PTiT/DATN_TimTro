@@ -1,5 +1,5 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {faHeart, faUpload} from "@fortawesome/free-solid-svg-icons";
+import {faCloudUploadAlt, faHeart, faTrash, faUpload} from "@fortawesome/free-solid-svg-icons";
 import {User} from "../../../../model/user";
 import {AppConfig} from "../../../../util/app-config";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -39,6 +39,32 @@ export class UserUpdateComponent implements OnInit {
     }
   }
 
-  faUpload = faUpload;
+  url : any;
+  image: File;
 
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      let filesAmount = event.target.files.length;
+      for (let i = 0; i < filesAmount; i++) {
+        let reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.url = event.target.result;
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+    }
+    this.image = event.target.files[0];
+  }
+
+  removeImages(){
+    this.url = null;
+  }
+
+  saveUserImage(){
+
+  }
+
+  faUpload = faUpload;
+  faCloudUploadAlt = faCloudUploadAlt;
+  faTrash = faTrash;
 }

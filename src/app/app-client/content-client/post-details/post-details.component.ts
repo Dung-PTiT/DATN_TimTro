@@ -20,6 +20,7 @@ import * as moment from 'moment';
 import {User} from "../../../model/user";
 import {FavoriteService} from "../../../service/favorite.service";
 import {Favorite} from "../../../model/favorite";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-post-details',
@@ -144,13 +145,24 @@ export class PostDetailsComponent implements OnInit {
   }
 
   deleteComment(commentId) {
-    if (this.authenticationService.checkLogin()) {
-      this.commentService.deleteComment(commentId).subscribe(resp => {
-        this.commentService.getCommentByPostId(this.post.id).subscribe(resp => {
-          this.comments = resp.data;
-        });
-      });
-    }
+    Swal.fire({
+      title: 'Bạn muốn xóa bình luận?',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Hủy',
+      confirmButtonText: 'Xóa',
+      customClass: 'swal-confirm-style',
+    }).then((result) => {
+      if (result.value) {
+        if (this.authenticationService.checkLogin()) {
+          this.commentService.deleteComment(commentId).subscribe(resp => {
+            this.commentService.getCommentByPostId(this.post.id).subscribe(resp => {
+              this.comments = resp.data;
+            });
+          });
+        }
+      }
+    })
   }
 
   getCommentByPostId(postId) {

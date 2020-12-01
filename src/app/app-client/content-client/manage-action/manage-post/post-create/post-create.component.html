@@ -141,20 +141,19 @@
       <div class="mt-4">
         <div class="d-flex justify-content-between">
           <h6>Hình ảnh ({{urls?.length}})</h6>
-          <button mat-icon-button matTooltip="Gỡ ảnh" matTooltipPosition="left">
+          <button mat-icon-button matTooltip="Gỡ ảnh" matTooltipPosition="left" (click)="removeImages()">
             <fa-icon class="text-danger" [icon]="faTrash"></fa-icon>
           </button>
         </div>
         <div>
-          <input type='file' (change)="onSelectFile($event)" multiple accept="image/*">
-          <!--          <div class="mt-2 box-shadow">-->
-          <!--           <div *ngFor='let url of urls' class="col-2">-->
-          <div>
+          <label for="file-upload" class="custom-file-upload">
+            <fa-icon [icon]="faCloudUploadAlt"></fa-icon>
+            Chọn file
+          </label>
+          <input id="file-upload" type="file" (change)="onSelectFile($event)" multiple accept="image/*"/>
+          <div style="border: 1px solid #dddddd; text-align: center">
             <img *ngFor='let url of urls' [src]="url" height="100" class="m-2"><br/>
           </div>
-          <!--             <fa-icon [icon]="faTrash"></fa-icon>-->
-          <!--           </div>-->
-          <!--          </div>-->
         </div>
       </div>
       <div class="mt-4" style="text-align: end">
@@ -174,18 +173,18 @@
           </div>
         </div>
       </div>
-      <!--      <agm-map #agmMap [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude" [zoom]="13"-->
-      <!--               (mapClick)="getLocation($event)" [fullscreenControl]="true">-->
-      <!--        <agm-marker [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude"-->
-      <!--                    [iconUrl]="markerInfo.icon">-->
+<!--      <agm-map #agmMap [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude" [zoom]="13"-->
+<!--               (mapClick)="getLocation($event)" [fullscreenControl]="true">-->
+<!--        <agm-marker [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude"-->
+<!--                    [iconUrl]="markerInfo.icon">-->
 
-      <!--          <agm-info-window [disableAutoPan]="false" #infoWindow>-->
-      <!--            <div class="d-flex">-->
-      <!--              <span class="ml-2 font-weight-bold">{{markerInfo.address}}</span>-->
-      <!--            </div>-->
-      <!--          </agm-info-window>-->
-      <!--        </agm-marker>-->
-      <!--      </agm-map>-->
+<!--          <agm-info-window [disableAutoPan]="false" #infoWindow>-->
+<!--            <div class="d-flex">-->
+<!--              <span class="ml-2 font-weight-bold">{{markerInfo.address}}</span>-->
+<!--            </div>-->
+<!--          </agm-info-window>-->
+<!--        </agm-marker>-->
+<!--      </agm-map>-->
     </div>
   </div>
 </div>

@@ -7,10 +7,27 @@
         <img class="box-shadow" [src]="user?.imageUrl ? user.imageUrl : DEFAULT_IMAGE"
              style="border-radius: 50%; max-width: 100px;"/>
       </div>
-      <button type="file" class="btn mt-3 p-0"
-              matTooltip="Thay ảnh" matTooltipPosition="below">
-        <fa-icon [icon]="faUpload" class="text-primary"></fa-icon>
-      </button>
+      <div class="mt-2">
+        <label for="file-upload" class="custom-file-upload" matTooltip="Bấm chọn ảnh" matTooltipPosition="right">
+          <fa-icon [icon]="faCloudUploadAlt"></fa-icon>
+        </label>
+        <input id="file-upload" type="file" (change)="onSelectFile($event)" accept="image/*"/>
+        <div *ngIf="url != null; else null_image"
+             style="border: 2px dotted #dddddd;text-align: center">
+          <div>
+            <img [src]="url" height="100" class="m-2">
+            <button mat-icon-button matTooltip="Gỡ ảnh" matTooltipPosition="below" (click)="removeImages()">
+              <fa-icon class="text-danger" [icon]="faTrash"></fa-icon>
+            </button>
+          </div>
+          <button mat-button class="mb-2 text-white font-weight-bold button-save" (click)="saveUserImage()">Lưu</button>
+        </div>
+        <ng-template #null_image>
+          <div style="border: 2px dotted #dddddd; text-align: center">
+            <span>Chọn ảnh để cập nhật</span>
+          </div>
+        </ng-template>
+      </div>
     </div>
     <div class="col-9">
       <mat-tab-group mat-align-tabs="center">

@@ -12,6 +12,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import { CommentComponent } from './comment/comment.component';
 import { FavoriteComponent } from './favorite/favorite.component';
+import {MatTableModule} from "@angular/material/table";
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { FavoriteComponent } from './favorite/favorite.component';
     MatTabsModule,
     MatButtonModule,
     FontAwesomeModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatTableModule
   ]
 })
 export class ManageActionModule {

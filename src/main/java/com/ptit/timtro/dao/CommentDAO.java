@@ -12,6 +12,8 @@ public interface CommentDAO {
 
     CommentEntity getById(Integer id);
 
+    List<CommentEntity> getByUserId(Integer id);
+
     List<CommentEntity> getByPostId(Integer id);
 
     List<CommentEntity> getAll();

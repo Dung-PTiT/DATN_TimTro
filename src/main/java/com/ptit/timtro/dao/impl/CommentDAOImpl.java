@@ -38,6 +38,11 @@ public class CommentDAOImpl implements CommentDAO {
     }
 
     @Override
+    public List<CommentEntity> getByUserId(Integer id) {
+        return entityManager.createQuery("select c from CommentEntity c where c.userEntity.id = " + id + " order by c.createTime desc", CommentEntity.class).getResultList();
+    }
+
+    @Override
     public List<CommentEntity> getByPostId(Integer id) {
         return entityManager.createQuery("select c from CommentEntity c where c.postEntity.id = " + id + " order by c.createTime desc", CommentEntity.class).getResultList();
     }

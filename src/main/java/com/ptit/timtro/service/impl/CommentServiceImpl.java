@@ -5,6 +5,7 @@ import com.ptit.timtro.entity.CommentEntity;
 import com.ptit.timtro.entity.PostEntity;
 import com.ptit.timtro.entity.UserEntity;
 import com.ptit.timtro.model.Comment;
+import com.ptit.timtro.model.Post;
 import com.ptit.timtro.model.User;
 import com.ptit.timtro.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,27 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getByPostId(Integer id) {
         List<CommentEntity> commentEntities = commentDAO.getByPostId(id);
         return commentEntities.stream().map(this::entityToModel).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Comment> getByUserId(Integer id) {
+        List<CommentEntity> commentEntities = commentDAO.getByUserId(id);
+        return commentEntities.stream().map(commentEntity -> {
+            Comment comment = new Comment();
+            comment.setId(commentEntity.getId());
+            comment.setContent(commentEntity.getContent());
+            comment.setCreateTime(commentEntity.getCreateTime());
+
+            comment.setUser(null);
+
+            PostEntity postEntity = commentEntity.getPostEntity();
+            Post post = new Post();
+            post.setId(postEntity.getId());
+            post.setTitle(postEntity.getTitle());
+            comment.setPost(post);
+
+            return comment;
+        }).collect(Collectors.toList());
     }
 
     @Override

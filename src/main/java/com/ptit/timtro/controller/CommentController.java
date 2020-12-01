@@ -86,6 +86,16 @@ public class CommentController {
         }
     }
 
+    @GetMapping("/comment/get-by-user-id")
+    public DataResponse<List<Comment>> getCommentByUserId(@RequestParam("id") Integer id) {
+        try {
+            return new DataResponse<>(true, commentService.getByUserId(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
+    }
+
     @GetMapping("/comment/get-all")
     public DataResponse<List<Comment>> getAllComments() {
         try {

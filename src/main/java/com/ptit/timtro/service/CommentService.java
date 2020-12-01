@@ -14,6 +14,8 @@ public interface CommentService {
 
     List<Comment> getByPostId(Integer id);
 
+    List<Comment> getByUserId(Integer id);
+
     List<Comment> getAll();
 
     boolean checkExist(Integer id);

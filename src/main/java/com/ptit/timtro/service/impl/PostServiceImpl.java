@@ -246,6 +246,19 @@ public class PostServiceImpl implements PostService {
                         new Image(imageEntity.getId(),
                                 imageEntity.getImageUrl(),
                                 null)).collect(Collectors.toList()));
+
+                post.setFavorites(postEntity.getFavorites().stream().map(favoriteEntity ->
+                        new Favorite(favoriteEntity.getId(),
+                                favoriteEntity.getCreateTime(),
+                                null, null)
+                ).collect(Collectors.toList()));
+
+                post.setComments(postEntity.getComments().stream().map(commentEntity ->
+                        new Comment(commentEntity.getId(),
+                                commentEntity.getContent(),
+                                commentEntity.getCreateTime(),
+                                null, null)
+                ).collect(Collectors.toList()));
                 return post;
             }).collect(Collectors.toList());
         }

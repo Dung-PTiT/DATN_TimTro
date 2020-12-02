@@ -5,7 +5,7 @@
   <div>
     <div class="mt-3 ml-1">
       <table mat-table *ngIf="comments?.length != 0;else null_table"
-             [dataSource]="comments" class="box-shadow text-center">
+             [dataSource]="comments" class="box-shadow text-center w-100">
 
         <ng-container matColumnDef="number">
           <th mat-header-cell *matHeaderCellDef class="text-center"> STT</th>
@@ -43,7 +43,7 @@
         <tr mat-row *matRowDef="let row; columns: displayedComment;"></tr>
       </table>
       <ng-template #null_table>
-        <span class="text-danger">Chưa có bài đăng</span>
+        <span class="text-danger">Chưa có bình luận</span>
       </ng-template>
     </div>
   </div>

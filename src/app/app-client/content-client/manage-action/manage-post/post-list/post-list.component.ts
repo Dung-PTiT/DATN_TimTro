@@ -87,5 +87,5 @@ export class PostListComponent implements OnInit {
   faEllipsisV = faEllipsisV;
   faLongArrowAltUp = faLongArrowAltUp;
   faComments = faComments;
-  faHeat = faHeart;
+  faHeart = faHeart;
 }

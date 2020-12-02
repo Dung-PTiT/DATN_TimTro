@@ -1,1 +1,103 @@
-<p>favorite works!</p>
+<div style="margin: 10px 10px 0 10px">
+  <div class="d-flex align-items-center justify-content-between">
+    <div><h6>Quản lý bài quan tâm</h6></div>
+  </div>
+  <div>
+    <mat-tab-group>
+      <mat-tab [label]="'Bài viết bạn quan tâm ('+ favorites?.length +')'">
+        <div class="mt-3 ml-1">
+          <table mat-table *ngIf="favorites?.length != 0;else null_table_1"
+                 [dataSource]="favorites" class="box-shadow text-center w-100">
+
+            <ng-container matColumnDef="number">
+              <th mat-header-cell *matHeaderCellDef class="text-center"> STT</th>
+              <td mat-cell *matCellDef="let favorite; let i = index;"> {{i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="post">
+              <th mat-header-cell *matHeaderCellDef class="text-center"> Bài viết</th>
+              <td mat-cell *matCellDef="let favorite"> {{favorite?.post?.title}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="createTime">
+              <th mat-header-cell *matHeaderCellDef class="text-center"> Thời gian</th>
+              <td mat-cell *matCellDef="let favorite" matTooltipPosition="right"
+                  [matTooltip]="(favorite?.createTime |date: 'hh:mm a')"> {{favorite?.createTime | date : "dd-MM-yyyy"}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef class="text-center">Tác vụ</th>
+              <td mat-cell *matCellDef="let favorite">
+                <fa-icon class="text-danger cursor-pointer" [icon]="faHeartSolid" matTooltip="Gỡ quan tâm"
+                         (click)="removeFavorite(favorite?.post?.id)">
+                </fa-icon>
+                <fa-icon [icon]="faEllipsisV" class="ml-2 text-info cursor-pointer"
+                         matTooltip="Chi tiết" matTooltipPosition="below"
+                         (click)="viewPost(favorite?.post?.id)">
+                </fa-icon>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnTableMyFavorite" class="text-center"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnTableMyFavorite;"></tr>
+          </table>
+          <ng-template #null_table_1>
+            <span class="text-danger">Chưa có bài viết quan tâm</span>
+          </ng-template>
+        </div>
+      </mat-tab>
+      <mat-tab label="Khách hàng quan tâm bài của bạn">
+        <div class="mt-3 ml-1">
+          <table mat-table *ngIf="posts?.length != 0;else null_table"
+                 [dataSource]="posts" class="box-shadow text-center w-100">
+
+            <ng-container matColumnDef="number">
+              <th mat-header-cell class="pl-0 text-center" *matHeaderCellDef style="width: 6%;"> STT</th>
+              <td mat-cell class="pl-0" *matCellDef="let post; let i = index"> {{i + 1}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="title">
+              <th mat-header-cell class="text-center" *matHeaderCellDef style="width: 40%"> Tiêu đề</th>
+              <td mat-cell *matCellDef="let post"> {{post?.title}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="price">
+              <th mat-header-cell class="text-center" *matHeaderCellDef> Giá</th>
+              <td mat-cell *matCellDef="let post"> {{post?.price | currency : "VND"}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="favorite">
+              <th mat-header-cell class="text-center" *matHeaderCellDef>Quan tâm</th>
+              <td mat-cell *matCellDef="let post">
+                <span class="cursor-pointer" matTooltip="Xem chi tiết" (click)="showFavoriteInfo(post)"
+                      *ngIf="post?.favorites?.length != 0; else disable_icon">
+                  {{post?.favorites?.length != 0 ? post?.favorites?.length : 0}}
+                  <fa-icon [icon]="faHeartSolid" class="ml-1 text-danger"></fa-icon>
+                </span>
+                <ng-template #disable_icon>
+                  {{post?.favorites?.length != 0 ? post?.favorites?.length : 0}}
+                  <fa-icon [icon]="faHeartRegular" class="ml-1 text-dark"></fa-icon>
+                </ng-template>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <th mat-header-cell class="text-center" *matHeaderCellDef>Tác vụ</th>
+              <td mat-cell *matCellDef="let post">
+                <fa-icon [icon]="faEllipsisV" class="ml-2 text-info cursor-pointer"
+                         matTooltip="Chi tiết" matTooltipPosition="below" (click)="viewPost(post?.id)">
+                </fa-icon>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns" class="text-center"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <ng-template #null_table>
+            <span class="text-danger">Chưa có bài đăng</span>
+          </ng-template>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</div>

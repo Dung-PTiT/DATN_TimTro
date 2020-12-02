@@ -1,0 +1,26 @@
+<h6>Khách hàng quan tâm ({{post?.favorites?.length}})</h6>
+<mat-divider></mat-divider>
+<mat-dialog-content class="mat-typography mt-2 mb-2"
+                    *ngFor="let favorite of post?.favorites; let i = index">
+  <div>
+    <p>Số: {{i + 1}}</p>
+  </div>
+  <div class="d-flex justify-content-between">
+    <p>Tên:
+      <span class="text-primary font-weight-bold">{{favorite?.user?.name}}</span>
+    </p>
+    <p>Thời gian: {{favorite?.createTime | date: "hh:mm a dd-MM-yyyy"}}</p>
+  </div>
+  <div class="d-flex justify-content-between">
+    <p>Số điện thoại:
+      <span class="text-dark font-weight-bold">{{favorite?.user?.phoneNumber}}</span>
+    </p>
+    <p>Email:
+      <span class="text-dark font-weight-bold">{{favorite?.user?.email}}</span>
+    </p>
+  </div>
+  <mat-divider></mat-divider>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+  <button mat-button mat-dialog-close>Đóng</button>
+</mat-dialog-actions>

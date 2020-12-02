@@ -3,7 +3,7 @@ import {AuthenticationService} from "../../../../service/authentication.service"
 import {CommentService} from "../../../../service/comment.service";
 import {Router} from "@angular/router";
 import {User} from "../../../../model/user";
-import {faEllipsisV, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faEllipsisV} from "@fortawesome/free-solid-svg-icons";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {faTrashAlt} from "@fortawesome/free-regular-svg-icons";
 

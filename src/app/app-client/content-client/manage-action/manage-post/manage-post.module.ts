@@ -21,7 +21,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {PostListComponent } from './post-list/post-list.component';
 import {MatTableModule} from "@angular/material/table";
 import {CdkTableModule} from "@angular/cdk/table";
-import {ButtonsModule, IconsModule, WavesModule} from "angular-bootstrap-md";
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [PostCreateComponent, PostListComponent],
@@ -48,6 +48,7 @@ import {ButtonsModule, IconsModule, WavesModule} from "angular-bootstrap-md";
     MatIconModule,
     CdkTableModule,
     MatTableModule,
+    MatDialogModule
   ]
 })
 export class ManagePostModule {

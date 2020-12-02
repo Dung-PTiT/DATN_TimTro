@@ -21,6 +21,10 @@ button:focus{
   outline: none !important;
 }
 
+:focus{
+  outline: none !important;
+}
+
 .swal-confirm-style{
   height: 160px !important;
   font-size: 10px !important;

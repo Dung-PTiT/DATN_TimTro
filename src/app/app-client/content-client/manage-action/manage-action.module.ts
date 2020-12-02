@@ -13,10 +13,12 @@ import {MatTooltipModule} from "@angular/material/tooltip";
 import { CommentComponent } from './comment/comment.component';
 import { FavoriteComponent } from './favorite/favorite.component';
 import {MatTableModule} from "@angular/material/table";
+import { FavoriteDetailDialogComponent } from './favorite/favorite-detail-dialog/favorite-detail-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 @NgModule({
-  declarations: [UserUpdateComponent, ManagePostComponent, CommentComponent, FavoriteComponent],
+  declarations: [UserUpdateComponent, ManagePostComponent, CommentComponent, FavoriteComponent, FavoriteDetailDialogComponent],
   imports: [
     CommonModule,
     MatListModule,
@@ -26,7 +28,8 @@ import {MatTableModule} from "@angular/material/table";
     MatButtonModule,
     FontAwesomeModule,
     MatTooltipModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
   ]
 })
 export class ManageActionModule {

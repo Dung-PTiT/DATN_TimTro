@@ -247,11 +247,23 @@ public class PostServiceImpl implements PostService {
                                 imageEntity.getImageUrl(),
                                 null)).collect(Collectors.toList()));
 
-                post.setFavorites(postEntity.getFavorites().stream().map(favoriteEntity ->
-                        new Favorite(favoriteEntity.getId(),
-                                favoriteEntity.getCreateTime(),
-                                null, null)
-                ).collect(Collectors.toList()));
+                post.setFavorites(postEntity.getFavorites().stream().map(favoriteEntity -> {
+                    Favorite favorite = new Favorite();
+                    favorite.setId(favoriteEntity.getId());
+                    favorite.setCreateTime(favoriteEntity.getCreateTime());
+
+                    UserEntity userEntity = favoriteEntity.getUserEntity();
+                    User user = new User();
+                    user.setId(userEntity.getId());
+                    user.setName(userEntity.getName());
+                    user.setEmail(userEntity.getEmail());
+                    user.setPhoneNumber(userEntity.getPhoneNumber());
+                    favorite.setUser(user);
+
+                    favorite.setPost(null);
+
+                    return favorite;
+                }).collect(Collectors.toList()));
 
                 post.setComments(postEntity.getComments().stream().map(commentEntity ->
                         new Comment(commentEntity.getId(),

@@ -34,7 +34,7 @@ public class FavoriteDAOImpl implements FavoriteDAO {
 
     @Override
     public List<FavoriteEntity> getByUserId(Integer id) {
-        return entityManager.createQuery("select f from FavoriteEntity f where f.userEntity.id = " + id + "", FavoriteEntity.class).getResultList();
+        return entityManager.createQuery("select f from FavoriteEntity f where f.userEntity.id = " + id + " order by f.createTime desc", FavoriteEntity.class).getResultList();
     }
 
     @Override

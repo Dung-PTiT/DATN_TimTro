@@ -54,6 +54,8 @@ public class FavoriteServiceImpl implements FavoriteService {
             PostEntity postEntity = favoriteEntity.getPostEntity();
             Post post = new Post();
             post.setId(postEntity.getId());
+            post.setTitle(postEntity.getTitle());
+
             favorite.setPost(post);
 
             return favorite;

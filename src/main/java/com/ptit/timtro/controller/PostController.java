@@ -3,6 +3,8 @@ package com.ptit.timtro.controller;
 import com.ptit.timtro.entity.PostEntity;
 import com.ptit.timtro.model.Image;
 import com.ptit.timtro.model.Post;
+import com.ptit.timtro.security.AdvancedSecurityContextHolder;
+import com.ptit.timtro.security.UserPrincipal;
 import com.ptit.timtro.service.ImageService;
 import com.ptit.timtro.service.PostService;
 import com.ptit.timtro.util.DataResponse;
@@ -48,11 +50,18 @@ public class PostController {
     @PostMapping("/post/delete")
     public DataResponse<String> delete(@RequestParam("id") Integer id) {
         try {
-            postService.delete(id);
-            Arrays.stream(Objects.requireNonNull(new File(fileDir.getFileDir() + id).listFiles())).forEach(File::delete);
-            Path path = FileSystems.getDefault().getPath(fileDir.getFileDir() + id);
-            Files.deleteIfExists(path);
-            return new DataResponse<>(true, "OK");
+            UserPrincipal userPrincipal = AdvancedSecurityContextHolder.getUserPrincipal();
+            Post post = postService.getById(id);
+            if (post.getUser().getId().equals(userPrincipal.getId())) {
+                postService.delete(id);
+                Arrays.stream(Objects.requireNonNull(new File(fileDir.getFileDir() + id).listFiles())).forEach(File::delete);
+                Path path = FileSystems.getDefault().getPath(fileDir.getFileDir() + id);
+                Files.deleteIfExists(path);
+                return new DataResponse<>(true, "OK");
+            } else {
+                return new DataResponse<>(false, "Error");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             return new DataResponse<>(false, "Error");

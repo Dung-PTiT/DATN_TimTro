@@ -50,6 +50,9 @@ public class PostEntity {
     @Column(name = "longitude", nullable = false)
     private Double longitude;
 
+    @Column(name = "phone_number", nullable = false)
+    private String phoneNumber;
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", nullable = false)

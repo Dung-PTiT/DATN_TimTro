@@ -25,6 +25,7 @@ public class Post {
     private Double latitude;
     private Double longitude;
     private Date createTime;
+    private String phoneNumber;
     private List<Image> images;
     private User user;
     private String wardStr;

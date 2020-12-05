@@ -18,6 +18,7 @@ public class UserPrincipal implements UserDetails, OAuth2User {
     private String username;
     private String password;
     private String email;
+    private String phoneNumber;
     private String name;
     private Boolean vip;
     private String imageUrl;
@@ -32,6 +33,7 @@ public class UserPrincipal implements UserDetails, OAuth2User {
         userPrincipal.setPassword(userEntity.getPassword());
         userPrincipal.setName(userEntity.getName());
         userPrincipal.setEmail(userEntity.getEmail());
+        userPrincipal.setPhoneNumber(userEntity.getPhoneNumber());
         userPrincipal.setCreateTime(userEntity.getCreateTime());
         if (userEntity.getImageUrl() != null) userPrincipal.setImageUrl(userEntity.getImageUrl());
         List<GrantedAuthority> authorities = new ArrayList<>();

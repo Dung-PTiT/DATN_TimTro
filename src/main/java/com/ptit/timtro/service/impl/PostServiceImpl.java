@@ -45,6 +45,7 @@ public class PostServiceImpl implements PostService {
         postEntity.setStatus(false);
         postEntity.setLatitude(post.getLatitude());
         postEntity.setLongitude(post.getLongitude());
+        postEntity.setPhoneNumber(post.getPhoneNumber());
 
         Date date = new Date();
         postEntity.setCreateTime(date);
@@ -107,6 +108,7 @@ public class PostServiceImpl implements PostService {
         post.setLatitude(postEntity.getLatitude());
         post.setLongitude(postEntity.getLongitude());
         post.setCreateTime(postEntity.getCreateTime());
+        post.setPhoneNumber(postEntity.getPhoneNumber());
 
         WardEntity wardEntity = postEntity.getWardEntity();
         Ward ward = new Ward();
@@ -206,6 +208,7 @@ public class PostServiceImpl implements PostService {
                 post.setLatitude(postEntity.getLatitude());
                 post.setLongitude(postEntity.getLongitude());
                 post.setCreateTime(postEntity.getCreateTime());
+                post.setPhoneNumber(postEntity.getPhoneNumber());
 
                 WardEntity wardEntity = postEntity.getWardEntity();
                 Ward ward = new Ward();
@@ -295,6 +298,7 @@ public class PostServiceImpl implements PostService {
                 post.setLatitude(postEntity.getLatitude());
                 post.setLongitude(postEntity.getLongitude());
                 post.setCreateTime(postEntity.getCreateTime());
+                post.setPhoneNumber(postEntity.getPhoneNumber());
 
                 WardEntity wardEntity = postEntity.getWardEntity();
                 Ward ward = new Ward();

@@ -19,12 +19,21 @@ public class PostVipEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name", nullable = false, length = 50)
+    @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    @Column(name = "price", nullable = false)
-    private Integer price;
+    @Column(name = "day_price", nullable = false)
+    private Integer dayPrice;
 
-    @Column(name = "description", nullable = false, length = 255)
+    @Column(name = "week_price", nullable = false)
+    private Integer weekPrice;
+
+    @Column(name = "month_price", nullable = false)
+    private Integer monthPrice;
+
+    @Column(name = "year_price", nullable = false)
+    private Integer yearPrice;
+
+    @Column(name = "description", columnDefinition = "blob")
     private String description;
 }

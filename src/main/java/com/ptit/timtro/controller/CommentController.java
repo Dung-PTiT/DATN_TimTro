@@ -58,8 +58,14 @@ public class CommentController {
     @PostMapping("/comment/delete")
     public DataResponse<String> deleteComment(@RequestParam("commentId") Integer commentId) {
         try {
-            commentService.delete(commentId);
-            return new DataResponse<>(true, "OK");
+            UserPrincipal userPrincipal = AdvancedSecurityContextHolder.getUserPrincipal();
+            Comment comment = commentService.getById(commentId);
+            if (userPrincipal.getId().equals(comment.getUser().getId())) {
+                commentService.delete(commentId);
+                return new DataResponse<>(true, "OK");
+            } else {
+                return new DataResponse<>(false, "Error");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return new DataResponse<>(false, "Error");

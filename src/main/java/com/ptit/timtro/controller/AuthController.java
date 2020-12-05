@@ -78,6 +78,8 @@ public class AuthController {
             userInfo.setImageUrl(userPrincipal.getImageUrl());
             userInfo.setRole(userPrincipal.getAuthorities().stream().findFirst().get().toString());
             userInfo.setCreateTime(userPrincipal.getCreateTime());
+            userInfo.setEmail(userPrincipal.getEmail());
+            userInfo.setPhoneNumber(userPrincipal.getPhoneNumber());
             return new DataResponse<>(true, userInfo);
         } catch (Exception e) {
             e.printStackTrace();

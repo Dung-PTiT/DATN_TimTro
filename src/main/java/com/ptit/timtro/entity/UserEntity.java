@@ -58,7 +58,7 @@ public class UserEntity {
     private AuthProvider authProvider;
 
     @Column(name = "phone_number")
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -76,5 +76,8 @@ public class UserEntity {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
     private List<ViewHistoryEntity> viewHistories;
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "userEntity")
+    private WalletEntity walletEntity;
 }
 

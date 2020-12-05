@@ -16,4 +16,6 @@ public class AuthenticatedUserInfo {
     private String role;
     private String imageUrl;
     private Date createTime;
+    private String email;
+    private String phoneNumber;
 }

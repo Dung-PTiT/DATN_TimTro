@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,6 +23,7 @@ public class User {
     private String imageUrl;
     private String role;
     private Boolean isActived;
-    private Integer phoneNumber;
+    private String phoneNumber;
     private Date createTime;
+    private Wallet wallet;
 }

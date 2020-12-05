@@ -38,7 +38,7 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     this.displayedColumns = [
-      'number', 'image', 'title', 'price', 'startDate', 'endDate','comment', 'favorite', 'status', 'action'
+      'number', 'image', 'title', 'price', 'startDate', 'endDate', 'comment', 'favorite', 'status', 'action'
     ];
 
     if (this.authenticationService.checkLogin()) {
@@ -49,10 +49,6 @@ export class PostListComponent implements OnInit {
         });
       });
     }
-  }
-
-  editPost(postId: any) {
-    console.log(postId);
   }
 
   deletePost(postId: any) {
@@ -80,6 +76,10 @@ export class PostListComponent implements OnInit {
 
   viewPost(postId: any) {
     this.router.navigate(["/post/" + postId]);
+  }
+
+  editPost(postId: any) {
+    this.router.navigate(["/manage/post/update/" + postId]);
   }
 
   faTrash = faTrash;

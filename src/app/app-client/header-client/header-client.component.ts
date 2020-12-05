@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {
-  faComments, faListUl, faMoneyCheckAlt, faSignInAlt,
+  faComments, faLaptopHouse, faListUl, faMoneyCheckAlt, faSignInAlt,
   faSignOutAlt, faUpload, faUserCircle, faUserPlus
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -44,6 +44,9 @@ export class HeaderClientComponent implements OnInit {
     const promise = new Promise((resolve, reject) => {
       this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
       this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
+
+      //ToDo thử remove localStorage
+      localStorage.removeItem('userCurrent');
       if (!this.authenticationService.checkLogin()) {
         resolve("Success");
       } else {
@@ -65,4 +68,5 @@ export class HeaderClientComponent implements OnInit {
   faComments = faComments;
   faMoneyCheckAlt = faMoneyCheckAlt;
   faHeart = faHeart;
+  faLaptopHouse = faLaptopHouse;
 }

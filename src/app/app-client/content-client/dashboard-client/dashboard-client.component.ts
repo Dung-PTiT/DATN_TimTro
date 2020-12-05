@@ -71,6 +71,8 @@ export class DashboardClientComponent implements OnInit {
         });
       });
     }
+    //ToDo log localStorage
+    console.log(JSON.parse(localStorage.getItem('userCurrent')));
   }
 
   createFavorite(postId: any) {

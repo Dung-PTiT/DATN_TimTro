@@ -4,10 +4,12 @@ import {DashboardClientComponent} from "./dashboard-client/dashboard-client.comp
 import {PostDetailsComponent} from "./post-details/post-details.component";
 import {ManageActionComponent} from "./manage-action/manage-action.component";
 import {UrlSecurity} from "../../filter/url.security";
+import {UserPageComponent} from "./user-page/user-page.component";
 
 const routes: Routes = [
   {path: "", component: DashboardClientComponent},
   {path: "post/:id", component: PostDetailsComponent},
+  {path: "user/:id", component: UserPageComponent},
   {
     path: "manage", component: ManageActionComponent,
     loadChildren: "./manage-action/manage-action.module#ManageActionModule",

@@ -9,7 +9,10 @@
     <p>Tên:
       <span class="text-primary font-weight-bold">{{favorite?.user?.name}}</span>
     </p>
-    <p>Thời gian: {{favorite?.createTime | date: "hh:mm a dd-MM-yyyy"}}</p>
+    <p [matTooltip]="favorite?.createTime | date: 'hh:mm a dd-MM-yyyy'"
+       matTooltipPosition="above">Thời gian:
+      <span class="text-primary">{{timespan(favorite?.createTime)}}</span>
+    </p>
   </div>
   <div class="d-flex justify-content-between">
     <p>Số điện thoại:

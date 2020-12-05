@@ -190,11 +190,15 @@ export class PostDetailsComponent implements OnInit {
       this.favoriteStatus = false;
     }
     for (let i = 0; i < thisFavotites.length; i++) {
-      if (thisFavotites[i].user.id == this.user.id) {
+      if (thisFavotites[i]?.user?.id == this.user?.id) {
         this.favoriteStatus = true;
         this.favoriteCreateTime = thisFavotites[i].createTime;
       }
     }
+  }
+
+  viewUserPage(userId: any) {
+    this.router.navigate(["/user/" + userId]);
   }
 
   timespan(time: Date) {

@@ -8,7 +8,6 @@
     <div class="example-button-row div-header-info">
       <mat-toolbar style="font-weight: 400" class="pr-0">
         <a href="" class="mat-toolbar-title active"><span>Trang chủ</span></a>
-        <a href="" class="mat-toolbar-title ml-3"><span>Cho thuê</span></a>
         <a href="" class="mat-toolbar-title ml-3"><span>Nạp tiền</span></a>
         <a href="" class="mat-toolbar-title ml-3"><span>Bảng giá</span></a>
         <div ngbDropdown container="body" class="cursor-pointer">
@@ -25,11 +24,19 @@
           </div>
         </div>
         <div ngbDropdown container="body" class="cursor-pointer">
-          <img ngbDropdownToggle class="ml-3 box-shadow" [matTooltip]="currentUser?.name ? currentUser.name : nameBaseUser"
+          <img ngbDropdownToggle class="ml-3 box-shadow"
+               [matTooltip]="currentUser?.name ? currentUser.name : nameBaseUser"
                matTooltipPosition="below"
                width="30" [src]="currentUser?.imageUrl ? currentUser.imageUrl : userBaseUrl"
                style="border-radius: 10px;">
           <div ngbDropdownMenu class="mt-2" style="font-size: 13px">
+            <div *ngIf="(currentUser?.role == 'ROLE_ADMIN');else hide_admin_button">
+              <button ngbDropdownItem [routerLink]="['/admin']">
+                <fa-icon class="mr-2" [icon]="faLaptopHouse"></fa-icon>
+                Quản lý của admin
+              </button>
+            </div>
+            <ng-template #hide_admin_button></ng-template>
             <button ngbDropdownItem [routerLink]="['/manage/user']">
               <fa-icon class="mr-2" [icon]="faUserCircle"></fa-icon>
               Cập nhật thông tin
@@ -56,13 +63,13 @@
             </button>
           </div>
         </div>
-<!--        <div class="ml-2">-->
-<!--          <button mat-icon-button color="warn" matTooltip="Quan tâm"-->
-<!--                  matTooltipPosition="below" class="btn-favorite mr-0">-->
-<!--            <fa-icon [icon]="faHeart" style="font-size: 26px"></fa-icon>-->
-<!--            <span class="number-favorite text-dark">5</span>-->
-<!--          </button>-->
-<!--        </div>-->
+        <!--        <div class="ml-2">-->
+        <!--          <button mat-icon-button color="warn" matTooltip="Quan tâm"-->
+        <!--                  matTooltipPosition="below" class="btn-favorite mr-0">-->
+        <!--            <fa-icon [icon]="faHeart" style="font-size: 26px"></fa-icon>-->
+        <!--            <span class="number-favorite text-dark">5</span>-->
+        <!--          </button>-->
+        <!--        </div>-->
       </mat-toolbar>
       <button mat-stroked-button class="pr-4 box-shadow" [routerLink]="['/manage/post/create']"
               matTooltip="Bấm để đăng tin" matTooltipPosition="below"

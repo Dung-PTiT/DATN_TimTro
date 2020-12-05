@@ -35,7 +35,7 @@
         <th mat-header-cell *matHeaderCellDef style="width: 10%"> Ảnh đại diện</th>
         <td mat-cell *matCellDef="let post">
           <img width="100" class="pt-2 pb-2"
-               [src]="post.images[0]?.imageUrl ?
+               [src]="post?.images[0]?.imageUrl ?
                (PREFIX_URL + '/' + post?.id + '/' +  post?.images[0]?.imageUrl ) : (DEFAULT_IMAGE)">
         </td>
       </ng-container>

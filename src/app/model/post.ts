@@ -19,6 +19,7 @@ export class Post {
   latitude: number;
   longitude: number;
   createTime: string;
+  phoneNumber: string;
   images: Array<Image>;
   category: Category;
   tags: Array<Tag>;

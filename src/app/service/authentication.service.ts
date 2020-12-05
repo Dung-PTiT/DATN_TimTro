@@ -37,6 +37,9 @@ export class AuthenticationService extends MainService {
         return true;
       } else {
         this.getCurrentUser().subscribe(resp => {
+
+          //ToDo thử set localStorage
+          localStorage.setItem('userCurrent', JSON.stringify(resp.data));
           this.cookieService.set(AppConfig.COOKIE_ROLE_ACCOUNT, resp.data.role.substring(5))
         });
         return true;

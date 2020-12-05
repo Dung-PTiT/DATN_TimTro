@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {Post} from "../../../../../model/post";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-favorite-detail-dialog',
@@ -21,5 +22,9 @@ export class FavoriteDetailDialogComponent implements OnInit {
 
   close() {
     this.dialogRef.close();
+  }
+
+  timespan(time: Date) {
+    return moment(time).startOf("second").fromNow();
   }
 }

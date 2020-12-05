@@ -139,7 +139,7 @@
             </div>
             <div class="home-product-bound">
               <div class="product-title">
-                <a [routerLink]="['post', post.id]" class="font-weight-bold text-decoration-none">
+                <a [routerLink]="['post', post?.id]" class="font-weight-bold text-decoration-none">
                   {{post?.title}}
                 </a>
               </div>
@@ -153,7 +153,7 @@
                 <fa-icon [icon]="faMapMarkerAlt" class="mr-1 text-danger"></fa-icon>
                 <span>
                   {{post?.address}}, {{post?.ward?.prefix}} {{post?.ward?.name}}
-                  {{post?.district?.prefix}} {{post?.district?.name}}, {{post?.province.name}}
+                  {{post?.district?.prefix}} {{post?.district?.name}}, {{post?.province?.name}}
                 </span>
               </div>
               <div class="product-date mt-1 mb-1">

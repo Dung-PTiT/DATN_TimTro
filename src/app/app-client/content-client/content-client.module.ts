@@ -19,13 +19,16 @@ import {PostDetailsComponent} from './post-details/post-details.component';
 import {AgmCoreModule} from "@agm/core";
 import {MatCarouselModule} from "@ngmodule/material-carousel";
 import {AgmDirectionModule} from "agm-direction";
+import { UserPageComponent } from './user-page/user-page.component';
+import {MatTableModule} from "@angular/material/table";
 
 
 @NgModule({
   declarations: [
     ContentClientComponent,
     DashboardClientComponent,
-    PostDetailsComponent
+    PostDetailsComponent,
+    UserPageComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +54,8 @@ import {AgmDirectionModule} from "agm-direction";
     MatCarouselModule,
     ButtonsModule,
     AgmDirectionModule,
-    InputsModule
+    InputsModule,
+    MatTableModule
   ]
 })
 export class ContentClientModule {

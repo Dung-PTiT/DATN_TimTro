@@ -22,9 +22,10 @@ import {PostListComponent } from './post-list/post-list.component';
 import {MatTableModule} from "@angular/material/table";
 import {CdkTableModule} from "@angular/cdk/table";
 import {MatDialogModule} from '@angular/material/dialog';
+import { PostUpdateComponent } from './post-update/post-update.component';
 
 @NgModule({
-  declarations: [PostCreateComponent, PostListComponent],
+  declarations: [PostCreateComponent, PostListComponent, PostUpdateComponent],
   imports: [
     CommonModule,
     ManagePostRoutingModule,

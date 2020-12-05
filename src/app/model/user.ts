@@ -6,7 +6,7 @@ export class User {
   name: string;
   imageUrl: string;
   email: string;
-  phoneNumber: number;
+  phoneNumber: string;
   role: Role;
   createTime: string;
 }

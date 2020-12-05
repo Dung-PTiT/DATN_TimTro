@@ -16,19 +16,22 @@ import {CategoryService} from "../../../../../service/category.service";
 import {Category} from "../../../../../model/category";
 import {TagService} from "../../../../../service/tag.service";
 import {Tag} from "../../../../../model/tag";
-import {faCloudUploadAlt, faCoffee, faTrash} from "@fortawesome/free-solid-svg-icons";
-import {Router} from "@angular/router";
+import {faCloudUploadAlt, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {Post} from "../../../../../model/post";
 
 @Component({
-  selector: 'app-post-create',
-  templateUrl: './post-create.component.html',
-  styleUrls: ['./post-create.component.css']
+  selector: 'app-post-update',
+  templateUrl: './post-update.component.html',
+  styleUrls: ['./post-update.component.css']
 })
-export class PostCreateComponent implements OnInit {
+export class PostUpdateComponent implements OnInit {
 
   faCloudUploadAlt = faCloudUploadAlt;
   faTrash = faTrash;
 
+  postUpdateId: number;
+  postUpdate: Post;
   markerInfo: MarkerInfo;
   editor = ClassicEditor;
   editorData: string;
@@ -42,7 +45,6 @@ export class PostCreateComponent implements OnInit {
   tag: Tag;
   tagList: Tag[];
   imageList: File[] = [];
-
 
   public villageCtrl: FormControl = new FormControl();
   public addressCtrl: FormControl = new FormControl();
@@ -77,7 +79,8 @@ export class PostCreateComponent implements OnInit {
               private categoryService: CategoryService,
               private tagService: TagService,
               private apiloader: MapsAPILoader,
-              private router: Router) {
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
     ClassicEditor.defaultConfig = {
       toolbar: {
         items: [
@@ -97,6 +100,46 @@ export class PostCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.activatedRoute.params.subscribe((params: Params) => {
+      this.postUpdateId = params['id'];
+      this.postService.getPostById(this.postUpdateId).subscribe(resp => {
+        this.postUpdate = resp.data;
+        // formData.append("content", this.editorData ? this.editorData : '');
+        // formData.append("latitude", this.markerInfo.latitude.toString());
+        // formData.append("longitude", this.markerInfo.longitude.toString());
+        // formData.append("wardStr", JSON.stringify(this.wardCtrl.value));
+        // formData.append("districtStr", JSON.stringify(this.districtCtrl.value));
+        // formData.append("provinceStr", JSON.stringify(this.provinceCtrl.value));
+        // formData.append("categoryStr", JSON.stringify(this.categoryCtrl.value));
+        // formData.append("tagsStr", JSON.stringify(this.tagCtrl.value));
+        this.titlePostCtrl.setValue(this.postUpdate?.title);
+        this.priceCtrl.setValue(this.postUpdate?.price);
+        this.acreageCtrl.setValue(this.postUpdate?.acreage);
+        this.villageCtrl.setValue(this.postUpdate?.address);
+        this.phoneNumberCtrl.setValue(this.postUpdate?.phoneNumber);
+        this.categoryCtrl.setValue(this.postUpdate.category);
+        // console.log(this.postUpdate.category);
+        // this.phoneNumberCtrl.setValue(this.postUpdate?.)
+        // this.markerInfo = new MarkerInfo(20.981149, 105.78748,
+        //   "./assets/images/marker3.png",
+        //   (this.postUpdate?.address)
+        //   + ', '
+        //   + (this.postUpdate?.ward?.prefix) + ' ' + (this.postUpdate?.ward?.name)
+        //   + ', '
+        //   + (this.postUpdate?.district?.prefix) + ' ' + (this.postUpdate?.district?.name)
+        //   + ', '
+        //   + (this.postUpdate?.province?.name)
+        //   );
+
+        // this.editor(this.postUpdate?.content);
+      });
+      // this.setCurrentLocation(this.post);
+    });
+
+    this.markerInfo = new MarkerInfo(20.981149, 105.78748,
+      "./assets/images/marker3.png", "abc");
+
     this.addressService.getAllProvinces().subscribe(resp => {
       this.provinceList = resp.data;
       this.provinceCtrl.setValue(this.provinceList[1]);
@@ -107,9 +150,6 @@ export class PostCreateComponent implements OnInit {
           this.filterProvinces();
         });
     });
-
-    this.markerInfo = new MarkerInfo(20.981149, 105.787480, "./assets/images/marker3.png",
-      "");
 
     this.provinceCtrl.valueChanges.subscribe(province => {
       this.addressService.getProvinceById(province.id).subscribe(
@@ -166,17 +206,13 @@ export class PostCreateComponent implements OnInit {
 
   genAddressStr() {
     this.addressCtrl.setValue(
-      (this.villageCtrl?.value ? this.villageCtrl.value : '')
+      (this.villageCtrl?.value)
       + ', '
-      + (this.wardCtrl.value?.prefix ? this.wardCtrl.value.prefix : '')
-      + ' '
-      + (this.wardCtrl.value?.name ? this.wardCtrl.value.name : '')
+      + (this.wardCtrl.value?.prefix) + ' ' + (this.wardCtrl.value?.name)
       + ', '
-      + (this.districtCtrl.value?.prefix ? this.districtCtrl.value.prefix : '')
-      + ' '
-      + (this.districtCtrl.value?.name ? this.districtCtrl.value.name : '')
+      + (this.districtCtrl.value?.prefix) + ' ' + (this.districtCtrl.value?.name)
       + ', '
-      + (this.provinceCtrl.value?.name ? this.provinceCtrl.value.name : '')
+      + (this.provinceCtrl.value?.name)
     );
   }
 
@@ -184,7 +220,7 @@ export class PostCreateComponent implements OnInit {
   @ViewChild(AgmMap, {static: true}) public agmMap: AgmMap;
 
   getLocation(event) {
-    this.markerInfo = new MarkerInfo(event.coords.lat, event.coords.lng, "./assets/images/marker3.png","");
+    this.markerInfo = new MarkerInfo(event.coords.lat, event.coords.lng, "./assets/images/marker3.png", "Nhà 74, ngõ 127, Phùng Khoang, Nam Từ Liêm, Hà Nội");
   }
 
   public onChange({editor}: ChangeEvent) {
@@ -199,7 +235,6 @@ export class PostCreateComponent implements OnInit {
     formData.append("price", this.priceCtrl.value);
     formData.append("acreage", this.acreageCtrl.value);
     formData.append("address", this.villageCtrl.value);
-    formData.append("phoneNumber", this.phoneNumberCtrl.value);
     formData.append("latitude", this.markerInfo.latitude.toString());
     formData.append("longitude", this.markerInfo.longitude.toString());
     formData.append("wardStr", JSON.stringify(this.wardCtrl.value));
@@ -207,12 +242,11 @@ export class PostCreateComponent implements OnInit {
     formData.append("provinceStr", JSON.stringify(this.provinceCtrl.value));
     formData.append("categoryStr", JSON.stringify(this.categoryCtrl.value));
     formData.append("tagsStr", JSON.stringify(this.tagCtrl.value));
-
     this.imageList.forEach((file, i) => {
       formData.append("files[" + i + "]", file);
     });
     this.postService.createPost(formData).subscribe(resp => {
-      if(resp.success == true){
+      if (resp.success == true) {
         this.router.navigate(['/manage/post/list']);
       }
     });
@@ -236,7 +270,7 @@ export class PostCreateComponent implements OnInit {
     this.imageList.push(event.target.files[0]);
   }
 
-  removeImages(){
+  removeImages() {
     this.urls = [];
   }
 
@@ -316,4 +350,5 @@ export class PostCreateComponent implements OnInit {
       this.wardList.filter(ward => ward.name.toLowerCase().indexOf(search) > -1)
     );
   }
+
 }

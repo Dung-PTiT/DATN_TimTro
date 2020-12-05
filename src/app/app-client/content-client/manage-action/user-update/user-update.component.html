@@ -53,14 +53,10 @@
         </mat-tab>
         <mat-tab label="Thông tin liên hệ">
           <p style="margin-top:70px !important;">
-            Tên người dùng: <span class="font-weight-bold">{{user?.name}}</span>
+            Email: <span class="font-weight-bold">{{user?.email}}</span>
           </p>
           <p class="mt-3">
-            Tên tài khoản: <span class="font-weight-bold">{{user?.username}}</span>
-          </p>
-          <p class="mt-3">
-            Ngày tham gia:
-            <span class="font-weight-bold">{{user?.createTime | date:'dd-MM-yyyy hh:mm a'}}</span>
+            Số điện thoại: <span class="font-weight-bold">{{user?.phoneNumber}}</span>
           </p>
         </mat-tab>
       </mat-tab-group>

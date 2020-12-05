@@ -136,24 +136,24 @@
               {{post?.district?.prefix}} {{post?.district?.name}}, {{post?.province.name}}
             </span>
           </p>
-<!--          <agm-map [latitude]="post?.latitude ? post.latitude : 0"-->
-<!--                   [longitude]="post?.longitude ? post.longitude : 0"-->
-<!--                   [zoom]="zoom" [fullscreenControl]="true">-->
-<!--            <agm-direction-->
-<!--              [origin]="origin" [destination]="destination"-->
-<!--              [renderOptions]="renderOptions"-->
-<!--              [markerOptions]="markerOptions">-->
-<!--            </agm-direction>-->
-<!--            <agm-marker [latitude]="post?.latitude ? post.latitude : 0"-->
-<!--                        [longitude]="post?.longitude ? post.longitude : 0"-->
-<!--                        [iconUrl]="markerAddress">-->
-<!--              <agm-info-window-->
-<!--                [latitude]="post?.latitude ? post.latitude : 0"-->
-<!--                [longitude]="post?.longitude ? post.longitude : 0">-->
-<!--                Địa chỉ: <span class="font-weight-bold text-primary">{{post?.address ? post.address : ''}}</span>-->
-<!--              </agm-info-window>-->
-<!--            </agm-marker>-->
-<!--          </agm-map>-->
+          <!--          <agm-map [latitude]="post?.latitude ? post.latitude : 0"-->
+          <!--                   [longitude]="post?.longitude ? post.longitude : 0"-->
+          <!--                   [zoom]="zoom" [fullscreenControl]="true">-->
+          <!--            <agm-direction-->
+          <!--              [origin]="origin" [destination]="destination"-->
+          <!--              [renderOptions]="renderOptions"-->
+          <!--              [markerOptions]="markerOptions">-->
+          <!--            </agm-direction>-->
+          <!--            <agm-marker [latitude]="post?.latitude ? post.latitude : 0"-->
+          <!--                        [longitude]="post?.longitude ? post.longitude : 0"-->
+          <!--                        [iconUrl]="markerAddress">-->
+          <!--              <agm-info-window-->
+          <!--                [latitude]="post?.latitude ? post.latitude : 0"-->
+          <!--                [longitude]="post?.longitude ? post.longitude : 0">-->
+          <!--                Địa chỉ: <span class="font-weight-bold text-primary">{{post?.address ? post.address : ''}}</span>-->
+          <!--              </agm-info-window>-->
+          <!--            </agm-marker>-->
+          <!--          </agm-map>-->
         </div>
       </div>
 
@@ -250,20 +250,22 @@
     </div>
     <div style="position: relative; display: block; vertical-align: baseline; float: left;}">
       <div class="col-12 col-lg-3" style="position:fixed; float: left; max-width: 22%">
-        <div class="profile-user cursor-pointer">
+        <div class="profile-user">
           <div class="profile-info">
             <div>
               <span>LIÊN HỆ NGAY</span>
             </div>
-            <!--            <div (click)="router.navigate(['/post/2']);">-->
             <div>
               <div>
                 <div class="profile-image">
-                  <img width="50" src="./assets/images/avatar.png" style="border-radius: 30px"/>
+                  <img width="50" src="./assets/images/avatar.png" (click)="viewUserPage(post?.user?.id)"
+                       class="cursor-pointer" matTooltip="Bấm xem trang cá nhân"
+                       style="border-radius: 30px"/>
                 </div>
                 <div class="profile-more">
-                  <div class="profile-name">
-                    <b>{{post?.user ? post.user?.name : 'User'}}</b>
+                  <div class="profile-name cursor-pointer"(click)="viewUserPage(post?.user?.id)"
+                       matTooltip="Bấm xem trang cá nhân">
+                    <b>{{post?.user ? post?.user?.name : 'User'}}</b>
                   </div>
                 </div>
               </div>
@@ -272,14 +274,14 @@
               <div>
                   <span class="font-weight-bold">
                   <fa-icon class="mr-2 text-info" [icon]="faPhone"></fa-icon>
-                    {{post?.user ? post.user?.phoneNumber : 0}}
+                    {{post?.user ? post?.user?.phoneNumber : 0}}
                 </span>
               </div>
               <div class="mt-2">
                   <span>
                   <fa-icon class="mr-2 text-danger" [icon]="faEnvelope"></fa-icon>
                     <a href="mailto:someone@example.com">
-                      {{post?.user ? post.user?.email : 'No email'}}
+                      {{post?.user ? post?.user?.email : 'No email'}}
                     </a>
                   </span>
               </div>

@@ -73,7 +73,7 @@
               <mat-form-field appearance="fill" style="width: 100%">
                 <mat-label>Chọn</mat-label>
                 <mat-select [formControl]="categoryCtrl">
-                  <mat-option *ngFor="let category of categoryList" [value]="category">{{category.name}}</mat-option>
+                  <mat-option *ngFor="let category of categoryList" [value]="category">{{category?.name}}</mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
@@ -114,13 +114,13 @@
             <div class="col-6">
               <span>Vĩ độ</span>
               <div class="mt-2">
-                <p class="p-2 bg-light">{{markerInfo.latitude}}</p>
+                <p class="p-2 bg-light">{{markerInfo?.latitude}}</p>
               </div>
             </div>
             <div class="col-6">
               <span>Kinh độ</span>
               <div class="mt-2">
-                <p class="p-2 bg-light">{{markerInfo.longitude}}</p>
+                <p class="p-2 bg-light">{{markerInfo?.longitude}}</p>
               </div>
             </div>
           </div>
@@ -132,7 +132,7 @@
           <div class="col-12">
             <mat-form-field class="w-100">
               <mat-select placeholder="Chọn những tiện ích đang có" [formControl]="tagCtrl" multiple>
-                <mat-option *ngFor="let tag of tagList" [value]="tag">{{tag.name}}</mat-option>
+                <mat-option *ngFor="let tag of tagList" [value]="tag">{{tag?.name}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -167,18 +167,24 @@
         </div>
         <div>Tọa độ hiện tại:
           <div class="d-flex">
-            <p class="font-weight-bold mr-1" matTooltip="Vĩ độ">[{{markerInfo.latitude}}</p>
+            <p class="font-weight-bold mr-1" matTooltip="Vĩ độ">[{{markerInfo?.latitude}}</p>
             <span> , </span>
-            <p class="ml-1 font-weight-bold" matTooltip="Kinh độ">{{markerInfo.longitude}}]</p>
+            <p class="ml-1 font-weight-bold" matTooltip="Kinh độ">{{markerInfo?.longitude}}]</p>
           </div>
         </div>
       </div>
-<!--      <agm-map #agmMap [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude" [zoom]="13"-->
-<!--               (mapClick)="getLocation($event)" [fullscreenControl]="true">-->
-<!--        <agm-marker [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude"-->
-<!--                    [iconUrl]="markerInfo.icon">-->
-<!--        </agm-marker>-->
-<!--      </agm-map>-->
+            <agm-map #agmMap [latitude]="markerInfo?.latitude" [longitude]="markerInfo?.longitude" [zoom]="13"
+                     (mapClick)="getLocation($event)" [fullscreenControl]="true">
+              <agm-marker [latitude]="markerInfo?.latitude" [longitude]="markerInfo?.longitude"
+                          [iconUrl]="markerInfo?.icon">
+
+                <agm-info-window [disableAutoPan]="false" #infoWindow>
+                  <div class="d-flex">
+                    <span class="ml-2 font-weight-bold">{{markerInfo?.address}}</span>
+                  </div>
+                </agm-info-window>
+              </agm-marker>
+            </agm-map>
     </div>
   </div>
 </div>

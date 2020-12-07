@@ -80,10 +80,10 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint(new RestAuthenticationEntryPoint()); // thử xóa đi
         http.authorizeRequests()
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**",
-                        "/v2/api-docs/**", "/auth/login", "/auth/create-password",
+                        "/v2/api-docs/**", "/auth/login", "/auth/create-password", "/auth/register",
                         "/oauth/**", "/oauth2/**", "/auth/gen-pass",
                         "/address/**", "/post/get-all", "/post/get-by-id", "/post/get-by-user-id", "/category/get-all", "/tag/get-all",
-                        "/image/**", "/comment/**", "/favorite/**", "/user/get-by-id").permitAll()
+                        "/image/**", "/comment/**", "/favorite/**", "/user/get-by-id", "/post-vip/get-all").permitAll()
                 .anyRequest().authenticated(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
         // Thêm một lớp Filter kiểm tra jwt
         http.oauth2Login()

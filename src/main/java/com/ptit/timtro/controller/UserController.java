@@ -16,4 +16,19 @@ public class UserController {
     public DataResponse<User> getById(@RequestParam("id") Integer id) {
         return new DataResponse<>(true, userService.get(id));
     }
+
+    @PostMapping("/user/change-password")
+    public DataResponse<String> changePassword(@RequestParam("id") Integer id,
+                                               @RequestParam("password") String newPassword) {
+        try {
+            User user = new User();
+            user.setId(id);
+            user.setPassword(newPassword);
+            userService.changePassword(user);
+            return new DataResponse<>(true, "OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new DataResponse<>(false, "Error");
+    }
 }

@@ -20,4 +20,6 @@ public interface UserDAO {
     UserEntity getByEmail(String email);
 
     UserEntity checkExistedUser(String email, String typeAuthProvider);
+
+    void changePassword(UserEntity userEntity);
 }

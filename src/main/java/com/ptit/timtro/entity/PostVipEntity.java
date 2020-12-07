@@ -22,6 +22,9 @@ public class PostVipEntity {
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
+    @Column(name = "vip_level", nullable = false)
+    private Integer viplevel;
+
     @Column(name = "day_price", nullable = false)
     private Integer dayPrice;
 

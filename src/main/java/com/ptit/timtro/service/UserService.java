@@ -1,11 +1,12 @@
 package com.ptit.timtro.service;
 
+import com.ptit.timtro.entity.UserEntity;
 import com.ptit.timtro.model.User;
 
 import java.util.List;
 
 public interface UserService {
-    void create(User user);
+    Integer create(User user);
 
     User get(Integer id);
 
@@ -18,5 +19,9 @@ public interface UserService {
     boolean existsByEmail(String email);
 
     boolean existsByUsername(String username);
+
+    User checkExistedUser(String email, String typeAuthProvider);
+
+    void changePassword(User user);
 }
 

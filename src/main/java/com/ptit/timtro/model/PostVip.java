@@ -14,7 +14,10 @@ import java.util.List;
 public class PostVip {
     private Integer id;
     private String name;
-    private Integer price;
+    private Integer vipLevel;
+    private Integer dayPrice;
+    private Integer weekPrice;
+    private Integer monthPrice;
+    private Integer yearPrice;
     private String description;
-    private List<Post> posts;
 }

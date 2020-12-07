@@ -50,17 +50,10 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
         if (StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
-//        UserEntity userEntity = userDAO.getByEmail(oAuth2UserInfo.getEmail());
         String typeAuthProvider = oAuth2UserRequest.getClientRegistration().getRegistrationId();
         UserEntity userEntity = userDAO.checkExistedUser(oAuth2UserInfo.getEmail(), typeAuthProvider);
         if (userEntity != null) {
-//            if (!userEntity.getAuthProvider().equals(oAuth2UserRequest.getClientRegistration().getRegistrationId())) {
-//                throw new OAuth2AuthenticationProcessingException("Looks like you're signed up with " +
-//                        userEntity.getAuthProvider() + " account. Please use your " + userEntity.getAuthProvider() +
-//                        " account to login.");
-//            }else{
             userEntity = updateExistingUser(userEntity, oAuth2UserInfo);
-//            }
         } else {
             userEntity = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
         }
@@ -76,8 +69,9 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
         userEntity.setName(oAuth2UserInfo.getName());
         userEntity.setEmail(oAuth2UserInfo.getEmail());
         userEntity.setImageUrl(oAuth2UserInfo.getImageUrl());
+        userEntity.setPhoneNumber("Chưa có");
         userEntity.setRole(Role.MEMBER);
-        
+
         Date date = new Date();
         userEntity.setCreateTime(date);
         return userDAO.create(userEntity);

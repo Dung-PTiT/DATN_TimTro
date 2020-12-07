@@ -67,4 +67,9 @@ public class UserDAOImpl implements UserDAO {
             return null;
         }
     }
+
+    @Override
+    public void changePassword(UserEntity userEntity) {
+        entityManager.merge(userEntity);
+    }
 }

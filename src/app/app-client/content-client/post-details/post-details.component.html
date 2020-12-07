@@ -61,7 +61,7 @@
         <div class="col-4">
           <h6 class="text-grey">Mức giá: </h6>
           <h6 class="font-weight-bold">
-            {{post?.price | currency : "VND"}} triệu/tháng
+            {{post?.price | number}} triệu/tháng
           </h6>
         </div>
         <div class="col-4">
@@ -263,7 +263,7 @@
                        style="border-radius: 30px"/>
                 </div>
                 <div class="profile-more">
-                  <div class="profile-name cursor-pointer"(click)="viewUserPage(post?.user?.id)"
+                  <div class="profile-name cursor-pointer" (click)="viewUserPage(post?.user?.id)"
                        matTooltip="Bấm xem trang cá nhân">
                     <b>{{post?.user ? post?.user?.name : 'User'}}</b>
                   </div>

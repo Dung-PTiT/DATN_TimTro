@@ -12,11 +12,11 @@
       </h3>
       <h5>ĐÚNG NHÀ, ĐÚNG GIÁ, ĐÚNG THỜI ĐIỂM</h5>
       <div style="display: flex; justify-content: center">
-        <button mat-stroked-button class="bg-light">
-          <a href="#href-tim-kiem-nhanh" style="text-decoration: none" class="text-dark">Tìm kiếm nhanh</a>
-        </button>
         <button mat-stroked-button class="ml-2 bg-color-feb800">
-          <a href="" style="text-decoration: none" class="text-white">Liên hệ ngay</a>
+          <a href="#href-tim-kiem-nhanh" class="text-white"
+             style="text-decoration: none; font-weight: 500 !important;">
+            Tìm kiếm ngay
+          </a>
         </button>
       </div>
     </div>
@@ -25,88 +25,55 @@
 <div class="container" id="href-tim-kiem-nhanh">
   <mat-card class="card-body-content-client">
     <mat-card-title class="title text-center font-weight-bold mb-5">Tìm nhà cho thuê</mat-card-title>
-    <div class="row">
-      <div class="col-sm-12 col-md-6">
-        <div class="search-form-key">
-          <div class="text-center">
-            <p style="font-weight: 700">Tìm kiếm nhanh theo từ khóa</p>
-          </div>
-          <!--          <div [formGroup]="searchForm">-->
-          <form class="form-search" [formGroup]="searchForm">
-            <mat-form-field appearance="none" class="mat-form-field-search">
-              <input matInput type="text" placeholder="Nhập địa điểm, khu vực bạn quan tâm"
-                     [matAutocomplete]="auto" formControlName="searchInp">
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  {{option}}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-            <button mat-stroked-button matTooltip="Tìm kiếm" class="text-white bg-color-feb800 ml-4">
-              <fa-icon [icon]="faSearch"></fa-icon>
-            </button>
-          </form>
-          <p style="font-weight: 700" class="pt-4">Tìm kiếm nhiều:
-            <a href="" class="ml-2">Hà Đông</a>
-            <a href="" class="ml-2">Thanh Xuân</a>
-          </p>
-          <!--          </div>-->
-        </div>
+    <div class="row d-flex">
+      <div class="text-center">
+        <!--          <mat-form-field appearance="outline" class="ml-3">-->
+        <!--            <mat-label>Loại</mat-label>-->
+        <!--            <mat-select>-->
+        <!--              <mat-option>-->
+        <!--              </mat-option>-->
+        <!--            </mat-select>-->
+        <!--          </mat-form-field>-->
+        <mat-form-field appearance="outline">
+          <mat-label>Tỉnh thành</mat-label>
+          <mat-select>
+            <mat-option>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="ml-2">
+          <mat-label>Quận huyện</mat-label>
+          <mat-select>
+            <mat-option>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="ml-2">
+          <mat-label>Đường phố</mat-label>
+          <mat-select>
+            <mat-option>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="ml-2">
+          <mat-label>Khoảng giá</mat-label>
+          <mat-select>
+            <mat-option>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="ml-2">
+          <mat-label>Diện tích</mat-label>
+          <mat-select>
+            <mat-option>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
-      <div class="col-sm-12 col-md-6">
-        <div class="text-center">
-          <p style="font-weight: 700">Tìm kiếm theo các tiêu chí</p>
-        </div>
-        <div class="text-center">
-          <mat-form-field appearance="outline" class="ml-3">
-            <mat-label>Loại</mat-label>
-            <mat-select>
-              <mat-option>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="ml-3">
-            <mat-label>Tỉnh thành</mat-label>
-            <mat-select>
-              <mat-option>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="ml-3">
-            <mat-label>Quận huyện</mat-label>
-            <mat-select>
-              <mat-option>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="ml-3">
-            <mat-label>Đường phố</mat-label>
-            <mat-select>
-              <mat-option>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="ml-3">
-            <mat-label>Khoảng giá</mat-label>
-            <mat-select>
-              <mat-option>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field appearance="outline" class="ml-3">
-            <mat-label>Diện tích</mat-label>
-            <mat-select>
-              <mat-option>
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="text-center">
-          <button mat-stroked-button matTooltip="Tìm kiếm" class="text-white bg-color-feb800 ml-4">
-            <fa-icon [icon]="faSearch"></fa-icon>
-          </button>
-        </div>
-      </div>
+      <button mat-stroked-button matTooltip="Tìm kiếm" style="height: 50px;margin-top: 4px;"
+              class="text-white bg-color-feb800 ml-2">
+        <fa-icon [icon]="faSearch"></fa-icon>
+      </button>
     </div>
   </mat-card>
   <div class="row pt-3">
@@ -145,7 +112,7 @@
               </div>
               <div class="product-price mt-1 mb-1">
                 <fa-icon [icon]="faDollarSign" class="mr-1 text-color-feb800" matTooltip="Giá"></fa-icon>
-                {{post?.price | currency : "VND"}} triệu/tháng
+                {{post?.price | number}} triệu/tháng
               </div>
               <span class="divide-dot">·</span>
               <div class="product-m2 mt-1 mb-1">{{post?.acreage}} m2</div>

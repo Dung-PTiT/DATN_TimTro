@@ -1,5 +1,5 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {faCloudUploadAlt, faHeart, faTrash, faUpload} from "@fortawesome/free-solid-svg-icons";
+import {faCloudUploadAlt, faTrash, faUpload} from "@fortawesome/free-solid-svg-icons";
 import {User} from "../../../../model/user";
 import {AppConfig} from "../../../../util/app-config";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -7,6 +7,9 @@ import {PostService} from "../../../../service/post.service";
 import {MapsAPILoader} from "@agm/core";
 import {AuthenticationService} from "../../../../service/authentication.service";
 import {CommentService} from "../../../../service/comment.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ToastService} from "../../../../service/toast.service";
+import {UserService} from "../../../../service/user.service";
 
 @Component({
   selector: 'app-user-update',
@@ -14,6 +17,9 @@ import {CommentService} from "../../../../service/comment.service";
   styleUrls: ['./user-update.component.css']
 })
 export class UserUpdateComponent implements OnInit {
+
+  passwordForm: FormGroup;
+  submitted = false;
 
   user: User;
 
@@ -27,11 +33,24 @@ export class UserUpdateComponent implements OnInit {
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone,
               private authenticationService: AuthenticationService,
-              private commentService: CommentService) {
+              private commentService: CommentService,
+              private formBuilder: FormBuilder,
+              private toastService: ToastService,
+              private userService: UserService) {
     this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
   }
 
   ngOnInit(): void {
+
+    this.passwordForm = this.formBuilder.group(
+      {
+        inputNewPass: ['', Validators.required],
+        inputNewPassConfirm: ['', Validators.required]
+      },
+      {
+        validator: MustMatch('inputNewPass', 'inputNewPassConfirm')
+      });
+
     if (this.authenticationService.checkLogin()) {
       this.authenticationService.getCurrentUser().subscribe(resp => {
         this.user = resp.data;
@@ -39,7 +58,32 @@ export class UserUpdateComponent implements OnInit {
     }
   }
 
-  url : any;
+
+  changePassword() {
+
+    this.submitted = true;
+
+    if (this.passwordForm.invalid) {
+      return;
+    }
+
+    this.userService
+      .changePassword(this.user?.id, this.passwordForm.controls.inputNewPass.value)
+      .subscribe(resp => {
+        if (resp.success) {
+          this.toastService.showSuccess("Đổi mật khẩu thành công");
+        } else {
+          this.toastService.showError("Không đổi được mật khẩu");
+        }
+      });
+  }
+
+  get validator() {
+    return this.passwordForm.controls;
+  }
+
+  // image
+  url: any;
   image: File;
 
   onSelectFile(event) {
@@ -56,15 +100,32 @@ export class UserUpdateComponent implements OnInit {
     this.image = event.target.files[0];
   }
 
-  removeImages(){
-    this.url = null;
+  saveUserImage() {
+
   }
 
-  saveUserImage(){
-
+  removeImages() {
+    this.url = null;
   }
 
   faUpload = faUpload;
   faCloudUploadAlt = faCloudUploadAlt;
   faTrash = faTrash;
+}
+
+export function MustMatch(controlName: string, matchingControlName: string) {
+  return (formGroup: FormGroup) => {
+    const control = formGroup.controls[controlName];
+    const matchingControl = formGroup.controls[matchingControlName];
+
+    if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+      return;
+    }
+
+    if (control.value !== matchingControl.value) {
+      matchingControl.setErrors({mustMatch: true});
+    } else {
+      matchingControl.setErrors(null);
+    }
+  }
 }

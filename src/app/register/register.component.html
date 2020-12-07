@@ -1,32 +1,106 @@
 <mat-card class="card-register">
   <mat-card-title class="title">Đăng ký</mat-card-title>
-  <div class="row pt-4 pl-3 pr-3">
-    <div class="col-5 pl-0">
-      <form class="text-center">
-        <input type="text" class="form-control mb-4" placeholder="Tên tài khoản" style="font-size: 13px;">
-        <input type="password" class="form-control mb-4" placeholder="Mật khẩu từ 6-32 ký tự" style="font-size: 13px;">
-        <input type="text" class="form-control mb-4" placeholder="Họ tên" style="font-size: 13px;">
-        <input type="text" class="form-control mb-4" placeholder="Số điện thoại" style="font-size: 13px;">
-        <button mdbBtn block="true" class="btn-register my-4" type="submit">Đăng ký</button>
+  <div class="row pl-3 pr-3">
+    <div class="col-lg-5 pl-0">
+      <form [formGroup]="registerForm" (submit)="register()">
+        <div class="mb-3">
+          <label class="font-size-13 mb-0">
+            Tên tài khoản<span class="text-danger ml-1">*</span>
+          </label>
+          <input type="text" class="form-control font-size-13" placeholder="Tên tài khoản"
+                 formControlName="username" [ngClass]="{ 'is-invalid': submitted && validator.username?.errors}">
+          <div *ngIf="submitted && validator.username?.errors?.required" class="invalid-feedback text-align-start">
+            Tên tài khoản không được trống
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="font-size-13 mb-0">
+            Mật khẩu<span class="text-danger ml-1">*</span>
+          </label>
+          <input type="password" class="form-control font-size-13" placeholder="Mật khẩu ít nhất 8 kí tự"
+                 formControlName="password" [ngClass]="{ 'is-invalid': submitted && validator.password?.errors}">
+          <div *ngIf="submitted && validator.password?.errors" class="invalid-feedback text-align-start">
+            <div *ngIf="validator.password?.errors?.required">
+              Mật khẩu không được trống
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="font-size-13 mb-0">
+            Nhập lại mật khẩu<span class="text-danger ml-1">*</span>
+          </label>
+          <input type="password" class="form-control font-size-13" placeholder="Nhập lại mật khẩu"
+                 formControlName="confirmPassword"
+                 [ngClass]="{ 'is-invalid': submitted && validator.confirmPassword?.errors}">
+          <div *ngIf="submitted && validator.confirmPassword?.errors" class="invalid-feedback text-align-start">
+            <div *ngIf="validator.confirmPassword?.errors?.required">
+              Mật khẩu xác nhận không được trống
+            </div>
+            <div *ngIf="validator.confirmPassword?.errors?.mustMatch">
+              Mật khẩu không trùng khớp
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="font-size-13 mb-0">
+            Tên<span class="text-danger ml-1">*</span>
+          </label>
+          <input type="text" class="form-control font-size-13" placeholder="Họ tên" formControlName="name"
+                 [ngClass]="{ 'is-invalid': submitted && validator.name?.errors}">
+          <div *ngIf="submitted && validator.name?.errors?.required" class="invalid-feedback text-align-start">
+            Tên không được trống
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="font-size-13 mb-0">
+            Số điện thoại<span class="text-danger ml-1">*</span>
+          </label>
+          <input type="text" class="form-control font-size-13" placeholder="Số điện thoại"
+                 formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && validator.phoneNumber?.errors}">
+          <div *ngIf="submitted && validator.phoneNumber?.errors" class="invalid-feedback text-align-start">
+            <div *ngIf="validator.phoneNumber?.errors?.required">
+              Số điện thoại không được trống
+            </div>
+            <div *ngIf="validator.phoneNumber?.errors?.pattern">
+              Số điện thoại chỉ có kí tự số
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="font-size-13 mb-0">
+            Email<span class="text-danger ml-1">*</span>
+          </label>
+          <input type="email" class="form-control font-size-13" placeholder="Email" formControlName="email"
+                 [ngClass]="{ 'is-invalid': submitted && validator.email?.errors}">
+          <div *ngIf="submitted && validator.email?.errors" class="invalid-feedback text-align-start">
+            <div *ngIf="validator.email?.errors?.required">
+              Email không được trống
+            </div>
+            <div *ngIf="validator.email?.errors?.email">
+              Định dạng email không đúng
+            </div>
+          </div>
+        </div>
+        <button mdbBtn block="true" class="btn-register mb-3 pt-2 pb-2" type="submit">Đăng ký</button>
         <p style="font-size: 13px">Đã có tài khoản?<a routerLink="/login" class="ml-2">Đăng nhập</a></p>
       </form>
     </div>
-    <div class="col-2">
+    <div class="col-lg-2">
       <div class="middle-register">
         <div class="middle-register-text">
           <span>Hoặc</span>
         </div>
       </div>
     </div>
-    <div class="col-5 div-register-service">
+    <div class="col-lg-5 div-register-service">
       <div class="row">
-        <a title="Đăng nhập với google" href="" class="register-link-service">
+        <a title="Đăng nhập với google" (click)="oauthGoogle()" class="register-link-service">
           <img src="./assets/images/google.jpg" class="register-icon-service ml-2">
           <span class="register-title-service">Đăng nhập với google</span>
         </a>
       </div>
       <div class="row">
-        <a title="Đăng nhập với facebook" href="" class="register-link-service mt-4"
+        <a title="Đăng nhập với facebook" (click)="oauthFacebook()" class="register-link-service mt-4"
            style="background-color: #3b5998; color: #ffffff">
           <img src="./assets/images/facebook.png" class="register-icon-service ml-2">
           <span class="register-title-service">Đăng nhập với facebook</span>
@@ -34,5 +108,5 @@
       </div>
     </div>
   </div>
-  <div class="text-center mt-4"><a routerlink="" href="" style="font-size: 13px">Quay lại trang chủ</a></div>
+  <div class="text-center mt-3"><a routerlink="" href="" style="font-size: 13px">Quay lại trang chủ</a></div>
 </mat-card>

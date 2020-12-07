@@ -4,6 +4,7 @@ import {UserUpdateComponent} from "./user-update/user-update.component";
 import {ManagePostComponent} from "./manage-post/manage-post.component";
 import {CommentComponent} from "./comment/comment.component";
 import {FavoriteComponent} from "./favorite/favorite.component";
+import {TopUpComponent} from "./top-up/top-up.component";
 
 const routes: Routes = [
   {
@@ -18,6 +19,9 @@ const routes: Routes = [
   },
   {
     path: "favorite", component: FavoriteComponent
+  },
+  {
+    path: "top-up", component: TopUpComponent
   },
 ];
 

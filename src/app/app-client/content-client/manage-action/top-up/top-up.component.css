@@ -1,0 +1,25 @@
+.card-top-up-title {
+  background-color: #eeeeee;
+}
+
+.card-top-up:hover {
+  border: 1px solid #c7c0fa;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2),
+  0 2px 2px 0 rgba(0, 0, 0, 0.14),
+  0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+.card-top-up:hover .card-top-up-title {
+  color: white;
+  background-color: #484cff;
+}
+
+.card-action-right {
+  border: 1px solid #dddddd;
+}
+
+.card-action-right:hover {
+  border: 1px solid #3b5998;
+  color: #484cff;
+  font-weight: 500;
+}

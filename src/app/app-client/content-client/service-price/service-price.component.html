@@ -1,0 +1,58 @@
+<div style="margin-left: 150px; margin-right: 150px; margin-top: 100px">
+  <div class="text-center">
+    <h5>Giá dịch vụ cho bài đăng</h5>
+  </div>
+  <div class="mt-5">
+    <table mat-table *ngIf="postVips?.length != 0;else null_table"
+           [dataSource]="postVips" class="box-shadow text-center w-100">
+
+      <ng-container matColumnDef="number">
+        <th mat-header-cell *matHeaderCellDef class="text-center">STT</th>
+        <td mat-cell *matCellDef="let postVip; let i = index;"> {{i + 1}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef class="text-center" style="width: 40%">Loại tin</th>
+        <td mat-cell *matCellDef="let postVip"> {{postVip?.name}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="dayPrice">
+        <th mat-header-cell *matHeaderCellDef class="text-center">Giá ngày</th>
+        <td mat-cell *matCellDef="let postVip"> {{postVip?.dayPrice | number}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="weekPrice">
+        <th mat-header-cell *matHeaderCellDef class="text-center">Giá tuần</th>
+        <td mat-cell *matCellDef="let postVip"> {{postVip?.weekPrice | number}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="monthPrice">
+        <th mat-header-cell *matHeaderCellDef class="text-center">Giá tháng</th>
+        <td mat-cell *matCellDef="let postVip"> {{postVip?.monthPrice | number}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="yearPrice">
+        <th mat-header-cell *matHeaderCellDef class="text-center">Giá năm</th>
+        <td mat-cell *matCellDef="let postVip"> {{postVip?.yearPrice | number}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef class="text-center">Chi tiết</th>
+        <td mat-cell *matCellDef="let postVip">
+          <fa-icon [icon]="faArrowAltCircleRight" class="text-primary cursor-pointer"
+                   matTooltip="Bấm xem gói dịch vụ" matTooltipPosition="right"></fa-icon>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumn" class="text-center"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumn;"></tr>
+    </table>
+    <ng-template #null_table>
+      <span class="text-danger">Không có thông tin</span>
+    </ng-template>
+  </div>
+  <div style="margin-top: 100px">
+    <div class="text-center">
+      <h5>Chi tiết dịch vụ</h5>
+    </div>
+  </div>
+</div>

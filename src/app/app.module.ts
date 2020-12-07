@@ -12,6 +12,7 @@ import {AppClientModule} from "./app-client/app-client.module";
 import {UrlSecurity} from "./filter/url.security";
 import {AppAdminComponent } from './app-admin/app-admin.component';
 import {AppAdminModule} from "./app-admin/app-admin.module";
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,12 @@ import {AppAdminModule} from "./app-admin/app-admin.module";
     AppClientModule,
     AppAdminModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 2000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+      closeButton: true
+    })
   ],
   providers: [
     AuthenticationService,

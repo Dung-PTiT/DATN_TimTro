@@ -21,6 +21,7 @@ import {MatCarouselModule} from "@ngmodule/material-carousel";
 import {AgmDirectionModule} from "agm-direction";
 import { UserPageComponent } from './user-page/user-page.component';
 import {MatTableModule} from "@angular/material/table";
+import { ServicePriceComponent } from './service-price/service-price.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {MatTableModule} from "@angular/material/table";
     ContentClientComponent,
     DashboardClientComponent,
     PostDetailsComponent,
-    UserPageComponent
+    UserPageComponent,
+    ServicePriceComponent
   ],
   imports: [
     CommonModule,

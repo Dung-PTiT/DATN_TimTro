@@ -15,10 +15,13 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import {MatTableModule} from "@angular/material/table";
 import { FavoriteDetailDialogComponent } from './favorite/favorite-detail-dialog/favorite-detail-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import {InputsModule} from "angular-bootstrap-md";
+import {ReactiveFormsModule} from "@angular/forms";
+import { TopUpComponent } from './top-up/top-up.component';
 
 
 @NgModule({
-  declarations: [UserUpdateComponent, ManagePostComponent, CommentComponent, FavoriteComponent, FavoriteDetailDialogComponent],
+  declarations: [UserUpdateComponent, ManagePostComponent, CommentComponent, FavoriteComponent, FavoriteDetailDialogComponent, TopUpComponent],
   imports: [
     CommonModule,
     MatListModule,
@@ -29,7 +32,9 @@ import {MatDialogModule} from "@angular/material/dialog";
     FontAwesomeModule,
     MatTooltipModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    InputsModule,
+    ReactiveFormsModule
   ]
 })
 export class ManageActionModule {

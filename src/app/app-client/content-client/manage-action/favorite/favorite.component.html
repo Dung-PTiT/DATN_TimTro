@@ -63,7 +63,7 @@
 
             <ng-container matColumnDef="price">
               <th mat-header-cell class="text-center" *matHeaderCellDef> Giá</th>
-              <td mat-cell *matCellDef="let post"> {{post?.price | currency : "VND"}} </td>
+              <td mat-cell *matCellDef="let post"> {{post?.price | number}} </td>
             </ng-container>
 
             <ng-container matColumnDef="favorite">

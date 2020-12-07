@@ -5,11 +5,13 @@ import {PostDetailsComponent} from "./post-details/post-details.component";
 import {ManageActionComponent} from "./manage-action/manage-action.component";
 import {UrlSecurity} from "../../filter/url.security";
 import {UserPageComponent} from "./user-page/user-page.component";
+import {ServicePriceComponent} from "./service-price/service-price.component";
 
 const routes: Routes = [
   {path: "", component: DashboardClientComponent},
   {path: "post/:id", component: PostDetailsComponent},
   {path: "user/:id", component: UserPageComponent},
+  {path: "service-price", component: ServicePriceComponent},
   {
     path: "manage", component: ManageActionComponent,
     loadChildren: "./manage-action/manage-action.module#ManageActionModule",

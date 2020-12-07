@@ -7,9 +7,15 @@
     </div>
     <div class="example-button-row div-header-info">
       <mat-toolbar style="font-weight: 400" class="pr-0">
-        <a href="" class="mat-toolbar-title active"><span>Trang chủ</span></a>
-        <a href="" class="mat-toolbar-title ml-3"><span>Nạp tiền</span></a>
-        <a href="" class="mat-toolbar-title ml-3"><span>Bảng giá</span></a>
+        <a href="" class="mat-toolbar-title active">
+          <span>Trang chủ</span>
+        </a>
+        <a href="" class="mat-toolbar-title ml-3">
+          <span>Nạp tiền</span>
+        </a>
+        <a href="" class="mat-toolbar-title ml-3" [routerLink]="['/service-price']">
+          <span>Bảng giá</span>
+        </a>
         <div ngbDropdown container="body" class="cursor-pointer">
           <span ngbDropdownToggle class="ml-4 text-color-feb800">Đăng nhập | Đăng ký</span>
           <div ngbDropdownMenu class="mt-2">
@@ -53,7 +59,7 @@
               <fa-icon class="mr-2" [icon]="faHeart"></fa-icon>
               Quan tâm
             </button>
-            <button ngbDropdownItem>
+            <button ngbDropdownItem [routerLink]="['/manage/top-up']">
               <fa-icon class="mr-2" [icon]="faMoneyCheckAlt"></fa-icon>
               Nạp tiền
             </button>

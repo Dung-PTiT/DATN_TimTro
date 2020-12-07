@@ -12,7 +12,7 @@
   "private": true,
   "dependencies": {
     "@agm/core": "^1.1.0",
-    "@angular/animations": "~10.1.6",
+    "@angular/animations": "^10.1.6",
     "@angular/cdk": "^11.0.1",
     "@angular/common": "~10.1.6",
     "@angular/compiler": "~10.1.6",
@@ -49,6 +49,7 @@
     "moment": "latest",
     "ngx-cookie-service": "latest",
     "ngx-mat-select-search": "^3.1.2",
+    "ngx-toastr": "^13.2.0",
     "rxjs": "~6.6.0",
     "sweetalert2": "^10.10.4",
     "tslib": "^2.0.0",

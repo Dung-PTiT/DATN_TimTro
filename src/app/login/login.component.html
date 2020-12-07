@@ -2,25 +2,35 @@
   <mat-card-title class="title">Đăng nhập</mat-card-title>
   <div class="row pt-4 pl-3 pr-3">
     <div class="col-5 pl-0">
-      <form class="text-center" [formGroup]="loginForm" (submit)="login()">
-        <div class="mb-4">
-          <input type="text" class="form-control mb-1" placeholder="Tên đăng nhập" formControlName="inputUsername"
-                 style="font-size: 13px;" [ngClass]="{ 'is-invalid': submitted && validator.inputUsername?.errors}">
-          <div *ngIf="submitted && validator.inputUsername?.errors?.required" class="invalid-feedback">
-            Username không để trống
+      <form [formGroup]="loginForm" (submit)="login()">
+        <div class="mb-3">
+          <label class="font-size-13 mb-0">
+            Tên tài khoản<span class="text-danger ml-1">*</span>
+          </label>
+          <input type="text" class="form-control mb-1 font-size-13" placeholder="Tên tài khoản"
+                 formControlName="inputUsername"
+                 [ngClass]="{ 'is-invalid': submitted && validator.inputUsername?.errors}">
+          <div *ngIf="submitted && validator.inputUsername?.errors?.required"
+               class="invalid-feedback text-align-start">
+            Tên tài khoản không để trống
           </div>
         </div>
         <div class="mb-2">
-          <input type="password" class="form-control" placeholder="Mật khẩu" formControlName="inputPassword"
-                 style="font-size: 13px;" [ngClass]="{ 'is-invalid': submitted && validator.inputPassword?.errors}">
-          <div *ngIf="submitted && validator.inputPassword?.errors?.required" class="invalid-feedback">
-            Password không để trống
+          <label class="font-size-13 mb-0">
+            Mật khẩu<span class="text-danger ml-1">*</span>
+          </label>
+          <input type="password" class="form-control font-size-13" placeholder="Mật khẩu"
+                 formControlName="inputPassword"
+                 [ngClass]="{ 'is-invalid': submitted && validator.inputPassword?.errors}">
+          <div *ngIf="submitted && validator.inputPassword?.errors?.required"
+               class="invalid-feedback text-align-start">
+            Mật khẩu không để trống
           </div>
         </div>
         <div style="text-align: end">
           <a href="" style="font-size: 13px">Quên tài khoản?</a>
         </div>
-        <button mdbBtn block="true" class="btn-login my-4" type="submit">Đăng nhập</button>
+        <button mdbBtn block="true" class="btn-login my-4 pt-2 pb-2" type="submit">Đăng nhập</button>
         <p style="font-size: 13px">Chưa có tài khoản?<a routerLink="/register" class="ml-2">Đăng ký</a></p>
       </form>
     </div>
@@ -47,5 +57,5 @@
       </div>
     </div>
   </div>
-  <div class="text-center mt-5"><a routerlink="" href="" style="font-size: 13px">Quay lại trang chủ</a></div>
+  <div class="text-center mt-2"><a routerlink="" href="" style="font-size: 13px">Quay lại trang chủ</a></div>
 </mat-card>

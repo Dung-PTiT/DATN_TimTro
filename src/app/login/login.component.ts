@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationService} from "../service/authentication.service";
 import {CookieService} from "ngx-cookie-service";
 import {OAuthResponseToken} from "../model/OAuthResponseToken";
 import {AppConfig} from "../util/app-config";
 import * as moment from 'moment';
+import {ToastService} from "../service/toast.service";
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               public router: Router,
               private authenticationService: AuthenticationService,
-              private cookieService: CookieService) {
+              private cookieService: CookieService,
+              private toastService: ToastService) {
   }
 
   ngOnInit(): void {
@@ -50,6 +52,8 @@ export class LoginComponent implements OnInit {
             moment(new Date()).add(this.oAuthResponseToken.expireTime, 'ms').toDate());
           location.href = "/";
         }
+      }else{
+        this.toastService.showError("Tên đăng nhập hoặc mật khẩu không đúng");
       }
     });
   }

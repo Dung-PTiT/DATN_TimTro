@@ -18,4 +18,10 @@ export class UserService extends MainService {
     return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/user/get-by-id',
       {params: new HttpParams().set('id', id)});
   }
+
+  changePassword(userId: any, newPassword: any): Observable<any> {
+    return this.http.post(
+      this.PREFIX_URL + this.CONTEXT_URL + '/user/change-password', null,
+      {params: {id: userId, password: newPassword}});
+  }
 }

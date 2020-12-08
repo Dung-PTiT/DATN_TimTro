@@ -18,6 +18,10 @@ export class PostService extends MainService {
     return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/post/create', formData);
   }
 
+  updatePost(formData: FormData): Observable<any> {
+    return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/post/update', formData);
+  }
+
   deletePost(id: any): Observable<any> {
     return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/post/delete', null,
       {params: {id: id}});

@@ -1,0 +1,17 @@
+agm-map {
+  height: 300px;
+}
+
+:host ::ng-deep .ck-editor__editable {
+  min-height: 200px !important;
+}
+
+input[type="file"] {
+  display: none;
+}
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}

@@ -1,4 +1,5 @@
 import {Role} from "../util/role";
+import {Wallet} from "./wallet";
 
 export class User {
   id: number;
@@ -9,5 +10,6 @@ export class User {
   phoneNumber: string;
   role: Role;
   createTime: string;
+  wallet: Wallet;
 }
 

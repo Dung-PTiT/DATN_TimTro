@@ -19,6 +19,11 @@ import {Tag} from "../../../../../model/tag";
 import {faCloudUploadAlt, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {Post} from "../../../../../model/post";
+import {AppConfig} from "../../../../../util/app-config";
+import {ImageService} from "../../../../../service/image.service";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import {ToastService} from "../../../../../service/toast.service";
+import {Image} from "../../../../../model/image";
 
 @Component({
   selector: 'app-post-update',
@@ -29,6 +34,11 @@ export class PostUpdateComponent implements OnInit {
 
   faCloudUploadAlt = faCloudUploadAlt;
   faTrash = faTrash;
+
+  PREFIX_URL = AppConfig.PREFIX_URL;
+  CONTEXT_URL: string = "";
+  DEFAULT_IMAGE: string = "./assets/images/logo3.png";
+  urls = [];
 
   postUpdateId: number;
   postUpdate: Post;
@@ -45,6 +55,7 @@ export class PostUpdateComponent implements OnInit {
   tag: Tag;
   tagList: Tag[];
   imageList: File[] = [];
+  images: Image[];
 
   public villageCtrl: FormControl = new FormControl();
   public addressCtrl: FormControl = new FormControl();
@@ -74,75 +85,47 @@ export class PostUpdateComponent implements OnInit {
   @ViewChild('wardSelect') wardSelect: MatSelect;
   private _onDestroyWard = new Subject<void>();
 
-  constructor(private addressService: AddressService,
-              private postService: PostService,
-              private categoryService: CategoryService,
-              private tagService: TagService,
-              private apiloader: MapsAPILoader,
-              private router: Router,
-              private activatedRoute: ActivatedRoute) {
+  constructor(private addressService: AddressService, private postService: PostService,
+              private categoryService: CategoryService, private tagService: TagService,
+              private apiloader: MapsAPILoader, private router: Router,
+              private activatedRoute: ActivatedRoute, private imageService: ImageService,
+              private toastService: ToastService) {
     ClassicEditor.defaultConfig = {
-      toolbar: {
-        items: [
-          'heading',
-          '|',
-          'alignment',
-          'bold',
-          'italic',
-          'bulletedList',
-          'numberedList',
-          'undo',
-          'redo'
-        ]
-      },
+      toolbar: {items: ['heading', '|', 'alignment', 'bold', 'italic', 'bulletedList', 'numberedList', 'undo', 'redo']},
       language: 'vn'
     };
+
+    this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
   }
 
   ngOnInit() {
-
     this.activatedRoute.params.subscribe((params: Params) => {
       this.postUpdateId = params['id'];
       this.postService.getPostById(this.postUpdateId).subscribe(resp => {
         this.postUpdate = resp.data;
-        // formData.append("content", this.editorData ? this.editorData : '');
-        // formData.append("latitude", this.markerInfo.latitude.toString());
-        // formData.append("longitude", this.markerInfo.longitude.toString());
-        // formData.append("wardStr", JSON.stringify(this.wardCtrl.value));
-        // formData.append("districtStr", JSON.stringify(this.districtCtrl.value));
-        // formData.append("provinceStr", JSON.stringify(this.provinceCtrl.value));
-        // formData.append("categoryStr", JSON.stringify(this.categoryCtrl.value));
-        // formData.append("tagsStr", JSON.stringify(this.tagCtrl.value));
-        this.titlePostCtrl.setValue(this.postUpdate?.title);
-        this.priceCtrl.setValue(this.postUpdate?.price);
-        this.acreageCtrl.setValue(this.postUpdate?.acreage);
-        this.villageCtrl.setValue(this.postUpdate?.address);
-        this.phoneNumberCtrl.setValue(this.postUpdate?.phoneNumber);
+        this.provinceCtrl.setValue(this.postUpdate.province);
+        this.districtCtrl.setValue(this.postUpdate.district);
+        this.wardCtrl.setValue(this.postUpdate.ward);
+        this.titlePostCtrl.setValue(this.postUpdate.title);
+        this.editorData = this.postUpdate.content;
+        this.priceCtrl.setValue(this.postUpdate.price);
+        this.acreageCtrl.setValue(this.postUpdate.acreage);
+        this.villageCtrl.setValue(this.postUpdate.address);
+        this.phoneNumberCtrl.setValue(this.postUpdate.phoneNumber);
         this.categoryCtrl.setValue(this.postUpdate.category);
-        // console.log(this.postUpdate.category);
-        // this.phoneNumberCtrl.setValue(this.postUpdate?.)
-        // this.markerInfo = new MarkerInfo(20.981149, 105.78748,
-        //   "./assets/images/marker3.png",
-        //   (this.postUpdate?.address)
-        //   + ', '
-        //   + (this.postUpdate?.ward?.prefix) + ' ' + (this.postUpdate?.ward?.name)
-        //   + ', '
-        //   + (this.postUpdate?.district?.prefix) + ' ' + (this.postUpdate?.district?.name)
-        //   + ', '
-        //   + (this.postUpdate?.province?.name)
-        //   );
+        this.tagCtrl.setValue(this.postUpdate.tags);
+        this.images = this.postUpdate.images;
 
-        // this.editor(this.postUpdate?.content);
+        let address = this.postUpdate.address + ", " + this.postUpdate.ward.prefix + " " + this.postUpdate.ward.name
+          + ", " + this.postUpdate.district.prefix + " " + this.postUpdate.district.name + ", " + this.postUpdate.province.name;
+
+        this.markerInfo = new MarkerInfo(this.postUpdate.latitude, this.postUpdate.longitude,
+          "./assets/images/marker3.png", address);
       });
-      // this.setCurrentLocation(this.post);
     });
-
-    this.markerInfo = new MarkerInfo(20.981149, 105.78748,
-      "./assets/images/marker3.png", "abc");
 
     this.addressService.getAllProvinces().subscribe(resp => {
       this.provinceList = resp.data;
-      this.provinceCtrl.setValue(this.provinceList[1]);
       this.filteredProvinces.next(this.provinceList.slice());
       this.provinceFilterCtrl.valueChanges
         .pipe(takeUntil(this._onDestroyProvince))
@@ -155,7 +138,6 @@ export class PostUpdateComponent implements OnInit {
       this.addressService.getProvinceById(province.id).subscribe(
         resp => {
           this.districtList = resp.data.districts;
-          this.districtCtrl.setValue(this.districtList[0]);
           this.filteredDistricts.next(this.districtList.slice());
           this.districtFilterCtrl.valueChanges
             .pipe(takeUntil(this._onDestroyDistrict))
@@ -170,7 +152,6 @@ export class PostUpdateComponent implements OnInit {
       this.addressService.getDistrictById(district.id).subscribe(
         resp => {
           this.wardList = resp.data.wards;
-          this.wardCtrl.setValue(this.wardList[0]);
           this.filteredWards.next(this.wardList.slice());
           this.wardFilterCtrl.valueChanges
             .pipe(takeUntil(this._onDestroyWard))
@@ -193,15 +174,13 @@ export class PostUpdateComponent implements OnInit {
       this.categoryList = resp.data;
     });
 
-    this.categoryCtrl.valueChanges.subscribe(resp => {
-    });
-
     this.tagService.getAll().subscribe(resp => {
       this.tagList = resp.data;
     });
+  }
 
-    this.tagCtrl.valueChanges.subscribe(resp => {
-    });
+  compareObjects(o1: any, o2: any): boolean {
+    return o1.name === o2.name && o1.id === o2.id;
   }
 
   genAddressStr() {
@@ -227,14 +206,43 @@ export class PostUpdateComponent implements OnInit {
     this.editorData = editor.getData();
   }
 
+  // Delete image current
+  deleteImage(image: any) {
+    Swal.fire({
+      title: 'Bạn muốn xóa ảnh này?',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Hủy',
+      confirmButtonText: 'Xóa',
+      customClass: 'swal-confirm-style',
+    }).then((result) => {
+      let post = new Post();
+      post.id = this.postUpdate.id;
+      this.imageService.deleteImagePost(image, post).subscribe(resp => {
+        if (resp.success) {
+          this.removeItem(image);
+          this.toastService.showSuccess("Xóa thành công");
+        } else {
+          this.toastService.showError("Không xóa được");
+        }
+      });
+    })
+  }
+
+  removeItem(image) {
+    this.images = this.images.filter(item => item !== image);
+  }
+
   // Create post
-  createPost() {
+  updatePost() {
     let formData = new FormData();
+    formData.append("id", this.postUpdate.id.toString());
     formData.append("title", this.titlePostCtrl.value);
     formData.append("content", this.editorData ? this.editorData : '');
     formData.append("price", this.priceCtrl.value);
     formData.append("acreage", this.acreageCtrl.value);
     formData.append("address", this.villageCtrl.value);
+    formData.append("phoneNumber", this.phoneNumberCtrl.value);
     formData.append("latitude", this.markerInfo.latitude.toString());
     formData.append("longitude", this.markerInfo.longitude.toString());
     formData.append("wardStr", JSON.stringify(this.wardCtrl.value));
@@ -242,10 +250,11 @@ export class PostUpdateComponent implements OnInit {
     formData.append("provinceStr", JSON.stringify(this.provinceCtrl.value));
     formData.append("categoryStr", JSON.stringify(this.categoryCtrl.value));
     formData.append("tagsStr", JSON.stringify(this.tagCtrl.value));
+
     this.imageList.forEach((file, i) => {
       formData.append("files[" + i + "]", file);
     });
-    this.postService.createPost(formData).subscribe(resp => {
+    this.postService.updatePost(formData).subscribe(resp => {
       if (resp.success == true) {
         this.router.navigate(['/manage/post/list']);
       }
@@ -253,8 +262,6 @@ export class PostUpdateComponent implements OnInit {
   }
 
   //Image
-  urls = [];
-
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       let filesAmount = event.target.files.length;
@@ -272,6 +279,7 @@ export class PostUpdateComponent implements OnInit {
 
   removeImages() {
     this.urls = [];
+    this.imageList = [];
   }
 
   // Search Province

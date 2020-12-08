@@ -20,4 +20,10 @@ export class ImageService extends MainService {
       {params: new HttpParams().set('imageUrl', imageUrl)});
   }
 
+  deleteImagePost(image: any, post: any): Observable<any> {
+    return this.http.post(
+      this.PREFIX_URL + this.CONTEXT_URL + '/image/delete', null,
+      {params: {image: JSON.stringify(image), post: JSON.stringify(post)}});
+  }
+
 }

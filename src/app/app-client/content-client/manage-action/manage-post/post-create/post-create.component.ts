@@ -16,7 +16,7 @@ import {CategoryService} from "../../../../../service/category.service";
 import {Category} from "../../../../../model/category";
 import {TagService} from "../../../../../service/tag.service";
 import {Tag} from "../../../../../model/tag";
-import {faCloudUploadAlt, faCoffee, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faCloudUploadAlt, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 
 @Component({
@@ -238,6 +238,7 @@ export class PostCreateComponent implements OnInit {
 
   removeImages(){
     this.urls = [];
+    this.imageList = [];
   }
 
   // Search Province

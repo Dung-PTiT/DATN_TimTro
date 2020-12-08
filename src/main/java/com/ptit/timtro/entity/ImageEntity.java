@@ -21,7 +21,7 @@ public class ImageEntity {
     @Column(name = "image_url", length = 255, nullable = false)
     private String imageUrl;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", nullable = false)
     private PostEntity postEntity;
 }

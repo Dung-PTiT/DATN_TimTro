@@ -2,7 +2,9 @@ package com.ptit.timtro.service.impl;
 
 import com.ptit.timtro.dao.UserDAO;
 import com.ptit.timtro.entity.UserEntity;
+import com.ptit.timtro.entity.WalletEntity;
 import com.ptit.timtro.model.User;
+import com.ptit.timtro.model.Wallet;
 import com.ptit.timtro.security.Role;
 import com.ptit.timtro.service.UserService;
 import io.swagger.models.auth.In;
@@ -102,6 +104,12 @@ public class UserServiceImpl implements UserService {
         user.setRole(userEntity.getRole().getAuthorityName());
         user.setCreateTime(userEntity.getCreateTime());
         user.setPhoneNumber(userEntity.getPhoneNumber());
+
+        WalletEntity walletEntity = userEntity.getWalletEntity();
+        Wallet wallet = new Wallet();
+        wallet.setBalance(walletEntity.getBalance());
+        wallet.setCreateTime(walletEntity.getCreateTime());
+        user.setWallet(wallet);
         return user;
     }
 }

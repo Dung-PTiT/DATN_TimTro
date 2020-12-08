@@ -1,6 +1,7 @@
 package com.ptit.timtro.security;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.ptit.timtro.model.Wallet;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,4 +19,5 @@ public class AuthenticatedUserInfo {
     private Date createTime;
     private String email;
     private String phoneNumber;
+    private Wallet wallet;
 }

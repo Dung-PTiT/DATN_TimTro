@@ -7,6 +7,8 @@ import java.util.List;
 public interface PostDAO {
     PostEntity create(PostEntity postEntity);
 
+    void update(PostEntity postEntity);
+
     void delete(Integer id);
 
     PostEntity getById(Integer id);

@@ -89,6 +89,50 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public void update(Post post) {
+        PostEntity postEntity = postDAO.getById(post.getId());
+        postEntity.setTitle(post.getTitle());
+        postEntity.setContent(post.getContent());
+        postEntity.setPrice(post.getPrice());
+        postEntity.setAcreage(post.getAcreage());
+        postEntity.setAddress(post.getAddress());
+        postEntity.setLatitude(post.getLatitude());
+        postEntity.setLongitude(post.getLongitude());
+        postEntity.setPhoneNumber(post.getPhoneNumber());
+
+        try {
+            postEntity.setWardEntity(new WardEntity(
+                    new ObjectMapper().readValue(post.getWardStr(), Ward.class).getId(),
+                    null, null, null, null)
+            );
+
+            postEntity.setDistrictEntity(new DistrictEntity(
+                    new ObjectMapper().readValue(post.getDistrictStr(), District.class).getId(),
+                    null, null, null, null, null)
+            );
+
+            postEntity.setProvinceEntity(new ProvinceEntity(
+                    new ObjectMapper().readValue(post.getProvinceStr(), Province.class).getId(),
+                    null, null, null, null)
+            );
+
+            postEntity.setCategoryEntity(new CategoryEntity(
+                    new ObjectMapper().readValue(post.getCategoryStr(), Category.class).getId(),
+                    null, null, null));
+
+            List<Tag> tags = new ObjectMapper().readValue(post.getTagsStr(), new TypeReference<List<Tag>>() {
+            });
+            List<TagEntity> tagEntities = new ArrayList<>();
+            for (Tag tag : tags) {
+                tagEntities.add(new TagEntity(tag.getId(), null, null, null));
+            }
+            postEntity.setTags(tagEntities);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void delete(Integer id) {
         postDAO.delete(id);
     }

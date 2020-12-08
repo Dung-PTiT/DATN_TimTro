@@ -20,4 +20,15 @@ public class ImageDAOImpl implements ImageDAO {
         entityManager.persist(imageEntity);
         return imageEntity;
     }
+
+    @Override
+    public void delete(Integer id) {
+        entityManager.remove(getById(id));
+    }
+
+    @Override
+    public ImageEntity getById(Integer id) {
+        return entityManager.createQuery("select i from ImageEntity i where i.id = " + id + "", ImageEntity.class).getSingleResult();
+
+    }
 }

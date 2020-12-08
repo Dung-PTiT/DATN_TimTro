@@ -47,6 +47,18 @@ public class PostController {
         }
     }
 
+    @PostMapping("/post/update")
+    public DataResponse<String> update(@ModelAttribute Post post) {
+        try {
+            postService.update(post);
+            updateImage(post.getFiles(), post.getId());
+            return new DataResponse<>(true, "OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, "Error");
+        }
+    }
+
     @PostMapping("/post/delete")
     public DataResponse<String> delete(@RequestParam("id") Integer id) {
         try {
@@ -113,6 +125,28 @@ public class PostController {
                 //Save image in folder
                 File uploadDir = new File(fileDir.getFileDir() + postID + "\\");
                 uploadDir.mkdirs();
+                String uploadFilePath = fileDir.getFileDir() + "/" + postID + "/" + file.getOriginalFilename();
+                byte[] bytes = file.getBytes();
+                Path path = Paths.get(uploadFilePath);
+                Files.write(path, bytes);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Save Files
+    private void updateImage(MultipartFile[] files, Integer postID) throws IOException {
+        try {
+            for (MultipartFile file : files) {
+                //Insert to image table
+                Image image = new Image();
+                image.setImageUrl(file.getOriginalFilename());
+                Post post1 = new Post();
+                post1.setId(postID);
+                image.setPost(post1);
+                imageService.create(image);
+
                 String uploadFilePath = fileDir.getFileDir() + "/" + postID + "/" + file.getOriginalFilename();
                 byte[] bytes = file.getBytes();
                 Path path = Paths.get(uploadFilePath);

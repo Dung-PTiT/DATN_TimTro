@@ -90,6 +90,7 @@ public class AuthController {
             userInfo.setCreateTime(userPrincipal.getCreateTime());
             userInfo.setEmail(userPrincipal.getEmail());
             userInfo.setPhoneNumber(userPrincipal.getPhoneNumber());
+            userInfo.setWallet(userPrincipal.getWallet());
             return new DataResponse<>(true, userInfo);
         } catch (Exception e) {
             e.printStackTrace();

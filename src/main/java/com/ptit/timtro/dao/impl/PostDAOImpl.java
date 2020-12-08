@@ -23,6 +23,11 @@ public class PostDAOImpl implements PostDAO {
     }
 
     @Override
+    public void update(PostEntity postEntity) {
+        entityManager.merge(postEntity);
+    }
+
+    @Override
     public void delete(Integer id) {
         entityManager.remove(getById(id));
     }

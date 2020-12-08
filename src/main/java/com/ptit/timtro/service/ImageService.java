@@ -5,4 +5,8 @@ import com.ptit.timtro.model.Image;
 
 public interface ImageService {
     ImageEntity create(Image image);
+
+    void delete(Integer id);
+
+    Image getById(Integer id);
 }

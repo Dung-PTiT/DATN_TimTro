@@ -32,10 +32,14 @@ export class ManageActionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.authenticationService.checkLogin()) {
-      this.authenticationService.getCurrentUser().subscribe(resp => {
-        this.user = resp.data;
-      });
+    if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
+      this.user = JSON.parse(localStorage.getItem('userCurrent'));
+    } else {
+      if (this.authenticationService.checkLogin()) {
+        this.authenticationService.getCurrentUser().subscribe(resp => {
+          this.user = resp.data;
+        });
+      }
     }
   }
 

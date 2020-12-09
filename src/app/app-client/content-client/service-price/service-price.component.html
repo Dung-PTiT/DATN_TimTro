@@ -12,28 +12,40 @@
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef class="text-center" style="width: 40%">Loại tin</th>
-        <td mat-cell *matCellDef="let postVip"> {{postVip?.name}} </td>
+        <th mat-header-cell *matHeaderCellDef class="text-align-start">Loại tin</th>
+        <td mat-cell *matCellDef="let postVip" class="text-align-start"> {{postVip?.name}} </td>
       </ng-container>
 
       <ng-container matColumnDef="dayPrice">
-        <th mat-header-cell *matHeaderCellDef class="text-center">Giá ngày</th>
-        <td mat-cell *matCellDef="let postVip"> {{postVip?.dayPrice | number}} </td>
+        <th mat-header-cell *matHeaderCellDef class="text-align-end">Giá ngày</th>
+        <td mat-cell *matCellDef="let postVip" class="text-align-end">
+          {{postVip?.dayPrice | number}}
+          <span class="color-disable">đ/ngày</span>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="weekPrice">
-        <th mat-header-cell *matHeaderCellDef class="text-center">Giá tuần</th>
-        <td mat-cell *matCellDef="let postVip"> {{postVip?.weekPrice | number}} </td>
+        <th mat-header-cell *matHeaderCellDef class="text-align-end">Giá tuần(7 ngày)</th>
+        <td mat-cell *matCellDef="let postVip" class="text-align-end">
+          {{postVip?.weekPrice | number}}
+          <span class="color-disable">đ/tuần</span>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="monthPrice">
-        <th mat-header-cell *matHeaderCellDef class="text-center">Giá tháng</th>
-        <td mat-cell *matCellDef="let postVip"> {{postVip?.monthPrice | number}} </td>
+        <th mat-header-cell *matHeaderCellDef class="text-align-end">Giá tháng(30 ngày)</th>
+        <td mat-cell *matCellDef="let postVip" class="text-align-end">
+          {{postVip?.monthPrice | number}}
+          <span class="color-disable">đ/tháng</span>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="yearPrice">
-        <th mat-header-cell *matHeaderCellDef class="text-center">Giá năm</th>
-        <td mat-cell *matCellDef="let postVip"> {{postVip?.yearPrice | number}} </td>
+        <th mat-header-cell *matHeaderCellDef class="text-align-end">Giá năm(365 ngày)</th>
+        <td mat-cell *matCellDef="let postVip" class="text-align-end">
+          {{postVip?.yearPrice | number}}
+          <span class="color-disable">đ/năm</span>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="action">

@@ -42,16 +42,26 @@ export class FavoriteComponent implements OnInit {
       'number', 'title', 'price', 'favorite', 'action'
     ];
 
-    if (this.authenticationService.checkLogin()) {
-      this.authenticationService.getCurrentUser().subscribe(resp => {
-        this.user = resp.data;
-        this.favoriteService.getFavoriteByUserId(this.user.id).subscribe(resp => {
-          this.favorites = resp.data;
-        });
-        this.postService.getPostByUserId(this.user.id).subscribe(resp => {
-          this.posts = resp.data;
-        });
+    if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
+      this.user = JSON.parse(localStorage.getItem('userCurrent'));
+      this.favoriteService.getFavoriteByUserId(this.user.id).subscribe(resp => {
+        this.favorites = resp.data;
       });
+      this.postService.getPostByUserId(this.user.id).subscribe(resp => {
+        this.posts = resp.data;
+      });
+    } else {
+      if (this.authenticationService.checkLogin()) {
+        this.authenticationService.getCurrentUser().subscribe(resp => {
+          this.user = resp.data;
+          this.favoriteService.getFavoriteByUserId(this.user.id).subscribe(resp => {
+            this.favorites = resp.data;
+          });
+          this.postService.getPostByUserId(this.user.id).subscribe(resp => {
+            this.posts = resp.data;
+          });
+        });
+      }
     }
   }
 

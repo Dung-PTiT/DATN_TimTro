@@ -15,7 +15,7 @@ export class Post {
   acreage: number;
   view: number;
   address: string;
-  status: string;
+  status: boolean;
   latitude: number;
   longitude: number;
   createTime: string;

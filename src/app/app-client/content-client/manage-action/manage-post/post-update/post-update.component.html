@@ -70,7 +70,7 @@
           <div class="col-6">
             <span>Loại dịch vụ</span>
             <div>
-              <mat-form-field appearance="fill" style="width: 100%">
+              <mat-form-field appearance="outline" style="width: 100%">
                 <mat-label>Chọn</mat-label>
                 <mat-select [formControl]="categoryCtrl" [compareWith]="compareObjects">
                   <mat-option *ngFor="let category of categoryList" [value]="category">{{category?.name}}</mat-option>

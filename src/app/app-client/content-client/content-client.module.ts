@@ -22,6 +22,7 @@ import {AgmDirectionModule} from "agm-direction";
 import { UserPageComponent } from './user-page/user-page.component';
 import {MatTableModule} from "@angular/material/table";
 import { ServicePriceComponent } from './service-price/service-price.component';
+import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { ServicePriceComponent } from './service-price/service-price.component';
     ButtonsModule,
     AgmDirectionModule,
     InputsModule,
-    MatTableModule
+    MatTableModule,
+    NgxMatSelectSearchModule
   ]
 })
 export class ContentClientModule {

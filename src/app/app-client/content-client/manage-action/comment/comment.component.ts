@@ -28,13 +28,20 @@ export class CommentComponent implements OnInit {
       'number', 'content', 'createTime', 'post', 'action'
     ];
 
-    if (this.authenticationService.checkLogin()) {
-      this.authenticationService.getCurrentUser().subscribe(resp => {
-        this.user = resp.data;
-        this.commentService.getCommentByUserId(this.user.id).subscribe(resp => {
-          this.comments = resp.data;
-        });
+    if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
+      this.user = JSON.parse(localStorage.getItem('userCurrent'));
+      this.commentService.getCommentByUserId(this.user.id).subscribe(resp => {
+        this.comments = resp.data;
       });
+    } else {
+      if (this.authenticationService.checkLogin()) {
+        this.authenticationService.getCurrentUser().subscribe(resp => {
+          this.user = resp.data;
+          this.commentService.getCommentByUserId(this.user.id).subscribe(resp => {
+            this.comments = resp.data;
+          });
+        });
+      }
     }
   }
 
@@ -42,7 +49,7 @@ export class CommentComponent implements OnInit {
     this.router.navigate(["/post/" + postId]);
   }
 
-  deleteComment(commentId: any){
+  deleteComment(commentId: any) {
     Swal.fire({
       title: 'Bạn muốn xóa bình luận?',
       icon: 'warning',

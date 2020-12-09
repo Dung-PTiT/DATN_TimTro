@@ -33,29 +33,42 @@ export class HeaderClientComponent implements OnInit {
   USER_SESSION: string = "TimTro";
 
   ngOnInit(): void {
-    if (this.cookieService.get(AppConfig.COOKIE_TOKEN_NAME)) {
-      this.authenticationService.getCurrentUser().subscribe(resp => {
-        this.currentUser = resp.data as User;
-      });
+    if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
+      this.currentUser = JSON.parse(localStorage.getItem('userCurrent'));
+    } else {
+      if (this.cookieService.get(AppConfig.COOKIE_TOKEN_NAME)) {
+        this.authenticationService.getCurrentUser().subscribe(resp => {
+          this.currentUser = resp.data as User;
+        });
+      }
     }
   }
 
   logout() {
-    const promise = new Promise((resolve, reject) => {
-      this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
-      this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
+    // const promise = new Promise((resolve, reject) => {
+    //   this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
+    //   this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
+    //
+    //   //ToDo thử remove localStorage
+    //   localStorage.removeItem('userCurrent');
+    //   if (!this.authenticationService.checkLogin()) {
+    //     resolve("Success");
+    //   } else {
+    //     resolve("Error");
+    //   }
+    // });
+    // promise.then((resp) => {
+    //    location.replace('/');
+    // });
 
-      //ToDo thử remove localStorage
-      localStorage.removeItem('userCurrent');
-      if (!this.authenticationService.checkLogin()) {
-        resolve("Success");
-      } else {
-        resolve("Error");
-      }
-    });
-    promise.then((resp) => {
+    this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
+    this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
+    localStorage.removeItem('userCurrent');
+
+    setTimeout(function () {
       location.replace('/');
-    });
+    }, 1000);
+
   }
 
 

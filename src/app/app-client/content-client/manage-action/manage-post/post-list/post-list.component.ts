@@ -14,6 +14,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
+import {MatDialog} from "@angular/material/dialog";
+import {PostPushDialogComponent} from "../post-push-dialog/post-push-dialog.component";
+import {ToastService} from "../../../../../service/toast.service";
 
 @Component({
   selector: 'app-post-list',
@@ -32,7 +35,9 @@ export class PostListComponent implements OnInit {
 
   constructor(private authenticationService: AuthenticationService,
               private postService: PostService,
-              private router: Router) {
+              private router: Router,
+              private matDialog: MatDialog,
+              private toastService: ToastService) {
     this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
   }
 
@@ -41,13 +46,20 @@ export class PostListComponent implements OnInit {
       'number', 'image', 'title', 'price', 'startDate', 'endDate', 'comment', 'favorite', 'status', 'action'
     ];
 
-    if (this.authenticationService.checkLogin()) {
-      this.authenticationService.getCurrentUser().subscribe(resp => {
-        this.user = resp.data;
-        this.postService.getPostByUserId(this.user.id).subscribe(resp => {
-          this.posts = resp.data;
-        });
+    if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
+      this.user = JSON.parse(localStorage.getItem('userCurrent'));
+      this.postService.getPostByUserId(this.user.id).subscribe(resp => {
+        this.posts = resp.data;
       });
+    } else {
+      if (this.authenticationService.checkLogin()) {
+        this.authenticationService.getCurrentUser().subscribe(resp => {
+          this.user = resp.data;
+          this.postService.getPostByUserId(this.user.id).subscribe(resp => {
+            this.posts = resp.data;
+          });
+        });
+      }
     }
   }
 
@@ -80,6 +92,17 @@ export class PostListComponent implements OnInit {
 
   editPost(postId: any) {
     this.router.navigate(["/manage/post/update/" + postId]);
+  }
+
+  pushPost(post: Post) {
+    if (post.status == true) {
+      this.toastService.showWarning("Bài viết đang được đăng");
+    } else {
+      const dialogRef = this.matDialog.open(PostPushDialogComponent, {
+        width: '600px',
+        data: {data: post}
+      });
+    }
   }
 
   faTrash = faTrash;

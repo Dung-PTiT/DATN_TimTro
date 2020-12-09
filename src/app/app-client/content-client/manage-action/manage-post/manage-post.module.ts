@@ -18,14 +18,15 @@ import {MatInputModule} from "@angular/material/input";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatIconModule} from "@angular/material/icon";
-import {PostListComponent } from './post-list/post-list.component';
+import {PostListComponent} from './post-list/post-list.component';
 import {MatTableModule} from "@angular/material/table";
 import {CdkTableModule} from "@angular/cdk/table";
 import {MatDialogModule} from '@angular/material/dialog';
-import { PostUpdateComponent } from './post-update/post-update.component';
+import {PostUpdateComponent} from './post-update/post-update.component';
+import {PostPushDialogComponent} from './post-push-dialog/post-push-dialog.component';
 
 @NgModule({
-  declarations: [PostCreateComponent, PostListComponent, PostUpdateComponent],
+  declarations: [PostCreateComponent, PostListComponent, PostUpdateComponent, PostPushDialogComponent],
   imports: [
     CommonModule,
     ManagePostRoutingModule,

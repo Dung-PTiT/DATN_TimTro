@@ -34,39 +34,55 @@
         <!--              </mat-option>-->
         <!--            </mat-select>-->
         <!--          </mat-form-field>-->
-        <mat-form-field appearance="outline">
-          <mat-label>Tỉnh thành</mat-label>
-          <mat-select>
+        <mat-form-field appearance="outline" class="ml-2">
+          <mat-label>Tỉnh/Thành phố</mat-label>
+          <mat-select #provinceSelect [formControl]="provinceCtrl" placeholder="Tỉnh/Thành phố">
             <mat-option>
+              <ngx-mat-select-search [formControl]="provinceFilterCtrl"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let province of filteredProvinces | async" [value]="province">
+              {{province?.name ? province.name : ''}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline" class="ml-2">
-          <mat-label>Quận huyện</mat-label>
-          <mat-select>
+          <mat-label>Quận/Huyện</mat-label>
+          <mat-select #districtSelect [formControl]="districtCtrl" placeholder="Quận/Huyện">
             <mat-option>
+              <ngx-mat-select-search [formControl]="districtFilterCtrl"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let district of filteredDistricts | async" [value]="district">
+              {{(district?.prefix ? district.prefix : '') + ' ' + (district?.name ? district.name : '')}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline" class="ml-2">
-          <mat-label>Đường phố</mat-label>
-          <mat-select>
+          <mat-label>Phường/Xã</mat-label>
+          <mat-select #wardSelect [formControl]="wardCtrl" placeholder="Phường/Xã">
             <mat-option>
+              <ngx-mat-select-search [formControl]="wardFilterCtrl"></ngx-mat-select-search>
+            </mat-option>
+            <mat-option *ngFor="let ward of filteredWards | async" [value]="ward">
+              {{(ward?.prefix ? ward.prefix : '') + ' ' + (ward?.name ? ward.name : '')}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline" class="ml-2">
           <mat-label>Khoảng giá</mat-label>
           <mat-select>
-            <mat-option>
-            </mat-option>
+            <mat-option value="1">1</mat-option>
+            <mat-option value="2">2</mat-option>
+            <mat-option value="3">3</mat-option>
+            <mat-option value="4">4</mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline" class="ml-2">
           <mat-label>Diện tích</mat-label>
           <mat-select>
-            <mat-option>
-            </mat-option>
+            <mat-option value="1">Dưới 1 triệu</mat-option>
+            <mat-option value="2">Từ 1 triệu đến 2 triệu</mat-option>
+            <mat-option value="3">Từ 2 triệu đến 3 triệu</mat-option>
+            <mat-option value="4">Lớn hơn 3 triệu</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
@@ -76,32 +92,32 @@
       </button>
     </div>
   </mat-card>
-  <div class="row pt-3">
+  <div class="row">
     <div class="col-12">
-      <!--      <agm-map [fullscreenControl]="true" [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude"-->
-      <!--               [zoom]="13">-->
-      <!--        <agm-marker [latitude]="markerInfo.latitude"-->
-      <!--                    [longitude]="markerInfo.longitude"-->
-      <!--                    [iconUrl]="markerInfo.icon">-->
-      <!--        </agm-marker>-->
-      <!--      </agm-map>-->
+<!--      <agm-map [fullscreenControl]="true" [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude"-->
+<!--               [zoom]="13">-->
+<!--        <agm-marker [latitude]="markerInfo.latitude"-->
+<!--                    [longitude]="markerInfo.longitude"-->
+<!--                    [iconUrl]="markerInfo.icon">-->
+<!--        </agm-marker>-->
+<!--      </agm-map>-->
     </div>
     <div class="col-12 mt-3">
       <p class="title text-start font-weight-bold">Phòng trọ sạch đẹp > Giá hợp lý > Đầy đủ tiện nghi</p>
     </div>
     <div class="col-12 col-lg-9">
       <div class="row">
-        <div class="col-sm-6 col-lg-4 mt-2" *ngFor="let post of posts">
+        <div class="col-sm-6 col-lg-4 mt-3" *ngFor="let post of posts">
           <div class="card">
             <div class="product-thumb">
               <a [routerLink]="['post', post?.id]">
                 <img
-                  [src]="post.images[0]?.imageUrl ?
-                  (PREFIX_URL + '/' + post?.id + '/' +  post?.images[0]?.imageUrl ) : (DEFAULT_IMAGE)">
+                  [src]="post.images[0]?.imageUrl ? (PREFIX_URL + '/' + post?.id + '/' +  post?.images[0]?.imageUrl ) : (DEFAULT_IMAGE)">
               </a>
-              <span class="product-media text-info" matTooltip="Số lượng ảnh" matTooltipPosition="left">
-                <fa-icon [icon]="faImage"></fa-icon>
+              <div class="icon_vip" style="background-color:#E13427;">hot</div>
+              <span class="product-media pl-1 pr-1" matTooltip="Ảnh" matTooltipPosition="left">
                 {{post?.images?.length}}
+                <fa-icon [icon]="faImage"></fa-icon>
               </span>
             </div>
             <div class="home-product-bound">
@@ -145,8 +161,6 @@
                 </button>
               </ng-template>
             </div>
-          </div>
-          <div>
           </div>
         </div>
       </div>

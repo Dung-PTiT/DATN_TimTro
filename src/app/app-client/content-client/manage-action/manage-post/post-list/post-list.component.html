@@ -87,7 +87,7 @@
         <th mat-header-cell *matHeaderCellDef>Tác vụ</th>
         <td mat-cell *matCellDef="let post">
           <fa-icon [icon]="faLongArrowAltUp" class="text-color-feb800 cursor-pointer"
-                   matTooltip="Đăng" matTooltipPosition="below">
+                   matTooltip="Đăng" matTooltipPosition="below" (click)="pushPost(post)">
           </fa-icon>
           <fa-icon [icon]="faPencilAlt" class="ml-2 text-primary cursor-pointer"
                    matTooltip="Sửa" matTooltipPosition="below" (click)="editPost(post?.id)">

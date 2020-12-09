@@ -25,6 +25,10 @@ button:focus{
   text-align: start;
 }
 
+.text-align-end{
+  text-align: end !important;
+}
+
 :focus{
   outline: none !important;
 }
@@ -81,6 +85,10 @@ button:focus{
 
 .text-disable {
   background-color: #dddddd;
+}
+
+.color-disable{
+  color: #898989;
 }
 
 .display-none {

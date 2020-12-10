@@ -100,6 +100,7 @@ export class PostListComponent implements OnInit {
     } else {
       const dialogRef = this.matDialog.open(PostPushDialogComponent, {
         width: '600px',
+        height: 'auto',
         data: {data: post}
       });
     }

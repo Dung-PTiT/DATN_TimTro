@@ -20,7 +20,7 @@ export class ServicePriceComponent implements OnInit {
 
   ngOnInit(): void {
     this.displayedColumn = [
-      'number', 'name', 'dayPrice', 'weekPrice', 'monthPrice', 'yearPrice', 'action'
+      'number', 'name', 'dayPrice', 'weekPrice', 'monthPrice', 'action'
     ];
 
     this.postVipService.getAll().subscribe(resp => {

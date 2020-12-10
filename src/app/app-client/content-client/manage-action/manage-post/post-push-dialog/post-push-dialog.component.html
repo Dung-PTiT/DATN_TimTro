@@ -1,12 +1,146 @@
-<div style="padding: 20px 10px 20px 10px;">
+<div style="padding: 10px;">
   <h6>Đăng bài</h6>
   <mat-divider></mat-divider>
-  <div class="mt-2">
-    <div>
-      <p>Thông tin bài viết</p>
+  <form [formGroup]="pushPostForm" (submit)="pushPost()">
+    <div class="mt-2">
+      <div>
+        <p class="font-size-13">Thông tin bài viết:
+          <span class="font-weight-bold font-size-12">{{post.title}}</span>
+        </p>
+      </div>
+      <div class="d-flex">
+        <p class="font-size-12">Giá:
+          <span class="font-weight-bold">{{post.price | number}}</span>
+          <span class="color-disable ml-1">triệu đồng</span>
+        </p>
+        <p class="font-size-12 ml-3">Diện tích:
+          <span class="font-weight-bold">{{post.acreage}}</span>
+          <span class="color-disable font-weight-bold ml-1">m2</span>
+        </p>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <mat-form-field appearance="outline" style="width: 100%; height: auto;">
+            <mat-label class="font-size-12">
+              Chọn loại tin
+            </mat-label>
+            <mat-select class="font-size-12" formControlName="postVipSelect" (selectionChange)="postVipChange()"
+                        [ngClass]="{ 'is-invalid': submitted && validator.postVipSelect?.errors}">
+              <mat-option *ngFor="let postVip of postVips" [value]="postVip">
+                {{postVip.name}}
+              </mat-option>
+            </mat-select>
+            <div *ngIf="submitted && validator.postVipSelect?.errors?.required"
+                 class="invalid-feedback text-align-start">
+              Chọn gói dịch vụ
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <mat-form-field appearance="outline" style="width: 100%; height: auto;">
+            <mat-label class="font-size-12">
+              Thời gian đăng
+            </mat-label>
+            <mat-select class="font-size-12" formControlName="packageTimeSelect"
+                        (selectionChange)="packageTimeSelectChange()"
+                        [ngClass]="{ 'is-invalid': submitted && validator.packageTimeSelect?.errors}">
+              <mat-option value="day">Ngày</mat-option>
+              <mat-option value="week">Tuần</mat-option>
+              <mat-option value="month">Tháng</mat-option>
+            </mat-select>
+            <div *ngIf="submitted && validator.packageTimeSelect?.errors?.required"
+                 class="invalid-feedback text-align-start">
+              Chọn thời gian đăng
+            </div>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-4">
+          <mat-form-field appearance="outline" [class.d-none]="!typePost.includes('day')"
+                          style="width: 100%; height: auto;">
+            <mat-label class="font-size-12">
+              Chọn số ngày
+            </mat-label>
+            <mat-select class="font-size-12" formControlName="timePostSelect" (selectionChange)="timePostSelectChange()"
+                        [ngClass]="{ 'is-invalid': submitted && validator.timePostSelect?.errors}">
+              <mat-option *ngFor="let day of dayList" [value]="day">
+                {{day}} ngày
+              </mat-option>
+            </mat-select>
+            <div *ngIf="submitted && validator.timePostSelect?.errors?.required"
+                 class="invalid-feedback text-align-start">
+              Chọn ngày
+            </div>
+          </mat-form-field>
+          <mat-form-field appearance="outline" [class.d-none]="!typePost.includes('week')"
+                          style="width: 100%; height: auto;">
+            <mat-label class="font-size-12">
+              Chọn số tuần
+            </mat-label>
+            <mat-select class="font-size-12" formControlName="timePostSelect" (selectionChange)="timePostSelectChange()"
+                        [ngClass]="{ 'is-invalid': submitted && validator.timePostSelect?.errors}">
+              <mat-option *ngFor="let week of weekList" [value]="week">
+                {{week}} tuần
+              </mat-option>
+            </mat-select>
+            <div *ngIf="submitted && validator.timePostSelect?.errors?.required"
+                 class="invalid-feedback text-align-start">
+              Chọn tuần
+            </div>
+          </mat-form-field>
+          <mat-form-field appearance="outline" [class.d-none]="!typePost.includes('month')"
+                          style="width: 100%; height: auto;">
+            <mat-label class="font-size-12">
+              Chọn số tháng
+            </mat-label>
+            <mat-select class="font-size-12" formControlName="timePostSelect" (selectionChange)="timePostSelectChange()"
+                        [ngClass]="{ 'is-invalid': submitted && validator.timePostSelect?.errors}">
+              <mat-option *ngFor="let month of monthList" [value]="month">
+                {{month}} tháng
+              </mat-option>
+            </mat-select>
+            <div *ngIf="submitted && validator.timePostSelect?.errors?.required"
+                 class="invalid-feedback text-align-start">
+              Chọn tháng
+            </div>
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="row mt-2">
+        <div class="col-lg-12 d-flex justify-content-between">
+          <div>
+            <p class="font-size-12">Tài khoản của bạn:
+              <span class="font-weight-bold">
+                {{user?.wallet?.balance | number}}
+              </span>
+              <span class="ml-1 color-disables">đồng</span>
+            </p>
+            <p class="font-size-12">Phí thanh toán:
+              <span class="font-weight-bold">{{pricePayment | number}}</span>
+              <span class="ml-1 color-disables">đồng</span>
+            </p>
+          </div>
+<!--          <div class="font-size-12">-->
+<!--            <div>Ngày bắt đầu:-->
+<!--              <span class="font-weight-bold">{{startDate | date :'dd/MM/yyyy'}}</span>-->
+<!--            </div>-->
+<!--            <div>Ngày kết thúc:-->
+<!--              <span class="font-weight-bold">{{endDate | date :'dd/MM/yyyy'}}</span>-->
+<!--            </div>-->
+<!--          </div>-->
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div class="row col-lg-12 mt-3 mb-2">
+        <button mat-button class="float-right text-white button-save font-size-12" type="submit"
+                *ngIf="user?.wallet?.balance >= pricePayment; else not_payment"
+                style="position: absolute;right: 0; padding: 0; line-height: 27px !important;">
+          Đăng
+        </button>
+        <ng-template #not_payment>
+          <span class="text-danger font-size-12">Số tiền trong tài khoản của bạn không đủ để thanh toán</span>
+        </ng-template>
+      </div>
     </div>
-    <div>
-      <span>Tiêu đề {{post.title}}</span>
-    </div>
-  </div>
+  </form>
 </div>

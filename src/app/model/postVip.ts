@@ -5,6 +5,5 @@ export class PostVip {
   dayPrice: number;
   weekPrice: number;
   monthPrice: number;
-  yearPrice: number;
   description: string;
 }

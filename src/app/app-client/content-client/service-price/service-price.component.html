@@ -40,14 +40,6 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="yearPrice">
-        <th mat-header-cell *matHeaderCellDef class="text-align-end">Giá năm(365 ngày)</th>
-        <td mat-cell *matCellDef="let postVip" class="text-align-end">
-          {{postVip?.yearPrice | number}}
-          <span class="color-disable">đ/năm</span>
-        </td>
-      </ng-container>
-
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef class="text-center">Chi tiết</th>
         <td mat-cell *matCellDef="let postVip">

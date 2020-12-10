@@ -18,4 +18,6 @@ public interface PostService {
     List<Post> getByUserId(Integer id);
 
     List<Post> getAll();
+
+    void updateStatus(Integer id);
 }

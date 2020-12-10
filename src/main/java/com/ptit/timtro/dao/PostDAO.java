@@ -16,4 +16,6 @@ public interface PostDAO {
     List<PostEntity> getByUserId(Integer id);
 
     List<PostEntity> getAll();
+
+    void updateStatus(Integer id);
 }

@@ -5,18 +5,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PostVip {
+public class Payment {
     private Integer id;
-    private String name;
-    private Integer vipLevel;
-    private Integer dayPrice;
-    private Integer weekPrice;
-    private Integer monthPrice;
+    private Integer price;
+    private Date startDate;
+    private Date endDate;
     private String description;
+    private Boolean status;
+    private Post post;
+    private User user;
+    private PostVip postVip;
 }

@@ -79,5 +79,8 @@ public class UserEntity {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "userEntity")
     private WalletEntity walletEntity;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
+    private List<PaymentEntity> payments;
 }
 

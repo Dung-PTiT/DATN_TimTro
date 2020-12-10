@@ -34,9 +34,9 @@ public class PostVipEntity {
     @Column(name = "month_price", nullable = false)
     private Integer monthPrice;
 
-    @Column(name = "year_price", nullable = false)
-    private Integer yearPrice;
-
     @Column(name = "description", columnDefinition = "blob")
     private String description;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "postVipEntity")
+    private List<PaymentEntity> payments;
 }

@@ -388,4 +388,9 @@ public class PostServiceImpl implements PostService {
         }
         return null;
     }
+
+    @Override
+    public void updateStatus(Integer id) {
+        postDAO.updateStatus(id);
+    }
 }

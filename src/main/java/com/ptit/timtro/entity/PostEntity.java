@@ -96,4 +96,7 @@ public class PostEntity {
             inverseJoinColumns = {@JoinColumn(name = "tag_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_post_tag_tag"))},
             uniqueConstraints = {@UniqueConstraint(columnNames = {"post_id", "tag_id"})})
     private List<TagEntity> tags;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "postEntity")
+    private List<PaymentEntity> payments;
 }

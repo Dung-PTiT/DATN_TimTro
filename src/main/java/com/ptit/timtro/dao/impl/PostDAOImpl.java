@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -45,5 +46,13 @@ public class PostDAOImpl implements PostDAO {
     @Override
     public List<PostEntity> getAll() {
         return entityManager.createQuery("select p from PostEntity p", PostEntity.class).getResultList();
+    }
+
+    @Override
+    public void updateStatus(Integer id) {
+        String hql = "update PostEntity set status = true where id = :id";
+        Query query = entityManager.createQuery(hql);
+        query.setParameter("id", id);
+        query.executeUpdate();
     }
 }

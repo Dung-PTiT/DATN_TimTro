@@ -32,7 +32,6 @@ public class PostVipServiceImpl implements PostVipService {
                         postVip.setDayPrice(postVipEntity.getDayPrice());
                         postVip.setWeekPrice(postVipEntity.getWeekPrice());
                         postVip.setMonthPrice(postVipEntity.getMonthPrice());
-                        postVip.setYearPrice(postVipEntity.getYearPrice());
                         return postVip;
                     }
             ).collect(Collectors.toList());

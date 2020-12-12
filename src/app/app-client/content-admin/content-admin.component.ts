@@ -6,7 +6,14 @@ import {PostService} from "../../service/post.service";
 import {MapsAPILoader} from "@agm/core";
 import {AuthenticationService} from "../../service/authentication.service";
 import {CommentService} from "../../service/comment.service";
-import {faComments, faEdit, faHeart, faHistory, faList, faMoneyCheckAlt} from "@fortawesome/free-solid-svg-icons";
+import {
+  faComments, faDollarSign,
+  faEdit,
+  faHeart,
+  faHistory,
+  faList,
+  faMoneyCheckAlt
+} from "@fortawesome/free-solid-svg-icons";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 
 @Component({
@@ -51,5 +58,5 @@ export class ContentAdminComponent implements OnInit {
   faMoneyCheckAlt = faMoneyCheckAlt;
   faHistory = faHistory;
   faUser = faUser;
-
+  faDollarSign = faDollarSign;
 }

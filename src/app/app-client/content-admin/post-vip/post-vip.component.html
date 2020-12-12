@@ -1,1 +1,67 @@
-<p>post-vip works!</p>
+<div style="margin: 10px 10px 0 10px">
+  <div class="d-flex align-items-center justify-content-between">
+    <div><p>Quản lý gói dịch vụ ({{postVips?.length}})</p></div>
+  </div>
+  <mat-divider></mat-divider>
+  <div>
+    <div class="mt-1">
+      <div class="example-header">
+        <mat-form-field class="w-20">
+          <mat-label>Tìm kiếm</mat-label>
+          <input matInput class="font-size-13"
+                 (keyup)="searchTag($event.target.value)" placeholder="Nhập từ khóa cần tìm">
+        </mat-form-field>
+      </div>
+
+      <div class="example-container">
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="number">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Số</mat-header-cell>
+            <mat-cell *matCellDef="let row; let i = index"> {{i + 1}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Loại tin</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="dayPrice">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Giá ngày(Đồng)</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.dayPrice}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="weekPrice">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Giá tuần(Đồng)</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.weekPrice}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="monthPrice">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Giá tháng(Đồng)</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.monthPrice}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef mat-sort-header class="justify-content-center"> Mô tả</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Tác vụ</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer"
+                       matTooltip="Sửa" (click)="openUpdatePostVipDialog(row)">
+              </fa-icon>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedPostVip"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedPostVip;">
+          </mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

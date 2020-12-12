@@ -27,10 +27,11 @@ import { TagUpdateDialogComponent } from './tag/tag-update-dialog/tag-update-dia
 import {MatDialogModule} from "@angular/material/dialog";
 import { CategoryCreateDialogComponent } from './category/category-create-dialog/category-create-dialog.component';
 import { CategoryUpdateDialogComponent } from './category/category-update-dialog/category-update-dialog.component';
+import { PostVipUpdateDialogComponent } from './post-vip/post-vip-update-dialog/post-vip-update-dialog.component';
 
 
 @NgModule({
-  declarations: [DashboardAdminComponent, TagComponent, UserComponent, PostComponent, CategoryComponent, PostVipComponent, CommentComponent, FavoriteComponent, PaymentComponent, TagCreateDialogComponent, TagUpdateDialogComponent, CategoryCreateDialogComponent, CategoryUpdateDialogComponent],
+  declarations: [DashboardAdminComponent, TagComponent, UserComponent, PostComponent, CategoryComponent, PostVipComponent, CommentComponent, FavoriteComponent, PaymentComponent, TagCreateDialogComponent, TagUpdateDialogComponent, CategoryCreateDialogComponent, CategoryUpdateDialogComponent, PostVipUpdateDialogComponent],
   imports: [
     CommonModule,
     ContentAdminRoutingModule,

@@ -1,0 +1,96 @@
+<div class="p-1">
+  <div class="d-flex justify-content-between">
+    <h6>Cập nhật</h6>
+    <fa-icon class="text-danger cursor-pointer" [icon]="faTimes" (click)="close()"></fa-icon>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="pt-2">
+    <form [formGroup]="postVipForm" (submit)="updatePostVip()">
+      <div class="d-flex mt-3 mb-3 align-items-center justify-content-between">
+                <span class="font-size-13">Tên
+                    (<span class="text-danger">*</span>)
+                </span>
+        <div style="width: 78%">
+          <input mdbInput type="text" formControlName="name"
+                 class="form-control font-size-13" placeholder="Tên gói dịch"
+                 [ngClass]="{ 'is-invalid': submitted && validator.name?.errors}" disabled>
+          <div *ngIf="submitted && validator.name?.errors?.required" class="invalid-feedback">
+            Tên không được trống
+          </div>
+        </div>
+      </div>
+      <div class="d-flex mt-3 mb-3 align-items-center justify-content-between">
+                <span class="font-size-13">Giá ngày
+                    (<span class="text-danger">*</span>)
+                </span>
+        <div style="width: 78%">
+          <input mdbInput type="text" formControlName="dayPrice"
+                 class="form-control font-size-13" placeholder="Giá ngày"
+                 [ngClass]="{ 'is-invalid': submitted && validator.dayPrice?.errors}">
+          <div *ngIf="submitted && validator.dayPrice?.errors" class="invalid-feedback">
+            <div *ngIf="validator.dayPrice?.errors?.required">
+              Giá ngày không được trống
+            </div>
+            <div *ngIf="validator.dayPrice?.errors?.pattern">
+              Giá ngày chứa kí từ 0 -> 9
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex mt-3 mb-3 align-items-center justify-content-between">
+                <span class="font-size-13">Giá tuần
+                    (<span class="text-danger">*</span>)
+                </span>
+        <div style="width: 78%">
+          <input mdbInput type="text" formControlName="weekPrice"
+                 class="form-control font-size-13" placeholder="Giá tuần"
+                 [ngClass]="{ 'is-invalid': submitted && validator.weekPrice?.errors}">
+          <div *ngIf="submitted && validator.weekPrice?.errors" class="invalid-feedback">
+            <div *ngIf="validator.weekPrice?.errors?.required">
+              Giá tuần không được trống
+            </div>
+            <div *ngIf="validator.weekPrice?.errors?.pattern">
+              Giá tuần chứa kí từ 0 -> 9
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex mt-3 mb-3 align-items-center justify-content-between">
+                <span class="font-size-13">Giá tháng
+                    (<span class="text-danger">*</span>)
+                </span>
+        <div style="width: 78%">
+          <input mdbInput type="text" formControlName="monthPrice"
+                 class="form-control font-size-13" placeholder="Giá tháng"
+                 [ngClass]="{ 'is-invalid': submitted && validator.monthPrice?.errors}">
+          <div *ngIf="submitted && validator.monthPrice?.errors" class="invalid-feedback">
+            <div *ngIf="validator.monthPrice?.errors?.required">
+              Giá tháng không được trống
+            </div>
+            <div *ngIf="validator.monthPrice?.errors?.pattern">
+              Giá tháng chứa kí từ 0 -> 9
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-between">
+                <span class="font-size-13">Mô tả
+                 (<span class="text-danger">*</span>)
+                </span>
+        <div style="width: 78%">
+          <textarea mdbInput type="text" formControlName="description"
+                 class="form-control font-size-13" placeholder="Mô tả" rows="7"
+                    [ngClass]="{ 'is-invalid': submitted && validator.description?.errors}"></textarea>
+          <div *ngIf="submitted && validator.description?.errors" class="invalid-feedback">
+            <div *ngIf="validator.description.errors?.required">
+              Mô tả không được trống
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 float-right">
+        <button mat-button class="text-white button-save line-height-25" type="submit">Lưu</button>
+      </div>
+    </form>
+  </div>
+</div>

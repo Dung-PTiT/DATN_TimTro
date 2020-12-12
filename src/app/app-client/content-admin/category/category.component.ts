@@ -70,6 +70,7 @@ export class CategoryComponent implements OnInit {
     const dialogRef = this.matDialog.open(CategoryUpdateDialogComponent, {
       width: '400px',
       height: 'auto',
+      disableClose: true,
       data: tag
     });
 

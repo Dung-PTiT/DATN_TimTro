@@ -1,0 +1,59 @@
+<div style="margin: 10px 10px 0 10px">
+  <div class="d-flex align-items-center justify-content-between">
+    <div><p>Quản lý tiện ích ({{tags?.length}})</p></div>
+  </div>
+  <mat-divider></mat-divider>
+  <div>
+    <div class="mt-1">
+      <div class="example-header">
+        <button mat-button (click)="openCreateTagDialog()"
+                class="p-0 pl-2 pr-2 float-right text-white button-save font-size-13 line-height-25">
+          <fa-icon [icon]="faPlusCircle"></fa-icon>
+          <span class="ml-2">Thêm</span>
+        </button>
+        <mat-form-field class="w-20">
+          <mat-label>Tìm kiếm</mat-label>
+          <input matInput class="font-size-13"
+                 (keyup)="searchTag($event.target.value)" placeholder="Nhập từ khóa cần tìm">
+        </mat-form-field>
+      </div>
+
+      <div class="example-container">
+
+        <mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="number">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Số</mat-header-cell>
+            <mat-cell *matCellDef="let row; let i = index"> {{i + 1}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Tên</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Mô tả</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Tác vụ</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer"
+                       matTooltip="Sửa" (click)="openUpdateTagDialog(row)">
+              </fa-icon>
+              <fa-icon class="text-danger cursor-pointer ml-2" (click)="deleteTag(row)"
+                       [icon]="faTrashAlt" matTooltip="Xóa"></fa-icon>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedTag"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedTag;">
+          </mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,21 +10,17 @@ import {CookieService} from "ngx-cookie-service";
 import {JwtInterceptor} from "./filter/jwt.interceptor";
 import {AppClientModule} from "./app-client/app-client.module";
 import {UrlSecurity} from "./filter/url.security";
-import {AppAdminComponent } from './app-admin/app-admin.component';
-import {AppAdminModule} from "./app-admin/app-admin.module";
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UrlRedirectComponent,
-    AppAdminComponent
+    UrlRedirectComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AppClientModule,
-    AppAdminModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 2000,

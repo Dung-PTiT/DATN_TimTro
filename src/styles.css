@@ -17,29 +17,29 @@ html {
   scroll-behavior: smooth;
 }
 
-button:focus{
+button:focus {
   outline: none !important;
 }
 
-.text-align-start{
+.text-align-start {
   text-align: start;
 }
 
-.text-align-end{
+.text-align-end {
   text-align: end !important;
 }
 
-:focus{
+:focus {
   outline: none !important;
 }
 
-.swal-confirm-style{
+.swal-confirm-style {
   height: 160px !important;
   font-size: 10px !important;
   padding-bottom: 1.3rem !important;
 }
 
-.button-save{
+.button-save {
   background-color: #27326c;
 }
 
@@ -87,7 +87,7 @@ button:focus{
   background-color: #dddddd;
 }
 
-.color-disable{
+.color-disable {
   color: #898989;
 }
 
@@ -100,3 +100,44 @@ button:focus{
   0 2px 2px 0 rgba(0, 0, 0, 0.14),
   0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
 }
+
+.w-10 {
+  width: 10%!important;
+}
+
+.w-20 {
+  width: 20%!important;
+}
+
+.w-30 {
+  width: 30%!important;
+}
+
+.w-40 {
+  width: 40%!important;
+}
+
+.w-50 {
+  width: 50%!important;
+}
+
+.w-60 {
+  width: 60%!important;
+}
+
+.w-70 {
+  width: 70%!important;
+}
+
+.w-80 {
+  width: 80%!important;
+}
+
+.w-90 {
+  width: 90%!important;
+}
+
+.line-height-25{
+  line-height: 25px!important;
+}
+

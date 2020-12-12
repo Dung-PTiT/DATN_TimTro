@@ -17,6 +17,26 @@ public class CategoryDAOImpl implements CategoryDAO {
     private EntityManager entityManager;
 
     @Override
+    public void create(CategoryEntity categoryEntity) {
+        entityManager.persist(categoryEntity);
+    }
+
+    @Override
+    public void update(CategoryEntity categoryEntity) {
+        entityManager.merge(categoryEntity);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        entityManager.remove(getById(id));
+    }
+
+    @Override
+    public CategoryEntity getById(Integer id) {
+        return entityManager.createQuery("select c from CategoryEntity c where c.id = " + id + "", CategoryEntity.class).getSingleResult();
+    }
+
+    @Override
     public List<CategoryEntity> getAll() {
         return entityManager.createQuery("select c from CategoryEntity c", CategoryEntity.class).getResultList();
     }

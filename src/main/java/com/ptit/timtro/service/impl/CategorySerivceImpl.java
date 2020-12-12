@@ -2,7 +2,9 @@ package com.ptit.timtro.service.impl;
 
 import com.ptit.timtro.dao.CategoryDAO;
 import com.ptit.timtro.entity.CategoryEntity;
+import com.ptit.timtro.entity.PostEntity;
 import com.ptit.timtro.model.Category;
+import com.ptit.timtro.model.Post;
 import com.ptit.timtro.service.CategorySerivce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,46 @@ public class CategorySerivceImpl implements CategorySerivce {
 
     @Autowired
     private CategoryDAO categoryDAO;
+
+    @Override
+    public void create(Category category) {
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setName(category.getName());
+        categoryEntity.setDescription(category.getDescription());
+        categoryDAO.create(categoryEntity);
+    }
+
+    @Override
+    public void update(Category category) {
+        CategoryEntity categoryEntity = categoryDAO.getById(category.getId());
+        categoryEntity.setName(category.getName());
+        categoryEntity.setDescription(category.getDescription());
+        categoryDAO.update(categoryEntity);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        categoryDAO.delete(id);
+    }
+
+    @Override
+    public Category getById(Integer id) {
+        CategoryEntity categoryEntity = categoryDAO.getById(id);
+        Category category = new Category();
+        category.setId(categoryEntity.getId());
+        category.setName(categoryEntity.getName());
+        category.setDescription(categoryEntity.getDescription());
+
+        List<PostEntity> postEntities = categoryEntity.getPosts();
+        category.setPosts(postEntities.stream().map(
+                postEntity -> {
+                    Post post = new Post();
+                    post.setId(postEntity.getId());
+                    return post;
+                }
+        ).collect(Collectors.toList()));
+        return category;
+    }
 
     @Override
     public List<Category> getAll() {

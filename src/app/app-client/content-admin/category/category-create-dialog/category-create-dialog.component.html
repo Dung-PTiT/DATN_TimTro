@@ -1,0 +1,42 @@
+<div class="p-1">
+  <div class="d-flex justify-content-between">
+    <p>Thêm mới chuyên mục</p>
+    <fa-icon class="text-danger cursor-pointer" [icon]="faTimes" (click)="close()">Hủy</fa-icon>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="pt-2">
+    <form [formGroup]="categoryForm" (submit)="createCategory()">
+      <div class="d-flex mt-3 mb-3 align-items-center justify-content-between">
+                <span class="font-size-13">Tên
+                    (<span class="text-danger">*</span>)
+                </span>
+        <div style="width: 78%">
+          <input mdbInput type="text" formControlName="name"
+                 class="form-control font-size-13" placeholder="Tên chuyên mục"
+                 [ngClass]="{ 'is-invalid': submitted && validator.name?.errors}">
+          <div *ngIf="submitted && validator.name?.errors?.required" class="invalid-feedback">
+            Tên không được trống
+          </div>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-between">
+                <span class="font-size-13">Mô tả
+                 (<span class="text-danger">*</span>)
+                </span>
+        <div style="width: 78%">
+          <input mdbInput type="text" formControlName="description"
+                 class="form-control font-size-13" placeholder="Mô tả"
+                 [ngClass]="{ 'is-invalid': submitted && validator.description?.errors}">
+          <div *ngIf="submitted && validator.description?.errors" class="invalid-feedback">
+            <div *ngIf="validator.description.errors?.required">
+              Mô tả không được trống
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-4 float-right">
+        <button mat-button class="text-white button-save line-height-25" type="submit">Lưu</button>
+      </div>
+    </form>
+  </div>
+</div>

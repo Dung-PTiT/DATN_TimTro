@@ -25,10 +25,12 @@ import { TagCreateDialogComponent } from './tag/tag-create-dialog/tag-create-dia
 import {ReactiveFormsModule} from "@angular/forms";
 import { TagUpdateDialogComponent } from './tag/tag-update-dialog/tag-update-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
+import { CategoryCreateDialogComponent } from './category/category-create-dialog/category-create-dialog.component';
+import { CategoryUpdateDialogComponent } from './category/category-update-dialog/category-update-dialog.component';
 
 
 @NgModule({
-  declarations: [DashboardAdminComponent, TagComponent, UserComponent, PostComponent, CategoryComponent, PostVipComponent, CommentComponent, FavoriteComponent, PaymentComponent, TagCreateDialogComponent, TagUpdateDialogComponent],
+  declarations: [DashboardAdminComponent, TagComponent, UserComponent, PostComponent, CategoryComponent, PostVipComponent, CommentComponent, FavoriteComponent, PaymentComponent, TagCreateDialogComponent, TagUpdateDialogComponent, CategoryCreateDialogComponent, CategoryUpdateDialogComponent],
   imports: [
     CommonModule,
     ContentAdminRoutingModule,

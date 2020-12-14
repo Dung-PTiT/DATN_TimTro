@@ -6,6 +6,8 @@ import com.ptit.timtro.util.DataResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class UserController {
 
@@ -14,7 +16,22 @@ public class UserController {
 
     @GetMapping("/user/get-by-id")
     public DataResponse<User> getById(@RequestParam("id") Integer id) {
-        return new DataResponse<>(true, userService.get(id));
+        try {
+            return new DataResponse<>(true, userService.get(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new DataResponse<>(false, null);
+    }
+
+    @GetMapping("/user/get-all")
+    public DataResponse<List<User>> getAll() {
+        try {
+            return new DataResponse<>(true, userService.getAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new DataResponse<>(false, null);
     }
 
     @PostMapping("/user/change-password")

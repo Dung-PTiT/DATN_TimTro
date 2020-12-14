@@ -104,6 +104,7 @@ public class UserServiceImpl implements UserService {
         user.setRole(userEntity.getRole().getAuthorityName());
         user.setCreateTime(userEntity.getCreateTime());
         user.setPhoneNumber(userEntity.getPhoneNumber());
+        user.setImageUrl(userEntity.getImageUrl());
 
         WalletEntity walletEntity = userEntity.getWalletEntity();
         Wallet wallet = new Wallet();

@@ -46,6 +46,9 @@ public class UserEntity {
     @Column(name = "email_verified", nullable = false)
     private Boolean emailVerified = false;
 
+    @Column(name = "email_verified_code")
+    private String emailVerifiedCode;
+
     @Column(name = "provider_id")
     private String providerId;
 

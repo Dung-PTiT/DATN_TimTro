@@ -1,0 +1,48 @@
+.mat-table {
+  overflow: auto;
+  max-height: 433px;
+  border: 1px solid #dddddd;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.example-header {
+  display: flex;
+  justify-content: space-between;
+  min-height: 64px;
+  align-items: center;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-column-number {
+  flex: 0 0 10%;
+}
+
+.mat-column-name {
+  flex: 0 0 23%;
+}
+
+.mat-column-email {
+  flex: 0 0 20%;
+}
+
+.mat-column-phoneNumber {
+  flex: 0 0 16%;
+}
+
+.mat-column-role {
+  flex: 0 0 10%;
+}
+
+.mat-column-createTime {
+  flex: 0 0 13%;
+}
+

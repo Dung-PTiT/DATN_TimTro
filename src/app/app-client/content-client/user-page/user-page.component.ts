@@ -1,4 +1,4 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {PostService} from "../../../service/post.service";
 import {AuthenticationService} from "../../../service/authentication.service";
@@ -22,6 +22,7 @@ export class UserPageComponent implements OnInit {
 
   PREFIX_URL = AppConfig.PREFIX_URL;
   CONTEXT_URL: string = "";
+  DEFAULT_IMAGE_USER = "./assets/images/avatar.png";
   DEFAULT_IMAGE: string = "./assets/images/logo3.png";
 
   constructor(private router: Router,
@@ -37,6 +38,7 @@ export class UserPageComponent implements OnInit {
       this.id = params['id'];
       this.userService.getUserById(this.id).subscribe(resp => {
         this.user = resp.data;
+        console.log(this.user);
         this.postService.getPostByUserId(resp?.data?.id).subscribe(resp => {
           this.posts = resp.data;
         });

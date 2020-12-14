@@ -6,15 +6,14 @@
       <div class="profile-user">
         <div class="profile-info">
           <div class="d-flex profile-image">
-            <img width="50" src="./assets/images/avatar.png" class="cursor-pointer"
-                 style="border-radius: 30px"/>
+            <img class="box-shadow" [src]="user?.imageUrl ? user.imageUrl : DEFAULT_IMAGE_USER" referrerpolicy="no-referrer"
+                 style="border-radius: 50%; max-width: 100px;"/>
             <div class="profile-name">
               <b>{{user?.name}}</b>
             </div>
           </div>
         </div>
       </div>
-      <span class="mt-2 mb-2">Tham gia: {{user?.createTime | date:'hh:mm a dd-MM-yyyy'}}</span>
       <div>
         <div class="mt-2 mb-2">
           <fa-icon [icon]="faPhone"></fa-icon>
@@ -25,6 +24,7 @@
           <span class="ml-2">{{user?.email}}</span>
         </div>
       </div>
+      <span class="mt-2 mb-2">Tham gia: {{user?.createTime | date:'hh:mm a dd-MM-yyyy'}}</span>
     </div>
     <div class="col-9" style="box-shadow: 0 2px 10px 0 rgba(0,0,0,.1);">
       <div class="mt-2 mr-2">
@@ -33,13 +33,13 @@
         <div style=" height: 400px;width: 100%;overflow-y: scroll;">
           <div *ngFor="let post of posts" class="d-flex mt-3 pb-3" style="border-bottom: 1px solid #dddddd">
             <div>
-              <img width="100"
+              <img width="100" (click)="viewPost(post?.id)" class="cursor-pointer"
                    [src]="post?.images[0]?.imageUrl ?
                (PREFIX_URL + '/' + post?.id + '/' +  post?.images[0]?.imageUrl ) : (DEFAULT_IMAGE)">
             </div>
             <div class="d-flex w-100 justify-content-between">
               <div class="p-1 ml-2" style="display: flex;flex-direction: column;justify-content: space-between;">
-                <div><span class="font-weight-bolder">{{post?.title}}</span></div>
+                <div><span class="font-weight-bolder cursor-pointer" (click)="viewPost(post?.id)">{{post?.title}}</span></div>
                 <div>
                   <span>Giá:
                   <span class="font-weight-bold">{{post?.price | number}} triệu/tháng</span>

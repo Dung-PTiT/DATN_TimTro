@@ -5,6 +5,7 @@ import {AuthenticationService} from "../service/authentication.service";
 import {CookieService} from "ngx-cookie-service";
 import {ToastService} from "../service/toast.service";
 import {AppConfig} from "../util/app-config";
+import {faHandPointRight} from "@fortawesome/free-regular-svg-icons";
 
 @Component({
   selector: 'app-register',
@@ -53,7 +54,8 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         resp => {
           if (resp.success) {
-            this.toastService.showSuccess("Đăng ký thành công");
+            this.toastService.showSuccess("Đã tạo tài khoản. Hãy xác thực");
+            this.router.navigate(['/email-verify']);
           } else {
             this.toastService.showWarning("Tài khoản đã tồn tại");
           }
@@ -68,6 +70,12 @@ export class RegisterComponent implements OnInit {
   oauthFacebook() {
     location.href = AppConfig.FACEBOOK_AUTH_URL;
   }
+
+  verifyEmail(){
+    this.router.navigate(['/email-verify']);
+  }
+
+  faHandPointRight = faHandPointRight;
 }
 
 export function MustMatch(controlName: string, matchingControlName: string) {

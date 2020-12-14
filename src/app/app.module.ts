@@ -11,11 +11,20 @@ import {JwtInterceptor} from "./filter/jwt.interceptor";
 import {AppClientModule} from "./app-client/app-client.module";
 import {UrlSecurity} from "./filter/url.security";
 import { ToastrModule } from 'ngx-toastr';
+import { EmailVerifyComponent } from './email-verify/email-verify.component';
+import {MatCardModule} from "@angular/material/card";
+import {ReactiveFormsModule} from "@angular/forms";
+import {ButtonsModule} from "angular-bootstrap-md";
+import { EmailVerifyRedirectDialogComponent } from './email-verify/email-verify-redirect-dialog/email-verify-redirect-dialog.component';
+import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
     AppComponent,
-    UrlRedirectComponent
+    UrlRedirectComponent,
+    EmailVerifyComponent,
+    EmailVerifyRedirectDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +36,12 @@ import { ToastrModule } from 'ngx-toastr';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
       closeButton: true
-    })
+    }),
+    MatCardModule,
+    ReactiveFormsModule,
+    ButtonsModule,
+    FontAwesomeModule,
+    MatButtonModule
   ],
   providers: [
     AuthenticationService,

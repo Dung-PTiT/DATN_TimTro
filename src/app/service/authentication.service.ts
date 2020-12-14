@@ -29,6 +29,15 @@ export class AuthenticationService extends MainService {
     );
   }
 
+  verifyEmail(email: string, code: string): Observable<any> {
+    return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/email-verify', null, {
+      params: {
+        email: email,
+        code: code
+      }
+    });
+  }
+
   getCurrentUser(): Observable<any> {
     return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/get-current-user');
   }

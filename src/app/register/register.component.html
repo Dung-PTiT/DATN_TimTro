@@ -108,5 +108,16 @@
       </div>
     </div>
   </div>
-  <div class="text-center mt-3"><a routerlink="" href="" style="font-size: 13px">Quay lại trang chủ</a></div>
+  <div class="text-center mt-3">
+    <div class="text-center mt-2 d-flex flex-column">
+    <span class="font-size-13">
+      Đã đăng ký nhưng chưa kích hoạt ?
+    </span>
+      <p class="font-size-13 mt-2 mb-2 cursor-pointer" (click)="verifyEmail()">
+        <fa-icon [icon]="faHandPointRight" class="text-danger"></fa-icon>
+        <span class="text-primary ml-2">Kích hoạt ngay</span>
+      </p>
+      <a routerlink="" href="" class="font-size-13">Quay lại trang chủ</a>
+    </div>
+  </div>
 </mat-card>

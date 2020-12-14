@@ -7,6 +7,7 @@ import {OAuthResponseToken} from "../model/OAuthResponseToken";
 import {AppConfig} from "../util/app-config";
 import * as moment from 'moment';
 import {ToastService} from "../service/toast.service";
+import {faHandPointRight} from "@fortawesome/free-regular-svg-icons";
 
 @Component({
   selector: 'app-login',
@@ -65,4 +66,10 @@ export class LoginComponent implements OnInit {
   oauthFacebook() {
     location.href = AppConfig.FACEBOOK_AUTH_URL;
   }
+
+  verifyEmail(){
+    this.router.navigate(['/email-verify']);
+  }
+
+  faHandPointRight = faHandPointRight;
 }

@@ -15,7 +15,11 @@ public interface UserDAO {
 
     void delete(UserEntity userEntity);
 
+    void updateStatus(UserEntity userEntity);
+
     UserEntity getByUsername(String username);
+
+    UserEntity getByEmailAndTypeProvider(String email, String typeAuthProvider);
 
     UserEntity getByEmail(String email);
 

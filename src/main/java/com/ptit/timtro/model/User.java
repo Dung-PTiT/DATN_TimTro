@@ -19,6 +19,7 @@ public class User {
     private String password;
     private String name;
     private String email;
+    private String emailVerifyCode;
     private AuthProvider authProvider;
     private String imageUrl;
     private String role;

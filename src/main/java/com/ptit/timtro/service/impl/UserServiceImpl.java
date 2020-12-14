@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = new UserEntity();
         userEntity.setName(user.getName());
         userEntity.setEmail(user.getEmail());
+        userEntity.setEmailVerifiedCode(user.getEmailVerifyCode());
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         userEntity.setUsername(user.getUsername());
         userEntity.setAuthProvider(user.getAuthProvider());
@@ -63,6 +64,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateStatus(User user) {
+        UserEntity userEntity = userDAO.get(user.getId());
+        userEntity.setEmailVerified(user.getIsActived());
+        userDAO.update(userEntity);
+    }
+
+    @Override
     public void delete(Integer id) {
         UserEntity userEntity = userDAO.get(id);
         userDAO.delete(userEntity);
@@ -78,6 +86,28 @@ public class UserServiceImpl implements UserService {
     public boolean existsByUsername(String username) {
         UserEntity userEntity = userDAO.getByUsername(username);
         return userEntity != null;
+    }
+
+    @Override
+    public User getByEmailAndTypeProvider(String email, String typeAuthProvider) {
+        UserEntity userEntity = userDAO.getByEmailAndTypeProvider(email, typeAuthProvider);
+        User user = new User();
+        user.setId(userEntity.getId());
+        user.setName(userEntity.getName());
+        user.setEmail(userEntity.getEmail());
+        user.setRole(userEntity.getRole().getAuthorityName());
+        user.setCreateTime(userEntity.getCreateTime());
+        user.setPhoneNumber(userEntity.getPhoneNumber());
+        user.setImageUrl(userEntity.getImageUrl());
+        user.setIsActived(userEntity.getEmailVerified());
+        user.setEmailVerifyCode(userEntity.getEmailVerifiedCode());
+
+        WalletEntity walletEntity = userEntity.getWalletEntity();
+        Wallet wallet = new Wallet();
+        wallet.setBalance(walletEntity.getBalance());
+        wallet.setCreateTime(walletEntity.getCreateTime());
+        user.setWallet(wallet);
+        return user;
     }
 
     @Override

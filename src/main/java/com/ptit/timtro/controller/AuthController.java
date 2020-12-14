@@ -1,10 +1,10 @@
 package com.ptit.timtro.controller;
 
-import com.ptit.timtro.entity.UserEntity;
 import com.ptit.timtro.model.User;
 import com.ptit.timtro.model.Wallet;
 import com.ptit.timtro.security.*;
 import com.ptit.timtro.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.ptit.timtro.service.MailService;
 import com.ptit.timtro.service.UserService;
 import com.ptit.timtro.service.WalletService;
 import com.ptit.timtro.util.AuthTokenResponse;
@@ -20,7 +20,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.Random;
 
 @RestController
 public class AuthController {
@@ -42,6 +44,9 @@ public class AuthController {
 
     @Autowired
     HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+
+    @Autowired
+    private MailService mailService;
 
     @PostMapping("/auth/login")
     public DataResponse<AuthTokenResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
@@ -109,6 +114,11 @@ public class AuthController {
                 User userNew = new User();
                 userNew.setUsername(registerRequest.getUsername());
                 userNew.setEmail(registerRequest.getEmail());
+
+                String emailVerifyCode = new DecimalFormat("000000").format(new Random().nextInt(999999));
+                (new Thread(() -> mailService.sendMail(registerRequest.getEmail(), emailVerifyCode))).start();
+                userNew.setEmailVerifyCode(emailVerifyCode);
+
                 userNew.setPassword(registerRequest.getPassword());
                 userNew.setName(registerRequest.getName());
                 userNew.setRole("ROLE_MEMBER");
@@ -127,8 +137,8 @@ public class AuthController {
                 wallet.setBalance(0);
                 wallet.setCreateTime(new Date());
                 wallet.setUser(userTmp);
-
                 walletService.create(wallet);
+
                 return new DataResponse<>(true, "OK");
             }
         } catch (Exception e) {
@@ -137,4 +147,32 @@ public class AuthController {
         return new DataResponse<>(false, "Error");
     }
 
+    @PostMapping("/auth/email-verify")
+    public DataResponse<String> verifyEmail(@RequestParam("email") String email,
+                                            @RequestParam("code") String code) {
+        try {
+            User userCheck = userService.checkExistedUser(email, "local");
+            if (userCheck == null) {
+                return new DataResponse<>(false, "Tài khoản không tồn tại");
+            } else {
+                User user = userService.getByEmailAndTypeProvider(email, "local");
+                if (user.getIsActived()) {
+                    return new DataResponse<>(false, "Tài khoản đã được xác thực");
+                } else {
+                    if (user.getEmailVerifyCode().equals(code)) {
+                        user.setIsActived(true);
+                        userService.updateStatus(user);
+                        return new DataResponse<>(true, "Xác thực tài khoản thành công");
+                    } else {
+                        return new DataResponse<>(false, "Mã xác nhận không đúng");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new DataResponse<>(false, null);
+        }
+    }
+
+    //ToDo làm sửa đăng nhập == gg fb, reload giao diện sau xác nhận mail, check active trước khi login
 }

@@ -81,7 +81,7 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**",
                         "/v2/api-docs/**", "/auth/login", "/auth/create-password", "/auth/register",
-                        "/oauth/**", "/oauth2/**", "/auth/gen-pass",
+                        "/oauth/**", "/oauth2/**", "/auth/gen-pass", "/auth/email-verify",
                         "/address/**", "/post/get-all", "/post/get-by-id", "/post/get-by-user-id", "/category/get-all", "/tag/get-all",
                         "/image/**", "/comment/**", "/favorite/**", "/user/get-by-id", "/post-vip/get-all").permitAll()
                 .antMatchers("/tag/**", "/category/**", "/post-vip/**","/user/get-all").hasAnyRole("ADMIN")

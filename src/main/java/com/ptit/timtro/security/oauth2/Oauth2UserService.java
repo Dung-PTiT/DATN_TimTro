@@ -3,9 +3,12 @@ package com.ptit.timtro.security.oauth2;
 import com.ptit.timtro.dao.UserDAO;
 import com.ptit.timtro.entity.UserEntity;
 import com.ptit.timtro.exception.OAuth2AuthenticationProcessingException;
+import com.ptit.timtro.model.User;
+import com.ptit.timtro.model.Wallet;
 import com.ptit.timtro.security.AuthProvider;
 import com.ptit.timtro.security.Role;
 import com.ptit.timtro.security.UserPrincipal;
+import com.ptit.timtro.service.WalletService;
 import com.ptit.timtro.util.PasswordGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,6 +31,9 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
     private UserDAO userDAO;
 
     @Autowired
+    private WalletService walletService;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
@@ -37,9 +43,7 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
         try {
             return processOAuth2User(oAuth2UserRequest, oAuth2User);
         } catch (Exception e) {
-            // Throwing an instance of AuthenticationException will trigger the OAuth2AuthenticationFailureHandler
-            // throw new InternalAuthenticationServiceException(ex.getMessage(), ex.getCause());
-            System.out.println(e.toString());
+            e.printStackTrace();
             throw e;
         }
 
@@ -56,6 +60,14 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
             userEntity = updateExistingUser(userEntity, oAuth2UserInfo);
         } else {
             userEntity = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
+
+            Wallet wallet = new Wallet();
+            wallet.setBalance(0);
+            wallet.setCreateTime(new Date());
+            User user = new User();
+            user.setId(userEntity.getId());
+            wallet.setUser(user);
+            walletService.create(wallet);
         }
         return UserPrincipal.createInstance(userEntity).addAttributes(oAuth2User.getAttributes());
     }
@@ -71,6 +83,7 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
         userEntity.setImageUrl(oAuth2UserInfo.getImageUrl());
         userEntity.setPhoneNumber("Chưa có");
         userEntity.setRole(Role.MEMBER);
+        userEntity.setEmailVerified(true);
 
         Date date = new Date();
         userEntity.setCreateTime(date);
@@ -80,6 +93,7 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
     private UserEntity updateExistingUser(UserEntity existingUser, OAuth2UserInfo oAuth2UserInfo) {
         existingUser.setName(oAuth2UserInfo.getName());
         existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
+
         return userDAO.update(existingUser);
     }
 }

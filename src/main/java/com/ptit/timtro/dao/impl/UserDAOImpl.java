@@ -42,12 +42,22 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public void updateStatus(UserEntity userEntity) {
+        entityManager.merge(userEntity);
+    }
+
+    @Override
     public UserEntity getByUsername(String username) {
         try {
             return entityManager.createQuery("select u from UserEntity u where u.username = '" + username + "'", UserEntity.class).getSingleResult();
         } catch (Exception e) {
             return null;
         }
+    }
+
+    @Override
+    public UserEntity getByEmailAndTypeProvider(String email, String typeAuthProvider) {
+        return entityManager.createQuery("select u from UserEntity u where u.email = '" + email + "' and u.authProvider = '" + typeAuthProvider + "'", UserEntity.class).getSingleResult();
     }
 
     @Override

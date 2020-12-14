@@ -14,11 +14,15 @@ public interface UserService {
 
     void update(User user);
 
+    void updateStatus(User user);
+
     void delete(Integer id);
 
     boolean existsByEmail(String email);
 
     boolean existsByUsername(String username);
+
+    User getByEmailAndTypeProvider(String email, String typeAuthProvider);
 
     User checkExistedUser(String email, String typeAuthProvider);
 

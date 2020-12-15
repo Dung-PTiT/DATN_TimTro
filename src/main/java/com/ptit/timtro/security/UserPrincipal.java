@@ -3,8 +3,10 @@ package com.ptit.timtro.security;
 import com.ptit.timtro.entity.UserEntity;
 import com.ptit.timtro.entity.WalletEntity;
 import com.ptit.timtro.model.Wallet;
+import com.ptit.timtro.service.WalletService;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +17,9 @@ import java.util.*;
 @Getter
 @Setter
 public class UserPrincipal implements UserDetails, OAuth2User {
+
+    @Autowired
+    private WalletService walletService;
 
     private Integer id;
     private String username;

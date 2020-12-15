@@ -1,15 +1,17 @@
 package com.ptit.timtro.security.oauth2;
 
 import com.ptit.timtro.dao.UserDAO;
+import com.ptit.timtro.dao.WalletDAO;
 import com.ptit.timtro.entity.UserEntity;
+import com.ptit.timtro.entity.WalletEntity;
 import com.ptit.timtro.exception.OAuth2AuthenticationProcessingException;
 import com.ptit.timtro.model.User;
 import com.ptit.timtro.model.Wallet;
 import com.ptit.timtro.security.AuthProvider;
 import com.ptit.timtro.security.Role;
 import com.ptit.timtro.security.UserPrincipal;
+import com.ptit.timtro.service.MailService;
 import com.ptit.timtro.service.WalletService;
-import com.ptit.timtro.util.PasswordGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -20,7 +22,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -31,7 +35,7 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
     private UserDAO userDAO;
 
     @Autowired
-    private WalletService walletService;
+    private WalletDAO walletDAO;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -39,7 +43,6 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(oAuth2UserRequest);
-
         try {
             return processOAuth2User(oAuth2UserRequest, oAuth2User);
         } catch (Exception e) {
@@ -61,33 +64,45 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
         } else {
             userEntity = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
 
-            Wallet wallet = new Wallet();
-            wallet.setBalance(0);
-            wallet.setCreateTime(new Date());
-            User user = new User();
-            user.setId(userEntity.getId());
-            wallet.setUser(user);
-            walletService.create(wallet);
+            WalletEntity walletEntity = new WalletEntity();
+            walletEntity.setBalance(0);
+            walletEntity.setCreateTime(new Date());
+            UserEntity userWallet = new UserEntity();
+            userWallet.setId(userEntity.getId());
+            walletEntity.setUserEntity(userWallet);
+            walletDAO.create(walletEntity);
+
+            userEntity.setWalletEntity(walletEntity);
         }
         return UserPrincipal.createInstance(userEntity).addAttributes(oAuth2User.getAttributes());
     }
 
     private UserEntity registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setAuthProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
-        userEntity.setProviderId(oAuth2UserInfo.getId());
-        userEntity.setUsername(UUID.randomUUID().toString()); // TODO chỗ này sửa đi thành tự động gen ra username và password
-        userEntity.setPassword(passwordEncoder.encode(PasswordGenerator.generate(true, true, true, true, 8)));
-        userEntity.setName(oAuth2UserInfo.getName());
-        userEntity.setEmail(oAuth2UserInfo.getEmail());
-        userEntity.setImageUrl(oAuth2UserInfo.getImageUrl());
-        userEntity.setPhoneNumber("Chưa có");
-        userEntity.setRole(Role.MEMBER);
-        userEntity.setEmailVerified(true);
+        try {
+            UserEntity userEntity = new UserEntity();
+            userEntity.setAuthProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
+            userEntity.setProviderId(oAuth2UserInfo.getId());
 
-        Date date = new Date();
-        userEntity.setCreateTime(date);
-        return userDAO.create(userEntity);
+            String username = UUID.randomUUID().toString();
+            userEntity.setUsername(username);
+
+            String password = new DecimalFormat("000000").format(new Random().nextInt(999999));
+            userEntity.setPassword(passwordEncoder.encode(password));
+
+            userEntity.setName(oAuth2UserInfo.getName());
+            userEntity.setEmail(oAuth2UserInfo.getEmail());
+            userEntity.setImageUrl(oAuth2UserInfo.getImageUrl());
+            userEntity.setPhoneNumber("Chưa có");
+            userEntity.setRole(Role.MEMBER);
+            userEntity.setEmailVerified(true);
+            Date date = new Date();
+            userEntity.setCreateTime(date);
+
+            return userDAO.create(userEntity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private UserEntity updateExistingUser(UserEntity existingUser, OAuth2UserInfo oAuth2UserInfo) {

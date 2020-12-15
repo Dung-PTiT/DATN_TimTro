@@ -48,6 +48,26 @@ public class AuthController {
     @Autowired
     private MailService mailService;
 
+    @PostMapping("/auth/check-account-active")
+    public DataResponse<String> checkAccountActive(@RequestParam("username") String username) {
+        try {
+            boolean checkUserExist = userService.existsByUsername(username);
+            if (checkUserExist) {
+                User user = userService.getByUsername(username);
+                if (user.getIsActived()) {
+                    return new DataResponse<>(true, "OK");
+                } else {
+                    return new DataResponse<>(false, "Tài khoản chưa được xác thực");
+                }
+            } else {
+                return new DataResponse<>(false, "Tài khoản không tồn tại");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new DataResponse<>(false, "Error");
+    }
+
     @PostMapping("/auth/login")
     public DataResponse<AuthTokenResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
         try {
@@ -62,8 +82,8 @@ public class AuthController {
             return new DataResponse<>(true, tokenResponse);
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, null);
         }
+        return new DataResponse<>(false, null);
     }
 
     @GetMapping("/auth/logout")
@@ -78,8 +98,8 @@ public class AuthController {
             return new DataResponse<>(true, newPass);
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, null);
         }
+        return new DataResponse<>(false, null);
     }
 
     @GetMapping("/auth/get-current-user")
@@ -99,14 +119,13 @@ public class AuthController {
             return new DataResponse<>(true, userInfo);
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, null);
         }
+        return new DataResponse<>(false, null);
     }
 
     @PostMapping("/auth/register")
     public DataResponse<String> registerUser(@RequestBody RegisterRequest registerRequest) {
         try {
-
             User user = userService.checkExistedUser(registerRequest.getEmail(), "local");
             if (user != null) {
                 return new DataResponse<>(false, "Error");
@@ -116,7 +135,7 @@ public class AuthController {
                 userNew.setEmail(registerRequest.getEmail());
 
                 String emailVerifyCode = new DecimalFormat("000000").format(new Random().nextInt(999999));
-                (new Thread(() -> mailService.sendMail(registerRequest.getEmail(), emailVerifyCode))).start();
+                (new Thread(() -> mailService.sendCodeToMail(registerRequest.getEmail(), emailVerifyCode))).start();
                 userNew.setEmailVerifyCode(emailVerifyCode);
 
                 userNew.setPassword(registerRequest.getPassword());
@@ -170,9 +189,50 @@ public class AuthController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, null);
         }
+        return new DataResponse<>(false, null);
     }
 
-    //ToDo làm sửa đăng nhập == gg fb, reload giao diện sau xác nhận mail, check active trước khi login
+    @PostMapping("/auth/gen-code-email-verify")
+    public DataResponse<String> genCodeVerifyForgetAccount(@RequestParam("email") String email) {
+        try {
+            User userCheck = userService.checkExistedUser(email, "local");
+            if (userCheck == null) {
+                return new DataResponse<>(false, "Tài khoản không tồn tại");
+            } else {
+                String emailVerifyCode = new DecimalFormat("000000").format(new Random().nextInt(999999));
+                (new Thread(() -> mailService.sendCodeToMail(email, emailVerifyCode))).start();
+                userCheck.setEmailVerifyCode(emailVerifyCode);
+                userService.updateEmailVerifyCode(userCheck);
+                return new DataResponse<>(true, "Đã tạo mã xác nhận. Truy cập mail để lấy mã");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new DataResponse<>(false, null);
+    }
+
+    @PostMapping("/auth/get-account-forget")
+    public DataResponse<String> getAccountForget(@RequestParam("email") String email,
+                                                 @RequestParam("code") String code) {
+        try {
+            User userCheck = userService.checkExistedUser(email, "local");
+            if (userCheck == null) {
+                return new DataResponse<>(false, "Tài khoản không tồn tại");
+            } else {
+                User user = userService.getByEmailAndTypeProvider(email, "local");
+                if (user.getEmailVerifyCode().equals(code)) {
+                    user.setPassword(code);
+                    userService.changePassword(user);
+                    (new Thread(() -> mailService.sendForgetAccount(email, user.getUsername(), code))).start();
+                    return new DataResponse<>(true, "Lấy lại tài khoản thành công");
+                } else {
+                    return new DataResponse<>(false, "Mã xác nhận không đúng");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new DataResponse<>(false, null);
+    }
 }

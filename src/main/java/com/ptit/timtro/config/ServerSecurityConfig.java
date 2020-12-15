@@ -47,11 +47,6 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
         return new TokenAuthenticationFilter();
     }
 
-    /*
-      By default, Spring OAuth2 uses HttpSessionOAuth2AuthorizationRequestRepository to save
-      the authorization request. But, since our service is stateless, we can't save it in
-      the session. We'll save the request in a Base64 encoded cookie instead.
-    */
     @Bean
     public HttpCookieOAuth2AuthorizationRequestRepository cookieAuthorizationRequestRepository() {
         return new HttpCookieOAuth2AuthorizationRequestRepository();
@@ -80,11 +75,11 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint(new RestAuthenticationEntryPoint()); // thử xóa đi
         http.authorizeRequests()
                 .antMatchers("/swagger-ui.html", "/webjars/**", "/swagger-resources/**",
-                        "/v2/api-docs/**", "/auth/login", "/auth/create-password", "/auth/register",
-                        "/oauth/**", "/oauth2/**", "/auth/gen-pass", "/auth/email-verify",
+                        "/v2/api-docs/**", "/auth/login", "/auth/create-password", "/auth/register","/auth/check-account-active",
+                        "/oauth/**", "/oauth2/**", "/auth/gen-pass", "/auth/email-verify", "/auth/gen-code-email-verify", "/auth/get-account-forget",
                         "/address/**", "/post/get-all", "/post/get-by-id", "/post/get-by-user-id", "/category/get-all", "/tag/get-all",
                         "/image/**", "/comment/**", "/favorite/**", "/user/get-by-id", "/post-vip/get-all").permitAll()
-                .antMatchers("/tag/**", "/category/**", "/post-vip/**","/user/get-all").hasAnyRole("ADMIN")
+                .antMatchers("/tag/**", "/category/**", "/post-vip/**", "/user/get-all").hasAnyRole("ADMIN")
                 .anyRequest().authenticated(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
         // Thêm một lớp Filter kiểm tra jwt
         http.oauth2Login()

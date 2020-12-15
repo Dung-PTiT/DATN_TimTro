@@ -64,9 +64,39 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User getByUsername(String username) {
+        UserEntity userEntity = userDAO.getByUsername(username);
+        User user = new User();
+        user.setId(userEntity.getId());
+        user.setName(userEntity.getName());
+        user.setEmail(userEntity.getEmail());
+        user.setUsername(userEntity.getUsername());
+        user.setRole(userEntity.getRole().getAuthorityName());
+        user.setCreateTime(userEntity.getCreateTime());
+        user.setPhoneNumber(userEntity.getPhoneNumber());
+        user.setImageUrl(userEntity.getImageUrl());
+        user.setIsActived(userEntity.getEmailVerified());
+        user.setEmailVerifyCode(userEntity.getEmailVerifiedCode());
+
+        WalletEntity walletEntity = userEntity.getWalletEntity();
+        Wallet wallet = new Wallet();
+        wallet.setBalance(walletEntity.getBalance());
+        wallet.setCreateTime(walletEntity.getCreateTime());
+        user.setWallet(wallet);
+        return user;
+    }
+
+    @Override
     public void updateStatus(User user) {
         UserEntity userEntity = userDAO.get(user.getId());
         userEntity.setEmailVerified(user.getIsActived());
+        userDAO.update(userEntity);
+    }
+
+    @Override
+    public void updateEmailVerifyCode(User user) {
+        UserEntity userEntity = userDAO.get(user.getId());
+        userEntity.setEmailVerifiedCode(user.getEmailVerifyCode());
         userDAO.update(userEntity);
     }
 
@@ -95,6 +125,7 @@ public class UserServiceImpl implements UserService {
         user.setId(userEntity.getId());
         user.setName(userEntity.getName());
         user.setEmail(userEntity.getEmail());
+        user.setUsername(userEntity.getUsername());
         user.setRole(userEntity.getRole().getAuthorityName());
         user.setCreateTime(userEntity.getCreateTime());
         user.setPhoneNumber(userEntity.getPhoneNumber());

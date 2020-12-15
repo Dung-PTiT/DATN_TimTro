@@ -1,6 +1,5 @@
 package com.ptit.timtro.service;
 
-import com.ptit.timtro.entity.UserEntity;
 import com.ptit.timtro.model.User;
 
 import java.util.List;
@@ -14,7 +13,11 @@ public interface UserService {
 
     void update(User user);
 
+    User getByUsername(String username);
+
     void updateStatus(User user);
+
+    void updateEmailVerifyCode(User user);
 
     void delete(Integer id);
 

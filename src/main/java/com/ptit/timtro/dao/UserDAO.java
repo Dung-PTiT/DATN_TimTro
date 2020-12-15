@@ -17,6 +17,8 @@ public interface UserDAO {
 
     void updateStatus(UserEntity userEntity);
 
+    void updateEmailVerifyCode(UserEntity userEntity);
+
     UserEntity getByUsername(String username);
 
     UserEntity getByEmailAndTypeProvider(String email, String typeAuthProvider);

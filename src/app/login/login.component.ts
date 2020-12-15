@@ -8,6 +8,7 @@ import {AppConfig} from "../util/app-config";
 import * as moment from 'moment';
 import {ToastService} from "../service/toast.service";
 import {faHandPointRight} from "@fortawesome/free-regular-svg-icons";
+import {faArrowCircleLeft} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-login',
@@ -45,18 +46,26 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.authenticationService.login(this.loginForm.controls.inputUsername.value, this.loginForm.controls.inputPassword.value).subscribe(resp => {
+    this.authenticationService.checkAccountActive(this.loginForm.controls.inputUsername.value).subscribe(resp => {
       if (resp.success) {
-        this.oAuthResponseToken = resp.data as OAuthResponseToken;
-        if (this.oAuthResponseToken != null) {
-          this.cookieService.set(AppConfig.COOKIE_TOKEN_NAME, this.oAuthResponseToken.token,
-            moment(new Date()).add(this.oAuthResponseToken.expireTime, 'ms').toDate());
-          location.href = "/";
-        }
-      }else{
-        this.toastService.showError("Tên đăng nhập hoặc mật khẩu không đúng");
+        this.authenticationService.login(this.loginForm.controls.inputUsername.value, this.loginForm.controls.inputPassword.value).subscribe(resp => {
+          if (resp.success) {
+            this.oAuthResponseToken = resp.data as OAuthResponseToken;
+            if (this.oAuthResponseToken != null) {
+              this.cookieService.set(AppConfig.COOKIE_TOKEN_NAME, this.oAuthResponseToken.token,
+                moment(new Date()).add(this.oAuthResponseToken.expireTime, 'ms').toDate());
+              location.href = "/";
+            }
+          } else {
+            this.toastService.showError("Tên đăng nhập hoặc mật khẩu không đúng");
+          }
+        });
+      } else {
+        this.toastService.showError(resp.data);
       }
     });
+
+
   }
 
   oauthGoogle() {
@@ -67,9 +76,14 @@ export class LoginComponent implements OnInit {
     location.href = AppConfig.FACEBOOK_AUTH_URL;
   }
 
-  verifyEmail(){
+  verifyEmail() {
     this.router.navigate(['/email-verify']);
   }
 
+  forgetAccount() {
+    this.router.navigate(['/forget-account']);
+  }
+
   faHandPointRight = faHandPointRight;
+  faArrowCircleLeft = faArrowCircleLeft;
 }

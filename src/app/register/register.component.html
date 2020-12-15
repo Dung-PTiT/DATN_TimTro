@@ -114,10 +114,13 @@
       Đã đăng ký nhưng chưa kích hoạt ?
     </span>
       <p class="font-size-13 mt-2 mb-2 cursor-pointer" (click)="verifyEmail()">
-        <fa-icon [icon]="faHandPointRight" class="text-danger"></fa-icon>
-        <span class="text-primary ml-2">Kích hoạt ngay</span>
+        <fa-icon [icon]="faHandPointRight"></fa-icon>
+        <span class="text-primary ml-2">Xác thực tài khoản</span>
       </p>
-      <a routerlink="" href="" class="font-size-13">Quay lại trang chủ</a>
+      <a routerlink="" href="" class="font-size-13 text-dark">
+        <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
+        <span class="ml-2">Quay lại trang chủ</span>
+      </a>
     </div>
   </div>
 </mat-card>

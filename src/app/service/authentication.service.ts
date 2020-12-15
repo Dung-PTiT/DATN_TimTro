@@ -19,6 +19,10 @@ export class AuthenticationService extends MainService {
     this.CONTEXT_URL = "/auth";
   }
 
+  checkAccountActive(username: string): Observable<any> {
+    return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/check-account-active', null, {params: {username: username}});
+  }
+
   login(username: string, password: string): Observable<any> {
     return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/login', {username: username, password: password});
   }
@@ -31,6 +35,23 @@ export class AuthenticationService extends MainService {
 
   verifyEmail(email: string, code: string): Observable<any> {
     return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/email-verify', null, {
+      params: {
+        email: email,
+        code: code
+      }
+    });
+  }
+
+  genCodeEmailVerify(email: string): Observable<any> {
+    return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/gen-code-email-verify', null, {
+      params: {
+        email: email
+      }
+    });
+  }
+
+  getForgetAccount(email: string, code: string): Observable<any> {
+    return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/get-account-forget', null, {
       params: {
         email: email,
         code: code

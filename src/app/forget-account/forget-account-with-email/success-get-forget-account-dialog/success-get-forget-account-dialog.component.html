@@ -1,0 +1,24 @@
+<div class="custom-modal">
+  <div class="succes succes-animation icon-top">
+    <fa-icon [icon]="faCheck" style="font-size: 50px"></fa-icon>
+  </div>
+  <div class="content">
+    <p class="type font-size-13">
+      Lấy lại tài khoản thành công<br>
+      <span>Kiểm tra email để xem thông tin tài khoản</span>
+    </p>
+    <div class="d-flex justify-content-around mt-4">
+      <button mat-button class="font-weight-bold btn-login" (click)="goToLogin()">
+        <fa-icon [icon]="faSignInAlt"></fa-icon>
+        <span class="ml-1">Đăng nhập</span>
+      </button>
+      <button mat-button class="font-weight-bold btn-dashboard" (click)="goToDashboard()">
+        <fa-icon [icon]="faHome"></fa-icon>
+        <span class="ml-1">Trang chủ</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+

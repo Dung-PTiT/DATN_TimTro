@@ -6,6 +6,7 @@ import {CookieService} from "ngx-cookie-service";
 import {ToastService} from "../service/toast.service";
 import {AppConfig} from "../util/app-config";
 import {faHandPointRight} from "@fortawesome/free-regular-svg-icons";
+import {faArrowCircleLeft} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-register',
@@ -76,6 +77,7 @@ export class RegisterComponent implements OnInit {
   }
 
   faHandPointRight = faHandPointRight;
+  faArrowCircleLeft = faArrowCircleLeft;
 }
 
 export function MustMatch(controlName: string, matchingControlName: string) {

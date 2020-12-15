@@ -5,16 +5,16 @@ import {AuthenticationService} from "../service/authentication.service";
 import {CookieService} from "ngx-cookie-service";
 import {ToastService} from "../service/toast.service";
 import {MatDialog} from "@angular/material/dialog";
-import {EmailVerifyRedirectDialogComponent} from "./email-verify-redirect-dialog/email-verify-redirect-dialog.component";
+import {faArrowCircleLeft} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-  selector: 'app-email-verify',
-  templateUrl: './email-verify.component.html',
-  styleUrls: ['./email-verify.component.css']
+  selector: 'app-forget-account',
+  templateUrl: './forget-account.component.html',
+  styleUrls: ['./forget-account.component.css']
 })
-export class EmailVerifyComponent implements OnInit {
+export class ForgetAccountComponent implements OnInit {
 
-  emailVerifyForm: FormGroup;
+  forgetPasswordForm: FormGroup;
   submitted = false;
 
   constructor(private formBuilder: FormBuilder,
@@ -26,33 +26,34 @@ export class EmailVerifyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.emailVerifyForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      code: ['', Validators.required],
+    this.forgetPasswordForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
   get validator() {
-    return this.emailVerifyForm.controls;
+    return this.forgetPasswordForm.controls;
   }
 
   verifyEmail() {
     this.submitted = true;
 
-    if (this.emailVerifyForm.invalid) {
+    if (this.forgetPasswordForm.invalid) {
       return;
     }
 
-    this.authenticationService.verifyEmail(this.emailVerifyForm.controls.email.value,
-      this.emailVerifyForm.controls.code.value).subscribe(resp => {
+    localStorage.setItem('emailForgetAccount', this.forgetPasswordForm.controls.email.value);
+
+    this.authenticationService.genCodeEmailVerify(this.forgetPasswordForm.controls.email.value).subscribe(resp => {
       if (resp.success == true) {
-        const dialogRef = this.matDialog.open(EmailVerifyRedirectDialogComponent, {
-          width: 'auto',
-          height: 'auto'
-        });
+        this.toastService.showSuccess(resp.data);
+        this.router.navigate(["/forget-account-with-email"]);
       } else {
-        this.toastService.showWarning(resp.data);
+        this.toastService.showError(resp.data);
       }
     });
+
   }
+
+  faArrowCircleLeft = faArrowCircleLeft;
 }

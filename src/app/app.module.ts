@@ -18,13 +18,19 @@ import {ButtonsModule} from "angular-bootstrap-md";
 import { EmailVerifyRedirectDialogComponent } from './email-verify/email-verify-redirect-dialog/email-verify-redirect-dialog.component';
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {MatButtonModule} from "@angular/material/button";
+import { ForgetAccountComponent } from './forget-account/forget-account.component';
+import { ForgetAccountWithEmailComponent } from './forget-account/forget-account-with-email/forget-account-with-email.component';
+import { SuccessGetForgetAccountDialogComponent } from './forget-account/forget-account-with-email/success-get-forget-account-dialog/success-get-forget-account-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UrlRedirectComponent,
     EmailVerifyComponent,
-    EmailVerifyRedirectDialogComponent
+    EmailVerifyRedirectDialogComponent,
+    ForgetAccountComponent,
+    ForgetAccountWithEmailComponent,
+    SuccessGetForgetAccountDialogComponent
   ],
   imports: [
     BrowserModule,

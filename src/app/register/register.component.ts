@@ -55,10 +55,10 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         resp => {
           if (resp.success) {
-            this.toastService.showSuccess("Đã tạo tài khoản. Hãy xác thực");
+            this.toastService.showSuccess(resp.data);
             this.router.navigate(['/email-verify']);
           } else {
-            this.toastService.showWarning("Tài khoản đã tồn tại");
+            this.toastService.showWarning(resp.data);
           }
         }
       );

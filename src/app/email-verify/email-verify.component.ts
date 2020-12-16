@@ -6,6 +6,7 @@ import {CookieService} from "ngx-cookie-service";
 import {ToastService} from "../service/toast.service";
 import {MatDialog} from "@angular/material/dialog";
 import {EmailVerifyRedirectDialogComponent} from "./email-verify-redirect-dialog/email-verify-redirect-dialog.component";
+import {faArrowCircleLeft} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-email-verify',
@@ -55,4 +56,6 @@ export class EmailVerifyComponent implements OnInit {
       }
     });
   }
+
+  faArrowCircleLeft = faArrowCircleLeft;
 }

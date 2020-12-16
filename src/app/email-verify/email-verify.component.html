@@ -1,7 +1,12 @@
 <mat-card class="card-login">
+  <div class="middle-login">
+    <div class="middle-login-text">
+      <span><img width="60" src="./assets/images/logo3.png"/></span>
+    </div>
+  </div>
   <mat-card-title class="title">Xác thực tài khoản</mat-card-title>
-  <div class="row pt-4 pl-3 pr-3">
-    <div class="col-12 pl-0">
+  <div class="row pl-3 pr-3">
+    <div class="col-12 pl-0 pr-0">
       <form [formGroup]="emailVerifyForm" (submit)="verifyEmail()">
         <div class="mb-3">
           <label class="font-size-13 mb-0">
@@ -38,7 +43,10 @@
     </div>
   </div>
   <div class="text-center mt-2 d-flex flex-column">
-    <a routerlink="" href="" class="font-size-13">Quay lại trang chủ</a>
+    <a routerlink="" href="" class="font-size-13 text-dark">
+      <fa-icon [icon]="faArrowCircleLeft"></fa-icon>
+      <span class="ml-2">Quay lại trang chủ</span>
+    </a>
   </div>
 
 </mat-card>

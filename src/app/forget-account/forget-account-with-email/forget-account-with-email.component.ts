@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
 import {AuthenticationService} from "../../service/authentication.service";
 import {CookieService} from "ngx-cookie-service";
 import {ToastService} from "../../service/toast.service";
-import {EmailVerifyRedirectDialogComponent} from "../../email-verify/email-verify-redirect-dialog/email-verify-redirect-dialog.component";
 import {faArrowCircleLeft} from "@fortawesome/free-solid-svg-icons";
 import {SuccessGetForgetAccountDialogComponent} from "./success-get-forget-account-dialog/success-get-forget-account-dialog.component";
 
@@ -35,10 +34,6 @@ export class ForgetAccountWithEmailComponent implements OnInit {
     this.emailVerifyForm = this.formBuilder.group({
       email: [this.email, [Validators.required, Validators.email]],
       code: ['', Validators.required],
-    });
-    const dialogRef = this.matDialog.open(SuccessGetForgetAccountDialogComponent, {
-      width: 'auto',
-      height: 'auto'
     });
   }
 

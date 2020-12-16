@@ -126,44 +126,49 @@ public class AuthController {
     @PostMapping("/auth/register")
     public DataResponse<String> registerUser(@RequestBody RegisterRequest registerRequest) {
         try {
-            User user = userService.checkExistedUser(registerRequest.getEmail(), "local");
-            if (user != null) {
-                return new DataResponse<>(false, "Error");
-            } else {
-                User userNew = new User();
-                userNew.setUsername(registerRequest.getUsername());
-                userNew.setEmail(registerRequest.getEmail());
+            boolean checkUserByUsername = userService.existsByUsername(registerRequest.getUsername());
+            if(checkUserByUsername){
+                return new DataResponse<>(false, "Tên đăng nhập đã tồn tại");
+            }else{
+                User user = userService.checkExistedUser(registerRequest.getEmail(), "local");
+                if (user != null) {
+                    return new DataResponse<>(false, "Email đã tồn tại");
+                } else {
+                    User userNew = new User();
+                    userNew.setUsername(registerRequest.getUsername());
+                    userNew.setEmail(registerRequest.getEmail());
 
-                String emailVerifyCode = new DecimalFormat("000000").format(new Random().nextInt(999999));
-                (new Thread(() -> mailService.sendCodeToMail(registerRequest.getEmail(), emailVerifyCode))).start();
-                userNew.setEmailVerifyCode(emailVerifyCode);
+                    String emailVerifyCode = new DecimalFormat("000000").format(new Random().nextInt(999999));
+                    (new Thread(() -> mailService.sendCodeToMail(registerRequest.getEmail(), emailVerifyCode))).start();
+                    userNew.setEmailVerifyCode(emailVerifyCode);
 
-                userNew.setPassword(registerRequest.getPassword());
-                userNew.setName(registerRequest.getName());
-                userNew.setRole("ROLE_MEMBER");
-                userNew.setCreateTime(new Date());
-                userNew.setAuthProvider(AuthProvider.local);
-                userNew.setIsActived(false);
-                userNew.setPhoneNumber(registerRequest.getPhoneNumber());
-                userNew.setImageUrl(null);
+                    userNew.setPassword(registerRequest.getPassword());
+                    userNew.setName(registerRequest.getName());
+                    userNew.setRole("ROLE_MEMBER");
+                    userNew.setCreateTime(new Date());
+                    userNew.setAuthProvider(AuthProvider.local);
+                    userNew.setIsActived(false);
+                    userNew.setPhoneNumber(registerRequest.getPhoneNumber());
+                    userNew.setImageUrl(null);
 
-                Integer userId = userService.create(userNew);
+                    Integer userId = userService.create(userNew);
 
-                User userTmp = new User();
-                userTmp.setId(userId);
+                    User userTmp = new User();
+                    userTmp.setId(userId);
 
-                Wallet wallet = new Wallet();
-                wallet.setBalance(0);
-                wallet.setCreateTime(new Date());
-                wallet.setUser(userTmp);
-                walletService.create(wallet);
+                    Wallet wallet = new Wallet();
+                    wallet.setBalance(0);
+                    wallet.setCreateTime(new Date());
+                    wallet.setUser(userTmp);
+                    walletService.create(wallet);
 
-                return new DataResponse<>(true, "OK");
+                    return new DataResponse<>(true, "Đã tạo tài khoản. Hãy xác thực");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new DataResponse<>(false, "Error");
+        return new DataResponse<>(false, "Lỗi");
     }
 
     @PostMapping("/auth/email-verify")

@@ -1,6 +1,7 @@
 package com.ptit.timtro.controller;
 
 import com.ptit.timtro.model.User;
+import com.ptit.timtro.security.UserPrincipal;
 import com.ptit.timtro.service.UserService;
 import com.ptit.timtro.util.DataResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +48,16 @@ public class UserController {
             e.printStackTrace();
         }
         return new DataResponse<>(false, "Error");
+    }
+
+    @PostMapping("/user/delete")
+    public DataResponse<String> delete(@RequestParam("id") Integer id) {
+        try {
+            userService.delete(id);
+            return new DataResponse<>(true, "Đã xóa tài khoản");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new DataResponse<>(false, "Không xóa được tài khoản");
     }
 }

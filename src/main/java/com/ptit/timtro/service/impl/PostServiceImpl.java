@@ -231,6 +231,30 @@ public class PostServiceImpl implements PostService {
             favorite.setPost(null);
             return favorite;
         }).collect(Collectors.toList()));
+
+        post.setPayments(postEntity.getPayments().stream().map(paymentEntity -> {
+            Payment payment = new Payment();
+            payment.setId(paymentEntity.getId());
+            payment.setDescription(paymentEntity.getDescription());
+            payment.setStartDate(paymentEntity.getStartDate());
+            payment.setEndDate(paymentEntity.getEndDate());
+            payment.setPrice(paymentEntity.getPrice());
+            payment.setStatus(paymentEntity.getStatus());
+
+            PostVipEntity postVipEntity = paymentEntity.getPostVipEntity();
+            PostVip postVip = new PostVip();
+            postVip.setId(postVipEntity.getId());
+            postVip.setName(postVipEntity.getName());
+            postVip.setVipLevel(postVipEntity.getViplevel());
+            postVip.setDescription(postVipEntity.getDescription());
+            postVip.setDayPrice(postVipEntity.getDayPrice());
+            postVip.setWeekPrice(postVipEntity.getWeekPrice());
+            postVip.setMonthPrice(postVipEntity.getMonthPrice());
+
+            payment.setPostVip(postVip);
+
+            return payment;
+        }).collect(Collectors.toList()));
         return post;
     }
 
@@ -318,6 +342,30 @@ public class PostServiceImpl implements PostService {
                                 commentEntity.getCreateTime(),
                                 null, null)
                 ).collect(Collectors.toList()));
+
+                post.setPayments(postEntity.getPayments().stream().map(paymentEntity -> {
+                    Payment payment = new Payment();
+                    payment.setId(paymentEntity.getId());
+                    payment.setDescription(paymentEntity.getDescription());
+                    payment.setStartDate(paymentEntity.getStartDate());
+                    payment.setEndDate(paymentEntity.getEndDate());
+                    payment.setPrice(paymentEntity.getPrice());
+                    payment.setStatus(paymentEntity.getStatus());
+
+                    PostVipEntity postVipEntity = paymentEntity.getPostVipEntity();
+                    PostVip postVip = new PostVip();
+                    postVip.setId(postVipEntity.getId());
+                    postVip.setName(postVipEntity.getName());
+                    postVip.setVipLevel(postVipEntity.getViplevel());
+                    postVip.setDescription(postVipEntity.getDescription());
+                    postVip.setDayPrice(postVipEntity.getDayPrice());
+                    postVip.setWeekPrice(postVipEntity.getWeekPrice());
+                    postVip.setMonthPrice(postVipEntity.getMonthPrice());
+
+                    payment.setPostVip(postVip);
+
+                    return payment;
+                }).collect(Collectors.toList()));
                 return post;
             }).collect(Collectors.toList());
         }

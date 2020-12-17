@@ -40,5 +40,6 @@ public class Post {
     private Category category;
     private String tagsStr;
     private List<Tag> tags;
+    private List<Payment> payments;
     private MultipartFile[] files;
 }

@@ -4,22 +4,11 @@
       <div class="profile-user">
         <div class="profile-info">
           <div>
-            <span style="text-transform: uppercase">Quản trị hệ thống</span>
+            <h6 style="text-transform: uppercase">Quản trị hệ thống</h6>
           </div>
-          <div class="profile-image">
-            <img width="50" class="box-shadow" [src]="user?.imageUrl ? user.imageUrl : DEFAULT_IMAGE"
-                 style="border-radius: 30px"/>
-          </div>
-          <div class="profile-more">
-            <div>
-              <div class="profile-name justify-content-between">
-                <b>{{user?.name}}</b>
-              </div>
-              <div>
-                <p class="font-weight-bold text-color-feb800">
-                  Tài khoản: {{user?.wallet?.balance}} đ
-                </p>
-              </div>
+          <div class="middle-login">
+            <div class="middle-login-text">
+              <span><img width="80" src="./assets/images/logo3.png"/></span>
             </div>
           </div>
         </div>
@@ -28,6 +17,16 @@
       </div>
     </div>
     <div class="mt-4">
+      <div class="side-bar-left-item" [routerLink]="['/admin']">
+        <div>
+          <fa-icon [icon]="faHouseUser"></fa-icon>
+        </div>
+        <div class="ml-3">
+          <span>Trang chủ</span>
+        </div>
+      </div>
+    </div>
+    <div class="mt-2">
       <div class="side-bar-left-item" [routerLink]="['/admin/user']">
         <div>
           <fa-icon [icon]="faEdit"></fa-icon>
@@ -60,7 +59,7 @@
     <div class="mt-2">
       <div class="side-bar-left-item" [routerLink]="['/admin/category']">
         <div>
-          <fa-icon [icon]="faHeart"></fa-icon>
+          <fa-icon [icon]="faListUl"></fa-icon>
         </div>
         <div class="ml-3">
           <span>Quản lý chuyên mục</span>
@@ -70,7 +69,7 @@
     <div class="mt-2">
       <div class="side-bar-left-item" [routerLink]="['/admin/tag']">
         <div>
-          <fa-icon [icon]="faHeart"></fa-icon>
+          <fa-icon [icon]="faBuilding"></fa-icon>
         </div>
         <div class="ml-3">
           <span>Quản lý tiện ích</span>
@@ -80,7 +79,7 @@
     <div class="mt-2">
       <div class="side-bar-left-item" [routerLink]="['/admin/post-vip']">
         <div>
-          <fa-icon [icon]="faHeart"></fa-icon>
+          <fa-icon [icon]="faListAlt"></fa-icon>
         </div>
         <div class="ml-3">
           <span>Gói dịch vụ</span>
@@ -108,7 +107,7 @@
       </div>
     </div>
   </div>
-  <div class="col-10">
+  <div class="col-10 pr-0">
     <router-outlet></router-outlet>
   </div>
 </div>

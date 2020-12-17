@@ -20,7 +20,7 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatButtonModule} from "@angular/material/button";
-import {IconsModule, InputsModule} from "angular-bootstrap-md";
+import {ButtonsModule, IconsModule, InputsModule} from "angular-bootstrap-md";
 import { TagCreateDialogComponent } from './tag/tag-create-dialog/tag-create-dialog.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { TagUpdateDialogComponent } from './tag/tag-update-dialog/tag-update-dialog.component';
@@ -29,6 +29,8 @@ import { CategoryCreateDialogComponent } from './category/category-create-dialog
 import { CategoryUpdateDialogComponent } from './category/category-update-dialog/category-update-dialog.component';
 import { PostVipUpdateDialogComponent } from './post-vip/post-vip-update-dialog/post-vip-update-dialog.component';
 import { UserCreateDialogComponent } from './user/user-create-dialog/user-create-dialog.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -48,7 +50,10 @@ import { UserCreateDialogComponent } from './user/user-create-dialog/user-create
     IconsModule,
     InputsModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    ButtonsModule,
+    MatCardModule,
+    MatSelectModule
   ]
 })
 export class ContentAdminModule { }

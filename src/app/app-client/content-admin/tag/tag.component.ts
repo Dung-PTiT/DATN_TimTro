@@ -70,6 +70,7 @@ export class TagComponent implements OnInit {
     const dialogRef = this.matDialog.open(TagUpdateDialogComponent, {
       width: '400px',
       height: 'auto',
+      disableClose: true,
       data: tag
     });
 

@@ -1,1 +1,67 @@
-<span>abc</span>
+<div style="margin: 10px 10px 0 10px">
+  <div class="d-flex align-items-center justify-content-between">
+    <div><h6>Tổng quan dữ liệu hệ thống</h6></div>
+  </div>
+  <div>
+    <div class="card mt-3 card-dashboard" style="flex-direction: row; height: 200px;">
+      <div class="col-7 d-flex flex-column justify-content-center align-items-center pt-2 pb-2 pl-4">
+        <div class="w-100 h-50 d-flex flex-row justify-content-around align-items-center">
+          <div class="card m-0 box-shadow card-banner">
+            <div class="d-flex p-2 h-100">
+              <div class="card-banner-icon"
+                   style="  background-color: rgb(216,237,255) !important;">
+                <fa-icon [icon]="faUserCheck" style="color: #0a6ebd"></fa-icon>
+              </div>
+              <div class="pl-2 card-banner-content">
+                <div class="card-banner-title">Tài khoản đã kích hoạt</div>
+                <h6 id="total_run_times" class="font-weight-semibold"
+                    style="position: absolute;bottom: 0;">3</h6>
+              </div>
+            </div>
+          </div>
+          <div class="card m-0 box-shadow card-banner">
+            <div class="d-flex p-2 h-100">
+              <div class="card-banner-icon" style="background-color: #ffe2dc !important;">
+                <fa-icon class="text-danger" [icon]="faUserLock"></fa-icon>
+              </div>
+              <div class="pl-2 card-banner-content">
+                <div class="card-banner-title">Tài khoản chưa kích hoạt</div>
+                <h6 id="total_fail_run_times" class="font-weight-semibold"
+                    style="position: absolute;bottom: 0;">4</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="w-100 h-50 d-flex flex-row justify-content-around align-items-center">
+          <div class="card m-0 box-shadow card-banner">
+            <div class="d-flex p-2 h-100">
+              <div class="card-banner-icon" style="background-color: #e3ffd6 !important;">
+                <fa-icon class="text-success" [icon]="faTasks"></fa-icon>
+              </div>
+              <div class="pl-2 card-banner-content">
+                <div class="card-banner-title">Bài viết đã đăng</div>
+                <h6 id="total_success_run_times" class="font-weight-semibold"
+                    style="position: absolute;bottom: 0;">2</h6>
+              </div>
+            </div>
+          </div>
+          <div class="card m-0 box-shadow card-banner">
+            <div class="d-flex p-2 h-100">
+              <div class="card-banner-icon" style="  background-color: #e1fffc !important;">
+                <fa-icon class="text-info" [icon]="faListAlt"></fa-icon>
+              </div>
+              <div class="pl-2 card-banner-content">
+                <div class="card-banner-title">Bài viết chưa đăng</div>
+                <h6 id="avg_run_times" class="font-weight-semibold"
+                    style="position: absolute;bottom: 0;">4</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-5" style="bottom: 30px;text-align: center;">
+        <img src="./assets/images/statistic.svg" width="280">
+      </div>
+    </div>
+  </div>
+</div>

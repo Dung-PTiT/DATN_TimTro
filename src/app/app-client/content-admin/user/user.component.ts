@@ -10,6 +10,7 @@ import {faEllipsisV, faPencilAlt, faPlusCircle, faUsersCog, faUserTie} from "@fo
 import {faTrashAlt} from "@fortawesome/free-regular-svg-icons";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {AppConfig} from "../../../util/app-config";
+import {UserCreateDialogComponent} from "./user-create-dialog/user-create-dialog.component";
 
 @Component({
   selector: 'app-user',
@@ -48,8 +49,25 @@ export class UserComponent implements OnInit {
   }
 
   openCreateUserDialog() {
-  }
+    const dialogRef = this.matDialog.open(UserCreateDialogComponent, {
+      width: '600px',
+      height: 'auto',
+      disableClose: true
+    });
 
+    dialogRef.afterClosed().subscribe(resp => {
+      if (resp.success == true) {
+        this.userService.getAll().subscribe(resp => {
+          this.users = resp.data;
+          this.dataSource = new MatTableDataSource(resp.data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
+        this.toastService.showSuccess(resp.data);
+      } else if (resp.success == "none") {
+      }
+    });
+  }
 
   openUpdateUserDialog(tag: any) {
   }

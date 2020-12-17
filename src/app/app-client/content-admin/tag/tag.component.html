@@ -40,10 +40,10 @@
           <ng-container matColumnDef="action">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Tác vụ</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer"
+              <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer font-size-12"
                        matTooltip="Sửa" (click)="openUpdateTagDialog(row)">
               </fa-icon>
-              <fa-icon class="text-danger cursor-pointer ml-2" (click)="deleteTag(row)"
+              <fa-icon class="text-danger cursor-pointer ml-2 font-size-12" (click)="deleteTag(row)"
                        [icon]="faTrashAlt" matTooltip="Xóa"></fa-icon>
             </mat-cell>
           </ng-container>

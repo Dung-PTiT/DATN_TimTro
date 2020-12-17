@@ -51,7 +51,7 @@ export class RegisterComponent implements OnInit {
     }
 
     this.authenticationService.register(this.registerForm.controls.username.value, this.registerForm.controls.password.value,
-      this.registerForm.controls.name.value, this.registerForm.controls.phoneNumber.value, this.registerForm.controls.email.value)
+      this.registerForm.controls.name.value, this.registerForm.controls.phoneNumber.value, this.registerForm.controls.email.value, null)
       .subscribe(
         resp => {
           if (resp.success) {

@@ -1,1 +1,103 @@
-<p>user-create-dialog works!</p>
+<div class="d-flex justify-content-between mb-2">
+  <h6 >Tạo tài khoản</h6>
+  <fa-icon class="text-danger cursor-pointer" [icon]="faTimes" (click)="closeDialog()"></fa-icon>
+</div>
+<form [formGroup]="registerForm" (submit)="register()">
+  <div class="row col-lg-12 mr-0 ml-0">
+    <div class="col-lg-6">
+      <div class="mb-2">
+        <label class="font-size-13 mb-0">
+          Tên tài khoản<span class="text-danger ml-1">*</span>
+        </label>
+        <input type="text" class="form-control font-size-13" placeholder="Tên tài khoản"
+               formControlName="username" [ngClass]="{ 'is-invalid': submitted && validator.username?.errors}">
+        <div *ngIf="submitted && validator.username?.errors?.required" class="invalid-feedback text-align-start">
+          Tên tài khoản không được trống
+        </div>
+      </div>
+      <div class="mb-2">
+        <label class="font-size-13 mb-0">
+          Mật khẩu<span class="text-danger ml-1">*</span>
+        </label>
+        <input type="password" class="form-control font-size-13" placeholder="Mật khẩu ít nhất 8 kí tự"
+               formControlName="password" [ngClass]="{ 'is-invalid': submitted && validator.password?.errors}">
+        <div *ngIf="submitted && validator.password?.errors" class="invalid-feedback text-align-start">
+          <div *ngIf="validator.password?.errors?.required">
+            Mật khẩu không được trống
+          </div>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label class="font-size-13 mb-0">
+          Nhập lại mật khẩu<span class="text-danger ml-1">*</span>
+        </label>
+        <input type="password" class="form-control font-size-13" placeholder="Nhập lại mật khẩu"
+               formControlName="confirmPassword"
+               [ngClass]="{ 'is-invalid': submitted && validator.confirmPassword?.errors}">
+        <div *ngIf="submitted && validator.confirmPassword?.errors" class="invalid-feedback text-align-start">
+          <div *ngIf="validator.confirmPassword?.errors?.required">
+            Mật khẩu xác nhận không được trống
+          </div>
+          <div *ngIf="validator.confirmPassword?.errors?.mustMatch">
+            Mật khẩu không trùng khớp
+          </div>
+        </div>
+      </div>
+      <div>
+        <label class="font-size-13 mb-0">
+          Chọn quyền<span class="text-danger ml-1">*</span>
+        </label>
+        <mat-select placeholder="Quyền" class="select-role" [formControl]="roleCtrl">
+          <mat-option value="ROLE_MEMBER">ROLE_MEMBER</mat-option>
+          <mat-option value="ROLE_ADMIN">ROLE_ADMIN</mat-option>
+        </mat-select>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="mb-2">
+        <label class="font-size-13 mb-0">
+          Tên<span class="text-danger ml-1">*</span>
+        </label>
+        <input type="text" class="form-control font-size-13" placeholder="Họ tên" formControlName="name"
+               [ngClass]="{ 'is-invalid': submitted && validator.name?.errors}">
+        <div *ngIf="submitted && validator.name?.errors?.required" class="invalid-feedback text-align-start">
+          Tên không được trống
+        </div>
+      </div>
+      <div class="mb-2">
+        <label class="font-size-13 mb-0">
+          Số điện thoại<span class="text-danger ml-1">*</span>
+        </label>
+        <input type="text" class="form-control font-size-13" placeholder="Số điện thoại"
+               formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && validator.phoneNumber?.errors}">
+        <div *ngIf="submitted && validator.phoneNumber?.errors" class="invalid-feedback text-align-start">
+          <div *ngIf="validator.phoneNumber?.errors?.required">
+            Số điện thoại không được trống
+          </div>
+          <div *ngIf="validator.phoneNumber?.errors?.pattern">
+            Số điện thoại chỉ có kí tự số
+          </div>
+        </div>
+      </div>
+      <div class="mb-2">
+        <label class="font-size-13 mb-0">
+          Email<span class="text-danger ml-1">*</span>
+        </label>
+        <input type="email" class="form-control font-size-13" placeholder="Email" formControlName="email"
+               [ngClass]="{ 'is-invalid': submitted && validator.email?.errors}">
+        <div *ngIf="submitted && validator.email?.errors" class="invalid-feedback text-align-start">
+          <div *ngIf="validator.email?.errors?.required">
+            Email không được trống
+          </div>
+          <div *ngIf="validator.email?.errors?.email">
+            Định dạng email không đúng
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12">
+    <button mdbBtn class="btn-register pt-2 pb-2 text-transform-normal " type="submit">Lưu</button>
+  </div>
+</form>
+

@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {faListAlt, faTasks, faUserCheck, faUserLock} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-dashboard-admin',
@@ -12,4 +13,9 @@ export class DashboardAdminComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  faUserCheck = faUserCheck;
+  faUserLock = faUserLock;
+  faListAlt = faListAlt;
+  faTasks = faTasks;
 }

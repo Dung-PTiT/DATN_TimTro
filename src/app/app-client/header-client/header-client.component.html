@@ -7,17 +7,17 @@
     </div>
     <div class="example-button-row div-header-info">
       <mat-toolbar style="font-weight: 400" class="pr-0 font-size-13">
-        <a href="" class="mat-toolbar-title active">
+        <a href="" class="mat-toolbar-title">
           <span>Trang chủ</span>
-        </a>
-        <a href="" class="mat-toolbar-title ml-3">
-          <span>Nạp tiền</span>
         </a>
         <a href="" class="mat-toolbar-title ml-3" [routerLink]="['/service-price']">
           <span>Bảng giá</span>
         </a>
+        <a href="" class="mat-toolbar-title ml-3">
+          <span>Hướng dẫn</span>
+        </a>
         <div ngbDropdown container="body" class="cursor-pointer">
-          <span ngbDropdownToggle class="ml-4 text-color-feb800">Đăng nhập | Đăng ký</span>
+          <span ngbDropdownToggle class="ml-4 mat-toolbar-title">Đăng nhập | Đăng ký</span>
           <div ngbDropdownMenu class="mt-2">
             <button ngbDropdownItem class="font-size-14" [routerLink]="['/login']">
               <fa-icon [icon]="faSignInAlt"></fa-icon>
@@ -70,9 +70,8 @@
           </div>
         </div>
       </mat-toolbar>
-      <button mat-stroked-button class="pr-4 box-shadow font-size-13" [routerLink]="['/manage/post/create']"
-              matTooltip="Bấm để đăng tin" matTooltipPosition="below"
-              style="color:initial;">
+      <button mat-stroked-button class="pr-4 box-shadow font-size-13 btn-create-post" [routerLink]="['/manage/post/create']"
+              matTooltip="Bấm để đăng tin" matTooltipPosition="below">
         <fa-icon [icon]="faUpload"></fa-icon>
         <span class="ml-2">Đăng tin</span>
       </button>

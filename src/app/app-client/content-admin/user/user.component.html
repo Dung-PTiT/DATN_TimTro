@@ -1,6 +1,18 @@
 <div style="margin: 10px 10px 0 10px">
-  <div class="d-flex align-items-center justify-content-between">
-    <div><p>Quản lý người dùng ({{users?.length}})</p></div>
+  <div class="d-flex align-items-center justify-content-between mb-2">
+    <div>
+      <p>Quản lý người dùng ({{users?.length}})</p>
+    </div>
+    <div class="font-size-13 d-flex flex-column text-align-end">
+      <div>
+        <fa-icon [icon]="faUsersCog" class="text-success"></fa-icon>
+        <span class="ml-2">Admin</span>
+      </div>
+      <div>
+        <fa-icon [icon]="faUserTie" class="text-secondary"></fa-icon>
+        <span class="ml-2">Member</span>
+      </div>
+    </div>
   </div>
   <mat-divider></mat-divider>
   <div>
@@ -11,10 +23,9 @@
           <fa-icon [icon]="faPlusCircle"></fa-icon>
           <span class="ml-2">Thêm</span>
         </button>
-        <mat-form-field class="w-20">
+        <mat-form-field class="w-20 font-size-13">
           <mat-label>Tìm kiếm</mat-label>
-          <input matInput class="font-size-12"
-                 (keyup)="searchTag($event.target.value)" placeholder="Nhập từ khóa cần tìm">
+          <input matInput (keyup)="searchTag($event.target.value)" placeholder="Nhập từ khóa cần tìm">
         </mat-form-field>
       </div>
 
@@ -70,10 +81,10 @@
           <ng-container matColumnDef="action">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Tác vụ</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer"
+              <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer font-size-12"
                        matTooltip="Sửa" (click)="openUpdateUserDialog(row)">
               </fa-icon>
-              <fa-icon class="text-danger cursor-pointer ml-2" (click)="blockUser(row)"
+              <fa-icon class="text-danger cursor-pointer ml-2 font-size-12" (click)="blockUser(row)"
                        [icon]="faTrashAlt" matTooltip="Xóa"></fa-icon>
             </mat-cell>
           </ng-container>

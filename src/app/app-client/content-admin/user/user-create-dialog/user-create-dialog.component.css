@@ -1,0 +1,16 @@
+.btn-register{
+  background-color: #48509a;
+  color: white;
+  width: 23%;
+  float: right;
+  margin-right: 15px;
+  font-weight: 500;
+}
+
+.select-role{
+  border: 1px solid #dddddd;
+  border-radius: 5px;
+  font-size: 11px;
+  padding: 7px;
+}
+

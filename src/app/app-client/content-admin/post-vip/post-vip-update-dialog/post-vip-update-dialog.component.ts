@@ -47,8 +47,6 @@ export class PostVipUpdateDialogComponent implements OnInit {
     this.postVip.monthPrice = this.postVipForm.controls.monthPrice.value;
     this.postVip.description = this.postVipForm.controls.description.value;
 
-
-    console.log(this.postVip);
     this.postVipService.update(this.postVip).subscribe(resp => {
       this.dialogRef.close(resp.success);
     });

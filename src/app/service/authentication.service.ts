@@ -27,9 +27,9 @@ export class AuthenticationService extends MainService {
     return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/login', {username: username, password: password});
   }
 
-  register(username: string, password: string, name: string, phoneNumber: string, email: string): Observable<any> {
+  register(username: string, password: string, name: string, phoneNumber: string, email: string, role: string): Observable<any> {
     return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/register',
-      {username: username, password: password, name: name, phoneNumber: phoneNumber, email: email}
+      {username: username, password: password, name: name, phoneNumber: phoneNumber, email: email, role: role}
     );
   }
 

@@ -46,3 +46,7 @@
   flex: 0 0 13%;
 }
 
+::ng-deep.mat-dialog-container {
+  padding: 18px !important;
+}
+

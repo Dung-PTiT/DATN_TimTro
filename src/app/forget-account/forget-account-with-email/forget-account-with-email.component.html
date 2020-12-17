@@ -4,7 +4,7 @@
       <span><img width="60" src="./assets/images/logo3.png"/></span>
     </div>
   </div>
-  <mat-card-title class="title">Nhập mã xác nhận từ mail</mat-card-title>
+  <mat-card-title class="title">Nhập mã xác thực từ mail</mat-card-title>
   <div class="row pl-3 pr-3">
     <div class="col-12 pl-0 pr-0">
       <form [formGroup]="emailVerifyForm" (submit)="verifyEmail()">
@@ -27,9 +27,9 @@
         </div>
         <div class="mb-2">
           <label class="font-size-13 mb-0">
-            Mã xác nhận<span class="text-danger ml-1">*</span>
+            Mã xác thực<span class="text-danger ml-1">*</span>
           </label>
-          <input type="text" class="form-control font-size-13" placeholder="Nhập mã xác nhận"
+          <input type="text" class="form-control font-size-13" placeholder="Nhập mã xác thực"
                  formControlName="code"
                  [ngClass]="{ 'is-invalid': submitted && validator.code?.errors}">
           <div *ngIf="submitted && validator.code?.errors?.required"
@@ -37,7 +37,7 @@
             Mã xác định không để trống
           </div>
         </div>
-        <button mdbBtn block="true" class="btn-login my-4 pt-2 pb-2" type="submit">Xác nhận</button>
+        <button mdbBtn block="true" class="btn-login my-4 pt-2 pb-2 text-transform-normal" type="submit">Xác thực</button>
         <span class="font-size-13 color-disable">Ghi chú: Lấy mã xác thực trong email bạn đã đăng ký để xác thực</span>
       </form>
     </div>

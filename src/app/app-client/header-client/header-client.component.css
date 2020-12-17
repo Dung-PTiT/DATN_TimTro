@@ -10,7 +10,7 @@
   color: white;
   font-weight: 600;
   z-index: 1000;
-  border-bottom:1px solid #feb800;
+  border-bottom: 1px solid #feb800;
 }
 
 .div-header-client {
@@ -41,7 +41,7 @@
   background-color: #ffffff;
 }
 
-.mat-toolbar-title{
+.mat-toolbar-title {
   color: #000;
 }
 
@@ -50,16 +50,16 @@
   text-decoration: none;
 }
 
-.btn-favorite{
+.btn-favorite {
 
 }
 
-.btn-favorite{
+.btn-favorite {
   outline: none;
   box-shadow: none;
 }
 
-.number-favorite{
+.number-favorite {
   position: absolute;
   line-height: 10px;
   font-weight: bold;
@@ -69,4 +69,14 @@
   padding: 5px 10px;
   border-radius: 50%;
   color: #ffffff;
+}
+
+.btn-create-post {
+  color: initial;
+  line-height: 29px;
+}
+
+.btn-create-post:hover {
+  color: #000000;
+  background-color: #feb800;
 }

@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {MainService} from "./main.service";
-import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {Observable} from "rxjs";
 
@@ -36,4 +36,7 @@ export class CommentService extends MainService {
       {params: new HttpParams().set('id', id)});
   }
 
+  getAll(): Observable<any> {
+    return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/comment/get-all');
+  }
 }

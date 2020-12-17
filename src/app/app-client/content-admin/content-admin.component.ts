@@ -1,5 +1,4 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {User} from "../../model/user";
 import {AppConfig} from "../../util/app-config";
 import {ActivatedRoute, Router} from "@angular/router";
 import {PostService} from "../../service/post.service";
@@ -10,11 +9,11 @@ import {
   faComments, faDollarSign,
   faEdit,
   faHeart,
-  faHistory,
-  faList,
+  faHistory, faHouseUser,
+  faList, faListUl,
   faMoneyCheckAlt
 } from "@fortawesome/free-solid-svg-icons";
-import {faUser} from "@fortawesome/free-regular-svg-icons";
+import {faBuilding, faListAlt, faUser} from "@fortawesome/free-regular-svg-icons";
 
 @Component({
   selector: 'app-content-admin',
@@ -22,8 +21,6 @@ import {faUser} from "@fortawesome/free-regular-svg-icons";
   styleUrls: ['./content-admin.component.css']
 })
 export class ContentAdminComponent implements OnInit {
-
-  user: User;
 
   PREFIX_URL = AppConfig.PREFIX_URL;
   CONTEXT_URL: string = "";
@@ -40,15 +37,6 @@ export class ContentAdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
-      this.user = JSON.parse(localStorage.getItem('userCurrent'));
-    } else {
-      if (this.authenticationService.checkLogin()) {
-        this.authenticationService.getCurrentUser().subscribe(resp => {
-          this.user = resp.data;
-        });
-      }
-    }
   }
 
   faEdit = faEdit;
@@ -59,4 +47,8 @@ export class ContentAdminComponent implements OnInit {
   faHistory = faHistory;
   faUser = faUser;
   faDollarSign = faDollarSign;
+  faHouseUser = faHouseUser;
+  faBuilding = faBuilding;
+  faListAlt = faListAlt;
+  faListUl = faListUl;
 }

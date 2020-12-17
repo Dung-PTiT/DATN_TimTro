@@ -7,7 +7,7 @@ import {AppConfig} from "../../../../../util/app-config";
 import {
   faComments,
   faEllipsisV,
-  faHeart,
+  faHeart, faLock, faLockOpen,
   faLongArrowAltUp,
   faPencilAlt,
   faTrash
@@ -112,4 +112,6 @@ export class PostListComponent implements OnInit {
   faLongArrowAltUp = faLongArrowAltUp;
   faComments = faComments;
   faHeart = faHeart;
+  faLock = faLock;
+  faLockOpen = faLockOpen;
 }

@@ -164,11 +164,37 @@
         </div>
         <div class="col-3">
           <h6 class="text-grey">Ngày đăng:</h6>
-          <h6 class="text-grey">17/11/2020</h6>
+          <h6 class="text-grey">
+            <div *ngIf="(post?.status == true);else start_time" class="ml-2">
+              <div *ngFor="let payment of post.payments">
+                <div *ngIf="(payment?.status ==true)">
+                  <span>{{payment.startDate | date:'dd-MM-yyyy'}}</span>
+                </div>
+              </div>
+            </div>
+            <ng-template #start_time>
+              <div class="ml-2">
+                <span>-</span>
+              </div>
+            </ng-template>
+          </h6>
         </div>
         <div class="col-3">
           <h6 class="text-grey">Ngày hết hạn: </h6>
-          <h6 class="text-grey">Tin thường</h6>
+          <h6 class="text-grey">
+            <div *ngIf="(post?.status == true);else end_time" class="ml-2">
+              <div *ngFor="let payment of post.payments">
+                <div *ngIf="(payment?.status == true)">
+                  <span>{{payment.endDate | date:'dd-MM-yyyy'}}</span>
+                </div>
+              </div>
+            </div>
+            <ng-template #end_time>
+              <div class="ml-2">
+                <span>-</span>
+              </div>
+            </ng-template>
+          </h6>
         </div>
         <div class="col-3">
           <h6 class="text-grey">Loại tin: </h6>

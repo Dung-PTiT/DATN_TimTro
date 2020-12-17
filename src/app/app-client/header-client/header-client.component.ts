@@ -45,25 +45,10 @@ export class HeaderClientComponent implements OnInit {
   }
 
   logout() {
-    // const promise = new Promise((resolve, reject) => {
-    //   this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
-    //   this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
-    //
-    //   //ToDo thử remove localStorage
-    //   localStorage.removeItem('userCurrent');
-    //   if (!this.authenticationService.checkLogin()) {
-    //     resolve("Success");
-    //   } else {
-    //     resolve("Error");
-    //   }
-    // });
-    // promise.then((resp) => {
-    //    location.replace('/');
-    // });
-
     this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
     this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
     localStorage.removeItem('userCurrent');
+    localStorage.removeItem('emailForgetAccount');
 
     setTimeout(function () {
       location.replace('/');

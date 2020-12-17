@@ -7,7 +7,9 @@ export class User {
   name: string;
   imageUrl: string;
   email: string;
+  isActived: boolean;
   phoneNumber: string;
+  authProvider: string;
   role: Role;
   createTime: string;
   wallet: Wallet;

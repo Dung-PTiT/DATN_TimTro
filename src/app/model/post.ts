@@ -6,6 +6,7 @@ import {Favorite} from "./favorite";
 import {Ward} from "./address/Ward";
 import {District} from "./address/District";
 import {Provinces} from "./address/Provinces";
+import {Payment} from "./payment";
 
 export class Post {
   id: number;
@@ -29,5 +30,5 @@ export class Post {
   ward: Ward;
   district: District;
   province: Provinces;
-  // private PostVip postVip;
+  payments: Array<Payment>;
 }

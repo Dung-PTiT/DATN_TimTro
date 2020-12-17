@@ -70,7 +70,7 @@
           <label class="font-size-13 mb-0">
             Email<span class="text-danger ml-1">*</span>
           </label>
-          <input type="email" class="form-control font-size-13" placeholder="Email" formControlName="email"
+          <input type="email" class="form-control font-size-13" placeholder="abc@gmail.com" formControlName="email"
                  [ngClass]="{ 'is-invalid': submitted && validator.email?.errors}">
           <div *ngIf="submitted && validator.email?.errors" class="invalid-feedback text-align-start">
             <div *ngIf="validator.email?.errors?.required">

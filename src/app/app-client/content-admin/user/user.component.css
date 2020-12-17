@@ -23,11 +23,19 @@
 }
 
 .mat-column-number {
-  flex: 0 0 10%;
+  flex: 0 0 7%;
 }
 
 .mat-column-name {
-  flex: 0 0 23%;
+  flex: 0 0 22%;
+}
+
+.mat-column-role {
+  flex: 0 0 7%;
+}
+
+.mat-column-status {
+  flex: 0 0 7%;
 }
 
 .mat-column-email {
@@ -35,15 +43,15 @@
 }
 
 .mat-column-phoneNumber {
-  flex: 0 0 16%;
-}
-
-.mat-column-role {
-  flex: 0 0 10%;
+  flex: 0 0 12%;
 }
 
 .mat-column-createTime {
-  flex: 0 0 13%;
+  flex: 0 0 10%;
+}
+
+.mat-column-authProvider {
+  flex: 0 0 7%;
 }
 
 ::ng-deep.mat-dialog-container {

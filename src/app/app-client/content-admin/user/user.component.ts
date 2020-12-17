@@ -6,11 +6,18 @@ import {User} from "../../../model/user";
 import {MatDialog} from "@angular/material/dialog";
 import {ToastService} from "../../../service/toast.service";
 import {UserService} from "../../../service/user.service";
-import {faEllipsisV, faPencilAlt, faPlusCircle, faUsersCog, faUserTie} from "@fortawesome/free-solid-svg-icons";
+import {
+  faEllipsisV, faInfoCircle, faLock, faLockOpen,
+  faPencilAlt,
+  faPlusCircle,
+  faUsersCog,
+  faUserTie
+} from "@fortawesome/free-solid-svg-icons";
 import {faTrashAlt} from "@fortawesome/free-regular-svg-icons";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {AppConfig} from "../../../util/app-config";
 import {UserCreateDialogComponent} from "./user-create-dialog/user-create-dialog.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-user',
@@ -32,10 +39,11 @@ export class UserComponent implements OnInit {
 
   constructor(private userService: UserService,
               private matDialog: MatDialog,
-              private toastService: ToastService) {
+              private toastService: ToastService,
+              private router: Router) {
     this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
 
-    this.displayedUser = ['number', 'name', 'email', 'phoneNumber', 'role', 'createTime', 'action'];
+    this.displayedUser = ['number', 'name', 'role', 'status', 'email', 'phoneNumber', 'createTime', 'authProvider', 'action'];
 
     this.userService.getAll().subscribe(resp => {
       this.users = resp.data;
@@ -69,19 +77,39 @@ export class UserComponent implements OnInit {
     });
   }
 
-  openUpdateUserDialog(tag: any) {
+  openUpdateUserDialog(user: any) {
   }
 
-  blockUser(tag: any) {
+  deleteUser(user: User) {
     Swal.fire({
-      title: 'Bạn muốn khóa người dùng?',
+      title: 'Bạn muốn xóa tài khoản?',
       icon: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Hủy',
       confirmButtonText: 'Xóa',
       customClass: 'swal-confirm-style',
     }).then((result) => {
+      if (result.value) {
+        this.userService.delete(user.id).subscribe(resp => {
+          if (resp.success) {
+            this.userService.getAll().subscribe(resp => {
+              this.users = resp.data;
+              this.dataSource = new MatTableDataSource(resp.data);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            });
+            this.toastService.showSuccess(resp.data);
+
+          } else {
+            this.toastService.showError(resp.data);
+          }
+        });
+      }
     })
+  }
+
+  viewInfoUser(user: User) {
+    this.router.navigate(['/user/' + user.id]);
   }
 
   searchTag(filterValue: string) {
@@ -96,4 +124,7 @@ export class UserComponent implements OnInit {
   faPencilAlt = faPencilAlt;
   faUsersCog = faUsersCog;
   faUserTie = faUserTie;
+  faLock = faLock;
+  faLockOpen = faLockOpen;
+  faInfoCircle = faInfoCircle;
 }

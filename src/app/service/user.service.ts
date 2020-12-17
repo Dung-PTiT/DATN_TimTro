@@ -28,4 +28,10 @@ export class UserService extends MainService {
       this.PREFIX_URL + this.CONTEXT_URL + '/user/change-password', null,
       {params: {id: userId, password: newPassword}});
   }
+
+  delete(userId: any): Observable<any> {
+    return this.http.post(
+      this.PREFIX_URL + this.CONTEXT_URL + '/user/delete', null,
+      {params: {id: userId}});
+  }
 }

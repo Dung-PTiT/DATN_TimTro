@@ -47,16 +47,6 @@
             </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
-          </ng-container>
-
-          <ng-container matColumnDef="phoneNumber">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Số điện thoại</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.phoneNumber}} </mat-cell>
-          </ng-container>
-
           <ng-container matColumnDef="role">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Quyền</mat-header-cell>
             <mat-cell *matCellDef="let row">
@@ -73,9 +63,38 @@
             </mat-cell>
           </ng-container>
 
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái</mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              <div *ngIf="(row?.isActived == true);else user_block" class="ml-2">
+                <fa-icon [icon]="faLockOpen" class="text-success font-size-12" matTooltip="Được hoạt động"></fa-icon>
+              </div>
+              <ng-template #user_block>
+                <div class="ml-2">
+                  <fa-icon [icon]="faLock" class="text-danger font-size-12" matTooltip="Bị khóa"></fa-icon>
+                </div>
+              </ng-template>
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="email">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="phoneNumber">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Số điện thoại</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.phoneNumber}} </mat-cell>
+          </ng-container>
+
           <ng-container matColumnDef="createTime">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.createTime | date:'dd-MM-yyyy'}} </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="authProvider">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Nguồn</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.authProvider}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="action">
@@ -84,8 +103,10 @@
               <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer font-size-12"
                        matTooltip="Sửa" (click)="openUpdateUserDialog(row)">
               </fa-icon>
-              <fa-icon class="text-danger cursor-pointer ml-2 font-size-12" (click)="blockUser(row)"
+              <fa-icon class="text-danger cursor-pointer ml-2 font-size-12" (click)="deleteUser(row)"
                        [icon]="faTrashAlt" matTooltip="Xóa"></fa-icon>
+              <fa-icon class="text-secondary cursor-pointer ml-2 font-size-12" (click)="viewInfoUser(row)"
+                       [icon]="faInfoCircle" matTooltip="Chi tiết"></fa-icon>
             </mat-cell>
           </ng-container>
 

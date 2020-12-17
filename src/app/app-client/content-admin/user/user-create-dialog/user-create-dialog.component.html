@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between mb-2">
   <h6 >Tạo tài khoản</h6>
-  <fa-icon class="text-danger cursor-pointer" [icon]="faTimes" (click)="closeDialog()"></fa-icon>
+  <fa-icon matTooltip="Đóng" class="text-danger cursor-pointer" [icon]="faTimes" (click)="closeDialog()"></fa-icon>
 </div>
 <form [formGroup]="registerForm" (submit)="register()">
   <div class="row col-lg-12 mr-0 ml-0">

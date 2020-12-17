@@ -127,29 +127,39 @@ public class AuthController {
     public DataResponse<String> registerUser(@RequestBody RegisterRequest registerRequest) {
         try {
             boolean checkUserByUsername = userService.existsByUsername(registerRequest.getUsername());
-            if(checkUserByUsername){
+            if (checkUserByUsername) {
                 return new DataResponse<>(false, "Tên đăng nhập đã tồn tại");
-            }else{
+            } else {
                 User user = userService.checkExistedUser(registerRequest.getEmail(), "local");
                 if (user != null) {
                     return new DataResponse<>(false, "Email đã tồn tại");
                 } else {
+
+                    String responseStr;
+
                     User userNew = new User();
                     userNew.setUsername(registerRequest.getUsername());
                     userNew.setEmail(registerRequest.getEmail());
-
-                    String emailVerifyCode = new DecimalFormat("000000").format(new Random().nextInt(999999));
-                    (new Thread(() -> mailService.sendCodeToMail(registerRequest.getEmail(), emailVerifyCode))).start();
-                    userNew.setEmailVerifyCode(emailVerifyCode);
-
                     userNew.setPassword(registerRequest.getPassword());
                     userNew.setName(registerRequest.getName());
-                    userNew.setRole("ROLE_MEMBER");
                     userNew.setCreateTime(new Date());
                     userNew.setAuthProvider(AuthProvider.local);
-                    userNew.setIsActived(false);
                     userNew.setPhoneNumber(registerRequest.getPhoneNumber());
                     userNew.setImageUrl(null);
+                    if (registerRequest.getRole() != null) {
+                        userNew.setRole(registerRequest.getRole());
+                        userNew.setIsActived(true);
+
+                        responseStr = "Tạo tài khoản thành công";
+                    } else {
+                        String emailVerifyCode = new DecimalFormat("000000").format(new Random().nextInt(999999));
+                        (new Thread(() -> mailService.sendCodeToMail(registerRequest.getEmail(), emailVerifyCode))).start();
+                        userNew.setEmailVerifyCode(emailVerifyCode);
+                        userNew.setRole("ROLE_MEMBER");
+                        userNew.setIsActived(false);
+
+                        responseStr = "Đã tạo tài khoản. Hãy xác thực";
+                    }
 
                     Integer userId = userService.create(userNew);
 
@@ -162,7 +172,7 @@ public class AuthController {
                     wallet.setUser(userTmp);
                     walletService.create(wallet);
 
-                    return new DataResponse<>(true, "Đã tạo tài khoản. Hãy xác thực");
+                    return new DataResponse<>(true, responseStr);
                 }
             }
         } catch (Exception e) {

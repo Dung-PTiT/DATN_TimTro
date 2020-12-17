@@ -7,14 +7,12 @@ import com.ptit.timtro.model.User;
 import com.ptit.timtro.model.Wallet;
 import com.ptit.timtro.security.Role;
 import com.ptit.timtro.service.UserService;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,7 +34,12 @@ public class UserServiceImpl implements UserService {
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         userEntity.setUsername(user.getUsername());
         userEntity.setAuthProvider(user.getAuthProvider());
-        userEntity.setRole(Role.MEMBER);
+        userEntity.setEmailVerified(user.getIsActived());
+        if (user.getRole().equals("ROLE_MEMBER")) {
+            userEntity.setRole(Role.MEMBER);
+        } else if (user.getRole().equals("ROLE_ADMIN")) {
+            userEntity.setRole(Role.ADMIN);
+        }
         userEntity.setCreateTime(user.getCreateTime());
         userEntity.setPhoneNumber(user.getPhoneNumber());
         return userDAO.create(userEntity).getId();

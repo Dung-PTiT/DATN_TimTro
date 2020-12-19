@@ -19,5 +19,6 @@ public class AuthenticatedUserInfo {
     private Date createTime;
     private String email;
     private String phoneNumber;
+    private Boolean isActived;
     private Wallet wallet;
 }

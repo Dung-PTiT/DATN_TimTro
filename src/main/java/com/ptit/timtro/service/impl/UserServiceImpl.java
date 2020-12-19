@@ -65,9 +65,9 @@ public class UserServiceImpl implements UserService {
         userEntity.setName(user.getName());
         userEntity.setEmailVerified(user.getIsActived());
         userEntity.setPhoneNumber(user.getPhoneNumber());
-        if (user.getRole().equals("ROLE_MEMBER")) {
+        if (user.getRole().equals(Role.MEMBER.getAuthorityName())) {
             userEntity.setRole(Role.MEMBER);
-        } else if (user.getRole().equals("ROLE_ADMIN")) {
+        } else if (user.getRole().equals(Role.ADMIN.getAuthorityName())) {
             userEntity.setRole(Role.ADMIN);
         }
         if (user.getImageUrl() != null) {

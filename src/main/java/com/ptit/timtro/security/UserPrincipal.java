@@ -27,7 +27,7 @@ public class UserPrincipal implements UserDetails, OAuth2User {
     private String email;
     private String phoneNumber;
     private String name;
-    private Boolean vip;
+    private Boolean isActived;
     private String imageUrl;
     private Date createTime;
     private Wallet wallet;
@@ -43,6 +43,7 @@ public class UserPrincipal implements UserDetails, OAuth2User {
         userPrincipal.setEmail(userEntity.getEmail());
         userPrincipal.setPhoneNumber(userEntity.getPhoneNumber());
         userPrincipal.setCreateTime(userEntity.getCreateTime());
+        userPrincipal.setIsActived(userEntity.getEmailVerified());
 
         WalletEntity walletEntity = userEntity.getWalletEntity();
         Wallet wallet = new Wallet();

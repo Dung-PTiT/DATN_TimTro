@@ -115,6 +115,7 @@ public class AuthController {
             userInfo.setCreateTime(userPrincipal.getCreateTime());
             userInfo.setEmail(userPrincipal.getEmail());
             userInfo.setPhoneNumber(userPrincipal.getPhoneNumber());
+            userInfo.setIsActived(userPrincipal.getIsActived());
             userInfo.setWallet(userPrincipal.getWallet());
             return new DataResponse<>(true, userInfo);
         } catch (Exception e) {

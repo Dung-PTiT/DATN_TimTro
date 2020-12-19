@@ -1,7 +1,9 @@
 package com.ptit.timtro.controller;
 
 import com.ptit.timtro.model.User;
+import com.ptit.timtro.security.AdvancedSecurityContextHolder;
 import com.ptit.timtro.security.Role;
+import com.ptit.timtro.security.UserPrincipal;
 import com.ptit.timtro.service.UserService;
 import com.ptit.timtro.util.DataResponse;
 import com.ptit.timtro.util.FileDir;
@@ -75,16 +77,35 @@ public class UserController {
     @PostMapping("/user/update")
     public DataResponse<String> update(@ModelAttribute UserProfile userProfile) {
         try {
-            User user = userService.get(userProfile.getId());
-            user.setName(userProfile.getName());
-            user.setIsActived(userProfile.getIsActived());
-            user.setPhoneNumber(userProfile.getPhoneNumber());
-            user.setRole(userProfile.getRole());
-            if (userProfile.getFile() != null) {
-                user.setImageUrl(userProfile.getFile().getOriginalFilename());
-                saveImage(userProfile.getFile(), userProfile.getId());
+            UserPrincipal userPrincipal = AdvancedSecurityContextHolder.getUserPrincipal();
+            String role = userPrincipal.getAuthorities().stream().findFirst().get().toString();
+            if (role.equals(Role.ADMIN.getAuthorityName())) {
+                User user = userService.get(userProfile.getId());
+                user.setName(userProfile.getName());
+                user.setPhoneNumber(userProfile.getPhoneNumber());
+                if (userProfile.getIsActived() != null) {
+                    user.setIsActived(userProfile.getIsActived());
+                }
+                if (userProfile.getRole() != null) {
+                    user.setRole(userProfile.getRole());
+                }
+                if (userProfile.getFile() != null) {
+                    user.setImageUrl(userProfile.getFile().getOriginalFilename());
+                    saveImage(userProfile.getFile(), userProfile.getId());
+                }
+                userService.update(user);
+            } else {
+                if (userPrincipal.getId().equals(userProfile.getId())) {
+                    User user = userService.get(userProfile.getId());
+                    user.setName(userProfile.getName());
+                    user.setPhoneNumber(userProfile.getPhoneNumber());
+                    if (userProfile.getFile() != null) {
+                        user.setImageUrl(userProfile.getFile().getOriginalFilename());
+                        saveImage(userProfile.getFile(), userProfile.getId());
+                    }
+                    userService.update(user);
+                }
             }
-            userService.update(user);
             return new DataResponse<>(true, "Cập nhật tài khoản thành công");
         } catch (Exception e) {
             e.printStackTrace();

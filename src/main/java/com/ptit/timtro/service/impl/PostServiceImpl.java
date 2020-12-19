@@ -196,6 +196,7 @@ public class PostServiceImpl implements PostService {
         user.setName(userEntity.getName());
         user.setEmail(userEntity.getEmail());
         user.setPhoneNumber(userEntity.getPhoneNumber());
+        user.setImageUrl(userEntity.getImageUrl());
         post.setUser(user);
 
         List<CommentEntity> commentEntities = postEntity.getComments();

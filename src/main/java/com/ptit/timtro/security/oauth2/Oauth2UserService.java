@@ -59,9 +59,7 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
         }
         String typeAuthProvider = oAuth2UserRequest.getClientRegistration().getRegistrationId();
         UserEntity userEntity = userDAO.checkExistedUser(oAuth2UserInfo.getEmail(), typeAuthProvider);
-        if (userEntity != null) {
-            userEntity = updateExistingUser(userEntity, oAuth2UserInfo);
-        } else {
+        if (userEntity == null) {
             userEntity = registerNewUser(oAuth2UserRequest, oAuth2UserInfo);
 
             WalletEntity walletEntity = new WalletEntity();
@@ -103,12 +101,5 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
             e.printStackTrace();
         }
         return null;
-    }
-
-    private UserEntity updateExistingUser(UserEntity existingUser, OAuth2UserInfo oAuth2UserInfo) {
-        existingUser.setName(oAuth2UserInfo.getName());
-        existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
-
-        return userDAO.update(existingUser);
     }
 }

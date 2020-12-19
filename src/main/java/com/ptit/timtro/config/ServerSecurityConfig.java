@@ -81,6 +81,7 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/address/**", "/post/get-all", "/post/get-by-id", "/post/get-by-user-id", "/category/get-all", "/tag/get-all",
                         "/image/**", "/comment/**", "/favorite/**", "/user/get-by-id", "/post-vip/get-all"
                 ).permitAll()
+                .antMatchers("/user/update").hasAnyRole("ADMIN", "MEMBER")
                 .antMatchers("/tag/**", "/category/**", "/post-vip/**", "/user/get-all", "/user/delete").hasAnyRole("ADMIN")
                 .anyRequest().authenticated(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
         // Thêm một lớp Filter kiểm tra jwt

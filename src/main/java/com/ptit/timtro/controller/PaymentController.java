@@ -42,10 +42,10 @@ public class PaymentController {
             walletService.update(wallet);
 
             paymentService.create(payment);
-            return new DataResponse<>(true, "OK");
+            return new DataResponse<>(true, "Đăng bài thành công");
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, "Error");
+            return new DataResponse<>(false, "Lỗi");
         }
     }
 }

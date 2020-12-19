@@ -63,6 +63,16 @@ public class UserServiceImpl implements UserService {
     public void update(User user) {
         UserEntity userEntity = userDAO.get(user.getId());
         userEntity.setName(user.getName());
+        userEntity.setEmailVerified(user.getIsActived());
+        userEntity.setPhoneNumber(user.getPhoneNumber());
+        if (user.getRole().equals("ROLE_MEMBER")) {
+            userEntity.setRole(Role.MEMBER);
+        } else if (user.getRole().equals("ROLE_ADMIN")) {
+            userEntity.setRole(Role.ADMIN);
+        }
+        if (user.getImageUrl() != null) {
+            userEntity.setImageUrl(user.getImageUrl());
+        }
         userDAO.update(userEntity);
     }
 

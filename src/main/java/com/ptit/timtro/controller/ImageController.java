@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Objects;
 
 @RestController
 public class ImageController {
@@ -46,7 +44,7 @@ public class ImageController {
             Post post = new ObjectMapper().readValue(postUpdate, Post.class);
             try {
                 imageService.delete(image.getId());
-                Path path = FileSystems.getDefault().getPath(fileDir.getFileDir() + "/" + post.getId() + "/" + image.getImageUrl());
+                Path path = FileSystems.getDefault().getPath(fileDir.getFileDir() + File.separator + post.getId() + File.separator + image.getImageUrl());
                 Files.deleteIfExists(path);
                 return new DataResponse<>(true, "OK");
             } catch (IOException e) {

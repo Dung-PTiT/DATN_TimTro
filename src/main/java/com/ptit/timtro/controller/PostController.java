@@ -39,24 +39,28 @@ public class PostController {
     public DataResponse<String> create(@ModelAttribute Post post) {
         try {
             PostEntity postEntity = postService.create(post);
-            saveImage(post.getFiles(), postEntity.getId());
-            return new DataResponse<>(true, "OK");
+            if (post.getFiles() != null) {
+                saveImage(post.getFiles(), postEntity.getId());
+            }
+            return new DataResponse<>(true, "Tạo bài viết thành công");
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, "Error");
         }
+        return new DataResponse<>(false, "Error");
     }
 
     @PostMapping("/post/update")
     public DataResponse<String> update(@ModelAttribute Post post) {
         try {
             postService.update(post);
-            updateImage(post.getFiles(), post.getId());
-            return new DataResponse<>(true, "OK");
+            if (post.getFiles() != null) {
+                updateImage(post.getFiles(), post.getId());
+            }
+            return new DataResponse<>(true, "Cập nhật bài viết thành công");
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, "Error");
         }
+        return new DataResponse<>(false, "Error");
     }
 
     @PostMapping("/post/delete")
@@ -71,13 +75,13 @@ public class PostController {
                 Files.deleteIfExists(path);
                 return new DataResponse<>(true, "OK");
             } else {
-                return new DataResponse<>(false, "Error");
+                return new DataResponse<>(false, "Xóa bài viết thành công");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, "Error");
         }
+        return new DataResponse<>(false, "Error");
     }
 
     @GetMapping("/post/get-by-id")
@@ -86,8 +90,8 @@ public class PostController {
             return new DataResponse<>(true, postService.getById(id));
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, null);
         }
+        return new DataResponse<>(false, null);
     }
 
     @GetMapping("/post/get-by-user-id")
@@ -96,8 +100,8 @@ public class PostController {
             return new DataResponse<>(true, postService.getByUserId(userId));
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, null);
         }
+        return new DataResponse<>(false, null);
     }
 
     @GetMapping("/post/get-all")
@@ -106,8 +110,8 @@ public class PostController {
             return new DataResponse<>(true, postService.getAll());
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, null);
         }
+        return new DataResponse<>(false, null);
     }
 
     // Save Files
@@ -123,9 +127,9 @@ public class PostController {
                 imageService.create(image);
 
                 //Save image in folder
-                File uploadDir = new File(fileDir.getFileDir() + postID + "\\");
+                File uploadDir = new File(fileDir.getFileDir() + postID + File.separator);
                 uploadDir.mkdirs();
-                String uploadFilePath = fileDir.getFileDir() + "/" + postID + "/" + file.getOriginalFilename();
+                String uploadFilePath = fileDir.getFileDir() + File.separator + postID + File.separator + file.getOriginalFilename();
                 byte[] bytes = file.getBytes();
                 Path path = Paths.get(uploadFilePath);
                 Files.write(path, bytes);
@@ -135,7 +139,7 @@ public class PostController {
         }
     }
 
-    // Save Files
+    // Update Files
     private void updateImage(MultipartFile[] files, Integer postID) throws IOException {
         try {
             for (MultipartFile file : files) {
@@ -147,7 +151,7 @@ public class PostController {
                 image.setPost(post1);
                 imageService.create(image);
 
-                String uploadFilePath = fileDir.getFileDir() + "/" + postID + "/" + file.getOriginalFilename();
+                String uploadFilePath = fileDir.getFileDir() + File.separator + postID + File.separator + file.getOriginalFilename();
                 byte[] bytes = file.getBytes();
                 Path path = Paths.get(uploadFilePath);
                 Files.write(path, bytes);

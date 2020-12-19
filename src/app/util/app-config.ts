@@ -9,5 +9,6 @@ export class AppConfig {
   public static FACEBOOK_AUTH_URL = encodeURI(AppConfig.PREFIX_URL + '/oauth2/authorize/facebook?redirect_uri=' + AppConfig.OAUTH2_REDIRECT_URI);
   public static IMAGE_URL = AppConfig.PREFIX_URL + AppConfig.CONTEXT_URL + "/image/get?imageUrl=";
   public static DEFAULT_IMAGE_USER = "./assets/images/user.jpg";
+  public static DEFAULT_IMAGE = "./assets/images/logo3.png";
 }
 

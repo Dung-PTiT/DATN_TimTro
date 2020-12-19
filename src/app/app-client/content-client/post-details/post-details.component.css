@@ -178,3 +178,14 @@ agm-map {
   font-style: italic;
   font-weight: bold;
 }
+
+.btn-create-comment {
+  color: initial;
+  line-height: 29px;
+}
+
+.btn-create-comment:hover {
+  color: #000000;
+  border:1px solid #feb800;
+}
+

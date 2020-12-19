@@ -28,7 +28,7 @@
           <mdb-carousel-item *ngFor="let image of images">
             <div class="view w-100 post-image">
               <img class="d-block w-100"
-                   [src]="image?.imageUrl ? (PREFIX_URL +'/'+post?.id+'/'+  image?.imageUrl ) : (DEFAULT_IMAGE)">
+                   [src]="image?.imageUrl ? (IMAGE_URL +'/'+post?.id+'/'+  image?.imageUrl ) : (DEFAULT_IMAGE)">
               <div class="mask rgba-black-light waves-black" mdbWavesEffect></div>
             </div>
           </mdb-carousel-item>
@@ -215,8 +215,7 @@
             <textarea id="form7" class="md-textarea md-textarea-auto form-control" mdbInput
                       [formControl]="commentCtrl"></textarea>
             <label for="form7" class="ml-2 mb-0 float-right" matTooltip="Gửi" matTooltipPosition="below">
-              <button mat-button style="border: 1px solid #dcdcdc; border-radius: 10px;
-                      box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .1);" (click)="createComment()"
+              <button mat-button class="btn-create-comment cursor-pointer" (click)="createComment()"
                       [class.bg-disable]="checkLogin() == false" [disabled]="checkLogin() == false">
                 <fa-icon [icon]="faPaperPlane" class="text-primary"></fa-icon>
               </button>
@@ -285,7 +284,7 @@
             <div>
               <div>
                 <div class="profile-image">
-                  <img width="50" src="./assets/images/avatar.png" (click)="viewUserPage(post?.user?.id)"
+                  <img width="50" [src]="post?.user?.imageUrl" (click)="viewUserPage(post?.user?.id)"
                        class="cursor-pointer" matTooltip="Bấm xem trang cá nhân"
                        style="border-radius: 30px"/>
                 </div>

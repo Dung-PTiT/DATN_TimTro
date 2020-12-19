@@ -36,7 +36,7 @@ export class HeaderClientComponent implements OnInit {
       this.currentUser = JSON.parse(localStorage.getItem('userCurrent'));
       if (this.currentUser.imageUrl == null) {
         this.currentUser.imageUrl = this.DEFAULT_IMAGE_USER;
-      } else if ((this.currentUser?.imageUrl?.indexOf("http") == -1)) {
+      } else if ((this.currentUser?.imageUrl.indexOf("http") == -1)) {
         this.currentUser.imageUrl = this.IMAGE_URL + '/user/' + this.currentUser.id + '/' + this.currentUser.imageUrl;
       }
     } else {
@@ -45,7 +45,7 @@ export class HeaderClientComponent implements OnInit {
           this.currentUser = resp.data as User;
           if (this.currentUser.imageUrl == null) {
             this.currentUser.imageUrl = this.DEFAULT_IMAGE_USER;
-          } else if ((this.currentUser?.imageUrl?.indexOf("http") == -1)) {
+          } else if ((this.currentUser?.imageUrl.indexOf("http") == -1)) {
             this.currentUser.imageUrl = this.IMAGE_URL + '/user/' + this.currentUser.id + '/' + this.currentUser.imageUrl;
           }
         });

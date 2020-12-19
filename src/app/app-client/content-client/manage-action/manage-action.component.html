@@ -4,8 +4,7 @@
       <div class="profile-user">
         <div class="profile-info">
           <div class="profile-image">
-            <img width="50" class="box-shadow" [src]="user?.imageUrl ? user.imageUrl : DEFAULT_IMAGE"
-                 style="border-radius: 30px"/>
+            <img width="50" class="box-shadow" [src]="user?.imageUrl" style="border-radius: 30px"/>
           </div>
           <div class="profile-more">
             <div>
@@ -13,7 +12,7 @@
                 <b>{{user?.name}}</b>
               </div>
               <div>
-                <p class="font-weight-bold text-color-feb800">
+                <p class="font-weight-bold font-size-13">
                   Tài khoản: {{user?.wallet?.balance}} đ
                 </p>
               </div>

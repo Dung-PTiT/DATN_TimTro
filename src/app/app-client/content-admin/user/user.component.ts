@@ -31,9 +31,8 @@ export class UserComponent implements OnInit {
   displayedUser: string[] = [];
   dataSource: MatTableDataSource<User>;
 
-  PREFIX_URL = AppConfig.PREFIX_URL;
-  CONTEXT_URL: string = "";
-  DEFAULT_IMAGE_USER = "./assets/images/avatar.png";
+  IMAGE_URL = AppConfig.IMAGE_URL;
+  DEFAULT_IMAGE_USER = AppConfig.DEFAULT_IMAGE_USER;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -42,8 +41,6 @@ export class UserComponent implements OnInit {
               private matDialog: MatDialog,
               private toastService: ToastService,
               private router: Router) {
-    this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
-
     this.displayedUser = ['number', 'name', 'role', 'status', 'email', 'phoneNumber', 'createTime', 'authProvider', 'action'];
 
     this.userService.getAll().subscribe(resp => {
@@ -52,7 +49,7 @@ export class UserComponent implements OnInit {
         if (this.users[i].imageUrl == null) {
           this.users[i].imageUrl = this.DEFAULT_IMAGE_USER;
         } else if ((this.users[i]?.imageUrl?.indexOf("http") == -1)) {
-          this.users[i].imageUrl = this.PREFIX_URL + '/user/' + this.users[i].id + '/' + this.users[i].imageUrl;
+          this.users[i].imageUrl = this.IMAGE_URL + '/user/' + this.users[i].id + '/' + this.users[i].imageUrl;
         }
       }
       this.dataSource = new MatTableDataSource(resp.data);
@@ -79,7 +76,7 @@ export class UserComponent implements OnInit {
             if (this.users[i].imageUrl == null) {
               this.users[i].imageUrl = this.DEFAULT_IMAGE_USER;
             } else if ((this.users[i]?.imageUrl?.indexOf("http") == -1)) {
-              this.users[i].imageUrl = this.PREFIX_URL + '/user/' + this.users[i].id + '/' + this.users[i].imageUrl;
+              this.users[i].imageUrl = this.IMAGE_URL + '/user/' + this.users[i].id + '/' + this.users[i].imageUrl;
             }
           }
           this.dataSource = new MatTableDataSource(resp.data);
@@ -107,8 +104,8 @@ export class UserComponent implements OnInit {
           for (let i = 0; i < this.users.length; i++) {
             if (this.users[i].imageUrl == null) {
               this.users[i].imageUrl = this.DEFAULT_IMAGE_USER;
-            } else if ((this.users[i]?.imageUrl?.indexOf("http") == -1)) {
-              this.users[i].imageUrl = this.PREFIX_URL + '/user/' + this.users[i].id + '/' + this.users[i].imageUrl;
+            } else if ((this.users[i]?.imageUrl.indexOf("http") == -1)) {
+              this.users[i].imageUrl = this.IMAGE_URL + '/user/' + this.users[i].id + '/' + this.users[i].imageUrl;
             }
           }
           this.dataSource = new MatTableDataSource(resp.data);
@@ -139,7 +136,7 @@ export class UserComponent implements OnInit {
                 if (this.users[i].imageUrl == null) {
                   this.users[i].imageUrl = this.DEFAULT_IMAGE_USER;
                 } else if ((this.users[i]?.imageUrl?.indexOf("http") == -1)) {
-                  this.users[i].imageUrl = this.PREFIX_URL + '/user/' + this.users[i].id + '/' + this.users[i].imageUrl;
+                  this.users[i].imageUrl = this.IMAGE_URL + '/user/' + this.users[i].id + '/' + this.users[i].imageUrl;
                 }
               }
               this.dataSource = new MatTableDataSource(resp.data);

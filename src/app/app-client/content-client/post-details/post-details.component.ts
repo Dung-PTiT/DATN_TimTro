@@ -47,9 +47,9 @@ export class PostDetailsComponent implements OnInit {
   public origin: any;
   public destination: any;
 
-  PREFIX_URL = AppConfig.PREFIX_URL;
-  CONTEXT_URL: string = "";
   DEFAULT_IMAGE: string = "./assets/images/logo3.png";
+  DEFAULT_IMAGE_USER = AppConfig.DEFAULT_IMAGE_USER;
+  IMAGE_URL = AppConfig.IMAGE_URL;
 
   commentCtrl: FormControl = new FormControl();
 
@@ -64,16 +64,25 @@ export class PostDetailsComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private commentService: CommentService,
               private favoriteService: FavoriteService) {
-    this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
   }
 
   ngOnInit(): void {
     if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
       this.user = JSON.parse(localStorage.getItem('userCurrent'));
+      if (this.user.imageUrl == null) {
+        this.user.imageUrl = this.DEFAULT_IMAGE_USER;
+      } else if ((this.user?.imageUrl.indexOf("http") == -1)) {
+        this.user.imageUrl = this.IMAGE_URL + '/user/' + this.user.id + '/' + this.user.imageUrl;
+      }
     } else {
       if (this.authenticationService.checkLogin()) {
         this.authenticationService.getCurrentUser().subscribe(resp => {
           this.user = resp.data;
+          if (this.user.imageUrl == null) {
+            this.user.imageUrl = this.DEFAULT_IMAGE_USER;
+          } else if ((this.user?.imageUrl.indexOf("http") == -1)) {
+            this.user.imageUrl = this.IMAGE_URL + '/user/' + this.user.id + '/' + this.user.imageUrl;
+          }
         });
       }
     }
@@ -82,6 +91,14 @@ export class PostDetailsComponent implements OnInit {
       this.id = params['id'];
       this.postService.getPostById(this.id).subscribe(resp => {
         this.post = resp.data;
+
+        //set image for author post
+        if (this.post.user.imageUrl == null) {
+          this.post.user.imageUrl = this.DEFAULT_IMAGE_USER;
+        } else if ((this.post.user.imageUrl.indexOf("http") == -1)) {
+          this.post.user.imageUrl = this.IMAGE_URL + '/user/' + this.post.user.id + '/' + this.post.user.imageUrl;
+        }
+
         this.images = this.post.images;
         this.favotites = this.post.favorites;
         this.checkStatusFavorite(this.favotites);
@@ -142,6 +159,18 @@ export class PostDetailsComponent implements OnInit {
       this.commentService.createComment(this.commentCtrl.value, this.post.id).subscribe(resp => {
         this.commentService.getCommentByPostId(this.post.id).subscribe(resp => {
           this.comments = resp.data;
+          for (let i = 0; i < this.comments.length; i++) {
+            // @ts-ignore
+            if (this.comments[i]?.user?.imageUrl == null) {
+              // @ts-ignore
+              this.comments[i]?.user?.imageUrl = this.DEFAULT_IMAGE_USER;
+            } else { // @ts-ignore
+              if ((this.comments[i]?.user?.imageUrl.indexOf("http") == -1)) {
+                // @ts-ignore
+                this.comments[i]?.user?.imageUrl = this.IMAGE_URL + '/user/' + this.comments[i]?.user.id + '/' + this.comments[i]?.user?.imageUrl;
+              }
+            }
+          }
           this.commentCtrl.setValue('');
         });
       });
@@ -162,6 +191,18 @@ export class PostDetailsComponent implements OnInit {
           this.commentService.deleteComment(commentId).subscribe(resp => {
             this.commentService.getCommentByPostId(this.post.id).subscribe(resp => {
               this.comments = resp.data;
+              for (let i = 0; i < this.comments.length; i++) {
+                // @ts-ignore
+                if (this.comments[i]?.user?.imageUrl == null) {
+                  // @ts-ignore
+                  this.comments[i]?.user?.imageUrl = this.DEFAULT_IMAGE_USER;
+                } else { // @ts-ignore
+                  if ((this.comments[i]?.user?.imageUrl.indexOf("http") == -1)) {
+                    // @ts-ignore
+                    this.comments[i]?.user?.imageUrl = this.IMAGE_URL + '/user/' + this.comments[i]?.user.id + '/' + this.comments[i]?.user?.imageUrl;
+                  }
+                }
+              }
             });
           });
         }
@@ -172,6 +213,20 @@ export class PostDetailsComponent implements OnInit {
   getCommentByPostId(postId) {
     this.commentService.getCommentByPostId(postId).subscribe(resp => {
       this.comments = resp.data;
+      if (this.comments != null) {
+        for (let i = 0; i < this.comments.length; i++) {
+          // @ts-ignore
+          if (this.comments[i]?.user?.imageUrl == null) {
+            // @ts-ignore
+            this.comments[i]?.user?.imageUrl = this.DEFAULT_IMAGE_USER;
+          } else { // @ts-ignore
+            if ((this.comments[i]?.user?.imageUrl.indexOf("http") == -1)) {
+              // @ts-ignore
+              this.comments[i]?.user?.imageUrl = this.IMAGE_URL + '/user/' + this.comments[i]?.user.id + '/' + this.comments[i]?.user?.imageUrl;
+            }
+          }
+        }
+      }
     });
   }
 

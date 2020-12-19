@@ -16,13 +16,12 @@ import {AppConfig} from "../../../util/app-config";
 })
 export class CommentComponent implements OnInit {
 
-  comments: Comment[] = [];
+  comments: Array<Comment>;
   displayedComment: string[] = [];
   dataSource: MatTableDataSource<Comment>;
 
-  PREFIX_URL = AppConfig.PREFIX_URL;
-  CONTEXT_URL: string = "";
-  DEFAULT_IMAGE_USER = "./assets/images/avatar.png";
+  IMAGE_URL = AppConfig.IMAGE_URL;
+  DEFAULT_IMAGE_USER = AppConfig.DEFAULT_IMAGE_USER;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -30,22 +29,33 @@ export class CommentComponent implements OnInit {
   constructor(private commentSerivce: CommentService,
               private matDialog: MatDialog,
               private toastService: ToastService) {
+  }
 
-    this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
-
+  ngOnInit(): void {
     this.displayedComment = [
       'number', 'content', 'user', 'createTime', 'action'
     ];
 
     this.commentSerivce.getAll().subscribe(resp => {
       this.comments = resp.data;
+      if (this.comments != null) {
+        for (let i = 0; i < this.comments.length; i++) {
+          // @ts-ignore
+          if (this.comments[i]?.user?.imageUrl == null) {
+            // @ts-ignore
+            this.comments[i]?.user?.imageUrl = this.DEFAULT_IMAGE_USER;
+          } else { // @ts-ignore
+            if ((this.comments[i]?.user?.imageUrl.indexOf("http") == -1)) {
+              // @ts-ignore
+              this.comments[i]?.user?.imageUrl = this.IMAGE_URL + '/user/' + this.comments[i]?.user.id + '/' + this.comments[i]?.user?.imageUrl;
+            }
+          }
+        }
+      }
       this.dataSource = new MatTableDataSource(resp.data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-  }
-
-  ngOnInit(): void {
   }
 
   deleteComment(comment: any) {

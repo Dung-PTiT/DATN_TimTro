@@ -1,12 +1,11 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {faCloudUploadAlt, faTrash, faUpload} from "@fortawesome/free-solid-svg-icons";
 import {User} from "../../../../model/user";
 import {AppConfig} from "../../../../util/app-config";
-import {ActivatedRoute, Router} from "@angular/router";
-import {PostService} from "../../../../service/post.service";
-import {MapsAPILoader} from "@agm/core";
+import {Router} from "@angular/router";
+
+;
 import {AuthenticationService} from "../../../../service/authentication.service";
-import {CommentService} from "../../../../service/comment.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ToastService} from "../../../../service/toast.service";
 import {UserService} from "../../../../service/user.service";
@@ -23,21 +22,14 @@ export class UserUpdateComponent implements OnInit {
 
   user: User;
 
-  PREFIX_URL = AppConfig.PREFIX_URL;
-  CONTEXT_URL: string = "";
-  DEFAULT_IMAGE: string = "./assets/images/avatar.png";
+  IMAGE_URL = AppConfig.IMAGE_URL;
+  DEFAULT_IMAGE_USER = AppConfig.DEFAULT_IMAGE_USER;
 
   constructor(private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private postService: PostService,
-              private mapsAPILoader: MapsAPILoader,
-              private ngZone: NgZone,
               private authenticationService: AuthenticationService,
-              private commentService: CommentService,
               private formBuilder: FormBuilder,
               private toastService: ToastService,
               private userService: UserService) {
-    this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
   }
 
   ngOnInit(): void {
@@ -53,10 +45,20 @@ export class UserUpdateComponent implements OnInit {
 
     if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
       this.user = JSON.parse(localStorage.getItem('userCurrent'));
+      if (this.user.imageUrl == null) {
+        this.user.imageUrl = this.DEFAULT_IMAGE_USER;
+      } else if ((this.user?.imageUrl.indexOf("http") == -1)) {
+        this.user.imageUrl = this.IMAGE_URL + '/user/' + this.user.id + '/' + this.user.imageUrl;
+      }
     } else {
       if (this.authenticationService.checkLogin()) {
         this.authenticationService.getCurrentUser().subscribe(resp => {
           this.user = resp.data;
+          if (this.user.imageUrl == null) {
+            this.user.imageUrl = this.DEFAULT_IMAGE_USER;
+          } else if ((this.user?.imageUrl.indexOf("http") == -1)) {
+            this.user.imageUrl = this.IMAGE_URL + '/user/' + this.user.id + '/' + this.user.imageUrl;
+          }
         });
       }
     }

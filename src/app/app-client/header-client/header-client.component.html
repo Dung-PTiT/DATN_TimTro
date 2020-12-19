@@ -33,7 +33,7 @@
           <img ngbDropdownToggle class="ml-3" referrerpolicy="no-referrer"
                [matTooltip]="currentUser?.name ? currentUser.name : nameBaseUser"
                matTooltipPosition="below"
-               width="30" [src]="currentUser?.imageUrl ? currentUser.imageUrl : userBaseUrl"
+               width="30" [src]="currentUser?.imageUrl ? currentUser.imageUrl : DEFAULT_IMAGE_USER"
                style="border-radius: 10px;">
           <div ngbDropdownMenu class="mt-2" style="font-size: 13px">
             <div *ngIf="(currentUser?.role == 'ROLE_ADMIN');else hide_admin_button">

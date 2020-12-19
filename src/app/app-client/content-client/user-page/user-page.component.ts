@@ -20,17 +20,15 @@ export class UserPageComponent implements OnInit {
   posts: Array<Post>;
   displayedColumns: string[] = [];
 
-  PREFIX_URL = AppConfig.PREFIX_URL;
-  CONTEXT_URL: string = "";
-  DEFAULT_IMAGE_USER = "./assets/images/avatar.png";
   DEFAULT_IMAGE: string = "./assets/images/logo3.png";
+  DEFAULT_IMAGE_USER = AppConfig.DEFAULT_IMAGE_USER;
+  IMAGE_URL = AppConfig.IMAGE_URL;
 
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private postService: PostService,
               private userService: UserService,
               private authenticationService: AuthenticationService) {
-    this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
   }
 
   ngOnInit(): void {
@@ -38,7 +36,13 @@ export class UserPageComponent implements OnInit {
       this.id = params['id'];
       this.userService.getUserById(this.id).subscribe(resp => {
         this.user = resp.data;
-        console.log(this.user);
+
+        if (this.user.imageUrl == null) {
+          this.user.imageUrl = this.DEFAULT_IMAGE_USER;
+        } else if ((this.user?.imageUrl.indexOf("http") == -1)) {
+          this.user.imageUrl = this.IMAGE_URL + '/user/' + this.user.id + '/' + this.user.imageUrl;
+        }
+
         this.postService.getPostByUserId(resp?.data?.id).subscribe(resp => {
           this.posts = resp.data;
         });

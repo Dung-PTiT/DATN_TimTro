@@ -1,0 +1,67 @@
+<div class="p-1">
+  <div class="d-flex justify-content-between">
+    <h6>Cập nhật thông tin tài khoản</h6>
+    <fa-icon class="text-danger cursor-pointer" [icon]="faTimes" (click)="close()"></fa-icon>
+  </div>
+  <mat-divider></mat-divider>
+  <form [formGroup]="updateUserForm" (submit)="saveUserUpdate()">
+    <div class="row mt-3">
+      <div class="col-5 text-center">
+        <div>
+          <img class="box-shadow" [src]="user?.imageUrl" referrerpolicy="no-referrer" width="100" height="100"/>
+        </div>
+        <div class="mt-2">
+          <label for="file-upload" class="custom-file-upload" matTooltip="Bấm chọn ảnh" matTooltipPosition="right">
+            <fa-icon [icon]="faCloudUploadAlt"></fa-icon>
+          </label>
+          <input id="file-upload" type="file" (change)="onSelectFile($event)" accept="image/*"/>
+          <div *ngIf="url != null; else null_image"
+               style="border: 2px dotted #dddddd;text-align: center">
+            <div>
+              <img [src]="url" style="max-width:100%; max-height:100%;">
+            </div>
+            <button mat-icon-button matTooltip="Gỡ ảnh" matTooltipPosition="below" (click)="removeImages()">
+              <fa-icon class="text-danger" [icon]="faTrash"></fa-icon>
+            </button>
+          </div>
+          <ng-template #null_image>
+            <div style="border: 2px dotted #dddddd; text-align: center">
+              <span>Chọn ảnh để cập nhật</span>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+      <div class="col-7 d-flex flex-column">
+        <div class="mb-2">
+          <label class="font-size-13 mb-0">
+            Tên<span class="text-danger ml-1">*</span>
+          </label>
+          <input type="text" class="form-control font-size-13" placeholder="Họ tên" formControlName="name"
+                 [ngClass]="{ 'is-invalid': submitted && validator.name?.errors}">
+          <div *ngIf="submitted && validator.name?.errors?.required" class="invalid-feedback text-align-start">
+            Tên không được trống
+          </div>
+        </div>
+        <div class="mb-2">
+          <label class="font-size-13 mb-0">
+            Số điện thoại<span class="text-danger ml-1">*</span>
+          </label>
+          <input type="text" class="form-control font-size-13" placeholder="Số điện thoại"
+                 formControlName="phoneNumber"
+                 [ngClass]="{ 'is-invalid': submitted && validator.phoneNumber?.errors}">
+          <div *ngIf="submitted && validator.phoneNumber?.errors" class="invalid-feedback text-align-start">
+            <div *ngIf="validator.phoneNumber?.errors?.required">
+              Số điện thoại không được trống
+            </div>
+            <div *ngIf="validator.phoneNumber?.errors?.pattern">
+              Số điện thoại chỉ có kí tự số
+            </div>
+          </div>
+        </div>
+        <div class="w-100">
+          <button mdbBtn class="btn-register pt-2 pb-2 text-transform-normal " type="submit">Lưu</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

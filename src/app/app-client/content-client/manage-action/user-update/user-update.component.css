@@ -7,3 +7,14 @@ input[type="file"] {
   padding: 3px 5px;
   cursor: pointer;
 }
+
+.btn-update-user {
+  color: initial;
+  line-height: 29px;
+  border: 1px solid #dddddd;
+}
+
+.btn-update-user:hover {
+  color: #ffffff;
+  background-color: #feb800;
+}

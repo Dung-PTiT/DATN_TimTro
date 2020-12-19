@@ -1,14 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {faCloudUploadAlt, faTrash, faUpload} from "@fortawesome/free-solid-svg-icons";
+import {faCloudUploadAlt, faTrash, faUpload, faUserEdit} from "@fortawesome/free-solid-svg-icons";
 import {User} from "../../../../model/user";
 import {AppConfig} from "../../../../util/app-config";
 import {Router} from "@angular/router";
-
-;
 import {AuthenticationService} from "../../../../service/authentication.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ToastService} from "../../../../service/toast.service";
 import {UserService} from "../../../../service/user.service";
+import {MatDialog} from "@angular/material/dialog";
+import {UserUpdateDialogComponent} from "./user-update-dialog/user-update-dialog.component";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-user-update',
@@ -29,7 +30,8 @@ export class UserUpdateComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private formBuilder: FormBuilder,
               private toastService: ToastService,
-              private userService: UserService) {
+              private userService: UserService,
+              private matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -66,13 +68,10 @@ export class UserUpdateComponent implements OnInit {
 
 
   changePassword() {
-
     this.submitted = true;
-
     if (this.passwordForm.invalid) {
       return;
     }
-
     this.userService
       .changePassword(this.user?.id, this.passwordForm.controls.inputNewPass.value)
       .subscribe(resp => {
@@ -88,35 +87,37 @@ export class UserUpdateComponent implements OnInit {
     return this.passwordForm.controls;
   }
 
-  // image
-  url: any;
-  image: File;
+  openUpdateUserDialog(user: any) {
+    const dialogRef = this.matDialog.open(UserUpdateDialogComponent, {
+      width: '800px',
+      height: 'auto',
+      data: user,
+      disableClose: true
+    });
 
-  onSelectFile(event) {
-    if (event.target.files && event.target.files[0]) {
-      let filesAmount = event.target.files.length;
-      for (let i = 0; i < filesAmount; i++) {
-        let reader = new FileReader();
-        reader.onload = (event: any) => {
-          this.url = event.target.result;
-        };
-        reader.readAsDataURL(event.target.files[i]);
+    dialogRef.afterClosed().subscribe(resp => {
+      if (resp.success == true) {
+        this.authenticationService.getCurrentUser().subscribe(resp => {
+          this.user = resp.data;
+          localStorage.setItem('userCurrent', JSON.stringify(resp.data));
+          if (this.user.imageUrl == null) {
+            this.user.imageUrl = this.DEFAULT_IMAGE_USER;
+            location.replace("/manage/user");
+          } else if ((this.user?.imageUrl.indexOf("http") == -1)) {
+            this.user.imageUrl = this.IMAGE_URL + '/user/' + this.user.id + '/' + this.user.imageUrl;
+            location.replace("/manage/user");
+          }
+        });
+        this.toastService.showSuccess(resp.data);
+      } else if (resp.success == "none") {
       }
-    }
-    this.image = event.target.files[0];
-  }
-
-  saveUserImage() {
-
-  }
-
-  removeImages() {
-    this.url = null;
+    });
   }
 
   faUpload = faUpload;
   faCloudUploadAlt = faCloudUploadAlt;
   faTrash = faTrash;
+  faUserEdit = faUserEdit;
 }
 
 export function MustMatch(controlName: string, matchingControlName: string) {

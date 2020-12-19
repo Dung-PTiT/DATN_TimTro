@@ -15,13 +15,16 @@ import { FavoriteComponent } from './favorite/favorite.component';
 import {MatTableModule} from "@angular/material/table";
 import { FavoriteDetailDialogComponent } from './favorite/favorite-detail-dialog/favorite-detail-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
-import {InputsModule} from "angular-bootstrap-md";
+import {ButtonsModule, InputsModule} from "angular-bootstrap-md";
 import {ReactiveFormsModule} from "@angular/forms";
 import { TopUpComponent } from './top-up/top-up.component';
+import { UserUpdateDialogComponent } from './user-update/user-update-dialog/user-update-dialog.component';
+import {MatRadioModule} from "@angular/material/radio";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
-  declarations: [UserUpdateComponent, ManagePostComponent, CommentComponent, FavoriteComponent, FavoriteDetailDialogComponent, TopUpComponent],
+  declarations: [UserUpdateComponent, ManagePostComponent, CommentComponent, FavoriteComponent, FavoriteDetailDialogComponent, TopUpComponent, UserUpdateDialogComponent],
   imports: [
     CommonModule,
     MatListModule,
@@ -34,7 +37,10 @@ import { TopUpComponent } from './top-up/top-up.component';
     MatTableModule,
     MatDialogModule,
     InputsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatRadioModule,
+    ButtonsModule,
+    MatSelectModule
   ]
 })
 export class ManageActionModule {

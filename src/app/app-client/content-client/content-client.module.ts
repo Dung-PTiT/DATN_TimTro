@@ -24,7 +24,6 @@ import {MatTableModule} from "@angular/material/table";
 import { ServicePriceComponent } from './service-price/service-price.component';
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 
-
 @NgModule({
   declarations: [
     ContentClientComponent,

@@ -18,6 +18,7 @@ import {TagService} from "../../../../../service/tag.service";
 import {Tag} from "../../../../../model/tag";
 import {faCloudUploadAlt, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {Router} from "@angular/router";
+import {ToastService} from "../../../../../service/toast.service";
 
 @Component({
   selector: 'app-post-create',
@@ -77,7 +78,8 @@ export class PostCreateComponent implements OnInit {
               private categoryService: CategoryService,
               private tagService: TagService,
               private apiloader: MapsAPILoader,
-              private router: Router) {
+              private router: Router,
+              private toastService: ToastService) {
     ClassicEditor.defaultConfig = {
       toolbar: {
         items: [
@@ -184,7 +186,7 @@ export class PostCreateComponent implements OnInit {
   @ViewChild(AgmMap, {static: true}) public agmMap: AgmMap;
 
   getLocation(event) {
-    this.markerInfo = new MarkerInfo(event.coords.lat, event.coords.lng, "./assets/images/marker3.png","");
+    this.markerInfo = new MarkerInfo(event.coords.lat, event.coords.lng, "./assets/images/marker3.png", "");
   }
 
   public onChange({editor}: ChangeEvent) {
@@ -207,12 +209,14 @@ export class PostCreateComponent implements OnInit {
     formData.append("provinceStr", JSON.stringify(this.provinceCtrl.value));
     formData.append("categoryStr", JSON.stringify(this.categoryCtrl.value));
     formData.append("tagsStr", JSON.stringify(this.tagCtrl.value));
-
-    this.imageList.forEach((file, i) => {
-      formData.append("files[" + i + "]", file);
-    });
+    if (this.imageList != null) {
+      this.imageList.forEach((file, i) => {
+        formData.append("files[" + i + "]", file);
+      });
+    }
     this.postService.createPost(formData).subscribe(resp => {
-      if(resp.success == true){
+      if (resp.success == true) {
+        this.toastService.showSuccess(resp.data);
         this.router.navigate(['/manage/post/list']);
       }
     });
@@ -236,7 +240,7 @@ export class PostCreateComponent implements OnInit {
     this.imageList.push(event.target.files[0]);
   }
 
-  removeImages(){
+  removeImages() {
     this.urls = [];
     this.imageList = [];
   }

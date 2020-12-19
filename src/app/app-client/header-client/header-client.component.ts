@@ -28,17 +28,26 @@ export class HeaderClientComponent implements OnInit {
 
   currentUser: User;
   nameBaseUser: string = 'Tài khoản';
-  userBaseUrl: string = './assets/images/user.jpg';
-
-  USER_SESSION: string = "TimTro";
+  DEFAULT_IMAGE_USER = AppConfig.DEFAULT_IMAGE_USER;
+  IMAGE_URL = AppConfig.IMAGE_URL;
 
   ngOnInit(): void {
     if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
       this.currentUser = JSON.parse(localStorage.getItem('userCurrent'));
+      if (this.currentUser.imageUrl == null) {
+        this.currentUser.imageUrl = this.DEFAULT_IMAGE_USER;
+      } else if ((this.currentUser?.imageUrl?.indexOf("http") == -1)) {
+        this.currentUser.imageUrl = this.IMAGE_URL + '/user/' + this.currentUser.id + '/' + this.currentUser.imageUrl;
+      }
     } else {
       if (this.cookieService.get(AppConfig.COOKIE_TOKEN_NAME)) {
         this.authenticationService.getCurrentUser().subscribe(resp => {
           this.currentUser = resp.data as User;
+          if (this.currentUser.imageUrl == null) {
+            this.currentUser.imageUrl = this.DEFAULT_IMAGE_USER;
+          } else if ((this.currentUser?.imageUrl?.indexOf("http") == -1)) {
+            this.currentUser.imageUrl = this.IMAGE_URL + '/user/' + this.currentUser.id + '/' + this.currentUser.imageUrl;
+          }
         });
       }
     }
@@ -55,7 +64,6 @@ export class HeaderClientComponent implements OnInit {
     }, 1000);
 
   }
-
 
   faUpload = faUpload;
   faSignInAlt = faSignInAlt;

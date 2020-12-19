@@ -6,11 +6,11 @@
     <div class="font-size-13 d-flex flex-column text-align-end">
       <div>
         <fa-icon [icon]="faUsersCog" class="text-success"></fa-icon>
-        <span class="ml-2">Admin</span>
+        <span class="ml-2">Quản lý</span>
       </div>
       <div>
         <fa-icon [icon]="faUserTie" class="text-secondary"></fa-icon>
-        <span class="ml-2">Member</span>
+        <span class="ml-2">Người dùng</span>
       </div>
     </div>
   </div>
@@ -34,37 +34,37 @@
         <mat-table [dataSource]="dataSource" matSort>
 
           <ng-container matColumnDef="number">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Số</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Số</mat-header-cell>
             <mat-cell *matCellDef="let row; let i = index"> {{i + 1}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef mat-sort-header>Người dùng</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <img class="box-shadow" width="30" style="border-radius: 50%;"
-                   [src]="row?.imageUrl ? row.imageUrl : DEFAULT_IMAGE_USER" referrerpolicy="no-referrer"/>
+              <img class="box-shadow" width="40" height="40"
+                   [src]="row?.imageUrl" style="border-radius: 50%"/>
               <span class="ml-2">{{row.name}}</span>
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="role">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Quyền</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Quyền</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <span *ngIf="row.role.includes('ADMIN'); else member">
                 <fa-icon [icon]="faUsersCog" class="text-success"
-                         matTooltipPosition="right" matTooltip="Admin"></fa-icon>
+                         matTooltipPosition="right" matTooltip="Quản lý"></fa-icon>
               </span>
               <ng-template #member>
                 <span>
                   <fa-icon [icon]="faUserTie" class="text-secondary"
-                           matTooltipPosition="right" matTooltip="Member"></fa-icon>
+                           matTooltipPosition="right" matTooltip="Người dùng"></fa-icon>
                 </span>
               </ng-template>
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="status">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Trạng thái</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Trạng thái</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <div *ngIf="(row?.isActived == true);else user_block" class="ml-2">
                 <fa-icon [icon]="faLockOpen" class="text-success font-size-12" matTooltip="Được hoạt động"></fa-icon>
@@ -78,12 +78,12 @@
           </ng-container>
 
           <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="phoneNumber">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Số điện thoại</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Số điện thoại</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.phoneNumber}} </mat-cell>
           </ng-container>
 
@@ -93,12 +93,12 @@
           </ng-container>
 
           <ng-container matColumnDef="authProvider">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Nguồn</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Nguồn</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.authProvider}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Tác vụ</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Tác vụ</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer font-size-12"
                        matTooltip="Sửa" (click)="openUpdateUserDialog(row)">

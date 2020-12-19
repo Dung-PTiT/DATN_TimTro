@@ -18,6 +18,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {AppConfig} from "../../../util/app-config";
 import {UserCreateDialogComponent} from "./user-create-dialog/user-create-dialog.component";
 import {Router} from "@angular/router";
+import {UserUpdateDialogComponent} from "./user-update-dialog/user-update-dialog.component";
 
 @Component({
   selector: 'app-user',
@@ -47,6 +48,13 @@ export class UserComponent implements OnInit {
 
     this.userService.getAll().subscribe(resp => {
       this.users = resp.data;
+      for (let i = 0; i < this.users.length; i++) {
+        if (this.users[i].imageUrl == null) {
+          this.users[i].imageUrl = this.DEFAULT_IMAGE_USER;
+        } else if ((this.users[i]?.imageUrl?.indexOf("http") == -1)) {
+          this.users[i].imageUrl = this.PREFIX_URL + '/user/' + this.users[i].id + '/' + this.users[i].imageUrl;
+        }
+      }
       this.dataSource = new MatTableDataSource(resp.data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
@@ -67,6 +75,13 @@ export class UserComponent implements OnInit {
       if (resp.success == true) {
         this.userService.getAll().subscribe(resp => {
           this.users = resp.data;
+          for (let i = 0; i < this.users.length; i++) {
+            if (this.users[i].imageUrl == null) {
+              this.users[i].imageUrl = this.DEFAULT_IMAGE_USER;
+            } else if ((this.users[i]?.imageUrl?.indexOf("http") == -1)) {
+              this.users[i].imageUrl = this.PREFIX_URL + '/user/' + this.users[i].id + '/' + this.users[i].imageUrl;
+            }
+          }
           this.dataSource = new MatTableDataSource(resp.data);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -78,6 +93,32 @@ export class UserComponent implements OnInit {
   }
 
   openUpdateUserDialog(user: any) {
+    const dialogRef = this.matDialog.open(UserUpdateDialogComponent, {
+      width: '800px',
+      height: 'auto',
+      disableClose: true,
+      data: user
+    });
+
+    dialogRef.afterClosed().subscribe(resp => {
+      if (resp.success == true) {
+        this.userService.getAll().subscribe(resp => {
+          this.users = resp.data;
+          for (let i = 0; i < this.users.length; i++) {
+            if (this.users[i].imageUrl == null) {
+              this.users[i].imageUrl = this.DEFAULT_IMAGE_USER;
+            } else if ((this.users[i]?.imageUrl?.indexOf("http") == -1)) {
+              this.users[i].imageUrl = this.PREFIX_URL + '/user/' + this.users[i].id + '/' + this.users[i].imageUrl;
+            }
+          }
+          this.dataSource = new MatTableDataSource(resp.data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
+        this.toastService.showSuccess(resp.data);
+      } else if (resp.success == "none") {
+      }
+    });
   }
 
   deleteUser(user: User) {
@@ -94,6 +135,13 @@ export class UserComponent implements OnInit {
           if (resp.success) {
             this.userService.getAll().subscribe(resp => {
               this.users = resp.data;
+              for (let i = 0; i < this.users.length; i++) {
+                if (this.users[i].imageUrl == null) {
+                  this.users[i].imageUrl = this.DEFAULT_IMAGE_USER;
+                } else if ((this.users[i]?.imageUrl?.indexOf("http") == -1)) {
+                  this.users[i].imageUrl = this.PREFIX_URL + '/user/' + this.users[i].id + '/' + this.users[i].imageUrl;
+                }
+              }
               this.dataSource = new MatTableDataSource(resp.data);
               this.dataSource.paginator = this.paginator;
               this.dataSource.sort = this.sort;

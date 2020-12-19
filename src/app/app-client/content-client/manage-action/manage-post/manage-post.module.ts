@@ -24,6 +24,8 @@ import {CdkTableModule} from "@angular/cdk/table";
 import {MatDialogModule} from '@angular/material/dialog';
 import {PostUpdateComponent} from './post-update/post-update.component';
 import {PostPushDialogComponent} from './post-push-dialog/post-push-dialog.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [PostCreateComponent, PostListComponent, PostUpdateComponent, PostPushDialogComponent],
@@ -50,7 +52,9 @@ import {PostPushDialogComponent} from './post-push-dialog/post-push-dialog.compo
     MatIconModule,
     CdkTableModule,
     MatTableModule,
-    MatDialogModule
+    MatDialogModule,
+    MatPaginatorModule,
+    MatSortModule
   ]
 })
 export class ManagePostModule {

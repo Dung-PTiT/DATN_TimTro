@@ -250,10 +250,11 @@ export class PostUpdateComponent implements OnInit {
     formData.append("provinceStr", JSON.stringify(this.provinceCtrl.value));
     formData.append("categoryStr", JSON.stringify(this.categoryCtrl.value));
     formData.append("tagsStr", JSON.stringify(this.tagCtrl.value));
-
-    this.imageList.forEach((file, i) => {
-      formData.append("files[" + i + "]", file);
-    });
+    if (this.imageList != null) {
+      this.imageList.forEach((file, i) => {
+        formData.append("files[" + i + "]", file);
+      });
+    }
     this.postService.updatePost(formData).subscribe(resp => {
       if (resp.success == true) {
         this.router.navigate(['/manage/post/list']);

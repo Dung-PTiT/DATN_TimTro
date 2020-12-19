@@ -23,22 +23,22 @@
         <mat-table [dataSource]="dataSource" matSort>
 
           <ng-container matColumnDef="number">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Số</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Số</mat-header-cell>
             <mat-cell *matCellDef="let row; let i = index"> {{i + 1}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Tên</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Tên</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Mô tả</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Mô tả</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Tác vụ</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Tác vụ</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer font-size-12"
                        matTooltip="Sửa" (click)="openUpdateCategoryDialog(row)">

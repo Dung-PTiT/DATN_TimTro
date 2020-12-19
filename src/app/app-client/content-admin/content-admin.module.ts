@@ -31,10 +31,12 @@ import { PostVipUpdateDialogComponent } from './post-vip/post-vip-update-dialog/
 import { UserCreateDialogComponent } from './user/user-create-dialog/user-create-dialog.component';
 import {MatCardModule} from "@angular/material/card";
 import {MatSelectModule} from "@angular/material/select";
+import { UserUpdateDialogComponent } from './user/user-update-dialog/user-update-dialog.component';
+import {MatRadioModule} from "@angular/material/radio";
 
 
 @NgModule({
-  declarations: [DashboardAdminComponent, TagComponent, UserComponent, PostComponent, CategoryComponent, PostVipComponent, CommentComponent, FavoriteComponent, PaymentComponent, TagCreateDialogComponent, TagUpdateDialogComponent, CategoryCreateDialogComponent, CategoryUpdateDialogComponent, PostVipUpdateDialogComponent, UserCreateDialogComponent],
+  declarations: [DashboardAdminComponent, TagComponent, UserComponent, PostComponent, CategoryComponent, PostVipComponent, CommentComponent, FavoriteComponent, PaymentComponent, TagCreateDialogComponent, TagUpdateDialogComponent, CategoryCreateDialogComponent, CategoryUpdateDialogComponent, PostVipUpdateDialogComponent, UserCreateDialogComponent, UserUpdateDialogComponent],
   imports: [
     CommonModule,
     ContentAdminRoutingModule,
@@ -53,7 +55,8 @@ import {MatSelectModule} from "@angular/material/select";
     MatDialogModule,
     ButtonsModule,
     MatCardModule,
-    MatSelectModule
+    MatSelectModule,
+    MatRadioModule
   ]
 })
 export class ContentAdminModule { }

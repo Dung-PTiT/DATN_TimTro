@@ -34,4 +34,8 @@ export class UserService extends MainService {
       this.PREFIX_URL + this.CONTEXT_URL + '/user/delete', null,
       {params: {id: userId}});
   }
+
+  updateUser(formData: FormData): Observable<any> {
+    return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/user/update', formData);
+  }
 }

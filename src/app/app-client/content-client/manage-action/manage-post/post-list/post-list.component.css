@@ -1,12 +1,50 @@
-table {
+.mat-table {
   width: 100%;
-}
-
-table th {
-  text-align: center;
+  overflow: auto;
+  padding-left: 10px;
 }
 
 .select-custom {
   border: 1px solid #dddddd;
   border-radius: 5px;
 }
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.example-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-column-number {
+  flex: 0 0 3%;
+}
+
+.mat-column-image {
+  flex: 0 0 8%;
+}
+
+.mat-column-title {
+  flex: 0 0 20%;
+}
+
+.mat-column-price {
+  flex: 0 0 10%;
+}
+.mat-column-createTime {
+  flex: 0 0 10%;
+}
+.mat-column-startDate {
+  flex: 0 0 10%;
+}
+.mat-column-endDate {
+  flex: 0 0 10%;
+}
+
+
+

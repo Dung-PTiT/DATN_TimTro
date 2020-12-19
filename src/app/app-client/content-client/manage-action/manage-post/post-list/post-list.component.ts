@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AuthenticationService} from "../../../../../service/authentication.service";
 import {PostService} from "../../../../../service/post.service";
 import {User} from "../../../../../model/user";
@@ -17,6 +17,9 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import {MatDialog} from "@angular/material/dialog";
 import {PostPushDialogComponent} from "../post-push-dialog/post-push-dialog.component";
 import {ToastService} from "../../../../../service/toast.service";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
   selector: 'app-post-list',
@@ -32,6 +35,10 @@ export class PostListComponent implements OnInit {
   user: User;
   posts: Array<Post>;
   displayedColumns: string[] = [];
+  dataSource: MatTableDataSource<User>;
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private authenticationService: AuthenticationService,
               private postService: PostService,
@@ -43,13 +50,16 @@ export class PostListComponent implements OnInit {
 
   ngOnInit(): void {
     this.displayedColumns = [
-      'number', 'image', 'title', 'price', 'startDate', 'endDate', 'comment', 'favorite', 'status', 'action'
+      'number', 'image', 'title', 'price', 'createTime', 'startDate', 'endDate', 'comment', 'favorite', 'status', 'action'
     ];
 
     if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
       this.user = JSON.parse(localStorage.getItem('userCurrent'));
       this.postService.getPostByUserId(this.user.id).subscribe(resp => {
         this.posts = resp.data;
+        this.dataSource = new MatTableDataSource(resp.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       });
     } else {
       if (this.authenticationService.checkLogin()) {
@@ -57,6 +67,9 @@ export class PostListComponent implements OnInit {
           this.user = resp.data;
           this.postService.getPostByUserId(this.user.id).subscribe(resp => {
             this.posts = resp.data;
+            this.dataSource = new MatTableDataSource(resp.data);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
           });
         });
       }
@@ -75,11 +88,15 @@ export class PostListComponent implements OnInit {
       if (result.value) {
         this.postService.deletePost(postId).subscribe(resp => {
           if (resp.success == true) {
+            this.toastService.showSuccess(resp.data);
             this.postService.getPostByUserId(this.user.id).subscribe(resp => {
               this.posts = resp.data;
+              this.dataSource = new MatTableDataSource(resp.data);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
             });
           } else {
-            console.log("Error");
+            this.toastService.showError(resp.data);
           }
         });
       }
@@ -105,6 +122,13 @@ export class PostListComponent implements OnInit {
       });
     }
   }
+
+  searchTag(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+
 
   faTrash = faTrash;
   faPencilAlt = faPencilAlt;

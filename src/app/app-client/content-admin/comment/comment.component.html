@@ -18,17 +18,17 @@
         <mat-table [dataSource]="dataSource" matSort>
 
           <ng-container matColumnDef="number">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Số</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef>Số</mat-header-cell>
             <mat-cell *matCellDef="let row; let i = index"> {{i + 1}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="content">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Nội dung</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Nội dung</mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.content}}</mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="user">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Tác giả</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Tác giả</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <img class="box-shadow" width="25" style="border-radius: 50%;"
                    [src]="row?.user?.imageUrl ? row?.user?.imageUrl : DEFAULT_IMAGE_USER" referrerpolicy="no-referrer"/>
@@ -42,7 +42,7 @@
           </ng-container>
 
           <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Tác vụ</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Tác vụ</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <fa-icon class="text-danger cursor-pointer ml-2 font-size-12" (click)="deleteComment(row)"
                        [icon]="faTrashAlt" matTooltip="Xóa"></fa-icon>

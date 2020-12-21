@@ -63,7 +63,6 @@ public class UserEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", nullable = false)
     private Date createTime;

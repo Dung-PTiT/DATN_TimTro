@@ -66,6 +66,7 @@ public class PostController {
     @PostMapping("/post/delete")
     public DataResponse<String> delete(@RequestParam("id") Integer id) {
         try {
+            //ToDo xóa bởi admin
             UserPrincipal userPrincipal = AdvancedSecurityContextHolder.getUserPrincipal();
             Post post = postService.getById(id);
             if (post.getUser().getId().equals(userPrincipal.getId())) {
@@ -73,9 +74,9 @@ public class PostController {
                 Arrays.stream(Objects.requireNonNull(new File(fileDir.getFileDir() + id).listFiles())).forEach(File::delete);
                 Path path = FileSystems.getDefault().getPath(fileDir.getFileDir() + id);
                 Files.deleteIfExists(path);
-                return new DataResponse<>(true, "OK");
+                return new DataResponse<>(true, "Xóa bài biết thành công");
             } else {
-                return new DataResponse<>(false, "Xóa bài viết thành công");
+                return new DataResponse<>(false, "Lỗi");
             }
 
         } catch (Exception e) {

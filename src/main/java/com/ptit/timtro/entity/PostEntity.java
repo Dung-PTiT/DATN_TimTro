@@ -53,7 +53,6 @@ public class PostEntity {
     @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", nullable = false)
     private Date createTime;

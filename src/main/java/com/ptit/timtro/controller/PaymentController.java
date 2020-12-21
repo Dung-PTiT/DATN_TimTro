@@ -10,12 +10,14 @@ import com.ptit.timtro.service.PaymentService;
 import com.ptit.timtro.service.PostService;
 import com.ptit.timtro.service.WalletService;
 import com.ptit.timtro.util.DataResponse;
+import com.ptit.timtro.util.FetchEnablePostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 public class PaymentController {
@@ -47,5 +49,25 @@ public class PaymentController {
             e.printStackTrace();
             return new DataResponse<>(false, "Lỗi");
         }
+    }
+
+    @PostMapping("/payment/get-all-enable-post")
+    public DataResponse<List<Payment>> fetchEnablePost(@RequestParam("provinceId") String provinceId, @RequestParam("districtId") String districtId,
+                                                       @RequestParam("wardId") String wardId,
+                                                       @RequestParam("minPrice") String minPrice, @RequestParam("maxPrice") String maxPrice,
+                                                       @RequestParam("minAcreage") String minAcreage, @RequestParam("maxAcreage") String maxAcreage,
+                                                       @RequestParam("categoryId") String categoryId) {
+        try {
+            FetchEnablePostRequest fetchEnablePostRequest = new FetchEnablePostRequest(provinceId, districtId, wardId, minPrice, maxPrice, minAcreage, maxAcreage, categoryId);
+            List<Payment> payments = paymentService.fetchEnablePost(fetchEnablePostRequest);
+            if (payments != null) {
+                return new DataResponse<>(true, payments);
+            } else {
+                return new DataResponse<>(false, null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new DataResponse<>(false, null);
     }
 }

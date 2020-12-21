@@ -24,7 +24,6 @@ public class WalletEntity {
     @Column(name = "balance")
     private Integer balance;
 
-    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", nullable = false)
     private Date createTime;

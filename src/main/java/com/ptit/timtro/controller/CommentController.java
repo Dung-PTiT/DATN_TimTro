@@ -6,6 +6,7 @@ import com.ptit.timtro.model.Comment;
 import com.ptit.timtro.model.Post;
 import com.ptit.timtro.model.User;
 import com.ptit.timtro.security.AdvancedSecurityContextHolder;
+import com.ptit.timtro.security.Role;
 import com.ptit.timtro.security.UserPrincipal;
 import com.ptit.timtro.service.CommentService;
 import com.ptit.timtro.util.DataResponse;
@@ -51,8 +52,8 @@ public class CommentController {
             return new DataResponse<>(true, "OK");
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, "Error");
         }
+        return new DataResponse<>(false, "Error");
     }
 
     @PostMapping("/comment/delete")
@@ -60,16 +61,22 @@ public class CommentController {
         try {
             UserPrincipal userPrincipal = AdvancedSecurityContextHolder.getUserPrincipal();
             Comment comment = commentService.getById(commentId);
-            if (userPrincipal.getId().equals(comment.getUser().getId())) {
+            String role = userPrincipal.getAuthorities().stream().findFirst().get().toString();
+            if (role.equals(Role.ADMIN.getAuthorityName())) {
                 commentService.delete(commentId);
-                return new DataResponse<>(true, "OK");
+                return new DataResponse<>(true, "Đã xóa bình luận");
             } else {
-                return new DataResponse<>(false, "Error");
+                if (userPrincipal.getId().equals(comment.getUser().getId())) {
+                    commentService.delete(commentId);
+                    return new DataResponse<>(true, "Đã xóa bình luận");
+                } else {
+                    return new DataResponse<>(false, "Lỗi");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, "Error");
         }
+        return new DataResponse<>(false, "Error");
     }
 
     @PostMapping("/comment/check-exist")
@@ -78,8 +85,8 @@ public class CommentController {
             return commentDAO.checkExist(id);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
     @GetMapping("/comment/get-by-post-id")
@@ -88,8 +95,8 @@ public class CommentController {
             return new DataResponse<>(true, commentService.getByPostId(id));
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, null);
         }
+        return new DataResponse<>(false, null);
     }
 
     @GetMapping("/comment/get-by-user-id")
@@ -98,8 +105,8 @@ public class CommentController {
             return new DataResponse<>(true, commentService.getByUserId(id));
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, null);
         }
+        return new DataResponse<>(false, null);
     }
 
     @GetMapping("/comment/get-all")
@@ -108,8 +115,8 @@ public class CommentController {
             return new DataResponse<>(true, commentService.getAll());
         } catch (Exception e) {
             e.printStackTrace();
-            return new DataResponse<>(false, null);
         }
+        return new DataResponse<>(false, null);
     }
 
 }

@@ -148,6 +148,7 @@ export class PostPushDialogComponent implements OnInit {
         this.authenticationService.getCurrentUser().subscribe(resp => {
           localStorage.setItem('userCurrent', JSON.stringify(resp.data));
           location.reload();
+          this.toastService.showSuccess(resp.data);
         });
       }else{
         this.close();

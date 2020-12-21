@@ -22,4 +22,18 @@ export class PaymentService extends MainService {
         }
       });
   }
+
+  fetchEnablePost(provinceId: any, districtId: any, wardId: any,
+                  minPrice: any, maxPrice: any,
+                  minAcreage: any, maxAcreage: any,
+                  categoryId: any): Observable<any> {
+    return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/payment/get-all-enable-post', null,
+      {params: {
+          provinceId: provinceId,  districtId: districtId,  wardId: wardId,
+          minPrice: minPrice,  maxPrice: maxPrice,
+          minAcreage: minAcreage,  maxAcreage: maxAcreage,
+          categoryId: categoryId,
+        }
+      });
+  }
 }

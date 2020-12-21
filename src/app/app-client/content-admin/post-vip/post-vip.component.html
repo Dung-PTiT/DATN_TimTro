@@ -24,7 +24,25 @@
 
           <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef> Loại tin</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
+            <mat-cell *matCellDef="let row">
+              <div class="d-flex">
+                <div class="product-thumb" *ngIf="row?.vipLevel == 1">
+                  <div class="icon_vip bg-danger">HOT</div>
+                </div>
+                <div class="product-thumb" *ngIf="row?.vipLevel == 2">
+                  <div class="icon_vip bg-primary">VIP1</div>
+                </div>
+                <div class="product-thumb" *ngIf="row?.vipLevel == 3">
+                  <div class="icon_vip bg-success">VIP2</div>
+                </div>
+                <div class="product-thumb" *ngIf="row?.vipLevel == 4">
+                  <div class="icon_vip bg-secondary">VIP3</div>
+                </div>
+                <p>
+                  <span class="font-weight-bold">{{row?.name}}</span>
+                </p>
+              </div>
+            </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="dayPrice">

@@ -25,16 +25,9 @@
 <div class="container" id="href-tim-kiem-nhanh">
   <mat-card class="card-body-content-client">
     <mat-card-title class="title text-center font-weight-bold mb-5">Tìm nhà cho thuê</mat-card-title>
-    <div class="row d-flex">
-      <div class="text-center">
-        <!--          <mat-form-field appearance="outline" class="ml-3">-->
-        <!--            <mat-label>Loại</mat-label>-->
-        <!--            <mat-select>-->
-        <!--              <mat-option>-->
-        <!--              </mat-option>-->
-        <!--            </mat-select>-->
-        <!--          </mat-form-field>-->
-        <mat-form-field appearance="outline" class="ml-2">
+    <div class="d-flex">
+      <div>
+        <mat-form-field appearance="outline" class="mat-form-field-select">
           <mat-label>Tỉnh/Thành phố</mat-label>
           <mat-select #provinceSelect [formControl]="provinceCtrl" placeholder="Tỉnh/Thành phố">
             <mat-option>
@@ -45,7 +38,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="ml-2">
+        <mat-form-field appearance="outline" class="ml-2 mat-form-field-select">
           <mat-label>Quận/Huyện</mat-label>
           <mat-select #districtSelect [formControl]="districtCtrl" placeholder="Quận/Huyện">
             <mat-option>
@@ -56,7 +49,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="ml-2">
+        <mat-form-field appearance="outline" class="ml-2 mat-form-field-select">
           <mat-label>Phường/Xã</mat-label>
           <mat-select #wardSelect [formControl]="wardCtrl" placeholder="Phường/Xã">
             <mat-option>
@@ -67,94 +60,102 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="ml-2">
+        <mat-form-field appearance="outline" class="ml-2 mat-form-field-select">
           <mat-label>Khoảng giá</mat-label>
-          <mat-select>
-            <mat-option value="1">1</mat-option>
-            <mat-option value="2">2</mat-option>
-            <mat-option value="3">3</mat-option>
-            <mat-option value="4">4</mat-option>
+          <mat-select [formControl]="priceSearchCtrl">
+            <mat-option *ngFor="let price of priceRange" [value]="price">{{price.name}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="ml-2">
+        <mat-form-field appearance="outline" class="ml-2 mat-form-field-select">
           <mat-label>Diện tích</mat-label>
-          <mat-select>
-            <mat-option value="1">Dưới 1 triệu</mat-option>
-            <mat-option value="2">Từ 1 triệu đến 2 triệu</mat-option>
-            <mat-option value="3">Từ 2 triệu đến 3 triệu</mat-option>
-            <mat-option value="4">Lớn hơn 3 triệu</mat-option>
+          <mat-select [formControl]="acreageSearchCtrl">
+            <mat-option *ngFor="let acreage of acreageRange" [value]="acreage">{{acreage.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="ml-2 mat-form-field-select">
+          <mat-label>Loại phòng</mat-label>
+          <mat-select [formControl]="categorySearchCtrl">
+            <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <button mat-stroked-button matTooltip="Tìm kiếm" style="height: 50px;margin-top: 4px;"
-              class="text-white bg-color-feb800 ml-2">
-        <fa-icon [icon]="faSearch"></fa-icon>
-      </button>
+      <div>
+        <button mat-stroked-button matTooltip="Tìm kiếm" style="height: 50px;margin-top: 4px;"
+                (click)="btnSearchClick()"
+                class="text-white bg-color-feb800 ml-2">
+          <fa-icon [icon]="faSearch"></fa-icon>
+        </button>
+      </div>
     </div>
   </mat-card>
   <div class="row">
-    <div class="col-12">
-<!--      <agm-map [fullscreenControl]="true" [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude"-->
-<!--               [zoom]="13">-->
-<!--        <agm-marker [latitude]="markerInfo.latitude"-->
-<!--                    [longitude]="markerInfo.longitude"-->
-<!--                    [iconUrl]="markerInfo.icon">-->
-<!--        </agm-marker>-->
-<!--      </agm-map>-->
-    </div>
     <div class="col-12 mt-3">
       <p class="title text-start font-weight-bold">Phòng trọ sạch đẹp > Giá hợp lý > Đầy đủ tiện nghi</p>
     </div>
     <div class="col-12 col-lg-9">
-      <div class="row">
-        <div class="col-sm-6 col-lg-4 mt-3" *ngFor="let post of posts">
+      <div class="row" *ngIf="payments?.length >0; else null_result">
+        <div class="col-sm-6 col-lg-4 mt-3" *ngFor="let payment of payments">
           <div class="card">
             <div class="product-thumb">
-              <a [routerLink]="['post', post?.id]">
+              <a [routerLink]="['post', payment?.post?.id]">
                 <img
-                  [src]="post.images[0]?.imageUrl ? (PREFIX_URL + '/' + post?.id + '/' +  post?.images[0]?.imageUrl ) : (DEFAULT_IMAGE)">
+                  [src]="payment?.post?.images[0]?.imageUrl ? (IMAGE_URL + '/' + payment?.post?.id + '/' +  payment?.post?.images[0]?.imageUrl ) : (DEFAULT_IMAGE)">
               </a>
-              <div class="icon_vip" style="background-color:#E13427;">hot</div>
+              <div>
+                <div *ngIf="(payment?.status == true) && (payment?.postVip?.vipLevel == 1)">
+                  <div class="icon_vip bg-danger">HOT</div>
+                </div>
+                <div *ngIf="(payment?.status == true) && (payment?.postVip?.vipLevel == 2)">
+                  <div class="icon_vip bg-primary">VIP1</div>
+                </div>
+                <div *ngIf="(payment?.status == true) && (payment?.postVip?.vipLevel == 3)">
+                  <div class="icon_vip bg-success">VIP2</div>
+                </div>
+                <div *ngIf="(payment?.status == true) && (payment?.postVip?.vipLevel == 4)">
+                  <div class="icon_vip bg-secondary">VIP3</div>
+                </div>
+              </div>
               <span class="product-media pl-1 pr-1" matTooltip="Ảnh" matTooltipPosition="left">
-                {{post?.images?.length}}
+                {{payment?.post?.images?.length}}
                 <fa-icon [icon]="faImage"></fa-icon>
               </span>
             </div>
             <div class="home-product-bound">
               <div class="product-title">
-                <a [routerLink]="['post', post?.id]" class="font-weight-bold text-decoration-none">
-                  {{post?.title}}
+                <a [routerLink]="['post', payment?.post?.id]" class="font-weight-bold text-decoration-none">
+                  {{payment?.post?.title}}
                 </a>
               </div>
               <div class="product-price mt-1 mb-1">
                 <fa-icon [icon]="faDollarSign" class="mr-1 text-color-feb800" matTooltip="Giá"></fa-icon>
-                {{post?.price | number}} triệu/tháng
+                {{payment?.post?.price | number}} triệu/tháng
               </div>
               <span class="divide-dot">·</span>
               <div class="product-m2 mt-1 mb-1">{{post?.acreage}} m2</div>
               <div class="product-address mt-1 mb-1">
                 <fa-icon [icon]="faMapMarkerAlt" class="mr-1 text-danger"></fa-icon>
                 <span>
-                  {{post?.address}}, {{post?.ward?.prefix}} {{post?.ward?.name}}
-                  {{post?.district?.prefix}} {{post?.district?.name}}, {{post?.province?.name}}
+                  {{payment?.post?.address}}, {{payment?.post?.ward?.prefix}} {{payment?.post?.ward?.name}}
+                  {{payment?.post?.district?.prefix}} {{payment?.post?.district?.name}}
+                  , {{payment?.post?.province?.name}}
                 </span>
               </div>
               <div class="product-date mt-1 mb-1">
                 <fa-icon [icon]="faCalendarMinus" class="mr-1"></fa-icon>
-                <span [matTooltip]="post?.createTime | date: 'hh:mm a dd-MM-yyyy'" matTooltipPosition="right">
-                   {{timespan(post?.createTime)}}
+                <span [matTooltip]="payment?.post?.createTime | date: 'hh:mm a dd-MM-yyyy'" matTooltipPosition="right">
+                   {{timespan(payment?.post?.createTime)}}
                 </span>
               </div>
               <button mat-icon-button class="product-favorite"
-                      *ngIf="postIdFavorites.includes(post?.id);else remove_favorite"
-                      (click)="createFavorite(post?.id)">
+                      *ngIf="postIdFavorites.includes(payment?.post?.id);else remove_favorite"
+                      (click)="createFavorite(payment?.post?.id)">
                 <fa-icon class="text-danger" [icon]="faHeartSolid"
                          matTooltip="Bỏ quan tâm" matTooltipPosition="left">
                 </fa-icon>
               </button>
               <ng-template #remove_favorite>
                 <button mat-icon-button class="product-favorite"
-                        (click)="createFavorite(post?.id)">
+                        (click)="createFavorite(payment?.post?.id)">
                   <fa-icon class="text-dark" [icon]="faHeartRegular"
                            matTooltip="Thêm quan tâm" matTooltipPosition="left">
                   </fa-icon>
@@ -164,6 +165,10 @@
           </div>
         </div>
       </div>
+      <ng-template #null_result>
+        <p class="text-danger">Không có bài viết cần tìm</p>
+        <button mat-button class="text-white button-save line-height-25" (click)="btnShowAllPosts()">Xem danh sách hiện có</button>
+      </ng-template>
     </div>
     <div class="col-12 col-lg-3 mt-2">
       <div class="card">

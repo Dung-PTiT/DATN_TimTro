@@ -12,6 +12,8 @@ import {CookieService} from "ngx-cookie-service";
 import {AppConfig} from "../../util/app-config";
 import {User} from "../../model/user";
 import {HttpClient} from "@angular/common/http";
+import {MatDialog} from "@angular/material/dialog";
+import {SuccessLogoutDialogComponent} from "./success-logout-dialog/success-logout-dialog.component";
 
 @Component({
   selector: 'app-header-client',
@@ -23,7 +25,8 @@ export class HeaderClientComponent implements OnInit {
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
               private cookieService: CookieService,
-              private http: HttpClient) {
+              private http: HttpClient,
+              private matDialog: MatDialog) {
   }
 
   currentUser: User;
@@ -59,9 +62,10 @@ export class HeaderClientComponent implements OnInit {
     localStorage.removeItem('userCurrent');
     localStorage.removeItem('emailForgetAccount');
 
-    setTimeout(function () {
-      location.replace('/');
-    }, 1000);
+    const dialogRef = this.matDialog.open(SuccessLogoutDialogComponent, {
+      width: 'auto',
+      height: 'auto'
+    });
 
   }
 

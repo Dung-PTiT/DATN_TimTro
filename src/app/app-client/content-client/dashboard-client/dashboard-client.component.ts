@@ -21,6 +21,10 @@ import {Ward} from "../../../model/address/Ward";
 import {MatSelect} from "@angular/material/select";
 import {AddressService} from "../../../service/address.service";
 import {take, takeUntil} from "rxjs/operators";
+import {Category} from "../../../model/category";
+import {CategoryService} from "../../../service/category.service";
+import {Payment} from "../../../model/payment";
+import {PaymentService} from "../../../service/payment.service";
 
 @Component({
   selector: 'app-dashboard-client',
@@ -30,16 +34,9 @@ import {take, takeUntil} from "rxjs/operators";
 export class DashboardClientComponent implements OnInit {
 
   filteredOptions: Observable<string[]>;
-  faSearch = faSearch;
-  faImage = faImage;
-  faHeartRegular = faHeartRegular;
-  faHeartSolid = faHeartSolid;
-  faDollarSign = faDollarSign;
-  faMapMarkerAlt = faMapMarkerAlt;
-  faCalendarMinus = faCalendarMinus;
   searchForm: FormGroup;
   markerInfo: MarkerInfo;
-  posts: Array<Post>;
+  payments: Array<Payment>;
   user: User;
   favorites: Array<Favorite>;
   postIdFavorites: Number[] = [];
@@ -49,10 +46,13 @@ export class DashboardClientComponent implements OnInit {
   districtList: District[];
   ward: Ward;
   wardList: Ward[];
+  category: Category;
+  categories: Array<Category>;
+  priceRange: any;
+  acreageRange: any;
 
-  PREFIX_URL = AppConfig.PREFIX_URL;
-  CONTEXT_URL: string = "";
-  DEFAULT_IMAGE: string = "./assets/images/logo3.png";
+  IMAGE_URL = AppConfig.IMAGE_URL;
+  DEFAULT_IMAGE = AppConfig.DEFAULT_IMAGE;
 
   public provinceCtrl: FormControl = new FormControl();
   public provinceFilterCtrl: FormControl = new FormControl();
@@ -72,24 +72,73 @@ export class DashboardClientComponent implements OnInit {
   @ViewChild('wardSelect') wardSelect: MatSelect;
   private _onDestroyWard = new Subject<void>();
 
+  public categorySearchCtrl: FormControl = new FormControl();
+  public priceSearchCtrl: FormControl = new FormControl();
+  public acreageSearchCtrl: FormControl = new FormControl();
+
   constructor(private addressService: AddressService,
               private postService: PostService,
               private imageService: ImageService,
               private authenticationService: AuthenticationService,
-              private favoriteService: FavoriteService) {
+              private favoriteService: FavoriteService,
+              private categoryService: CategoryService,
+              private paymentService: PaymentService) {
     this.searchForm = new FormGroup({
       searchInp: new FormControl()
     });
-    this.postService.getAll().subscribe(resp => {
-      this.posts = resp.data;
+    this.paymentService.fetchEnablePost(null, null, null, null, null, null, null, null).subscribe(resp => {
+      this.payments = resp.data;
     });
-    this.PREFIX_URL = this.PREFIX_URL + this.CONTEXT_URL + "/image/get?imageUrl=";
+    this.categoryService.getAll().subscribe(resp => {
+      this.categories = resp.data;
+    });
+    this.priceRange = [
+      {
+        value: "0-1000000",
+        name: "Nhỏ hơn 1 triệu"
+      },
+      {
+        value: "1000000-3000000",
+        name: "1 triệu -> 3 triệu"
+      },
+      {
+        value: "3000000-5000000",
+        name: "3 triệu -> 5 triệu"
+      },
+      {
+        value: "5000000-10000000",
+        name: "5 triệu -> 10 triệu"
+      },
+      {
+        value: "10000000-100000000",
+        name: "Lớn hơn 10 triệu"
+      }
+    ];
+
+    this.acreageRange = [
+      {
+        value: "0-20",
+        name: "Nhỏ hơn 20m2"
+      },
+      {
+        value: "20-30",
+        name: "20m2 -> 30m2"
+      },
+      {
+        value: "30-50",
+        name: "30m2 -> 50m2"
+      },
+      {
+        value: "50-200",
+        name: "Lớn hơn 50m2"
+      }
+    ];
   }
 
   ngOnInit() {
     this.addressService.getAllProvinces().subscribe(resp => {
       this.provinceList = resp.data;
-      this.provinceCtrl.setValue(this.provinceList[1]);
+      // this.provinceCtrl.setValue(this.provinceList[1]);
       this.filteredProvinces.next(this.provinceList.slice());
       this.provinceFilterCtrl.valueChanges
         .pipe(takeUntil(this._onDestroyProvince))
@@ -180,6 +229,58 @@ export class DashboardClientComponent implements OnInit {
     return moment(time).startOf("second").fromNow();
   }
 
+
+  btnSearchClick() {
+    let provinceId, districtId, wardId, minPrice, maxPrice, minAcreage, maxAcreage, categoryId;
+
+    if (this.provinceCtrl.value == null) {
+      provinceId = null;
+    } else {
+      provinceId = this.provinceCtrl.value.id;
+    }
+    if (this.districtCtrl.value == null) {
+      districtId = null;
+    } else {
+      districtId = this.districtCtrl.value.id;
+    }
+    if (this.wardCtrl.value == null) {
+      wardId = null;
+    } else {
+      wardId = this.wardCtrl.value.id;
+    }
+    if (this.priceSearchCtrl.value == null) {
+      minPrice = null;
+      maxPrice = null;
+    } else {
+      minPrice = this.priceSearchCtrl.value?.value.split("-", 2)[0];
+      maxPrice = this.priceSearchCtrl.value?.value.split("-", 2)[1];
+    }
+    if (this.acreageSearchCtrl.value == null) {
+      minAcreage = null;
+      maxAcreage = null;
+    } else {
+      minAcreage = this.acreageSearchCtrl.value?.value.split("-", 2)[0];
+      maxAcreage = this.acreageSearchCtrl.value?.value.split("-", 2)[1];
+    }
+    if (this.categorySearchCtrl.value == null) {
+      categoryId = null;
+    } else {
+      categoryId = this.categorySearchCtrl.value.id;
+    }
+
+    this.paymentService.fetchEnablePost(provinceId, districtId, wardId,
+      minPrice, maxPrice, minAcreage, maxAcreage, categoryId).subscribe(resp => {
+      this.payments = resp.data;
+    });
+  }
+
+  btnShowAllPosts(){
+    this.paymentService.fetchEnablePost(null, null, null, null, null, null, null, null).subscribe(resp => {
+      this.payments = resp.data;
+    });
+  }
+
+
   // Search Province
   private setInitialValue() {
     this.filteredProvinces
@@ -256,6 +357,14 @@ export class DashboardClientComponent implements OnInit {
       this.wardList.filter(ward => ward.name.toLowerCase().indexOf(search) > -1)
     );
   }
+
+  faSearch = faSearch;
+  faImage = faImage;
+  faHeartRegular = faHeartRegular;
+  faHeartSolid = faHeartSolid;
+  faDollarSign = faDollarSign;
+  faMapMarkerAlt = faMapMarkerAlt;
+  faCalendarMinus = faCalendarMinus;
 }
 
 export class MarkerInfo {

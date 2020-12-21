@@ -43,6 +43,7 @@ import {ManageActionModule} from "./content-client/manage-action/manage-action.m
 import {MatBadgeModule} from "@angular/material/badge";
 import {ContentAdminComponent } from './content-admin/content-admin.component';
 import {ContentAdminModule} from "./content-admin/content-admin.module";
+import { SuccessLogoutDialogComponent } from './header-client/success-logout-dialog/success-logout-dialog.component';
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import {ContentAdminModule} from "./content-admin/content-admin.module";
     RegisterComponent,
     ManageActionComponent,
     ContentAdminComponent,
+    SuccessLogoutDialogComponent,
   ],
   imports: [
     CommonModule,

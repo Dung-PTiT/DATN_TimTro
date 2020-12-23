@@ -37,7 +37,7 @@ public class PaymentEntity {
     @Column(name = "status")
     private Boolean status;
 
-    @Column(name = "description", columnDefinition = "blob")
+    @Column(name = "description", columnDefinition = "text")
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)

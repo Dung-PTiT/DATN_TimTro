@@ -40,7 +40,7 @@ public class UserEntity {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "image_url", columnDefinition = "blob")
+    @Column(name = "image_url", columnDefinition = "text")
     private String imageUrl;
 
     @Column(name = "email_verified", nullable = false)

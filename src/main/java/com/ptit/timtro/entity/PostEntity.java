@@ -26,7 +26,7 @@ public class PostEntity {
     @Column(name = "title", nullable = false, length = 255)
     private String title;
 
-    @Column(name = "content", columnDefinition = "blob")
+    @Column(name = "content", columnDefinition = "text")
     private String content;
 
     @Column(name = "price", nullable = false)

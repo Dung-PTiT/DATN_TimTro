@@ -34,7 +34,7 @@ public class PostVipEntity {
     @Column(name = "month_price", nullable = false)
     private Integer monthPrice;
 
-    @Column(name = "description", columnDefinition = "blob")
+    @Column(name = "description", columnDefinition = "text")
     private String description;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "postVipEntity")

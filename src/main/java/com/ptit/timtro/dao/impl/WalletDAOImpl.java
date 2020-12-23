@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -37,6 +38,11 @@ public class WalletDAOImpl implements WalletDAO {
     @Override
     public WalletEntity getById(Integer id) {
         return entityManager.createQuery("select w from WalletEntity w where w.id = " + id + "", WalletEntity.class).getSingleResult();
+    }
+
+    @Override
+    public List<WalletEntity> getAll() {
+        return entityManager.createQuery("select w from WalletEntity w", WalletEntity.class).getResultList();
     }
 
 }

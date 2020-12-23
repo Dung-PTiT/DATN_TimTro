@@ -20,7 +20,7 @@ public class CommentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "content", nullable = false, columnDefinition = "blob")
+    @Column(name = "content", nullable = false, columnDefinition = "text")
     private String content;
 
     @CreationTimestamp

@@ -1,6 +1,13 @@
 .mat-table {
   overflow: auto;
+  height: auto;
   border: 1px solid #dddddd;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
 }
 
 .search-input {
@@ -18,16 +25,16 @@
   flex: 0 0 10%;
 }
 
-.mat-column-content {
-  flex: 0 0 40%;
-}
-
-.mat-column-post {
-  flex: 0 0 25%;
+.mat-column-balance {
+  flex: 0 0 20%;
 }
 
 .mat-column-createTime {
-  flex: 0 0 15%;
+  flex: 0 0 30%;
+}
+
+.mat-column-user {
+  flex: 0 0 30%;
 }
 
 .mat-column-action {

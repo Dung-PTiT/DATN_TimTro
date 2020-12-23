@@ -131,12 +131,12 @@
                 {{payment?.post?.price | number}} triệu/tháng
               </div>
               <span class="divide-dot">·</span>
-              <div class="product-m2 mt-1 mb-1">{{post?.acreage}} m2</div>
+              <div class="product-m2 mt-1 mb-1">{{payment?.post?.acreage}} m2</div>
               <div class="product-address mt-1 mb-1">
                 <fa-icon [icon]="faMapMarkerAlt" class="mr-1 text-danger"></fa-icon>
                 <span>
                   {{payment?.post?.address}}, {{payment?.post?.ward?.prefix}} {{payment?.post?.ward?.name}}
-                  {{payment?.post?.district?.prefix}} {{payment?.post?.district?.name}}
+                  , {{payment?.post?.district?.prefix}} {{payment?.post?.district?.name}}
                   , {{payment?.post?.province?.name}}
                 </span>
               </div>

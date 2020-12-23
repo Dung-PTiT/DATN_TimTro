@@ -4,16 +4,9 @@
   border: 1px solid #dddddd;
 }
 
-.example-container {
-  display: flex;
-  flex-direction: column;
-  min-width: 300px;
-}
-
-.example-header {
+.search-input {
   display: flex;
   justify-content: space-between;
-  min-height: 64px;
   align-items: center;
 }
 

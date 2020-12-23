@@ -1,59 +1,60 @@
 <div style="margin: 10px 10px 0 10px">
   <div class="d-flex align-items-center justify-content-between">
-    <div><p>Quản lý chuyên mục ({{categories?.length}})</p></div>
+    <div><h6>Quản lý chuyên mục</h6></div>
+    <span>Tổng số chuyên mục: {{categories?.length}}</span>
   </div>
   <mat-divider></mat-divider>
   <div>
-    <div class="mt-1">
-      <div class="example-header">
+    <div class="mt-3">
+      <div class="d-flex align-items-center justify-content-between">
         <button mat-button (click)="openCreateCategoryDialog()"
                 class="p-0 pl-2 pr-2 float-right text-white button-save font-size-13 line-height-25">
           <fa-icon [icon]="faPlusCircle"></fa-icon>
           <span class="ml-2">Thêm</span>
         </button>
-        <mat-form-field class="w-20">
-          <mat-label>Tìm kiếm</mat-label>
-          <input matInput class="font-size-13"
+        <div class="search-input">
+          <span class="font-size-13">Tìm kiếm: </span>
+          <input class="form-control font-size-13 w-70"
                  (keyup)="searchTag($event.target.value)" placeholder="Nhập từ khóa cần tìm">
-        </mat-form-field>
+        </div>
       </div>
+    </div>
 
-      <div class="example-container">
+    <div class="mt-1">
 
-        <mat-table [dataSource]="dataSource" matSort>
+      <mat-table [dataSource]="dataSource" matSort>
 
-          <ng-container matColumnDef="number">
-            <mat-header-cell *matHeaderCellDef>Số</mat-header-cell>
-            <mat-cell *matCellDef="let row; let i = index"> {{i + 1}} </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="number">
+          <mat-header-cell *matHeaderCellDef>Số</mat-header-cell>
+          <mat-cell *matCellDef="let row; let i = index"> {{i + 1}} </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef> Tên</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef> Tên</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.name}}</mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef> Mô tả</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef> Mô tả</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.description}} </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef> Tác vụ</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer font-size-12"
-                       matTooltip="Sửa" (click)="openUpdateCategoryDialog(row)">
-              </fa-icon>
-              <fa-icon class="text-danger cursor-pointer ml-2 font-size-12" (click)="deleteTag(row)"
-                       [icon]="faTrashAlt" matTooltip="Xóa"></fa-icon>
-            </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef> Tác vụ</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer font-size-12"
+                     matTooltip="Sửa" (click)="openUpdateCategoryDialog(row)">
+            </fa-icon>
+            <fa-icon class="text-danger cursor-pointer ml-2 font-size-12" (click)="deleteTag(row)"
+                     [icon]="faTrashAlt" matTooltip="Xóa"></fa-icon>
+          </mat-cell>
+        </ng-container>
 
-          <mat-header-row *matHeaderRowDef="displayedCategory"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedCategory;">
-          </mat-row>
-        </mat-table>
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-      </div>
+        <mat-header-row *matHeaderRowDef="displayedCategory"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedCategory;">
+        </mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
   </div>
 </div>

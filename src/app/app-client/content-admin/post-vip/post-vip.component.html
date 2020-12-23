@@ -1,19 +1,20 @@
 <div style="margin: 10px 10px 0 10px">
   <div class="d-flex align-items-center justify-content-between">
-    <div><p>Quản lý gói dịch vụ ({{postVips?.length}})</p></div>
+    <div><h6>Quản lý gói dịch vụ</h6></div>
+    <span>Tổng số gói dịch vụ: {{postVips?.length}}</span>
   </div>
   <mat-divider></mat-divider>
   <div>
     <div class="mt-1">
-      <div class="example-header">
-        <mat-form-field class="w-20">
-          <mat-label>Tìm kiếm</mat-label>
-          <input matInput class="font-size-13"
+      <div class="mt-3">
+        <div class="search-input">
+          <span class="font-size-13">Tìm kiếm: </span>
+          <input class="ml-1 form-control font-size-13 w-15"
                  (keyup)="searchTag($event.target.value)" placeholder="Nhập từ khóa cần tìm">
-        </mat-form-field>
+        </div>
       </div>
 
-      <div class="example-container">
+      <div class="mt-1">
 
         <mat-table [dataSource]="dataSource" matSort>
 

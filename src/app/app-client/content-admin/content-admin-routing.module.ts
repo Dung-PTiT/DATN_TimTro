@@ -8,8 +8,10 @@ import {Favorite} from "../../model/favorite";
 import {PaymentComponent} from "./payment/payment.component";
 import {PostComponent} from "./post/post.component";
 import {PostVipComponent} from "./post-vip/post-vip.component";
-import {UserComponent} from "./user/user.component";
 import {CommentComponent} from "./comment/comment.component";
+import {WalletComponent} from "./wallet/wallet.component";
+import {UserPageComponent} from "./user/user-page/user-page.component";
+import {UserComponent} from "./user/user.component";
 
 const routes: Routes = [
   {
@@ -24,7 +26,9 @@ const routes: Routes = [
       {path: "post-vip", component: PostVipComponent},
       {path: "tag", component: TagComponent},
       {path: "user", component: UserComponent},
-      {path: "comment", component: CommentComponent}
+      {path: "user/:id", component: UserPageComponent},
+      {path: "comment", component: CommentComponent},
+      {path: "wallet", component: WalletComponent}
     ]
   },
 ];

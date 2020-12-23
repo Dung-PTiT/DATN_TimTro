@@ -13,9 +13,6 @@
         <a href="" class="mat-toolbar-title ml-3" [routerLink]="['/service-price']">
           <span>Bảng giá</span>
         </a>
-        <a href="" class="mat-toolbar-title ml-3">
-          <span>Hướng dẫn</span>
-        </a>
         <div ngbDropdown container="body" class="cursor-pointer">
           <span ngbDropdownToggle class="ml-4 mat-toolbar-title">Đăng nhập | Đăng ký</span>
           <div ngbDropdownMenu class="mt-2">
@@ -49,7 +46,7 @@
             </button>
             <button ngbDropdownItem [routerLink]="['/manage/post/list']">
               <fa-icon class="mr-2" [icon]="faListUl"></fa-icon>
-              Quản lý bài đăng
+              Quản lý bài viết
             </button>
             <button ngbDropdownItem [routerLink]="['/manage/comment']">
               <fa-icon class="mr-2" [icon]="faComments"></fa-icon>

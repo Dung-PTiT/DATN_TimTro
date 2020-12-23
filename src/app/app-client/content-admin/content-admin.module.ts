@@ -33,10 +33,12 @@ import {MatCardModule} from "@angular/material/card";
 import {MatSelectModule} from "@angular/material/select";
 import { UserUpdateDialogComponent } from './user/user-update-dialog/user-update-dialog.component';
 import {MatRadioModule} from "@angular/material/radio";
+import { WalletComponent } from './wallet/wallet.component';
+import { UserPageComponent } from './user/user-page/user-page.component';
 
 
 @NgModule({
-  declarations: [DashboardAdminComponent, TagComponent, UserComponent, PostComponent, CategoryComponent, PostVipComponent, CommentComponent, FavoriteComponent, PaymentComponent, TagCreateDialogComponent, TagUpdateDialogComponent, CategoryCreateDialogComponent, CategoryUpdateDialogComponent, PostVipUpdateDialogComponent, UserCreateDialogComponent, UserUpdateDialogComponent],
+  declarations: [DashboardAdminComponent, TagComponent, UserComponent, PostComponent, CategoryComponent, PostVipComponent, CommentComponent, FavoriteComponent, PaymentComponent, TagCreateDialogComponent, TagUpdateDialogComponent, CategoryCreateDialogComponent, CategoryUpdateDialogComponent, PostVipUpdateDialogComponent, UserCreateDialogComponent, UserUpdateDialogComponent, WalletComponent, UserPageComponent],
   imports: [
     CommonModule,
     ContentAdminRoutingModule,

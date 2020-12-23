@@ -154,7 +154,7 @@ export class UserComponent implements OnInit {
   }
 
   viewInfoUser(user: User) {
-    this.router.navigate(['/user/' + user.id]);
+    this.router.navigate(['/admin/user/' + user.id]);
   }
 
   searchTag(filterValue: string) {

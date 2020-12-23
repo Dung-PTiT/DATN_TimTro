@@ -21,6 +21,8 @@ import { TopUpComponent } from './top-up/top-up.component';
 import { UserUpdateDialogComponent } from './user-update/user-update-dialog/user-update-dialog.component';
 import {MatRadioModule} from "@angular/material/radio";
 import {MatSelectModule} from "@angular/material/select";
+import {MatSortModule} from "@angular/material/sort";
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import {MatSelectModule} from "@angular/material/select";
     ReactiveFormsModule,
     MatRadioModule,
     ButtonsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSortModule,
+    MatPaginatorModule
   ]
 })
 export class ManageActionModule {

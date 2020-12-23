@@ -226,7 +226,7 @@
         <div *ngIf="comments?.length != 0; else nullCommentBlock" class="mt-3 col-12">
           <div class="col-12 mt-1" *ngFor="let comment of comments">
             <div class="user-comment" *ngIf="comment?.user?.imageUrl != ''; else nullImageUserBlock">
-              <img [src]="comment?.user?.imageUrl" width="25"
+              <img [src]="comment?.user?.imageUrl" width="25" referrerpolicy="no-referrer"
                    style="border-radius: 10px; box-shadow: 0 2px 10px 0 rgba(0, 0, 0, .3);">
             </div>
 
@@ -284,7 +284,7 @@
             <div>
               <div>
                 <div class="profile-image">
-                  <img width="50" [src]="post?.user?.imageUrl" (click)="viewUserPage(post?.user?.id)"
+                  <img width="50" [src]="post?.user?.imageUrl" (click)="viewUserPage(post?.user?.id)" referrerpolicy="no-referrer"
                        class="cursor-pointer" matTooltip="Bấm xem trang cá nhân"
                        style="border-radius: 30px"/>
                 </div>

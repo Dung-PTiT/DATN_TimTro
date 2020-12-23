@@ -1,5 +1,5 @@
 <div class="row m-2 mt-3">
-  <div class="col-2" style="border: 1px solid #e5e5e5; border-radius: 5px; height: 550px">
+  <div class="col-2" style="border: 1px solid #e5e5e5; border-radius: 5px; height: auto">
     <div class="mt-3">
       <div class="profile-user">
         <div class="profile-info">
@@ -42,7 +42,7 @@
           <fa-icon [icon]="faList"></fa-icon>
         </div>
         <div class="ml-3">
-          <span>Quản lý bài đăng</span>
+          <span>Quản lý bài viết</span>
         </div>
       </div>
     </div>
@@ -92,17 +92,27 @@
           <fa-icon [icon]="faDollarSign"></fa-icon>
         </div>
         <div class="ml-3">
-          <span>Quản lý nạp tiền</span>
+          <span>Bài viết đã đăng</span>
         </div>
       </div>
     </div>
     <div class="mt-2">
-      <div class="side-bar-left-item" [routerLink]="['']">
+      <div class="side-bar-left-item" [routerLink]="['/admin/wallet']">
         <div>
-          <fa-icon [icon]="faMoneyCheckAlt"></fa-icon>
+          <fa-icon [icon]="faDollarSign"></fa-icon>
         </div>
         <div class="ml-3">
-          <span>Thống kê</span>
+          <span>Quản lý ví</span>
+        </div>
+      </div>
+    </div>
+    <div class="mt-2">
+      <div class="side-bar-left-item" [routerLink]="['/admin/wallet']">
+        <div>
+          <fa-icon [icon]="faDollarSign"></fa-icon>
+        </div>
+        <div class="ml-3">
+          <span>Quản lý ví</span>
         </div>
       </div>
     </div>

@@ -1,15 +1,18 @@
 <div style="margin: 10px 10px 0 10px">
   <div class="d-flex align-items-center mb-2 justify-content-between">
-    <div><h6 class="mb-1">Quản lý bài đăng ({{posts?.length ? posts.length : 0}})</h6></div>
-    <div class="example-header">
-      <span class="font-size-13">Tìm kiếm: </span>
-      <input type="text" class="form-control font-size-13 ml-1 w-70"
-             (keyup)="searchTag($event.target.value)" placeholder="Nhập từ khóa cần tìm">
-    </div>
+    <div><h6 class="mb-1">Quản lý bài viết</h6></div>
+    <div><span>Tổng số bài viết: {{posts?.length}}</span></div>
   </div>
   <mat-divider></mat-divider>
-  <div class="mt-3">
-    <div class="example-container">
+  <div class="mt-1">
+    <div class="mt-3">
+      <div class="search-input">
+        <span class="font-size-13">Tìm kiếm: </span>
+        <input class="ml-1 form-control font-size-13 w-15"
+               (keyup)="searchTag($event.target.value)" placeholder="Nhập từ khóa cần tìm">
+      </div>
+    </div>
+    <div class="mt-1">
       <mat-table *ngIf="posts?.length != 0;else null_table" matSort
                  [dataSource]="dataSource" class="box-shadow text-center w-100">
 
@@ -79,7 +82,7 @@
         </ng-container>
 
         <ng-container matColumnDef="comment">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Bình luận</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Bình luận</mat-header-cell>
           <mat-cell *matCellDef="let post">
             {{post?.comments?.length != 0 ? post?.comments?.length : 0 }}
             <fa-icon [icon]="faComments" class="ml-1 text-info"></fa-icon>
@@ -87,7 +90,7 @@
         </ng-container>
 
         <ng-container matColumnDef="favorite">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Quan tâm</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>Quan tâm</mat-header-cell>
           <mat-cell *matCellDef="let post">
             {{post?.favorites?.length != 0 ? post?.favorites?.length : 0}}
             <fa-icon [icon]="faHeart" class="ml-1 text-danger"></fa-icon>
@@ -95,7 +98,7 @@
         </ng-container>
 
         <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Trạng thái</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef> Trạng thái</mat-header-cell>
           <mat-cell *matCellDef="let post">
             <div *ngIf="(post?.status == true);else post_block" class="ml-2">
               <fa-icon [icon]="faLockOpen" class="text-success font-size-12" matTooltip="Đang đăng"></fa-icon>

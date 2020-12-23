@@ -1,12 +1,20 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {User} from "../../../../model/user";
+import {Post} from "../../../../model/post";
+import {AppConfig} from "../../../../util/app-config";
 import {ActivatedRoute, Params, Router} from "@angular/router";
-import {PostService} from "../../../service/post.service";
-import {AuthenticationService} from "../../../service/authentication.service";
-import {UserService} from "../../../service/user.service";
-import {Post} from "../../../model/post";
-import {User} from "../../../model/user";
-import {faComments, faEllipsisV, faEnvelope, faHeart, faPhone} from "@fortawesome/free-solid-svg-icons";
-import {AppConfig} from "../../../util/app-config";
+import {PostService} from "../../../../service/post.service";
+import {UserService} from "../../../../service/user.service";
+import {AuthenticationService} from "../../../../service/authentication.service";
+import {
+  faComments,
+  faEllipsisV,
+  faEnvelope,
+  faHeart,
+  faLock,
+  faLockOpen,
+  faPhone
+} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-user-page',
@@ -28,8 +36,7 @@ export class UserPageComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private postService: PostService,
               private userService: UserService,
-              private authenticationService: AuthenticationService) {
-  }
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params: Params) => {
@@ -59,4 +66,6 @@ export class UserPageComponent implements OnInit {
   faComments = faComments;
   faEllipsisV = faEllipsisV;
   faHeart = faHeart;
+  faLock = faLock;
+  faLockOpen = faLockOpen;
 }

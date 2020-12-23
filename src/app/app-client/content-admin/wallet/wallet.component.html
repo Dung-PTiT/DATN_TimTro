@@ -1,7 +1,9 @@
 <div style="margin: 10px 10px 0 10px">
-  <div class="d-flex align-items-center justify-content-between">
-    <div><h6>Quản lý bình luận</h6></div>
-    <span>Tổng số bình luận: {{comments?.length}}</span>
+  <div>
+    <div class="d-flex align-items-center mb-2 justify-content-between">
+      <div><h6>Quản lý ví</h6></div>
+      <span>Tổng số ví: {{wallets?.length}}</span>
+    </div>
   </div>
   <mat-divider></mat-divider>
   <div>
@@ -11,7 +13,6 @@
         <input class="ml-1 form-control font-size-13 w-15"
                (keyup)="searchTag($event.target.value)" placeholder="Nhập từ khóa cần tìm">
       </div>
-
       <div class="mt-1">
 
         <mat-table [dataSource]="dataSource" matSort>
@@ -21,35 +22,38 @@
             <mat-cell *matCellDef="let row; let i = index"> {{i + 1}} </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="content">
-            <mat-header-cell *matHeaderCellDef> Nội dung</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.content}}</mat-cell>
-          </ng-container>
-
           <ng-container matColumnDef="user">
-            <mat-header-cell *matHeaderCellDef> Tác giả</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Chủ nhân</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <img class="box-shadow" width="25" style="border-radius: 50%;"
                    [src]="row?.user?.imageUrl ? row?.user?.imageUrl : DEFAULT_IMAGE_USER" referrerpolicy="no-referrer"/>
-              <span class="ml-2">{{row?.user?.name}}</span>
+              <span class="ml-2">{{row.user.name}}</span>
             </mat-cell>
           </ng-container>
 
+          <ng-container matColumnDef="balance">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>Số tiền (đồng)</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.balance | number}}</mat-cell>
+          </ng-container>
+
           <ng-container matColumnDef="createTime">
-            <mat-header-cell *matHeaderCellDef mat-sort-header> Thời gian</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.createTime | date:'dd-MM-yyyy'}} </mat-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Thời gian tạo</mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.createTime | date:'dd-MM-yyyy hh:mm:ss a'}} </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="action">
             <mat-header-cell *matHeaderCellDef> Tác vụ</mat-header-cell>
             <mat-cell *matCellDef="let row">
-              <fa-icon class="text-danger cursor-pointer ml-2 font-size-12" (click)="deleteComment(row)"
-                       [icon]="faTrashAlt" matTooltip="Xóa"></fa-icon>
+              <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer font-size-12"
+                       matTooltip="Cộng tiền">
+              </fa-icon>
+              <fa-icon class="text-secondary cursor-pointer ml-2 font-size-12"
+                       [icon]="faHistory" matTooltip="Lịch sử nạp tiền"></fa-icon>
             </mat-cell>
           </ng-container>
 
-          <mat-header-row *matHeaderRowDef="displayedComment"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedComment;">
+          <mat-header-row *matHeaderRowDef="displayedWallet"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedWallet;">
           </mat-row>
         </mat-table>
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>

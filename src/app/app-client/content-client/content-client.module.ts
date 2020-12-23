@@ -23,6 +23,7 @@ import { UserPageComponent } from './user-page/user-page.component';
 import {MatTableModule} from "@angular/material/table";
 import { ServicePriceComponent } from './service-price/service-price.component';
 import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
+import {NgxPaginationModule} from "ngx-pagination";
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
     AgmDirectionModule,
     InputsModule,
     MatTableModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    NgxPaginationModule
   ]
 })
 export class ContentClientModule {

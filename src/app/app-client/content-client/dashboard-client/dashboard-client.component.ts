@@ -7,7 +7,6 @@ import {faHeart as faHeartRegular} from "@fortawesome/free-regular-svg-icons";
 import {faHeart as faHeartSolid} from "@fortawesome/free-solid-svg-icons";
 import {FormControl, FormGroup} from "@angular/forms";
 import {PostService} from "../../../service/post.service";
-import {Post} from "../../../model/post";
 import {ImageService} from "../../../service/image.service";
 import {AppConfig} from "../../../util/app-config";
 import {AuthenticationService} from "../../../service/authentication.service";
@@ -33,6 +32,7 @@ import {PaymentService} from "../../../service/payment.service";
 })
 export class DashboardClientComponent implements OnInit {
 
+  currentPage: number = 1;
   filteredOptions: Observable<string[]>;
   searchForm: FormGroup;
   markerInfo: MarkerInfo;
@@ -147,8 +147,7 @@ export class DashboardClientComponent implements OnInit {
         });
     });
 
-    this.markerInfo = new MarkerInfo(20.981149, 105.787480, "./assets/images/marker3.png",
-      "");
+    this.markerInfo = new MarkerInfo(20.981149, 105.787480, "./assets/images/marker3.png", "");
 
     this.provinceCtrl.valueChanges.subscribe(province => {
       this.addressService.getProvinceById(province.id).subscribe(

@@ -94,7 +94,8 @@
     </div>
     <div class="col-12 col-lg-9">
       <div class="row" *ngIf="payments?.length >0; else null_result">
-        <div class="col-sm-6 col-lg-4 mt-3" *ngFor="let payment of payments">
+        <div class="col-sm-6 col-lg-4 mt-3"
+             *ngFor="let payment of payments | paginate: { itemsPerPage: 6, currentPage: currentPage}">
           <div class="card">
             <div class="product-thumb">
               <a [routerLink]="['post', payment?.post?.id]">
@@ -165,9 +166,17 @@
           </div>
         </div>
       </div>
+      <div class="mt-3 text-center">
+        <pagination-controls (pageChange)="currentPage = $event"
+                             maxSize="10" directionLinks="true" autoHide="true"
+                             responsive="true" previousLabel="Quay lại" nextLabel="Tiếp theo">
+        </pagination-controls>
+      </div>
       <ng-template #null_result>
         <p class="text-danger">Không có bài viết cần tìm</p>
-        <button mat-button class="text-white button-save line-height-25" (click)="btnShowAllPosts()">Xem danh sách hiện có</button>
+        <button mat-button class="text-white button-save line-height-25" (click)="btnShowAllPosts()">
+          Xem danh sách hiện có
+        </button>
       </ng-template>
     </div>
     <div class="col-12 col-lg-3 mt-2">

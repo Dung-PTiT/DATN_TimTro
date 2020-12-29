@@ -9,12 +9,13 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "wallet")
+@Table(name = "tbl_wallet")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class WalletEntity {
     @Id
@@ -32,4 +33,6 @@ public class WalletEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity userEntity;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "walletEntity")
+    private List<TopUpHistoryEntity> topUpHistoryEntities;
 }

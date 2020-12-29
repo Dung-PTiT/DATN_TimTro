@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "district")
+@Table(name = "tbl_district")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DistrictEntity {
     @Id

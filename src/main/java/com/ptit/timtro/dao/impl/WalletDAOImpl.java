@@ -1,15 +1,12 @@
 package com.ptit.timtro.dao.impl;
 
 import com.ptit.timtro.dao.WalletDAO;
-import com.ptit.timtro.entity.CommentEntity;
-import com.ptit.timtro.entity.PostEntity;
 import com.ptit.timtro.entity.WalletEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.List;
 
 @Repository
@@ -44,5 +41,4 @@ public class WalletDAOImpl implements WalletDAO {
     public List<WalletEntity> getAll() {
         return entityManager.createQuery("select w from WalletEntity w", WalletEntity.class).getResultList();
     }
-
 }

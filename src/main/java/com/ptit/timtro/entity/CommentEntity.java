@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "comment")
+@Table(name = "tbl_comment")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CommentEntity {
     @Id
@@ -23,7 +23,6 @@ public class CommentEntity {
     @Column(name = "content", nullable = false, columnDefinition = "text")
     private String content;
 
-    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_time", nullable = false)
     private Date createTime;

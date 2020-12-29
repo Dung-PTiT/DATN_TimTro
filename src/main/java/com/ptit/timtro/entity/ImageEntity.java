@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "image")
+@Table(name = "tbl_image")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ImageEntity {
     @Id

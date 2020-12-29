@@ -16,14 +16,14 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "payment")
+@Table(name = "tbl_payment")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PaymentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private Integer price;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -34,10 +34,10 @@ public class PaymentEntity {
     @Column(name = "end_date", nullable = false)
     private Date endDate;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private Boolean status;
 
-    @Column(name = "description", columnDefinition = "text")
+    @Column(name = "description", columnDefinition = "text", nullable = false)
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "post_vip")
+@Table(name = "tbl_post_vip")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostVipEntity {
     @Id

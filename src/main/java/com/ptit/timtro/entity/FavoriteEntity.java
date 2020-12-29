@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "favorite")
+@Table(name = "tbl_favorite")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FavoriteEntity {
     @Id

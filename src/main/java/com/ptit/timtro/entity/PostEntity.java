@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "post")
+@Table(name = "tbl_post")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class PostEntity {
     @Id
@@ -26,7 +26,7 @@ public class PostEntity {
     @Column(name = "title", nullable = false, length = 255)
     private String title;
 
-    @Column(name = "content", columnDefinition = "text")
+    @Column(name = "content", columnDefinition = "text", nullable = false)
     private String content;
 
     @Column(name = "price", nullable = false)
@@ -50,7 +50,7 @@ public class PostEntity {
     @Column(name = "longitude", nullable = false)
     private Double longitude;
 
-    @Column(name = "phone_number", nullable = false)
+    @Column(name = "phone_number", nullable = false, length = 20)
     private String phoneNumber;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -86,11 +86,8 @@ public class PostEntity {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "postEntity")
     private List<FavoriteEntity> favorites;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "postEntity")
-    private List<ViewHistoryEntity> viewHistories;
-
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "post_tag",
+    @JoinTable(name = "tbl_post_tag",
             joinColumns = {@JoinColumn(name = "post_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_post_post_tag"))},
             inverseJoinColumns = {@JoinColumn(name = "tag_id", nullable = false, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_post_tag_tag"))},
             uniqueConstraints = {@UniqueConstraint(columnNames = {"post_id", "tag_id"})})

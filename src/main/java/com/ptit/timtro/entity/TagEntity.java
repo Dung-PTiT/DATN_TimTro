@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tag")
+@Table(name = "tbl_tag")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TagEntity {
     @Id

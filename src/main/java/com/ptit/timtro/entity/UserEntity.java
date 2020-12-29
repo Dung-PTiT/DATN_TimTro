@@ -20,7 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "tbl_user")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserEntity {
 
@@ -75,9 +75,6 @@ public class UserEntity {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
     private List<FavoriteEntity> favorites;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userEntity")
-    private List<ViewHistoryEntity> viewHistories;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "userEntity")
     private WalletEntity walletEntity;

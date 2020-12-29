@@ -12,22 +12,21 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "view_history")
+@Table(name = "tbl_topup_history")
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ViewHistoryEntity {
+public class TopUpHistoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "create_time", nullable = false)
+    @Column(name = "balance")
+    private Integer balance;
+
     @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
+    @Column(name = "create_time", nullable = false)
+    private Date createTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity userEntity;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "post_id", nullable = false)
-    private PostEntity postEntity;
+    @JoinColumn(name = "wallet_id", nullable = false)
+    private WalletEntity walletEntity;
 }

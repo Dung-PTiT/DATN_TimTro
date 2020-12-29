@@ -1,0 +1,31 @@
+<div class="d-flex align-items-center justify-content-between">
+  <div><h6>Lịch sử nạp tiền</h6></div>
+  <span>Số lần nạp: {{topUpHistoryList?.length}}</span>
+</div>
+<mat-divider></mat-divider>
+<div>
+  <div class="mt-1">
+
+    <mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="number">
+        <mat-header-cell *matHeaderCellDef>Số</mat-header-cell>
+        <mat-cell *matCellDef="let row; let i = index"> {{i + 1}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="balance">
+        <mat-header-cell *matHeaderCellDef> Tiền nạp (đồng)</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.balance | number}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="createTime">
+        <mat-header-cell *matHeaderCellDef> Thời gian</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.createTime | date:"dd-MM-yyyy hh:mm:ss a"}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedTopUpHistory"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedTopUpHistory;"></mat-row>
+    </mat-table>
+  </div>
+</div>
+

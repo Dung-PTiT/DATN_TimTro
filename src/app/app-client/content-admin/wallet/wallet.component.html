@@ -45,10 +45,10 @@
             <mat-header-cell *matHeaderCellDef> Tác vụ</mat-header-cell>
             <mat-cell *matCellDef="let row">
               <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer font-size-12"
-                       matTooltip="Cộng tiền">
+                       matTooltip="Cộng tiền" (click)="topUp(row)">
               </fa-icon>
               <fa-icon class="text-secondary cursor-pointer ml-2 font-size-12"
-                       [icon]="faHistory" matTooltip="Lịch sử nạp tiền"></fa-icon>
+                       [icon]="faHistory" matTooltip="Lịch sử nạp tiền" (click)="topUpHistory(row?.id)"></fa-icon>
             </mat-cell>
           </ng-container>
 

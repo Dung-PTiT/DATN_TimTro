@@ -1,0 +1,72 @@
+<div class="d-flex justify-content-between">
+  <h6>Nạp tiền</h6>
+  <fa-icon class="text-danger cursor-pointer" [icon]="faTimes" (click)="close()"></fa-icon>
+</div>
+<mat-divider></mat-divider>
+<form [formGroup]="topUpForm" (submit)="topUp()">
+  <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+    <div class="pt-2 col-6">
+      <div class="mt-3 mb-3 align-items-center justify-content-between">
+                <span class="font-size-13">Số tiền nạp
+                    (<span class="text-danger">*</span>)
+                </span>
+        <div>
+          <input mdbInput type="number" formControlName="balance" (keyup)="balanceChange()"
+                 class="form-control font-size-13" placeholder="Số tiền nạp"
+                 [ngClass]="{ 'is-invalid': submitted && validator.balance?.errors}">
+          <div *ngIf="submitted && validator.balance?.errors?.required" class="invalid-feedback">
+            <div *ngIf="validator.balanceConfirm.errors?.required">
+              Số tiền không được trống
+            </div>
+            <div *ngIf="validator.balanceConfirm.errors?.pattern">
+              Số tiền chỉ có các kí từ 0 -> 9
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="align-items-center justify-content-between">
+                <span class="font-size-13">Nhập lại số tiền nạp
+                 (<span class="text-danger">*</span>)
+                </span>
+        <div>
+          <input mdbInput type="number" formControlName="balanceConfirm"
+                 class="form-control font-size-13" placeholder="Nhập lại số tiền nạp"
+                 [ngClass]="{ 'is-invalid': submitted && validator.balanceConfirm?.errors}">
+          <div *ngIf="submitted && validator.balanceConfirm?.errors" class="invalid-feedback">
+            <div *ngIf="validator.balanceConfirm.errors?.required">
+              Số tiền không được trống
+            </div>
+            <div *ngIf="validator.balanceConfirm.errors?.pattern">
+              Số tiền chỉ có các kí từ 0 -> 9
+            </div>
+            <div *ngIf="validator.balanceConfirm.errors?.mustMatch">
+              Số tiền thêm nhập không khớp
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 font-size-13 pt-4 pr-0">
+      <div class="mt-1 d-flex justify-content-between">
+        <p>Nạp tiền cho người dùng:</p>
+        <p class="font-weight-bold ml-2">{{currentWallet?.user?.name}}</p>
+      </div>
+      <div class="mt-1 d-flex justify-content-between">
+        <p>Số tiền nạp: </p>
+        <p class="font-weight-bold">{{balanceTopUp | number}} đ</p>
+      </div>
+      <div class="mt-1 d-flex justify-content-between">
+        <p>Số trong ví hiện có: </p>
+        <p class="font-weight-bold">{{currentWallet?.balance | number}} đ</p>
+      </div>
+      <div class="mt-1 d-flex justify-content-between">
+        <p>Tổng số tiền sau nạp: </p>
+        <p class="font-weight-bold">{{totalBalance | number}} đ</p>
+      </div>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="mt-3 float-right">
+    <button mat-button class="text-white button-save line-height-25" type="submit">Nạp</button>
+  </div>
+</form>

@@ -35,10 +35,12 @@ import { UserUpdateDialogComponent } from './user/user-update-dialog/user-update
 import {MatRadioModule} from "@angular/material/radio";
 import { WalletComponent } from './wallet/wallet.component';
 import { UserPageComponent } from './user/user-page/user-page.component';
+import { TopUpDialogComponent } from './wallet/top-up-dialog/top-up-dialog.component';
+import { TopUpHistoryDialogComponent } from './wallet/top-up-history-dialog/top-up-history-dialog.component';
 
 
 @NgModule({
-  declarations: [DashboardAdminComponent, TagComponent, UserComponent, PostComponent, CategoryComponent, PostVipComponent, CommentComponent, FavoriteComponent, PaymentComponent, TagCreateDialogComponent, TagUpdateDialogComponent, CategoryCreateDialogComponent, CategoryUpdateDialogComponent, PostVipUpdateDialogComponent, UserCreateDialogComponent, UserUpdateDialogComponent, WalletComponent, UserPageComponent],
+  declarations: [DashboardAdminComponent, TagComponent, UserComponent, PostComponent, CategoryComponent, PostVipComponent, CommentComponent, FavoriteComponent, PaymentComponent, TagCreateDialogComponent, TagUpdateDialogComponent, CategoryCreateDialogComponent, CategoryUpdateDialogComponent, PostVipUpdateDialogComponent, UserCreateDialogComponent, UserUpdateDialogComponent, WalletComponent, UserPageComponent, TopUpDialogComponent, TopUpHistoryDialogComponent],
   imports: [
     CommonModule,
     ContentAdminRoutingModule,

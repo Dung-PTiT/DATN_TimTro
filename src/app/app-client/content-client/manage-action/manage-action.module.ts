@@ -23,10 +23,11 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatSelectModule} from "@angular/material/select";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
+import { PaymentComponent } from './payment/payment.component';
 
 
 @NgModule({
-  declarations: [UserUpdateComponent, ManagePostComponent, CommentComponent, FavoriteComponent, FavoriteDetailDialogComponent, TopUpComponent, UserUpdateDialogComponent],
+  declarations: [UserUpdateComponent, ManagePostComponent, CommentComponent, FavoriteComponent, FavoriteDetailDialogComponent, TopUpComponent, UserUpdateDialogComponent, PaymentComponent],
   imports: [
     CommonModule,
     MatListModule,

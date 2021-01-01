@@ -14,7 +14,7 @@
               </div>
               <div>
                 <p class="font-weight-bold font-size-13">
-                  Tài khoản: {{user?.wallet?.balance}} đ
+                  Tài khoản: {{user?.wallet?.balance | number}} đ
                 </p>
               </div>
             </div>
@@ -30,7 +30,7 @@
           <fa-icon [icon]="faEdit"></fa-icon>
         </div>
         <div class="ml-3">
-          <span>Cập nhật thông tin</span>
+          <span>Thông tin cá nhân</span>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
           <fa-icon [icon]="faList"></fa-icon>
         </div>
         <div class="ml-3">
-          <span>Quản lý bài viết</span>
+          <span>Danh sách bài viết</span>
         </div>
       </div>
     </div>
@@ -50,7 +50,7 @@
           <fa-icon [icon]="faComments"></fa-icon>
         </div>
         <div class="ml-3">
-          <span>Bình luận</span>
+          <span>Danh sách bình luận</span>
         </div>
       </div>
     </div>
@@ -60,7 +60,7 @@
           <fa-icon [icon]="faHeart"></fa-icon>
         </div>
         <div class="ml-3">
-          <span>Quan tâm</span>
+          <span>Danh sách quan tâm</span>
         </div>
       </div>
     </div>
@@ -75,12 +75,12 @@
       </div>
     </div>
     <div class="mt-2">
-      <div class="side-bar-left-item">
+      <div class="side-bar-left-item" [routerLink]="['/manage/payment']">
         <div>
           <fa-icon [icon]="faHistory"></fa-icon>
         </div>
         <div class="ml-3">
-          <span>Lịch sử thanh toán</span>
+          <span>Lịch sử đăng bài</span>
         </div>
       </div>
     </div>

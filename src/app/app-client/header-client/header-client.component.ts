@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {
-  faComments, faLaptopHouse, faListUl, faMoneyCheckAlt, faSignInAlt,
+  faComments, faHistory, faLaptopHouse, faListUl, faMoneyCheckAlt, faSignInAlt,
   faSignOutAlt, faUpload, faUserCircle, faUserPlus
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -14,6 +14,7 @@ import {User} from "../../model/user";
 import {HttpClient} from "@angular/common/http";
 import {MatDialog} from "@angular/material/dialog";
 import {SuccessLogoutDialogComponent} from "./success-logout-dialog/success-logout-dialog.component";
+import {PaypalService} from "../../service/paypal.service";
 
 @Component({
   selector: 'app-header-client',
@@ -26,7 +27,9 @@ export class HeaderClientComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private cookieService: CookieService,
               private http: HttpClient,
-              private matDialog: MatDialog) {
+              private matDialog: MatDialog,
+              private payPalService: PaypalService,
+              private activatedRoute: ActivatedRoute) {
   }
 
   currentUser: User;
@@ -69,6 +72,42 @@ export class HeaderClientComponent implements OnInit {
 
   }
 
+  topUp(){
+    this.payPalService.makePayment(10).subscribe(resp => {
+        console.log(resp);
+        if(resp.status == "success"){
+          window.open(resp.redirect_url);
+        }
+    });
+  }
+
+  paymentId: any;
+  payerId: any;
+  token: any;
+
+  topUp1(){
+    // this.payPalService.makePayment(3000).subscribe(resp => {
+    //   console.log(resp);
+    //   if(resp.status == "success"){
+    //     window.open(resp.redirect_url);
+    //   }
+    // });
+    // this.activatedRoute.params.subscribe((params: Params) => {
+    //   this.paymentId = params['paymentId'];
+    //   this.payerId = params['PayerID'];
+    //   this.token = params['token'];
+      // this.payPalService.completePayment(this.paymentId, this.payerId).subscribe(resp =>{
+      //   console.log(resp);
+      // });
+    //   console.log(this.paymentId);
+    //   console.log(this.payerId);
+    //   console.log(this.token);
+    // });
+    this.payPalService.completePayment("PAYID-L7VRCSA2N873463V0422323N","FBUMMDE6DYCJQ" ).subscribe(resp =>{
+      console.log(resp);
+    });
+  }
+
   faUpload = faUpload;
   faSignInAlt = faSignInAlt;
   faUserPlus = faUserPlus;
@@ -78,5 +117,6 @@ export class HeaderClientComponent implements OnInit {
   faComments = faComments;
   faMoneyCheckAlt = faMoneyCheckAlt;
   faHeart = faHeart;
+  faHistory = faHistory;
   faLaptopHouse = faLaptopHouse;
 }

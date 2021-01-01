@@ -13,6 +13,12 @@
         <a href="" class="mat-toolbar-title ml-3" [routerLink]="['/service-price']">
           <span>Bảng giá</span>
         </a>
+        <button (click)="topUp()">
+          <span>Nạp tiền</span>
+        </button>
+        <button (click)="topUp1()">
+          <span>Nạp tiền 1</span>
+        </button>
         <div ngbDropdown container="body" class="cursor-pointer">
           <span ngbDropdownToggle class="ml-4 mat-toolbar-title">Đăng nhập | Đăng ký</span>
           <div ngbDropdownMenu class="mt-2">
@@ -42,23 +48,27 @@
             <ng-template #hide_admin_button></ng-template>
             <button ngbDropdownItem [routerLink]="['/manage/user']">
               <fa-icon class="mr-2" [icon]="faUserCircle"></fa-icon>
-              Cập nhật thông tin
+              Thông tin cá nhân
             </button>
             <button ngbDropdownItem [routerLink]="['/manage/post/list']">
               <fa-icon class="mr-2" [icon]="faListUl"></fa-icon>
-              Quản lý bài viết
+              Danh sách bài viết
             </button>
             <button ngbDropdownItem [routerLink]="['/manage/comment']">
               <fa-icon class="mr-2" [icon]="faComments"></fa-icon>
-              Bình luận
+              Danh sách bình luận
             </button>
             <button ngbDropdownItem [routerLink]="['/manage/favorite']">
               <fa-icon class="mr-2" [icon]="faHeart"></fa-icon>
-              Quan tâm
+              Danh sách quan tâm
             </button>
             <button ngbDropdownItem [routerLink]="['/manage/top-up']">
               <fa-icon class="mr-2" [icon]="faMoneyCheckAlt"></fa-icon>
               Nạp tiền
+            </button>
+            <button ngbDropdownItem [routerLink]="['/manage/payment']">
+              <fa-icon class="mr-2" [icon]="faHistory"></fa-icon>
+              Lịch sử đăng bài
             </button>
             <button ngbDropdownItem (click)="logout()">
               <fa-icon class="mr-2" [icon]="faSignOutAlt"></fa-icon>

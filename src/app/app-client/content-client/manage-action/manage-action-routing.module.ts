@@ -5,6 +5,7 @@ import {ManagePostComponent} from "./manage-post/manage-post.component";
 import {CommentComponent} from "./comment/comment.component";
 import {FavoriteComponent} from "./favorite/favorite.component";
 import {TopUpComponent} from "./top-up/top-up.component";
+import {PaymentComponent} from "./payment/payment.component";
 
 const routes: Routes = [
   {
@@ -23,6 +24,9 @@ const routes: Routes = [
   {
     path: "top-up", component: TopUpComponent
   },
+  {
+    path: "payment", component: PaymentComponent
+  }
 ];
 
 @NgModule({

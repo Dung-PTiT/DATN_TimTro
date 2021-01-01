@@ -7,7 +7,7 @@ import {AppConfig} from "../../../../../util/app-config";
 import {
   faComments,
   faEllipsisV,
-  faHeart, faLock, faLockOpen,
+  faHeart, faLock, faLockOpen, faLongArrowAltDown,
   faLongArrowAltUp,
   faPencilAlt,
   faTrash
@@ -123,6 +123,33 @@ export class PostListComponent implements OnInit {
     }
   }
 
+  removePost(postId: any) {
+    Swal.fire({
+      title: 'Bạn muốn gỡ bài đăng?',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Hủy',
+      confirmButtonText: 'Gỡ',
+      customClass: 'swal-confirm-style',
+    }).then((result) => {
+      if (result.value) {
+        this.postService.removePost(postId).subscribe(resp => {
+          if (resp.success) {
+            this.toastService.showSuccess(resp.data);
+            this.postService.getPostByUserId(this.user.id).subscribe(resp => {
+              this.posts = resp.data;
+              this.dataSource = new MatTableDataSource(resp.data);
+              this.dataSource.paginator = this.paginator;
+              this.dataSource.sort = this.sort;
+            });
+          } else {
+            this.toastService.showError(resp.data);
+          }
+        });
+      }
+    })
+  }
+
   searchTag(filterValue: string) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
@@ -134,6 +161,7 @@ export class PostListComponent implements OnInit {
   faPencilAlt = faPencilAlt;
   faEllipsisV = faEllipsisV;
   faLongArrowAltUp = faLongArrowAltUp;
+  faLongArrowAltDown = faLongArrowAltDown;
   faComments = faComments;
   faHeart = faHeart;
   faLock = faLock;

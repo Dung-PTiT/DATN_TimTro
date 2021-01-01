@@ -1,0 +1,13 @@
+.mat-table {
+  overflow: auto;
+  border: 1px solid #dddddd;
+}
+
+.mat-column-number {
+  flex: 0 0 10%;
+}
+
+.mat-column-status {
+  flex: 0 0 10%;
+}
+

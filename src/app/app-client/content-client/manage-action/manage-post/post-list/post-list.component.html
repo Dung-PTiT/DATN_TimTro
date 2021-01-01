@@ -114,9 +114,16 @@
         <ng-container matColumnDef="action">
           <mat-header-cell *matHeaderCellDef>Tác vụ</mat-header-cell>
           <mat-cell *matCellDef="let post">
-            <fa-icon [icon]="faLongArrowAltUp" class="text-color-feb800 cursor-pointer font-size-12"
-                     matTooltip="Đăng" matTooltipPosition="below" (click)="pushPost(post)">
-            </fa-icon>
+            <div *ngIf="(post?.status == false);else post_block">
+              <fa-icon [icon]="faLongArrowAltUp" class="text-color-feb800 cursor-pointer font-size-12"
+                       matTooltip="Đăng" matTooltipPosition="below" (click)="pushPost(post)">
+              </fa-icon>
+            </div>
+            <ng-template #post_block>
+              <fa-icon [icon]="faLongArrowAltDown" class="text-secondary cursor-pointer font-size-12"
+                       matTooltip="Gỡ" matTooltipPosition="below" (click)="removePost(post?.id)">
+              </fa-icon>
+            </ng-template>
             <fa-icon [icon]="faPencilAlt" class="ml-2 text-primary cursor-pointer font-size-12"
                      matTooltip="Sửa" matTooltipPosition="below" (click)="editPost(post?.id)">
             </fa-icon>

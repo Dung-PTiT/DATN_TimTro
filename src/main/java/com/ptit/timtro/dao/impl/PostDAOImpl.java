@@ -49,8 +49,8 @@ public class PostDAOImpl implements PostDAO {
     }
 
     @Override
-    public void updateStatus(Integer id) {
-        String hql = "update PostEntity set status = true where id = :id";
+    public void updateStatus(Integer id, Boolean status) {
+        String hql = "update PostEntity set status = " + status + " where id = :id";
         Query query = entityManager.createQuery(hql);
         query.setParameter("id", id);
         query.executeUpdate();

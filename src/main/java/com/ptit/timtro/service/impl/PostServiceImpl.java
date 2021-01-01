@@ -430,7 +430,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void updateStatus(Integer id) {
-        postDAO.updateStatus(id);
+    public void updateStatus(Integer id, Boolean status) {
+        postDAO.updateStatus(id, status);
     }
 }

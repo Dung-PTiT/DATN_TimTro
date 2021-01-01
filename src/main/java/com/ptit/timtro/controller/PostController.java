@@ -6,6 +6,7 @@ import com.ptit.timtro.model.Post;
 import com.ptit.timtro.security.AdvancedSecurityContextHolder;
 import com.ptit.timtro.security.UserPrincipal;
 import com.ptit.timtro.service.ImageService;
+import com.ptit.timtro.service.PaymentService;
 import com.ptit.timtro.service.PostService;
 import com.ptit.timtro.util.DataResponse;
 import com.ptit.timtro.util.FileDir;
@@ -31,6 +32,9 @@ public class PostController {
 
     @Autowired
     private ImageService imageService;
+
+    @Autowired
+    private PaymentService paymentService;
 
     @Autowired
     private FileDir fileDir;
@@ -79,6 +83,18 @@ public class PostController {
                 return new DataResponse<>(false, "Lỗi");
             }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new DataResponse<>(false, "Error");
+    }
+
+    @PostMapping("/post/remove")
+    public DataResponse<String> remove(@RequestParam("id") Integer id) {
+        try {
+            postService.updateStatus(id, false);
+            paymentService.updateStatusByPostId(id);
+            return new DataResponse<>(true, "Gỡ bài biết thành công");
         } catch (Exception e) {
             e.printStackTrace();
         }

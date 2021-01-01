@@ -19,5 +19,5 @@ public interface PostService {
 
     List<Post> getAll();
 
-    void updateStatus(Integer id);
+    void updateStatus(Integer id, Boolean status);
 }

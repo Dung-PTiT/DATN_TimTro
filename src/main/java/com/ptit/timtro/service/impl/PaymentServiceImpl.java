@@ -5,7 +5,9 @@ import com.ptit.timtro.entity.PaymentEntity;
 import com.ptit.timtro.entity.PostEntity;
 import com.ptit.timtro.entity.PostVipEntity;
 import com.ptit.timtro.entity.UserEntity;
+import com.ptit.timtro.model.Image;
 import com.ptit.timtro.model.Payment;
+import com.ptit.timtro.model.Post;
 import com.ptit.timtro.model.PostVip;
 import com.ptit.timtro.security.AdvancedSecurityContextHolder;
 import com.ptit.timtro.service.PaymentService;
@@ -60,6 +62,44 @@ public class PaymentServiceImpl implements PaymentService {
         paymentEntity.setPostVipEntity(postVipEntity);
 
         paymentDAO.create(paymentEntity);
+    }
+
+    @Override
+    public void updateStatusByPostId(Integer postId) {
+        paymentDAO.updateStatusByPostId(postId);
+    }
+
+    @Override
+    public List<Payment> getByUserId(Integer userId) {
+        List<PaymentEntity> paymentEntities = paymentDAO.getByUserId(userId);
+        if (paymentEntities != null) {
+            return paymentEntities.stream().map(paymentEntity ->
+            {
+                Payment payment = new Payment();
+                payment.setId(paymentEntity.getId());
+                payment.setPrice(paymentEntity.getPrice());
+                payment.setStartDate(paymentEntity.getStartDate());
+                payment.setEndDate(paymentEntity.getEndDate());
+                payment.setDescription(paymentEntity.getDescription());
+                payment.setStatus(paymentEntity.getStatus());
+
+                PostEntity postEntity = paymentEntity.getPostEntity();
+                Post post = new Post();
+                post.setId(postEntity.getId());
+                post.setTitle(postEntity.getTitle());
+                post.setImages(postEntity.getImages().stream().map(imageEntity -> {
+                            Image image = new Image();
+                            image.setId(imageEntity.getId());
+                            image.setImageUrl(imageEntity.getImageUrl());
+                            image.setPost(null);
+                            return image;
+                        }
+                ).collect(Collectors.toList()));
+                payment.setPost(post);
+                return payment;
+            }).collect(Collectors.toList());
+        }
+        return null;
     }
 
     @Override

@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,19 @@ public class PaymentDAOImpl implements PaymentDAO {
     @Override
     public void create(PaymentEntity paymentEntity) {
         entityManager.persist(paymentEntity);
+    }
+
+    @Override
+    public void updateStatusByPostId(Integer postId) {
+        String hql = "UPDATE PaymentEntity p SET p.status = false WHERE (p.postEntity.id = :postId)";
+        Query query = entityManager.createQuery(hql);
+        query.setParameter("postId", postId);
+        query.executeUpdate();
+    }
+
+    @Override
+    public List<PaymentEntity> getByUserId(Integer userId) {
+        return entityManager.createQuery("select p from PaymentEntity p where p.userEntity.id = " + userId + " order by p.startDate desc", PaymentEntity.class).getResultList();
     }
 
     @Override

@@ -17,5 +17,5 @@ public interface PostDAO {
 
     List<PostEntity> getAll();
 
-    void updateStatus(Integer id);
+    void updateStatus(Integer id, Boolean status);
 }

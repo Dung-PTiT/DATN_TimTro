@@ -8,5 +8,9 @@ import java.util.List;
 public interface PaymentDAO {
     void create(PaymentEntity paymentEntity);
 
+    void updateStatusByPostId(Integer postId);
+
+    List<PaymentEntity> getByUserId(Integer userId);
+
     List<PaymentEntity> fetchEnablePost(FetchEnablePostRequest fetchEnablePostRequest);
 }

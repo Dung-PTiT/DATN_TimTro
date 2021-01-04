@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -29,6 +30,14 @@ public class PaymentDAOImpl implements PaymentDAO {
         String hql = "UPDATE PaymentEntity p SET p.status = false WHERE (p.postEntity.id = :postId)";
         Query query = entityManager.createQuery(hql);
         query.setParameter("postId", postId);
+        query.executeUpdate();
+    }
+
+    @Override
+    public void updateStatusById(Integer id, Boolean status) {
+        String hql = "UPDATE PaymentEntity p SET p.status = " + status + " WHERE (p.id = :id)";
+        Query query = entityManager.createQuery(hql);
+        query.setParameter("id", id);
         query.executeUpdate();
     }
 
@@ -56,6 +65,21 @@ public class PaymentDAOImpl implements PaymentDAO {
             String sql = generateFetchEnablePost(provinceId, districtId, wardId, minPrice, maxPrice, minAcreage, maxAcreage, categoryId);
             return entityManager.createQuery(sql, PaymentEntity.class).getResultList();
         }
+    }
+
+    @Override
+    public List<PaymentEntity> getAll() {
+        return entityManager.createQuery("select p from PaymentEntity p order by p.startDate desc", PaymentEntity.class).getResultList();
+    }
+
+    @Override
+    public List<Integer> removeExpiredPosts(Date date) {
+        return null;
+    }
+
+    @Override
+    public List<PaymentEntity> getEnablePost(Date date) {
+        return entityManager.createQuery("select p from PaymentEntity p where p.status = true and p.endDate < '" + date + "'", PaymentEntity.class).getResultList();
     }
 
     public String generateFetchEnablePost(String provinceId, String districtId, String wardId,

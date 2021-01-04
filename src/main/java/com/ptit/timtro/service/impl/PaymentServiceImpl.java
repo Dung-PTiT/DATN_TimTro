@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -70,6 +71,11 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
+    public void updateStatusById(Integer id, Boolean status) {
+        paymentDAO.updateStatusById(id, status);
+    }
+
+    @Override
     public List<Payment> getByUserId(Integer userId) {
         List<PaymentEntity> paymentEntities = paymentDAO.getByUserId(userId);
         if (paymentEntities != null) {
@@ -118,6 +124,47 @@ public class PaymentServiceImpl implements PaymentService {
                 payment.setPostVip(postVipService.getById(paymentEntity.getPostVipEntity().getId()));
                 payment.setUser(userService.get(paymentEntity.getUserEntity().getId()));
                 payment.setPost(postService.getById(paymentEntity.getPostEntity().getId()));
+                return payment;
+            }).collect(Collectors.toList());
+        }
+        return null;
+    }
+
+    @Override
+    public List<Payment> getAll() {
+        List<PaymentEntity> paymentEntities = paymentDAO.getAll();
+        if (paymentEntities != null) {
+            return paymentEntities.stream().map(paymentEntity ->
+            {
+                Payment payment = new Payment();
+                payment.setId(paymentEntity.getId());
+                payment.setPrice(paymentEntity.getPrice());
+                payment.setStartDate(paymentEntity.getStartDate());
+                payment.setEndDate(paymentEntity.getEndDate());
+                payment.setDescription(paymentEntity.getDescription());
+                payment.setStatus(paymentEntity.getStatus());
+                payment.setPostVip(postVipService.getById(paymentEntity.getPostVipEntity().getId()));
+                payment.setUser(userService.get(paymentEntity.getUserEntity().getId()));
+                payment.setPost(postService.getById(paymentEntity.getPostEntity().getId()));
+                return payment;
+            }).collect(Collectors.toList());
+        }
+        return null;
+    }
+
+    @Override
+    public List<Payment> getEnablePost(Date date) {
+        List<PaymentEntity> paymentEntities = paymentDAO.getEnablePost(date);
+        if (paymentEntities != null) {
+            return paymentEntities.stream().map(paymentEntity ->
+            {
+                Payment payment = new Payment();
+                payment.setId(paymentEntity.getId());
+
+                PostEntity postEntity = paymentEntity.getPostEntity();
+                Post post = new Post();
+                post.setId(postEntity.getId());
+                payment.setPost(post);
                 return payment;
             }).collect(Collectors.toList());
         }

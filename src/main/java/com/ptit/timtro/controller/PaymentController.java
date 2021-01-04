@@ -86,4 +86,19 @@ public class PaymentController {
         }
         return new DataResponse<>(false, null);
     }
+
+    @GetMapping("/payment/get-all")
+    public DataResponse<List<Payment>> getAll() {
+        try {
+            List<Payment> payments = paymentService.getAll();
+            if (payments != null) {
+                return new DataResponse<>(true, payments);
+            } else {
+                return new DataResponse<>(false, null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new DataResponse<>(false, null);
+    }
 }

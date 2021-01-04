@@ -23,6 +23,8 @@ import {PaypalService} from "../../service/paypal.service";
 })
 export class HeaderClientComponent implements OnInit {
 
+  userLogined : boolean = false;
+
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
               private cookieService: CookieService,
@@ -39,6 +41,7 @@ export class HeaderClientComponent implements OnInit {
 
   ngOnInit(): void {
     if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
+      this.userLogined = true;
       this.currentUser = JSON.parse(localStorage.getItem('userCurrent'));
       if (this.currentUser.imageUrl == null) {
         this.currentUser.imageUrl = this.DEFAULT_IMAGE_USER;
@@ -47,6 +50,7 @@ export class HeaderClientComponent implements OnInit {
       }
     } else {
       if (this.cookieService.get(AppConfig.COOKIE_TOKEN_NAME)) {
+        this.userLogined = true;
         this.authenticationService.getCurrentUser().subscribe(resp => {
           this.currentUser = resp.data as User;
           if (this.currentUser.imageUrl == null) {
@@ -70,42 +74,6 @@ export class HeaderClientComponent implements OnInit {
       height: 'auto'
     });
 
-  }
-
-  topUp(){
-    this.payPalService.makePayment(10).subscribe(resp => {
-        console.log(resp);
-        if(resp.status == "success"){
-          window.open(resp.redirect_url);
-        }
-    });
-  }
-
-  paymentId: any;
-  payerId: any;
-  token: any;
-
-  topUp1(){
-    // this.payPalService.makePayment(3000).subscribe(resp => {
-    //   console.log(resp);
-    //   if(resp.status == "success"){
-    //     window.open(resp.redirect_url);
-    //   }
-    // });
-    // this.activatedRoute.params.subscribe((params: Params) => {
-    //   this.paymentId = params['paymentId'];
-    //   this.payerId = params['PayerID'];
-    //   this.token = params['token'];
-      // this.payPalService.completePayment(this.paymentId, this.payerId).subscribe(resp =>{
-      //   console.log(resp);
-      // });
-    //   console.log(this.paymentId);
-    //   console.log(this.payerId);
-    //   console.log(this.token);
-    // });
-    this.payPalService.completePayment("PAYID-L7VRCSA2N873463V0422323N","FBUMMDE6DYCJQ" ).subscribe(resp =>{
-      console.log(resp);
-    });
   }
 
   faUpload = faUpload;

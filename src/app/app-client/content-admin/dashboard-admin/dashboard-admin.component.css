@@ -4,8 +4,8 @@
 }
 
 .card-dashboard {
-  background: rgb(68, 164, 220);
-  background: linear-gradient(90deg, rgba(68, 164, 220, 1) 0%, rgba(85, 117, 220, 1) 50%, rgba(103, 68, 220, 1) 100%);
+  /*background: rgb(68, 164, 220);*/
+  /*background: linear-gradient(90deg, rgba(68, 164, 220, 1) 0%, rgba(85, 117, 220, 1) 50%, rgba(103, 68, 220, 1) 100%);*/
   border-radius: 15px;
 }
 

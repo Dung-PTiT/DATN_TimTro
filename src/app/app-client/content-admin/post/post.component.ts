@@ -10,6 +10,15 @@ import {PostService} from "../../../service/post.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {ToastService} from "../../../service/toast.service";
+import {
+  faComments,
+  faEllipsisV, faHeart, faLock, faLockOpen,
+  faLongArrowAltDown,
+  faLongArrowAltUp,
+  faPencilAlt,
+  faTrash
+} from "@fortawesome/free-solid-svg-icons";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 
 @Component({
   selector: 'app-post',
@@ -39,6 +48,10 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.displayedColumns = [
+      'number', 'image', 'title', 'price', 'acreage', 'createTime', 'category', 'status', 'action'
+    ];
+
     if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
       this.user = JSON.parse(localStorage.getItem('userCurrent'));
       this.postService.getAll().subscribe(resp => {
@@ -50,4 +63,58 @@ export class PostComponent implements OnInit {
     }
   }
 
+  deletePost(postId: any) {
+    Swal.fire({
+      title: 'Bạn muốn xóa bài?',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Hủy',
+      confirmButtonText: 'Xóa',
+      customClass: 'swal-confirm-style',
+    }).then((result) => {
+      if (result.value) {
+        this.postService.deletePost(postId).subscribe(resp => {
+          if (resp.success == true) {
+            this.toastService.showSuccess(resp.data);
+            this.postService.getAll().subscribe(resp => {
+              this.posts = resp.data;
+              this.reloadPostList(this.posts);
+            });
+          } else {
+            this.toastService.showError(resp.data);
+          }
+        });
+      }
+    })
+  }
+
+  viewPost(postId: any) {
+    this.router.navigate(["/post/" + postId]);
+  }
+
+  editPost(postId: any) {
+    this.router.navigate(["/manage/post/update/" + postId]);
+  }
+
+  reloadPostList(posts: any) {
+    this.dataSource = new MatTableDataSource(posts);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  searchTag(filterValue: string, tabNumber: number) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+
+  faTrash = faTrash;
+  faPencilAlt = faPencilAlt;
+  faEllipsisV = faEllipsisV;
+  faLongArrowAltUp = faLongArrowAltUp;
+  faLongArrowAltDown = faLongArrowAltDown;
+  faComments = faComments;
+  faHeart = faHeart;
+  faLock = faLock;
+  faLockOpen = faLockOpen;
 }

@@ -145,10 +145,10 @@ export class PostPushDialogComponent implements OnInit {
     this.paymentService.pushPost(payment).subscribe(resp => {
       if(resp.success == true){
         this.close();
+        this.toastService.showSuccess(resp.data);
         this.authenticationService.getCurrentUser().subscribe(resp => {
           localStorage.setItem('userCurrent', JSON.stringify(resp.data));
           location.reload();
-          this.toastService.showSuccess(resp.data);
         });
       }else{
         this.close();

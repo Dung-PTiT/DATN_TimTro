@@ -10,7 +10,7 @@
 
 ::-webkit-scrollbar-thumb {
   border-radius: 0;
-  background: #feb800;
+  background: #eeeeee;
 }
 
 html {
@@ -149,3 +149,19 @@ button:focus {
   text-transform: none !important;
 }
 
+
+.mat-row {
+  height: auto;
+}
+
+.mat-row:hover {
+  background-color: #eeeeee;
+}
+
+.mat-cell {
+  padding: 10px;
+}
+
+.mat-header-cell {
+  padding: 10px;
+}

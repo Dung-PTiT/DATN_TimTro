@@ -6,7 +6,6 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {Payment} from "../../../../model/payment";
 import {AuthenticationService} from "../../../../service/authentication.service";
-import {CommentService} from "../../../../service/comment.service";
 import {Router} from "@angular/router";
 import {PaymentService} from "../../../../service/payment.service";
 import {faEllipsisV, faLock, faLockOpen} from "@fortawesome/free-solid-svg-icons";
@@ -44,7 +43,6 @@ export class PaymentComponent implements OnInit {
       this.user = JSON.parse(localStorage.getItem('userCurrent'));
       this.paymentService.getByUserId(this.user.id).subscribe(resp => {
         this.payments = resp.data;
-        console.log(this.payments);
         this.dataSource = new MatTableDataSource(resp.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;

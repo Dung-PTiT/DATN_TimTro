@@ -4,145 +4,413 @@
     <div><span>Tổng số bài viết: {{posts?.length}}</span></div>
   </div>
   <mat-divider></mat-divider>
-  <div class="mt-1">
-    <div class="mt-3">
-      <div class="search-input">
-        <span class="font-size-13">Tìm kiếm: </span>
-        <input class="ml-1 form-control font-size-13 w-15"
-               (keyup)="searchTag($event.target.value)" placeholder="Nhập từ khóa cần tìm">
-      </div>
-    </div>
-    <div class="mt-1">
-      <mat-table *ngIf="posts?.length != 0;else null_table" matSort
-                 [dataSource]="dataSource" class="box-shadow text-center w-100">
+  <div *ngIf="posts?.length != 0;else null_table">
+    <mat-tab-group (selectedIndexChange)="_setDataSource($event)">
+      <mat-tab label="Danh sách bài viết">
+        <div class="mt-1">
+          <div class="mt-3">
+            <div class="search-input">
+              <span class="font-size-13">Tìm kiếm: </span>
+              <input class="ml-1 form-control font-size-13 w-15"
+                     (keyup)="searchTag($event.target.value, 1)" placeholder="Nhập từ khóa cần tìm">
+            </div>
+          </div>
+          <div class="mt-1">
+            <mat-table matSort #sort="matSort" [dataSource]="dataSource" class="box-shadow text-center w-100">
+              <ng-container matColumnDef="number">
+                <mat-header-cell class="pl-0" *matHeaderCellDef> STT</mat-header-cell>
+                <mat-cell class="pl-0" *matCellDef="let post; let i = index"> {{i + 1}} </mat-cell>
+              </ng-container>
 
-        <ng-container matColumnDef="number">
-          <mat-header-cell class="pl-0" *matHeaderCellDef> STT</mat-header-cell>
-          <mat-cell class="pl-0" *matCellDef="let post; let i = index"> {{i + 1}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="image">
-          <mat-header-cell *matHeaderCellDef> Ảnh đại diện</mat-header-cell>
-          <mat-cell *matCellDef="let post">
-            <img width="80" class="pt-2 pb-2"
-                 [src]="post?.images[0]?.imageUrl ?
+              <ng-container matColumnDef="image">
+                <mat-header-cell *matHeaderCellDef> Ảnh đại diện</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <img width="80" class="pt-2 pb-2"
+                       [src]="post?.images[0]?.imageUrl ?
                (PREFIX_URL + '/' + post?.id + '/' +  post?.images[0]?.imageUrl ) : (DEFAULT_IMAGE)">
-          </mat-cell>
-        </ng-container>
+                </mat-cell>
+              </ng-container>
 
-        <ng-container matColumnDef="title">
-          <mat-header-cell *matHeaderCellDef> Tiêu đề</mat-header-cell>
-          <mat-cell *matCellDef="let post">{{post?.title}}</mat-cell>
-        </ng-container>
+              <ng-container matColumnDef="title">
+                <mat-header-cell *matHeaderCellDef> Tiêu đề</mat-header-cell>
+                <mat-cell *matCellDef="let post">{{post?.title}}</mat-cell>
+              </ng-container>
 
-        <ng-container matColumnDef="price">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Giá(Đồng)</mat-header-cell>
-          <mat-cell *matCellDef="let post"> {{post?.price | number}} </mat-cell>
-        </ng-container>
+              <ng-container matColumnDef="price">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Giá(Đồng)</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post?.price | number}} </mat-cell>
+              </ng-container>
 
-        <ng-container matColumnDef="createTime">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày tạo</mat-header-cell>
-          <mat-cell *matCellDef="let post"> {{post?.createTime | date:'dd-MM-yyyy'}} </mat-cell>
-        </ng-container>
+              <ng-container matColumnDef="createTime">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày tạo</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post?.createTime | date:'dd-MM-yyyy'}} </mat-cell>
+              </ng-container>
 
-        <ng-container matColumnDef="startDate">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày bắt đầu</mat-header-cell>
-          <mat-cell *matCellDef="let post">
-            <div *ngIf="(post?.status == true);else start_time" class="ml-2">
-              <div *ngFor="let payment of post.payments">
-                <div *ngIf="(payment?.status ==true)">
-                  <span>{{payment.startDate | date:'dd-MM-yyyy'}}</span>
-                </div>
-              </div>
+              <ng-container matColumnDef="startDate">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày bắt đầu</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <div *ngIf="(post?.status == true);else start_time" class="ml-2">
+                    <div *ngFor="let payment of post.payments">
+                      <div *ngIf="(payment?.status ==true)">
+                        <span>{{payment.startDate | date:'dd-MM-yyyy'}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-template #start_time>
+                    <div class="ml-2">
+                      <span>-</span>
+                    </div>
+                  </ng-template>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="endDate">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày kết thúc</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <div *ngIf="(post?.status == true);else end_time" class="ml-2">
+                    <div *ngFor="let payment of post.payments">
+                      <div *ngIf="(payment?.status == true)">
+                        <span>{{payment.endDate | date:'dd-MM-yyyy'}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-template #end_time>
+                    <div class="ml-2">
+                      <span>-</span>
+                    </div>
+                  </ng-template>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="comment">
+                <mat-header-cell *matHeaderCellDef> Bình luận</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  {{post?.comments?.length != 0 ? post?.comments?.length : 0 }}
+                  <fa-icon [icon]="faComments" class="ml-1 text-info"></fa-icon>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="favorite">
+                <mat-header-cell *matHeaderCellDef>Quan tâm</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  {{post?.favorites?.length != 0 ? post?.favorites?.length : 0}}
+                  <fa-icon [icon]="faHeart" class="ml-1 text-danger"></fa-icon>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="status">
+                <mat-header-cell *matHeaderCellDef> Trạng thái</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <div *ngIf="(post?.status == true);else post_block" class="ml-2">
+                    <fa-icon [icon]="faLockOpen" class="text-success font-size-12" matTooltip="Đang đăng"></fa-icon>
+                  </div>
+                  <ng-template #post_block>
+                    <div class="ml-2">
+                      <fa-icon [icon]="faLock" class="text-danger font-size-12" matTooltip="Chưa đăng"></fa-icon>
+                    </div>
+                  </ng-template>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef>Tác vụ</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <div *ngIf="(post?.status == false);else post_block">
+                    <fa-icon [icon]="faLongArrowAltUp" class="text-color-feb800 cursor-pointer font-size-12"
+                             matTooltip="Đăng" matTooltipPosition="below" (click)="pushPost(post)">
+                    </fa-icon>
+                  </div>
+                  <ng-template #post_block>
+                    <fa-icon [icon]="faLongArrowAltDown" class="text-secondary cursor-pointer font-size-12"
+                             matTooltip="Gỡ" matTooltipPosition="below" (click)="removePost(post?.id)">
+                    </fa-icon>
+                  </ng-template>
+                  <fa-icon [icon]="faPencilAlt" class="ml-2 text-primary cursor-pointer font-size-12"
+                           matTooltip="Sửa" matTooltipPosition="below" (click)="editPost(post?.id)">
+                  </fa-icon>
+                  <fa-icon [icon]="faTrash" class="ml-2 text-danger cursor-pointer font-size-12"
+                           matTooltip="Xóa" matTooltipPosition="below" (click)="deletePost(post?.id)">
+                  </fa-icon>
+                  <fa-icon [icon]="faEllipsisV" class="ml-2 text-info cursor-pointer font-size-12"
+                           matTooltip="Chi tiết" matTooltipPosition="below" (click)="viewPost(post?.id)">
+                  </fa-icon>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns" class="text-center"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <mat-paginator #paginatorAll [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Bài viết đang đăng">
+        <div class="mt-1" *ngIf="postEnable?.length != 0;else null_enable">
+          <div class="mt-3">
+            <div class="search-input">
+              <span class="font-size-13">Tìm kiếm: </span>
+              <input class="ml-1 form-control font-size-13 w-15"
+                     (keyup)="searchTag($event.target.value, 2)" placeholder="Nhập từ khóa cần tìm">
             </div>
-            <ng-template #start_time>
-              <div class="ml-2">
-                <span>-</span>
-              </div>
-            </ng-template>
-          </mat-cell>
-        </ng-container>
+          </div>
+          <div class="mt-1">
+            <mat-table matSort #sortPostEnable="matSort" [dataSource]="dataSourceEnable" class="box-shadow text-center w-100">
+              <ng-container matColumnDef="number1">
+                <mat-header-cell class="pl-0" *matHeaderCellDef> STT</mat-header-cell>
+                <mat-cell class="pl-0" *matCellDef="let post; let i = index"> {{i + 1}} </mat-cell>
+              </ng-container>
 
-        <ng-container matColumnDef="endDate">
-          <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày kết thúc</mat-header-cell>
-          <mat-cell *matCellDef="let post">
-            <div *ngIf="(post?.status == true);else end_time" class="ml-2">
-              <div *ngFor="let payment of post.payments">
-                <div *ngIf="(payment?.status == true)">
-                  <span>{{payment.endDate | date:'dd-MM-yyyy'}}</span>
-                </div>
-              </div>
+              <ng-container matColumnDef="image1">
+                <mat-header-cell *matHeaderCellDef> Ảnh đại diện</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <img width="80" class="pt-2 pb-2"
+                       [src]="post?.images[0]?.imageUrl ?
+               (PREFIX_URL + '/' + post?.id + '/' +  post?.images[0]?.imageUrl ) : (DEFAULT_IMAGE)">
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="title1">
+                <mat-header-cell *matHeaderCellDef> Tiêu đề</mat-header-cell>
+                <mat-cell *matCellDef="let post">{{post?.title}}</mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="price1">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Giá(Đồng)</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post?.price | number}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="createTime1">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày tạo</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post?.createTime | date:'dd-MM-yyyy'}} </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="startDate1">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày bắt đầu</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <div class="ml-2">
+                    <div *ngFor="let payment of post.payments">
+                      <div *ngIf="(payment?.status ==true)">
+                        <span>{{payment.startDate | date:'dd-MM-yyyy'}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="endDate1">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày kết thúc</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <div class="ml-2">
+                    <div *ngFor="let payment of post.payments">
+                      <div *ngIf="(payment?.status == true)">
+                        <span>{{payment.endDate | date:'dd-MM-yyyy'}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="comment1">
+                <mat-header-cell *matHeaderCellDef> Bình luận</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  {{post?.comments?.length != 0 ? post?.comments?.length : 0 }}
+                  <fa-icon [icon]="faComments" class="ml-1 text-info"></fa-icon>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="favorite1">
+                <mat-header-cell *matHeaderCellDef>Quan tâm</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  {{post?.favorites?.length != 0 ? post?.favorites?.length : 0}}
+                  <fa-icon [icon]="faHeart" class="ml-1 text-danger"></fa-icon>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="status1">
+                <mat-header-cell *matHeaderCellDef> Trạng thái</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <div *ngIf="(post?.status == true);else post_block" class="ml-2">
+                    <fa-icon [icon]="faLockOpen" class="text-success font-size-12" matTooltip="Đang đăng"></fa-icon>
+                  </div>
+                  <ng-template #post_block>
+                    <div class="ml-2">
+                      <fa-icon [icon]="faLock" class="text-danger font-size-12" matTooltip="Chưa đăng"></fa-icon>
+                    </div>
+                  </ng-template>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="action1">
+                <mat-header-cell *matHeaderCellDef>Tác vụ</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <div *ngIf="(post?.status == false);else post_block">
+                    <fa-icon [icon]="faLongArrowAltUp" class="text-color-feb800 cursor-pointer font-size-12"
+                             matTooltip="Đăng" matTooltipPosition="below" (click)="pushPost(post)">
+                    </fa-icon>
+                  </div>
+                  <ng-template #post_block>
+                    <fa-icon [icon]="faLongArrowAltDown" class="text-secondary cursor-pointer font-size-12"
+                             matTooltip="Gỡ" matTooltipPosition="below" (click)="removePost(post?.id)">
+                    </fa-icon>
+                  </ng-template>
+                  <fa-icon [icon]="faPencilAlt" class="ml-2 text-primary cursor-pointer font-size-12"
+                           matTooltip="Sửa" matTooltipPosition="below" (click)="editPost(post?.id)">
+                  </fa-icon>
+                  <fa-icon [icon]="faTrash" class="ml-2 text-danger cursor-pointer font-size-12"
+                           matTooltip="Xóa" matTooltipPosition="below" (click)="deletePost(post?.id)">
+                  </fa-icon>
+                  <fa-icon [icon]="faEllipsisV" class="ml-2 text-info cursor-pointer font-size-12"
+                           matTooltip="Chi tiết" matTooltipPosition="below" (click)="viewPost(post?.id)">
+                  </fa-icon>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumnsEnable" class="text-center"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumnsEnable;"></mat-row>
+            </mat-table>
+            <mat-paginator #paginatorEnable [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+        </div>
+        <ng-template #null_enable>
+          <span class="text-danger">Chưa có bài đăng</span>
+        </ng-template>
+      </mat-tab>
+      <mat-tab label="Bài viết chưa đăng">
+        <div class="mt-1" *ngIf="postDisable?.length != 0;else null_disable">
+          <div class="mt-3">
+            <div class="search-input">
+              <span class="font-size-13">Tìm kiếm: </span>
+              <input class="ml-1 form-control font-size-13 w-15"
+                     (keyup)="searchTag($event.target.value, 3)" placeholder="Nhập từ khóa cần tìm">
             </div>
-            <ng-template #end_time>
-              <div class="ml-2">
-                <span>-</span>
-              </div>
-            </ng-template>
-          </mat-cell>
-        </ng-container>
+          </div>
+          <div class="mt-1">
+            <mat-table matSort #sortPostDisable="matSort" [dataSource]="dataSourceDisable" class="box-shadow text-center w-100">
+              <ng-container matColumnDef="number2">
+                <mat-header-cell class="pl-0" *matHeaderCellDef> STT</mat-header-cell>
+                <mat-cell class="pl-0" *matCellDef="let post; let i = index"> {{i + 1}} </mat-cell>
+              </ng-container>
 
-        <ng-container matColumnDef="comment">
-          <mat-header-cell *matHeaderCellDef> Bình luận</mat-header-cell>
-          <mat-cell *matCellDef="let post">
-            {{post?.comments?.length != 0 ? post?.comments?.length : 0 }}
-            <fa-icon [icon]="faComments" class="ml-1 text-info"></fa-icon>
-          </mat-cell>
-        </ng-container>
+              <ng-container matColumnDef="image2">
+                <mat-header-cell *matHeaderCellDef> Ảnh đại diện</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <img width="80" class="pt-2 pb-2"
+                       [src]="post?.images[0]?.imageUrl ?
+               (PREFIX_URL + '/' + post?.id + '/' +  post?.images[0]?.imageUrl ) : (DEFAULT_IMAGE)">
+                </mat-cell>
+              </ng-container>
 
-        <ng-container matColumnDef="favorite">
-          <mat-header-cell *matHeaderCellDef>Quan tâm</mat-header-cell>
-          <mat-cell *matCellDef="let post">
-            {{post?.favorites?.length != 0 ? post?.favorites?.length : 0}}
-            <fa-icon [icon]="faHeart" class="ml-1 text-danger"></fa-icon>
-          </mat-cell>
-        </ng-container>
+              <ng-container matColumnDef="title2">
+                <mat-header-cell *matHeaderCellDef> Tiêu đề</mat-header-cell>
+                <mat-cell *matCellDef="let post">{{post?.title}}</mat-cell>
+              </ng-container>
 
-        <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef> Trạng thái</mat-header-cell>
-          <mat-cell *matCellDef="let post">
-            <div *ngIf="(post?.status == true);else post_block" class="ml-2">
-              <fa-icon [icon]="faLockOpen" class="text-success font-size-12" matTooltip="Đang đăng"></fa-icon>
-            </div>
-            <ng-template #post_block>
-              <div class="ml-2">
-                <fa-icon [icon]="faLock" class="text-danger font-size-12" matTooltip="Chưa đăng"></fa-icon>
-              </div>
-            </ng-template>
-          </mat-cell>
-        </ng-container>
+              <ng-container matColumnDef="price2">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Giá(Đồng)</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post?.price | number}} </mat-cell>
+              </ng-container>
 
-        <ng-container matColumnDef="action">
-          <mat-header-cell *matHeaderCellDef>Tác vụ</mat-header-cell>
-          <mat-cell *matCellDef="let post">
-            <div *ngIf="(post?.status == false);else post_block">
-              <fa-icon [icon]="faLongArrowAltUp" class="text-color-feb800 cursor-pointer font-size-12"
-                       matTooltip="Đăng" matTooltipPosition="below" (click)="pushPost(post)">
-              </fa-icon>
-            </div>
-            <ng-template #post_block>
-              <fa-icon [icon]="faLongArrowAltDown" class="text-secondary cursor-pointer font-size-12"
-                       matTooltip="Gỡ" matTooltipPosition="below" (click)="removePost(post?.id)">
-              </fa-icon>
-            </ng-template>
-            <fa-icon [icon]="faPencilAlt" class="ml-2 text-primary cursor-pointer font-size-12"
-                     matTooltip="Sửa" matTooltipPosition="below" (click)="editPost(post?.id)">
-            </fa-icon>
-            <fa-icon [icon]="faTrash" class="ml-2 text-danger cursor-pointer font-size-12"
-                     matTooltip="Xóa" matTooltipPosition="below" (click)="deletePost(post?.id)">
-            </fa-icon>
-            <fa-icon [icon]="faEllipsisV" class="ml-2 text-info cursor-pointer font-size-12"
-                     matTooltip="Chi tiết" matTooltipPosition="below" (click)="viewPost(post?.id)">
-            </fa-icon>
-          </mat-cell>
-        </ng-container>
+              <ng-container matColumnDef="createTime2">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày tạo</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post?.createTime | date:'dd-MM-yyyy'}} </mat-cell>
+              </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns" class="text-center"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-      </mat-table>
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-    </div>
-    <ng-template #null_table>
-      <span class="text-danger">Chưa có bài đăng</span>
-    </ng-template>
+              <ng-container matColumnDef="startDate2">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày bắt đầu</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <div class="ml-2">
+                    <div *ngFor="let payment of post.payments">
+                      <div>
+                        <span>-</span>
+                      </div>
+                    </div>
+                  </div>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="endDate2">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày kết thúc</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <div class="ml-2">
+                    <div *ngFor="let payment of post.payments">
+                      <div>
+                        <span>-</span>
+                      </div>
+                    </div>
+                  </div>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="comment2">
+                <mat-header-cell *matHeaderCellDef> Bình luận</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  {{post?.comments?.length != 0 ? post?.comments?.length : 0 }}
+                  <fa-icon [icon]="faComments" class="ml-1 text-info"></fa-icon>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="favorite2">
+                <mat-header-cell *matHeaderCellDef>Quan tâm</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  {{post?.favorites?.length != 0 ? post?.favorites?.length : 0}}
+                  <fa-icon [icon]="faHeart" class="ml-1 text-danger"></fa-icon>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="status2">
+                <mat-header-cell *matHeaderCellDef> Trạng thái</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <div *ngIf="(post?.status == true);else post_block" class="ml-2">
+                    <fa-icon [icon]="faLockOpen" class="text-success font-size-12" matTooltip="Đang đăng"></fa-icon>
+                  </div>
+                  <ng-template #post_block>
+                    <div class="ml-2">
+                      <fa-icon [icon]="faLock" class="text-danger font-size-12" matTooltip="Chưa đăng"></fa-icon>
+                    </div>
+                  </ng-template>
+                </mat-cell>
+              </ng-container>
+
+              <ng-container matColumnDef="action2">
+                <mat-header-cell *matHeaderCellDef>Tác vụ</mat-header-cell>
+                <mat-cell *matCellDef="let post">
+                  <div *ngIf="(post?.status == false);else post_block">
+                    <fa-icon [icon]="faLongArrowAltUp" class="text-color-feb800 cursor-pointer font-size-12"
+                             matTooltip="Đăng" matTooltipPosition="below" (click)="pushPost(post)">
+                    </fa-icon>
+                  </div>
+                  <ng-template #post_block>
+                    <fa-icon [icon]="faLongArrowAltDown" class="text-secondary cursor-pointer font-size-12"
+                             matTooltip="Gỡ" matTooltipPosition="below" (click)="removePost(post?.id)">
+                    </fa-icon>
+                  </ng-template>
+                  <fa-icon [icon]="faPencilAlt" class="ml-2 text-primary cursor-pointer font-size-12"
+                           matTooltip="Sửa" matTooltipPosition="below" (click)="editPost(post?.id)">
+                  </fa-icon>
+                  <fa-icon [icon]="faTrash" class="ml-2 text-danger cursor-pointer font-size-12"
+                           matTooltip="Xóa" matTooltipPosition="below" (click)="deletePost(post?.id)">
+                  </fa-icon>
+                  <fa-icon [icon]="faEllipsisV" class="ml-2 text-info cursor-pointer font-size-12"
+                           matTooltip="Chi tiết" matTooltipPosition="below" (click)="viewPost(post?.id)">
+                  </fa-icon>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumnsDisable" class="text-center"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumnsDisable;"></mat-row>
+            </mat-table>
+            <mat-paginator #paginatorDisable [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+        </div>
+        <ng-template #null_disable>
+          <span class="text-danger">Không có bài viết nào</span>
+        </ng-template>
+      </mat-tab>
+    </mat-tab-group>
   </div>
+  <ng-template #null_table>
+    <div class="mt-3">
+      <span class="text-danger">Chưa có bài đăng</span>
+    </div>
+  </ng-template>
 </div>

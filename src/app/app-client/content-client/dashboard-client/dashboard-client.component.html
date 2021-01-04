@@ -89,14 +89,11 @@
     </div>
   </mat-card>
   <div class="row">
-    <div class="col-12 mt-3">
-      <p class="title text-start font-weight-bold">Phòng trọ sạch đẹp > Giá hợp lý > Đầy đủ tiện nghi</p>
-    </div>
-    <div class="col-12 col-lg-9">
+    <div class="col-12 col-lg-9 mt-3">
       <div class="row" *ngIf="payments?.length >0; else null_result">
         <div class="col-sm-6 col-lg-4 mt-3"
              *ngFor="let payment of payments | paginate: { itemsPerPage: 6, currentPage: currentPage}">
-          <div class="card">
+          <div class="card" style="height: 325px">
             <div class="product-thumb">
               <a [routerLink]="['post', payment?.post?.id]">
                 <img
@@ -143,8 +140,8 @@
               </div>
               <div class="product-date mt-1 mb-1">
                 <fa-icon [icon]="faCalendarMinus" class="mr-1"></fa-icon>
-                <span [matTooltip]="payment?.post?.createTime | date: 'hh:mm a dd-MM-yyyy'" matTooltipPosition="right">
-                   {{timespan(payment?.post?.createTime)}}
+                <span [matTooltip]="payment?.startDate | date: 'hh:mm a dd-MM-yyyy'" matTooltipPosition="right">
+                   {{timespan(payment?.startDate)}}
                 </span>
               </div>
               <button mat-icon-button class="product-favorite"

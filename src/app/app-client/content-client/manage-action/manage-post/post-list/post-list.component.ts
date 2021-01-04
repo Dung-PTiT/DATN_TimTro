@@ -34,11 +34,23 @@ export class PostListComponent implements OnInit {
 
   user: User;
   posts: Array<Post>;
+  postEnable = [];
+  postDisable = [];
   displayedColumns: string[] = [];
-  dataSource: MatTableDataSource<User>;
+  displayedColumnsEnable: string[] = [];
+  displayedColumnsDisable: string[] = [];
+  dataSource: MatTableDataSource<Post>;
+  dataSourceEnable: MatTableDataSource<Post>;
+  dataSourceDisable: MatTableDataSource<Post>;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('paginatorAll') paginator: MatPaginator;
+  @ViewChild('sort') sort: MatSort;
+
+  @ViewChild('paginatorEnable') paginatorPostEnable: MatPaginator;
+  @ViewChild('sortPostEnable') sortPostEnable: MatSort;
+
+  @ViewChild('paginatorDisable') paginatorPostDisable: MatPaginator;
+  @ViewChild('sortPostDisable') sortPostDisable: MatSort;
 
   constructor(private authenticationService: AuthenticationService,
               private postService: PostService,
@@ -53,13 +65,19 @@ export class PostListComponent implements OnInit {
       'number', 'image', 'title', 'price', 'createTime', 'startDate', 'endDate', 'comment', 'favorite', 'status', 'action'
     ];
 
+    this.displayedColumnsEnable = [
+      'number1', 'image1', 'title1', 'price1', 'createTime1', 'startDate1', 'endDate1', 'comment1', 'favorite1', 'status1', 'action1'
+    ];
+
+    this.displayedColumnsDisable = [
+      'number2', 'image2', 'title2', 'price2', 'createTime2', 'startDate2', 'endDate2', 'comment2', 'favorite2', 'status2', 'action2'
+    ];
+
     if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
       this.user = JSON.parse(localStorage.getItem('userCurrent'));
       this.postService.getPostByUserId(this.user.id).subscribe(resp => {
         this.posts = resp.data;
-        this.dataSource = new MatTableDataSource(resp.data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.reloadPostList(this.posts);
       });
     } else {
       if (this.authenticationService.checkLogin()) {
@@ -67,9 +85,7 @@ export class PostListComponent implements OnInit {
           this.user = resp.data;
           this.postService.getPostByUserId(this.user.id).subscribe(resp => {
             this.posts = resp.data;
-            this.dataSource = new MatTableDataSource(resp.data);
-            this.dataSource.paginator = this.paginator;
-            this.dataSource.sort = this.sort;
+            this.reloadPostList(this.posts);
           });
         });
       }
@@ -91,9 +107,7 @@ export class PostListComponent implements OnInit {
             this.toastService.showSuccess(resp.data);
             this.postService.getPostByUserId(this.user.id).subscribe(resp => {
               this.posts = resp.data;
-              this.dataSource = new MatTableDataSource(resp.data);
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
+              this.reloadPostList(this.posts);
             });
           } else {
             this.toastService.showError(resp.data);
@@ -138,9 +152,7 @@ export class PostListComponent implements OnInit {
             this.toastService.showSuccess(resp.data);
             this.postService.getPostByUserId(this.user.id).subscribe(resp => {
               this.posts = resp.data;
-              this.dataSource = new MatTableDataSource(resp.data);
-              this.dataSource.paginator = this.paginator;
-              this.dataSource.sort = this.sort;
+              this.reloadPostList(this.posts);
             });
           } else {
             this.toastService.showError(resp.data);
@@ -150,12 +162,59 @@ export class PostListComponent implements OnInit {
     })
   }
 
-  searchTag(filterValue: string) {
+  searchTag(filterValue: string, tabNumber: number) {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
-    this.dataSource.filter = filterValue;
+    if (tabNumber == 1) {
+      this.dataSource.filter = filterValue;
+    }else if(tabNumber ==2){
+      this.dataSourceEnable.filter = filterValue;
+    }else if(tabNumber == 3){
+      this.dataSourceDisable.filter = filterValue;
+    }
+
   }
 
+  reloadPostList(posts: any) {
+    this.postEnable = [];
+    this.postDisable = [];
+
+    this.dataSource = new MatTableDataSource(posts);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+    if (posts.length != 0) {
+      for (let i = 0; i < posts.length; i++) {
+        if (posts[i].status) {
+          this.postEnable.push(posts[i]);
+        } else {
+          this.postDisable.push(posts[i]);
+        }
+      }
+    }
+    this.dataSourceEnable = new MatTableDataSource(this.postEnable);
+    this.dataSourceEnable.paginator = this.paginatorPostEnable;
+    this.dataSourceEnable.sort = this.sortPostEnable;
+
+    this.dataSourceDisable = new MatTableDataSource(this.postDisable);
+    this.dataSourceDisable.paginator = this.paginatorPostDisable;
+    this.dataSourceDisable.sort = this.sortPostDisable;
+  }
+
+  _setDataSource(indexNumber) {
+    setTimeout(() => {
+      switch (indexNumber) {
+        case 0:
+          !this.dataSource.paginator ? this.dataSource.paginator = this.paginator : null;
+          break;
+        case 1:
+          !this.dataSourceEnable.paginator ? this.dataSourceEnable.paginator = this.paginatorPostEnable : null;
+          break;
+        case 2:
+          !this.dataSourceDisable.paginator ? this.dataSourceDisable.paginator = this.paginatorPostDisable : null;
+      }
+    });
+  }
 
   faTrash = faTrash;
   faPencilAlt = faPencilAlt;

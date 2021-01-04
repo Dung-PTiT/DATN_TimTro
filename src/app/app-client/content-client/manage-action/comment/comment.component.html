@@ -4,9 +4,9 @@
     <div><span>Tổng số bình luận: {{comments?.length}}</span></div>
   </div>
   <mat-divider></mat-divider>
-  <div>
+  <div *ngIf="comments?.length != 0;else null_table">
     <div class="mt-3 ml-1">
-      <mat-table *ngIf="comments?.length != 0;else null_table" matSort
+      <mat-table matSort
                  [dataSource]="dataSource">
 
         <ng-container matColumnDef="number">
@@ -47,9 +47,11 @@
         <mat-row *matRowDef="let row; columns: displayedComment;"></mat-row>
       </mat-table>
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-      <ng-template #null_table>
-        <span class="text-danger">Chưa có bình luận</span>
-      </ng-template>
     </div>
   </div>
+  <ng-template #null_table>
+    <div class="mt-3">
+      <span class="text-danger">Chưa có bình luận</span>
+    </div>
+  </ng-template>
 </div>

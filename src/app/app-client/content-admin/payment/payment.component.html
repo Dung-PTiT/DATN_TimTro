@@ -1,1 +1,69 @@
-<p>payment works!</p>
+<div style="margin: 10px 10px 0 10px">
+  <div class="d-flex align-items-center justify-content-between">
+    <div><h6>Quản lý bài đăng</h6></div>
+    <div><span>Sô lần đăng bài: {{payments?.length}}</span></div>
+  </div>
+  <mat-divider></mat-divider>
+  <div *ngIf="payments?.length != 0;else null_table">
+    <div class="mt-3 ml-1">
+      <mat-table matSort
+                 [dataSource]="dataSource">
+
+        <ng-container matColumnDef="number">
+          <mat-header-cell *matHeaderCellDef> STT</mat-header-cell>
+          <mat-cell *matCellDef="let row; let i = index;"> {{i + 1}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Giá(đồng)</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row?.price | number}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="startDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày bắt đầu</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{row?.startDate | date : "dd-MM-yyyy hh:mm a"}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="endDate">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày kết thúc</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            {{row?.endDate | date : "dd-MM-yyyy 'hh:mm a"}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef> Trạng thái</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <div *ngIf="(row?.status == true);else post_block" class="ml-2">
+              <fa-icon [icon]="faLockOpen" class="text-success font-size-12" matTooltip="Đang đăng"></fa-icon>
+            </div>
+            <ng-template #post_block>
+              <div class="ml-2">
+                <fa-icon [icon]="faLock" class="text-danger font-size-12" matTooltip="Chưa đăng"></fa-icon>
+              </div>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="post">
+          <mat-header-cell *matHeaderCellDef>Bài viết</mat-header-cell>
+          <mat-cell *matCellDef="let row" class="cursor-pointer"
+                    matTooltip="Bấm xem bài viết"
+                    (click)="viewPost(row?.post?.id)"> {{row?.post?.title}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedPayment" class="text-center"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedPayment;"></mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+  </div>
+  <ng-template #null_table>
+    <div class="mt-3">
+      <span class="text-danger">Chưa có bài đăng</span>
+    </div>
+  </ng-template>
+</div>
+

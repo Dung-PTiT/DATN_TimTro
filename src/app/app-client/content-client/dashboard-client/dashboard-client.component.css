@@ -134,7 +134,15 @@
 }
 
 .product-address {
-  display: inline-block;
+  display: -webkit-box;
+  height: auto;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
+  -webkit-box-orient: vertical;
   width: 100%;
   font-style: normal;
   font-weight: normal;

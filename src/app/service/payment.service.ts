@@ -27,6 +27,10 @@ export class PaymentService extends MainService {
     return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/payment/get-by-user-id', {params: {userId: userId}});
   }
 
+  getAll(): Observable<any> {
+    return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/payment/get-all');
+  }
+
   fetchEnablePost(provinceId: any, districtId: any, wardId: any,
                   minPrice: any, maxPrice: any,
                   minAcreage: any, maxAcreage: any,

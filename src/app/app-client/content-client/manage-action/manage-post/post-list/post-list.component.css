@@ -2,6 +2,7 @@
   width: 100%;
   overflow: auto;
   padding-left: 10px;
+  border: 1px solid #dddddd;
 }
 
 .select-custom {
@@ -30,15 +31,73 @@
 .mat-column-price {
   flex: 0 0 10%;
 }
+
 .mat-column-createTime {
   flex: 0 0 10%;
 }
+
 .mat-column-startDate {
   flex: 0 0 10%;
 }
+
 .mat-column-endDate {
   flex: 0 0 10%;
 }
 
+.mat-column-number1 {
+  flex: 0 0 3%;
+}
+
+.mat-column-image1 {
+  flex: 0 0 8%;
+}
+
+.mat-column-title1 {
+  flex: 0 0 20%;
+}
+
+.mat-column-price1 {
+  flex: 0 0 10%;
+}
+
+.mat-column-createTime1 {
+  flex: 0 0 10%;
+}
+
+.mat-column-startDate1 {
+  flex: 0 0 10%;
+}
+
+.mat-column-endDate1 {
+  flex: 0 0 10%;
+}
+
+.mat-column-number2 {
+  flex: 0 0 3%;
+}
+
+.mat-column-image2 {
+  flex: 0 0 8%;
+}
+
+.mat-column-title2 {
+  flex: 0 0 20%;
+}
+
+.mat-column-price2 {
+  flex: 0 0 10%;
+}
+
+.mat-column-createTime2 {
+  flex: 0 0 10%;
+}
+
+.mat-column-startDate2 {
+  flex: 0 0 10%;
+}
+
+.mat-column-endDate2 {
+  flex: 0 0 10%;
+}
 
 

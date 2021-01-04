@@ -4,9 +4,9 @@
     <div><span>Sô lần đăng bài: {{payments?.length}}</span></div>
   </div>
   <mat-divider></mat-divider>
-  <div>
+  <div *ngIf="payments?.length != 0;else null_table">
     <div class="mt-3 ml-1">
-      <mat-table *ngIf="payments?.length != 0;else null_table" matSort
+      <mat-table matSort
                  [dataSource]="dataSource">
 
         <ng-container matColumnDef="number">
@@ -56,9 +56,11 @@
         <mat-row *matRowDef="let row; columns: displayedPayment;"></mat-row>
       </mat-table>
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-      <ng-template #null_table>
-        <span class="text-danger">Chưa có bài đăng</span>
-      </ng-template>
     </div>
   </div>
+  <ng-template #null_table>
+    <div class="mt-3">
+      <span class="text-danger">Chưa có bài đăng</span>
+    </div>
+  </ng-template>
 </div>

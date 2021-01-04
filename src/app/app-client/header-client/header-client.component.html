@@ -13,13 +13,7 @@
         <a href="" class="mat-toolbar-title ml-3" [routerLink]="['/service-price']">
           <span>Bảng giá</span>
         </a>
-        <button (click)="topUp()">
-          <span>Nạp tiền</span>
-        </button>
-        <button (click)="topUp1()">
-          <span>Nạp tiền 1</span>
-        </button>
-        <div ngbDropdown container="body" class="cursor-pointer">
+        <div ngbDropdown container="body" class="cursor-pointer" [class.display-none]="currentUser">
           <span ngbDropdownToggle class="ml-4 mat-toolbar-title">Đăng nhập | Đăng ký</span>
           <div ngbDropdownMenu class="mt-2">
             <button ngbDropdownItem class="font-size-14" [routerLink]="['/login']">
@@ -32,7 +26,7 @@
             </button>
           </div>
         </div>
-        <div ngbDropdown container="body" class="cursor-pointer">
+        <div ngbDropdown container="body" class="cursor-pointer" [class.display-none]="!currentUser">
           <img ngbDropdownToggle class="ml-3" referrerpolicy="no-referrer"
                [matTooltip]="currentUser?.name ? currentUser.name : nameBaseUser"
                matTooltipPosition="below"
@@ -77,7 +71,7 @@
           </div>
         </div>
       </mat-toolbar>
-      <button mat-stroked-button class="pr-4 box-shadow font-size-13 btn-create-post" [routerLink]="['/manage/post/create']"
+      <button mat-stroked-button class="box-shadow font-size-13 btn-create-post" [routerLink]="['/manage/post/create']"
               matTooltip="Bấm để đăng tin" matTooltipPosition="below">
         <fa-icon [icon]="faUpload"></fa-icon>
         <span class="ml-2">Đăng tin</span>

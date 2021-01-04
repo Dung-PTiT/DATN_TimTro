@@ -5,7 +5,7 @@
     <div class="col-2"></div>
     <div class="col-8 box-shadow">
       <mat-tab-group mat-align-tabs="center">
-        <mat-tab label="Tên | Tên Tài khoản">
+        <mat-tab label="Thông tin">
           <div class="d-flex justify-content-center align-items-center justify-content-around">
             <div>
               <img class="box-shadow" [src]="user?.imageUrl ? user.imageUrl : DEFAULT_IMAGE_USER"
@@ -46,7 +46,7 @@
                 <span>Mật khẩu mới
                     (<span class="text-danger">*</span>)
                 </span>
-                <div style="width: 78%">
+                <div style="width: 77%">
                   <input mdbInput type="password" formControlName="inputNewPass"
                          class="form-control" placeholder="Mật khẩu mới"
                          [ngClass]="{ 'is-invalid': submitted && validator.inputNewPass?.errors}">
@@ -59,7 +59,7 @@
                 <span>Nhập lại mật khẩu mới
                  (<span class="text-danger">*</span>)
                 </span>
-                <div style="width: 78%">
+                <div style="width: 77%">
                   <input mdbInput type="password" formControlName="inputNewPassConfirm"
                          class="form-control" placeholder="Nhập lại mật khẩu mới"
                          [ngClass]="{ 'is-invalid': submitted && validator.inputNewPassConfirm?.errors}">

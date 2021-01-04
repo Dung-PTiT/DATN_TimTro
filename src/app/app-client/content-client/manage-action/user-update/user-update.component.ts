@@ -9,7 +9,6 @@ import {ToastService} from "../../../../service/toast.service";
 import {UserService} from "../../../../service/user.service";
 import {MatDialog} from "@angular/material/dialog";
 import {UserUpdateDialogComponent} from "./user-update-dialog/user-update-dialog.component";
-import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'app-user-update',
@@ -65,7 +64,6 @@ export class UserUpdateComponent implements OnInit {
       }
     }
   }
-
 
   changePassword() {
     this.submitted = true;

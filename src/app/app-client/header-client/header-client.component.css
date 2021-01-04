@@ -74,9 +74,13 @@
 .btn-create-post {
   color: initial;
   line-height: 29px;
+  min-width: auto;
+  margin-left: 10px !important;
+  padding: 0 10px;
 }
 
 .btn-create-post:hover {
-  color: #000000;
+  color: #ffffff;
   background-color: #feb800;
 }
+

@@ -89,9 +89,9 @@
     </div>
   </mat-card>
   <div class="row">
-    <div class="col-12 col-lg-9 mt-3">
+    <div class="col-12 mt-3">
       <div class="row" *ngIf="payments?.length >0; else null_result">
-        <div class="col-sm-6 col-lg-4 mt-3"
+        <div class="col-sm-6 col-lg-3 mt-3"
              *ngFor="let payment of payments | paginate: { itemsPerPage: 6, currentPage: currentPage}">
           <div class="card" style="height: 325px">
             <div class="product-thumb">
@@ -175,38 +175,6 @@
           Xem danh sách hiện có
         </button>
       </ng-template>
-    </div>
-    <div class="col-12 col-lg-3 mt-2">
-      <div class="card">
-        <div>
-          <p class="title text-center font-size-14 font-weight-bold mb-0 mt-2">Danh mục cho thuê</p>
-        </div>
-        <mat-list class="category-list">
-          <mat-list-item class="font-size-14">
-            <a href="">Cho thuê phòng trọ</a>
-          </mat-list-item>
-          <mat-list-item class="font-size-14">
-            <a href="">Cho thuê phòng trọ tại Hà Nội</a>
-          </mat-list-item>
-          <mat-list-item class="font-size-14">
-            <a href="">Cho thuê nhà nguyên căn</a>
-          </mat-list-item>
-          <mat-list-item class="font-size-14">
-            <a href="">Cho thuê căn hộ</a>
-          </mat-list-item>
-          <mat-list-item class="font-size-14">
-            <a href="">Cho thuê mặt bằng</a>
-          </mat-list-item>
-          <mat-list-item class="font-size-14">
-            <a href="">Tìm người ở ghép</a>
-          </mat-list-item>
-        </mat-list>
-      </div>
-      <div class="card mt-3">
-        <div class="text-center">
-          <p class="title text-start font-weight-bold">Tin mới đăng</p>
-        </div>
-      </div>
     </div>
   </div>
 </div>

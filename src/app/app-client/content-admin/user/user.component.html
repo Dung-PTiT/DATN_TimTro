@@ -1,125 +1,123 @@
-<div style="margin: 10px 10px 0 10px">
-  <div class="d-flex align-items-center justify-content-between mb-2">
+<div class="d-flex align-items-center justify-content-between mb-2">
+  <div>
+    <h6>Quản lý người dùng</h6>
     <div>
-      <h6>Quản lý người dùng</h6>
-      <div>
-        <span>Tổng số người dùng: {{users?.length}}</span>
-      </div>
-    </div>
-    <div class="font-size-13 d-flex flex-column text-align-end">
-      <div>
-        <fa-icon [icon]="faUsersCog" class="text-success"></fa-icon>
-        <span class="ml-2">Quản lý</span>
-      </div>
-      <div>
-        <fa-icon [icon]="faUserTie" class="text-secondary"></fa-icon>
-        <span class="ml-2">Người dùng</span>
-      </div>
+      <span>Tổng số người dùng: {{users?.length}}</span>
     </div>
   </div>
-  <mat-divider></mat-divider>
-  <div>
-    <div class="mt-3">
+  <div class="font-size-13 d-flex flex-column text-align-end">
+    <div>
+      <fa-icon [icon]="faUsersCog" class="text-success"></fa-icon>
+      <span class="ml-2">Quản lý</span>
+    </div>
+    <div>
+      <fa-icon [icon]="faUserTie" class="text-secondary"></fa-icon>
+      <span class="ml-2">Người dùng</span>
+    </div>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<div>
+  <div class="mt-3">
+    <div class="search-input">
+      <button mat-button (click)="openCreateUserDialog()"
+              class="p-0 pl-2 pr-2 float-right text-white button-save font-size-13 line-height-25">
+        <fa-icon [icon]="faPlusCircle"></fa-icon>
+        <span class="ml-2">Thêm</span>
+      </button>
       <div class="search-input">
-        <button mat-button (click)="openCreateUserDialog()"
-                class="p-0 pl-2 pr-2 float-right text-white button-save font-size-13 line-height-25">
-          <fa-icon [icon]="faPlusCircle"></fa-icon>
-          <span class="ml-2">Thêm</span>
-        </button>
-        <div class="search-input">
-          <span class="font-size-13">Tìm kiếm: </span>
-          <input class="form-control font-size-13 w-70"
-                 (keyup)="searchTag($event.target.value)" placeholder="Nhập từ khóa cần tìm">
-        </div>
+        <span class="font-size-13">Tìm kiếm: </span>
+        <input class="form-control font-size-13 w-70"
+               (keyup)="searchTag($event.target.value)" placeholder="Nhập từ khóa cần tìm">
       </div>
+    </div>
 
-      <div class="mt-1">
+    <div class="mt-1">
 
-        <mat-table [dataSource]="dataSource" matSort>
+      <mat-table [dataSource]="dataSource" matSort>
 
-          <ng-container matColumnDef="number">
-            <mat-header-cell *matHeaderCellDef>Số</mat-header-cell>
-            <mat-cell *matCellDef="let row; let i = index"> {{i + 1}} </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="number">
+          <mat-header-cell *matHeaderCellDef>Số</mat-header-cell>
+          <mat-cell *matCellDef="let row; let i = index"> {{i + 1}} </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="name">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Người dùng</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <img class="box-shadow" width="30" height="30" referrerpolicy="no-referrer"
-                   [src]="row?.imageUrl" style="border-radius: 50%"/>
-              <span class="ml-2">{{row.name}}</span>
-            </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Người dùng</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <img class="box-shadow" width="30" height="30" referrerpolicy="no-referrer"
+                 [src]="row?.imageUrl" style="border-radius: 50%"/>
+            <span class="ml-2">{{row.name}}</span>
+          </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="role">
-            <mat-header-cell *matHeaderCellDef>Quyền</mat-header-cell>
-            <mat-cell *matCellDef="let row">
+        <ng-container matColumnDef="role">
+          <mat-header-cell *matHeaderCellDef>Quyền</mat-header-cell>
+          <mat-cell *matCellDef="let row">
               <span *ngIf="row.role.includes('ADMIN'); else member">
                 <fa-icon [icon]="faUsersCog" class="text-success"
                          matTooltipPosition="right" matTooltip="Quản lý"></fa-icon>
               </span>
-              <ng-template #member>
+            <ng-template #member>
                 <span>
                   <fa-icon [icon]="faUserTie" class="text-secondary"
                            matTooltipPosition="right" matTooltip="Người dùng"></fa-icon>
                 </span>
-              </ng-template>
-            </mat-cell>
-          </ng-container>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="status">
-            <mat-header-cell *matHeaderCellDef>Trạng thái</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <div *ngIf="(row?.isActived == true);else user_block" class="ml-2">
-                <fa-icon [icon]="faLockOpen" class="text-success font-size-12" matTooltip="Được hoạt động"></fa-icon>
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef>Trạng thái</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <div *ngIf="(row?.isActived == true);else user_block" class="ml-2">
+              <fa-icon [icon]="faLockOpen" class="text-success font-size-12" matTooltip="Được hoạt động"></fa-icon>
+            </div>
+            <ng-template #user_block>
+              <div class="ml-2">
+                <fa-icon [icon]="faLock" class="text-danger font-size-12" matTooltip="Bị khóa"></fa-icon>
               </div>
-              <ng-template #user_block>
-                <div class="ml-2">
-                  <fa-icon [icon]="faLock" class="text-danger font-size-12" matTooltip="Bị khóa"></fa-icon>
-                </div>
-              </ng-template>
-            </mat-cell>
-          </ng-container>
+            </ng-template>
+          </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="email">
-            <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef>Email</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="phoneNumber">
-            <mat-header-cell *matHeaderCellDef>Số điện thoại</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.phoneNumber}} </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="phoneNumber">
+          <mat-header-cell *matHeaderCellDef>Số điện thoại</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.phoneNumber}} </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="createTime">
-            <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.createTime | date:'dd-MM-yyyy'}} </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="createTime">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Ngày tạo</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.createTime | date:'dd-MM-yyyy'}} </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="authProvider">
-            <mat-header-cell *matHeaderCellDef>Nguồn</mat-header-cell>
-            <mat-cell *matCellDef="let row"> {{row.authProvider}} </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="authProvider">
+          <mat-header-cell *matHeaderCellDef>Nguồn</mat-header-cell>
+          <mat-cell *matCellDef="let row"> {{row.authProvider}} </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="action">
-            <mat-header-cell *matHeaderCellDef>Tác vụ</mat-header-cell>
-            <mat-cell *matCellDef="let row">
-              <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer font-size-12"
-                       matTooltip="Sửa" (click)="openUpdateUserDialog(row)">
-              </fa-icon>
-              <fa-icon class="text-danger cursor-pointer ml-2 font-size-12" (click)="deleteUser(row)"
-                       [icon]="faTrashAlt" matTooltip="Xóa"></fa-icon>
-              <fa-icon class="text-secondary cursor-pointer ml-2 font-size-12" (click)="viewInfoUser(row)"
-                       [icon]="faInfoCircle" matTooltip="Chi tiết"></fa-icon>
-            </mat-cell>
-          </ng-container>
+        <ng-container matColumnDef="action">
+          <mat-header-cell *matHeaderCellDef>Tác vụ</mat-header-cell>
+          <mat-cell *matCellDef="let row">
+            <fa-icon [icon]="faPencilAlt" class="text-info cursor-pointer font-size-12"
+                     matTooltip="Sửa" (click)="openUpdateUserDialog(row)">
+            </fa-icon>
+            <fa-icon class="text-danger cursor-pointer ml-2 font-size-12" (click)="deleteUser(row)"
+                     [icon]="faTrashAlt" matTooltip="Xóa"></fa-icon>
+            <fa-icon class="text-secondary cursor-pointer ml-2 font-size-12" (click)="viewInfoUser(row)"
+                     [icon]="faInfoCircle" matTooltip="Chi tiết"></fa-icon>
+          </mat-cell>
+        </ng-container>
 
-          <mat-header-row *matHeaderRowDef="displayedUser"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedUser;">
-          </mat-row>
-        </mat-table>
-        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-      </div>
+        <mat-header-row *matHeaderRowDef="displayedUser"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedUser;">
+        </mat-row>
+      </mat-table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
   </div>
 </div>

@@ -1,76 +1,74 @@
-<div style="margin: 10px 10px 0 10px">
-  <h6 class="mt-2 mb-3">Thông tin người đăng và bài đăng liên quan</h6>
-  <mat-divider></mat-divider>
-  <div class="d-flex mt-3 box-shadow">
-    <div class="col-3">
-      <div class="profile-user">
-        <div class="profile-info">
-          <div class="d-flex">
-            <img class="box-shadow" width="100" height="100"
-                 [src]="user?.imageUrl" referrerpolicy="no-referrer"
-                 style="border-radius: 50%; max-width: 100px;"/>
-            <div class="profile-name">
-              <b>{{user?.name}}</b>
-            </div>
+<h6 class="mt-2 mb-3">Thông tin người đăng và bài đăng liên quan</h6>
+<mat-divider></mat-divider>
+<div class="d-flex mt-3 box-shadow">
+  <div class="col-3">
+    <div class="profile-user">
+      <div class="profile-info">
+        <div class="d-flex">
+          <img class="box-shadow" width="100" height="100"
+               [src]="user?.imageUrl" referrerpolicy="no-referrer"
+               style="border-radius: 50%; max-width: 100px;"/>
+          <div class="profile-name">
+            <b>{{user?.name}}</b>
           </div>
         </div>
       </div>
-      <div>
-        <div class="mt-2 mb-2">
-          <fa-icon [icon]="faPhone"></fa-icon>
-          <span class="ml-2">{{user?.phoneNumber}}</span>
-        </div>
-        <div class="mt-2 mb-2">
-          <fa-icon [icon]="faComments"></fa-icon>
-          <span class="ml-2">{{user?.email}}</span>
-        </div>
-      </div>
-      <span class="mt-2 mb-2">Tham gia: {{user?.createTime | date:'hh:mm a dd-MM-yyyy'}}</span>
     </div>
-    <div class="col-9">
-      <div class="mt-2 mr-2">
-        <div class="d-flex align-items-center justify-content-between">
-          <div><h6>Tất cả bài viết</h6></div>
-          <span>Tổng số bài: {{posts?.length}}</span>
-        </div>
-        <mat-divider class="mt-2 mb-2"></mat-divider>
-        <div style=" height: 500px; overflow-y: scroll;">
-          <div *ngFor="let post of posts">
-            <div class="d-flex mt-3 pb-3" style="border-bottom: 1px solid #dddddd">
-              <div>
-                <img width="100" (click)="viewPost(post?.id)" class="cursor-pointer"
-                     [src]="post?.images[0]?.imageUrl ?
+    <div>
+      <div class="mt-2 mb-2">
+        <fa-icon [icon]="faPhone"></fa-icon>
+        <span class="ml-2">{{user?.phoneNumber}}</span>
+      </div>
+      <div class="mt-2 mb-2">
+        <fa-icon [icon]="faComments"></fa-icon>
+        <span class="ml-2">{{user?.email}}</span>
+      </div>
+    </div>
+    <span class="mt-2 mb-2">Tham gia: {{user?.createTime | date:'hh:mm a dd-MM-yyyy'}}</span>
+  </div>
+  <div class="col-9">
+    <div class="mt-2 mr-2">
+      <div class="d-flex align-items-center justify-content-between">
+        <div><h6>Tất cả bài viết</h6></div>
+        <span>Tổng số bài: {{posts?.length}}</span>
+      </div>
+      <mat-divider class="mt-2 mb-2"></mat-divider>
+      <div style=" height: 500px; overflow-y: scroll;">
+        <div *ngFor="let post of posts">
+          <div class="d-flex mt-3 pb-3" style="border-bottom: 1px solid #dddddd">
+            <div>
+              <img width="100" (click)="viewPost(post?.id)" class="cursor-pointer"
+                   [src]="post?.images[0]?.imageUrl ?
                (IMAGE_URL + '/' + post?.id + '/' +  post?.images[0]?.imageUrl ) : (DEFAULT_IMAGE)">
-              </div>
-              <div class="d-flex w-100 justify-content-between">
-                <div class="p-1 ml-2" style="display: flex;flex-direction: column;justify-content: space-between;">
-                  <div>
+            </div>
+            <div class="d-flex w-100 justify-content-between">
+              <div class="p-1 ml-2" style="display: flex;flex-direction: column;justify-content: space-between;">
+                <div>
                     <span class="font-weight-bolder cursor-pointer" (click)="viewPost(post?.id)">
                       {{post?.title}}
                     </span>
-                  </div>
-                  <div class="d-flex">
-                    <p class="mb-0">Giá:
-                      <span class="font-weight-bold">{{post?.price | number}} triệu/tháng</span>
-                    </p>
-                    <p class="ml-3 mb-0">Diện tích:
-                      <span class="font-weight-bold">{{post?.acreage}} m2</span>
-                    </p>
-                  </div>
                 </div>
-                <div class="p-2 mr-3">
-                  <fa-icon [icon]="faEllipsisV" class="ml-2 text-info cursor-pointer"
-                           matTooltip="Chi tiết" matTooltipPosition="below" (click)="viewPost(post?.id)">
-                  </fa-icon>
-                  <div *ngIf="(post?.status == true);else post_block" class="ml-2">
-                    <fa-icon [icon]="faLockOpen" class="text-success font-size-12" matTooltip="Đang đăng"></fa-icon>
-                  </div>
-                  <ng-template #post_block>
-                    <div class="ml-2">
-                      <fa-icon [icon]="faLock" class="text-danger font-size-12" matTooltip="Đang khóa"></fa-icon>
-                    </div>
-                  </ng-template>
+                <div class="d-flex">
+                  <p class="mb-0">Giá:
+                    <span class="font-weight-bold">{{post?.price | number}} triệu/tháng</span>
+                  </p>
+                  <p class="ml-3 mb-0">Diện tích:
+                    <span class="font-weight-bold">{{post?.acreage}} m2</span>
+                  </p>
                 </div>
+              </div>
+              <div class="p-2 mr-3">
+                <fa-icon [icon]="faEllipsisV" class="ml-2 text-info cursor-pointer"
+                         matTooltip="Chi tiết" matTooltipPosition="below" (click)="viewPost(post?.id)">
+                </fa-icon>
+                <div *ngIf="(post?.status == true);else post_block" class="ml-2">
+                  <fa-icon [icon]="faLockOpen" class="text-success font-size-12" matTooltip="Đang đăng"></fa-icon>
+                </div>
+                <ng-template #post_block>
+                  <div class="ml-2">
+                    <fa-icon [icon]="faLock" class="text-danger font-size-12" matTooltip="Đang khóa"></fa-icon>
+                  </div>
+                </ng-template>
               </div>
             </div>
           </div>
@@ -79,3 +77,4 @@
     </div>
   </div>
 </div>
+

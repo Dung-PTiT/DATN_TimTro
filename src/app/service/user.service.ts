@@ -29,6 +29,12 @@ export class UserService extends MainService {
       {params: {id: userId, password: newPassword}});
   }
 
+  checkCurrentPassword(currentPassword: any): Observable<any> {
+    return this.http.post(
+      this.PREFIX_URL + this.CONTEXT_URL + '/user/check-current-password', null,
+      {params: {currentPassword: currentPassword}});
+  }
+
   delete(userId: any): Observable<any> {
     return this.http.post(
       this.PREFIX_URL + this.CONTEXT_URL + '/user/delete', null,

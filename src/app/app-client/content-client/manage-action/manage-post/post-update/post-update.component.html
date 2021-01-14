@@ -1,5 +1,5 @@
 <div style="margin: 20px 10px 0 20px">
-  <h5>Đăng bài mới</h5>
+  <h5>Cập nhật bài viết</h5>
   <mat-divider></mat-divider>
   <div class="row mt-3">
     <div class="col-8">
@@ -190,18 +190,18 @@
           </div>
         </div>
       </div>
-<!--      <agm-map #agmMap [latitude]="markerInfo?.latitude" [longitude]="markerInfo?.longitude" [zoom]="13"-->
-<!--               (mapClick)="getLocation($event)" [fullscreenControl]="true">-->
-<!--        <agm-marker [latitude]="markerInfo?.latitude" [longitude]="markerInfo?.longitude"-->
-<!--                    [iconUrl]="markerInfo?.icon">-->
+      <agm-map #agmMap [latitude]="markerInfo?.latitude" [longitude]="markerInfo?.longitude" [zoom]="13"
+               (mapClick)="getLocation($event)" [fullscreenControl]="true">
+        <agm-marker [latitude]="markerInfo?.latitude" [longitude]="markerInfo?.longitude"
+                    [iconUrl]="markerInfo?.icon">
 
-<!--          <agm-info-window [disableAutoPan]="false" #infoWindow>-->
-<!--            <div class="d-flex">-->
-<!--              <span class="ml-2 font-weight-bold">{{markerInfo?.address}}</span>-->
-<!--            </div>-->
-<!--          </agm-info-window>-->
-<!--        </agm-marker>-->
-<!--      </agm-map>-->
+          <agm-info-window [disableAutoPan]="false" #infoWindow>
+            <div class="d-flex">
+              <span class="ml-2 font-weight-bold">{{markerInfo?.address}}</span>
+            </div>
+          </agm-info-window>
+        </agm-marker>
+      </agm-map>
     </div>
   </div>
 </div>

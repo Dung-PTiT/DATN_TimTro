@@ -37,11 +37,12 @@ export class UserUpdateComponent implements OnInit {
 
     this.passwordForm = this.formBuilder.group(
       {
+        inputCurrentPass: ['', Validators.required],
         inputNewPass: ['', Validators.required],
         inputNewPassConfirm: ['', Validators.required]
       },
       {
-        validator: MustMatch('inputNewPass', 'inputNewPassConfirm')
+        validator: [MustMatch('inputNewPass', 'inputNewPassConfirm'), this.CheckPass('inputCurrentPass')]
       });
 
     if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
@@ -112,6 +113,28 @@ export class UserUpdateComponent implements OnInit {
     });
   }
 
+  checkCurrentPass() {
+    this.CheckPass('inputCurrentPass');
+  }
+
+
+  CheckPass(controlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      if (control.errors && !control.errors.checkPass) {
+        return;
+      }
+      this.userService.checkCurrentPassword(this.passwordForm.controls.inputCurrentPass.value).subscribe(resp => {
+        if (!resp.success) {
+          control.setErrors({checkPass: true});
+          console.log(resp.success);
+        } else {
+          control.setErrors(null);
+        }
+      });
+    }
+  }
+
   faUpload = faUpload;
   faCloudUploadAlt = faCloudUploadAlt;
   faTrash = faTrash;
@@ -134,3 +157,5 @@ export function MustMatch(controlName: string, matchingControlName: string) {
     }
   }
 }
+
+

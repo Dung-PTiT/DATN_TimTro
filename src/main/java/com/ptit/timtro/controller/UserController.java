@@ -9,6 +9,7 @@ import com.ptit.timtro.util.DataResponse;
 import com.ptit.timtro.util.FileDir;
 import com.ptit.timtro.util.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,6 +28,9 @@ public class UserController {
 
     @Autowired
     private FileDir fileDir;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/user/get-by-id")
     public DataResponse<User> getById(@RequestParam("id") Integer id) {
@@ -57,6 +61,18 @@ public class UserController {
             user.setPassword(newPassword);
             userService.changePassword(user);
             return new DataResponse<>(true, "OK");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new DataResponse<>(false, "Error");
+    }
+
+    @PostMapping("/user/check-current-password")
+    public DataResponse<String> checkCurrentPassword(@RequestParam("currentPassword") String currentPassword) {
+        try {
+            UserPrincipal userPrincipal = AdvancedSecurityContextHolder.getUserPrincipal();
+            boolean resultCheck = passwordEncoder.matches(currentPassword, userPrincipal.getPassword());
+            return new DataResponse<>(resultCheck, "OK");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -82,7 +82,7 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/address/**", "/post/get-all", "/post/get-by-id", "/post/get-by-user-id", "/category/get-all", "/tag/get-all",
                         "/image/**", "/comment/**", "/favorite/**", "/user/get-by-id", "/post-vip/get-all", "/payment/get-all-enable-post"
                 ).permitAll()
-                .antMatchers("/user/update", "/payment/get-by-user-id", "/post/remove").hasAnyRole("ADMIN", "MEMBER")
+                .antMatchers("/user/update", "/payment/get-by-user-id", "/post/remove", "/user/check-current-password").hasAnyRole("ADMIN", "MEMBER")
                 .antMatchers("/tag/**", "/category/**", "/post-vip/**", "/user/get-all", "/user/delete", "/payment/get-all",
                         "/wallet/get-all","/wallet/update","/wallet/get-by-wallet-id").hasAnyRole("ADMIN")
                 .anyRequest().authenticated(); // Tất cả các request khác đều cần phải xác thực mới được truy cập

@@ -47,6 +47,7 @@ public class UserPrincipal implements UserDetails, OAuth2User {
 
         WalletEntity walletEntity = userEntity.getWalletEntity();
         Wallet wallet = new Wallet();
+        wallet.setId(walletEntity.getId());
         wallet.setBalance(walletEntity.getBalance());
         wallet.setCreateTime(walletEntity.getCreateTime());
         userPrincipal.setWallet(wallet);

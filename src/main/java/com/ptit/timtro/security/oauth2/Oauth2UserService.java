@@ -71,6 +71,8 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
             walletDAO.create(walletEntity);
 
             userEntity.setWalletEntity(walletEntity);
+        }else{
+            userEntity = updateExistingUser(userEntity, oAuth2UserInfo);
         }
         return UserPrincipal.createInstance(userEntity).addAttributes(oAuth2User.getAttributes());
     }
@@ -101,5 +103,11 @@ public class Oauth2UserService extends DefaultOAuth2UserService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private UserEntity updateExistingUser(UserEntity existingUser, OAuth2UserInfo oAuth2UserInfo) {
+        existingUser.setName(oAuth2UserInfo.getName());
+        existingUser.setImageUrl(oAuth2UserInfo.getImageUrl());
+        return userDAO.update(existingUser);
     }
 }

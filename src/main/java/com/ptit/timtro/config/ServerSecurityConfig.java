@@ -75,16 +75,16 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
         http.exceptionHandling().authenticationEntryPoint(new RestAuthenticationEntryPoint()); // thử xóa đi
         http.authorizeRequests()
                 .antMatchers(
-                        "/paypal/**",
+                        "/paypal/**", "/stripe/create-charge",
                         "/swagger-ui.html", "/webjars/**", "/swagger-resources/**",
                         "/v2/api-docs/**", "/auth/login", "/auth/create-password", "/auth/register", "/auth/check-account-active",
                         "/oauth/**", "/oauth2/**", "/auth/gen-pass", "/auth/email-verify", "/auth/gen-code-email-verify", "/auth/get-account-forget",
                         "/address/**", "/post/get-all", "/post/get-by-id", "/post/get-by-user-id", "/category/get-all", "/tag/get-all",
-                        "/image/**", "/comment/**", "/favorite/**", "/user/get-by-id", "/post-vip/get-all", "/payment/get-all-enable-post"
-                ).permitAll()
-                .antMatchers("/user/update", "/payment/get-by-user-id", "/post/remove", "/user/check-current-password").hasAnyRole("ADMIN", "MEMBER")
+                        "/image/**", "/comment/**", "/favorite/**", "/user/get-by-id", "/post-vip/get-all", "/payment/get-all-enable-post").permitAll()
+                .antMatchers("/user/update", "/payment/get-by-user-id", "/post/remove",
+                        "/user/check-current-password", "/wallet/get-by-wallet-id","/wallet/update").hasAnyRole("ADMIN", "MEMBER")
                 .antMatchers("/tag/**", "/category/**", "/post-vip/**", "/user/get-all", "/user/delete", "/payment/get-all",
-                        "/wallet/get-all","/wallet/update","/wallet/get-by-wallet-id").hasAnyRole("ADMIN")
+                        "/wallet/get-all").hasAnyRole("ADMIN")
                 .anyRequest().authenticated(); // Tất cả các request khác đều cần phải xác thực mới được truy cập
         // Thêm một lớp Filter kiểm tra jwt
         http.oauth2Login()

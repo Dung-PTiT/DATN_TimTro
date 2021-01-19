@@ -24,10 +24,13 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import { PaymentComponent } from './payment/payment.component';
-
+import { PaypalDialogComponent } from './top-up/paypal-dialog/paypal-dialog.component';
+import { StripeDialogComponent } from './top-up/stripe-dialog/stripe-dialog.component';
+import { NgxStripeModule } from 'ngx-stripe';
+import { TopUpHistoryDialogComponent } from './top-up/top-up-history-dialog/top-up-history-dialog.component';
 
 @NgModule({
-  declarations: [UserUpdateComponent, ManagePostComponent, CommentComponent, FavoriteComponent, FavoriteDetailDialogComponent, TopUpComponent, UserUpdateDialogComponent, PaymentComponent],
+  declarations: [UserUpdateComponent, ManagePostComponent, CommentComponent, FavoriteComponent, FavoriteDetailDialogComponent, TopUpComponent, UserUpdateDialogComponent, PaymentComponent, PaypalDialogComponent, StripeDialogComponent, TopUpHistoryDialogComponent],
   imports: [
     CommonModule,
     MatListModule,
@@ -45,7 +48,8 @@ import { PaymentComponent } from './payment/payment.component';
     ButtonsModule,
     MatSelectModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgxStripeModule.forRoot('pk_test_51I9YOPDK5fJE8kn3hEM5IQz8ESzvvE4BV3WF6PoBeEUpIzw0iQwxoehHNAwPE0UJu8IeLQnuYDO8QLe8nrLroIcB0019d9ipdX'),
   ]
 })
 export class ManageActionModule {

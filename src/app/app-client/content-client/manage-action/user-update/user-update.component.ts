@@ -76,6 +76,16 @@ export class UserUpdateComponent implements OnInit {
       .subscribe(resp => {
         if (resp.success) {
           this.toastService.showSuccess("Đổi mật khẩu thành công");
+          this.submitted = false;
+          this.passwordForm = this.formBuilder.group(
+            {
+              inputCurrentPass: ['', Validators.required],
+              inputNewPass: ['', Validators.required],
+              inputNewPassConfirm: ['', Validators.required]
+            },
+            {
+              validator: [MustMatch('inputNewPass', 'inputNewPassConfirm'), this.CheckPass('inputCurrentPass')]
+            });
         } else {
           this.toastService.showError("Không đổi được mật khẩu");
         }

@@ -1,6 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {faArrowAltCircleRight} from "@fortawesome/free-regular-svg-icons";
+import {faArrowAltCircleRight, faHandPointRight} from "@fortawesome/free-regular-svg-icons";
 import {PaypalService} from "../../../../service/paypal.service";
+import {MatDialog} from "@angular/material/dialog";
+import {PaypalDialogComponent} from "./paypal-dialog/paypal-dialog.component";
+import {StripeDialogComponent} from "./stripe-dialog/stripe-dialog.component";
+import {ToastService} from "../../../../service/toast.service";
+import {User} from "../../../../model/user";
+import {WalletService} from "../../../../service/wallet.service";
+import {TopUpHistoryDialogComponent} from "../../../content-admin/wallet/top-up-history-dialog/top-up-history-dialog.component";
+import {AuthenticationService} from "../../../../service/authentication.service";
 
 @Component({
   selector: 'app-top-up',
@@ -9,16 +17,69 @@ import {PaypalService} from "../../../../service/paypal.service";
 })
 export class TopUpComponent implements OnInit {
 
-  constructor(private payPalService: PaypalService) {
+  user: User;
+
+  constructor(private payPalService: PaypalService,
+              private matDialog: MatDialog,
+              private toastService: ToastService,
+              private walletService: WalletService,
+              private authenticationService: AuthenticationService) {
   }
 
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('userCurrent'));
   }
 
-  topUp(){
-    this.payPalService.makePayment(10).subscribe(resp => {
+
+  openPaypalDialog() {
+    const dialogRef = this.matDialog.open(PaypalDialogComponent, {
+      width: '400px',
+      height: 'auto',
+      disableClose: true
+    });
+  }
+
+  openStripeDialog() {
+    const dialogRef = this.matDialog.open(StripeDialogComponent, {
+      width: '550px',
+      height: 'auto',
+      data: this.user.wallet.id,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(resp => {
+      if (resp == true) {
+        this.toastService.showSuccess("Nạp tiền thành công");
+        this.authenticationService.getCurrentUser().subscribe(resp => {
+          this.user = resp.data;
+          localStorage.setItem('userCurrent', JSON.stringify(resp.data));
+          location.reload();
+        });
+      } else if (resp == false) {
+        this.toastService.showError("Nạp tiền lỗi");
+      } else if (resp == "none") {
+      }
+    });
+  }
+
+  openTopUpHistoryDialog(walletId: any) {
+    this.walletService.getTopUpHistory(walletId).subscribe(resp => {
+      if (resp.data.length != 0) {
+        const dialogRef = this.matDialog.open(TopUpHistoryDialogComponent, {
+          width: '550px',
+          height: 'auto',
+          data: resp.data
+        });
+      } else {
+        this.toastService.showWarning("Chưa có lịch sử nạp tiền");
+      }
+    });
+  }
+
+  topUp() {
+    this.payPalService.makePayment(20).subscribe(resp => {
       console.log(resp);
-      if(resp.status == "success"){
+      if (resp.status == "success") {
         window.open(resp.redirect_url);
       }
     });
@@ -28,28 +89,12 @@ export class TopUpComponent implements OnInit {
   payerId: any;
   token: any;
 
-  topUp1(){
-    // this.payPalService.makePayment(3000).subscribe(resp => {
-    //   console.log(resp);
-    //   if(resp.status == "success"){
-    //     window.open(resp.redirect_url);
-    //   }
-    // });
-    // this.activatedRoute.params.subscribe((params: Params) => {
-    //   this.paymentId = params['paymentId'];
-    //   this.payerId = params['PayerID'];
-    //   this.token = params['token'];
-    // this.payPalService.completePayment(this.paymentId, this.payerId).subscribe(resp =>{
-    //   console.log(resp);
-    // });
-    //   console.log(this.paymentId);
-    //   console.log(this.payerId);
-    //   console.log(this.token);
-    // });
-    this.payPalService.completePayment("PAYID-L7VRCSA2N873463V0422323N","FBUMMDE6DYCJQ" ).subscribe(resp =>{
+  topUp1() {
+    this.payPalService.pay(11).subscribe(resp => {
       console.log(resp);
     });
   }
 
   faArrowAltCircleRight = faArrowAltCircleRight;
+  faHandPointRight = faHandPointRight;
 }

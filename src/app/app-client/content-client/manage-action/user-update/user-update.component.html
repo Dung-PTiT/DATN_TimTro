@@ -43,12 +43,13 @@
           <div style="margin-top:40px !important;">
             <form [formGroup]="passwordForm" (submit)="changePassword()">
               <div class="d-flex mt-3 mb-3 align-items-center justify-content-between">
-                <span>Mật khẩu hiện tại
-                    (<span class="text-danger">*</span>)
-                </span>
+                <label class="font-size-13 mb-0">
+                  Mật khẩu hiện tại
+                  <span class="text-danger ml-1">*</span>
+                </label>
                 <div style="width: 77%">
                   <input mdbInput type="password" formControlName="inputCurrentPass" (keyup)="checkCurrentPass()"
-                         class="form-control" placeholder="Mật khẩu hiện tại"
+                         class="form-control font-size-13" placeholder="Mật khẩu hiện tại"
                          [ngClass]="{ 'is-invalid': submitted && validator.inputCurrentPass?.errors}">
                   <div *ngIf="submitted && validator.inputCurrentPass?.errors" class="invalid-feedback">
                     <div *ngIf="validator.inputCurrentPass.errors?.required">
@@ -61,12 +62,13 @@
                 </div>
               </div>
               <div class="d-flex mt-3 mb-3 align-items-center justify-content-between">
-                <span>Mật khẩu mới
-                    (<span class="text-danger">*</span>)
-                </span>
+                <label class="font-size-13 mb-0">
+                  Mật khẩu mới
+                  <span class="text-danger ml-1">*</span>
+                </label>
                 <div style="width: 77%">
                   <input mdbInput type="password" formControlName="inputNewPass"
-                         class="form-control" placeholder="Mật khẩu mới"
+                         class="form-control font-size-13" placeholder="Mật khẩu mới"
                          [ngClass]="{ 'is-invalid': submitted && validator.inputNewPass?.errors}">
                   <div *ngIf="submitted && validator.inputNewPass?.errors?.required" class="invalid-feedback">
                     Mật khẩu mới không được trống
@@ -74,12 +76,13 @@
                 </div>
               </div>
               <div class="d-flex align-items-center justify-content-between">
-                <span>Nhập lại mật khẩu mới
-                 (<span class="text-danger">*</span>)
-                </span>
+                <label class="font-size-13 mb-0">
+                  Nhập lại mật khẩu mới
+                  <span class="text-danger ml-1">*</span>
+                </label>
                 <div style="width: 77%">
                   <input mdbInput type="password" formControlName="inputNewPassConfirm"
-                         class="form-control" placeholder="Nhập lại mật khẩu mới"
+                         class="form-control font-size-13" placeholder="Nhập lại mật khẩu mới"
                          [ngClass]="{ 'is-invalid': submitted && validator.inputNewPassConfirm?.errors}">
                   <div *ngIf="submitted && validator.inputNewPassConfirm?.errors" class="invalid-feedback">
                     <div *ngIf="validator.inputNewPassConfirm.errors?.required">

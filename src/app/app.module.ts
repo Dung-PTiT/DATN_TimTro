@@ -21,6 +21,7 @@ import {MatButtonModule} from "@angular/material/button";
 import { ForgetAccountComponent } from './forget-account/forget-account.component';
 import { ForgetAccountWithEmailComponent } from './forget-account/forget-account-with-email/forget-account-with-email.component';
 import { SuccessGetForgetAccountDialogComponent } from './forget-account/forget-account-with-email/success-get-forget-account-dialog/success-get-forget-account-dialog.component';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { SuccessGetForgetAccountDialogComponent } from './forget-account/forget-
     ReactiveFormsModule,
     ButtonsModule,
     FontAwesomeModule,
-    MatButtonModule
+    MatButtonModule,
+    NgHttpLoaderModule.forRoot(),
   ],
   providers: [
     AuthenticationService,

@@ -113,7 +113,7 @@ export class WalletComponent implements OnInit {
     this.walletService.getTopUpHistory(walletId).subscribe(resp => {
       if(resp.data.length != 0){
         const dialogRef = this.matDialog.open(TopUpHistoryDialogComponent, {
-          width: '500px',
+          width: '550px',
           height: 'auto',
           data: resp.data
         });

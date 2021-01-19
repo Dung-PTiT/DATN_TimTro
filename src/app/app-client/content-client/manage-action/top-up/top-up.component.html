@@ -5,38 +5,35 @@
   <mat-divider class="mt-2 mb-2"></mat-divider>
   <div class="d-flex col-12 w-100 p-0">
     <div class="col-9 pl-0">
-      <div class="card p-3" style="background-color: rgba(211,252,194,0.4); border: none">
-        <span>Tặng thêm +10% cho giá trị nạp từ 50.000đ đến dưới 1.000.000đ</span>
-        <span class="mt-2 mb-2">Tặng thêm +20% cho giá trị nạp từ 1.000.000đ đến 2.000.000đ</span>
-        <span>Tặng thêm +25% cho giá trị nạp trên 2.000.000đ</span>
+      <div class="mt-3">
+        <h6 class="font-size-13">
+          <fa-icon [icon]="faHandPointRight"></fa-icon>
+          <span class="ml-2">Nạp tiền trực tiếp</span>
+        </h6>
+        <div class="card p-3" style="background-color: rgba(211,252,194,0.4); border: none">
+          <div>
+            <span>Tiền mặt:</span>
+            <p class="mb-0">Mời bạn đến công ty địa chỉ số 74, ngõ 127 Phùng Khoang, Nam Từ Liêm, Hà Nội</p>
+            <p>Nhân viên sẽ hỗ trợ trực tiếp cho bạn.</p>
+          </div>
+        </div>
       </div>
       <div class="mt-3">
-        <h6>Chọn phương thức nạp tiền</h6>
-        <button (click)="topUp()">
-          <span>Nạp tiền</span>
-        </button>
-        <button (click)="topUp1()">
-          <span>Nạp tiền 1</span>
-        </button>
+        <h6 class="font-size-13">
+          <fa-icon [icon]="faHandPointRight"></fa-icon>
+          <span class="ml-2">Nạp tiền online</span>
+        </h6>
         <div class="mt-3 row">
           <div class="col-lg-4">
-            <div class="card align-items-center cursor-pointer card-top-up">
-              <img src="./assets/images/paypal.png" width="150" height="150">
+            <div class="card align-items-center cursor-pointer card-top-up" (click)="openStripeDialog()">
+              <img src="./assets/images/stripe.png" width="150" height="150">
               <div class="p-2 w-100 text-center card-top-up-title">
-                <span class="font-weight-bold">Paypal</span>
+                <span class="font-weight-bold">Stripe</span>
               </div>
             </div>
           </div>
           <div class="col-lg-4">
-            <div class="card align-items-center cursor-pointer card-top-up">
-              <img src="./assets/images/paypal.png" width="150" height="150">
-              <div class="p-2 w-100 text-center card-top-up-title">
-                <span class="font-weight-bold">Paypal</span>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="card align-items-center cursor-pointer card-top-up">
+            <div class="card align-items-center cursor-pointer card-top-up" (click)="openPaypalDialog()">
               <img src="./assets/images/paypal.png" width="150" height="150">
               <div class="p-2 w-100 text-center card-top-up-title">
                 <span class="font-weight-bold">Paypal</span>
@@ -49,27 +46,15 @@
     <div class="col-3 p-0">
       <div class="card p-2 text-center">
         <div>
-          <h6>Số dư tài khoản</h6>
+          <h6>Số tiền trong ví:</h6>
         </div>
         <div>
-          <h4 class="text-success">10.000 đ</h4>
+          <h4 class="text-success">{{user?.wallet?.balance | number}} đ</h4>
         </div>
       </div>
-      <div class="card p-2 mt-2 cursor-pointer card-action-right">
+      <div class="card p-2 mt-2 cursor-pointer card-action-right" (click)="openTopUpHistoryDialog(user?.wallet?.id)">
         <div class="d-flex justify-content-between">
           <span>Lịch sử nạp tiền</span>
-          <fa-icon [icon]="faArrowAltCircleRight"></fa-icon>
-        </div>
-      </div>
-      <div class="card p-2 mt-2 cursor-pointer card-action-right">
-        <div class="d-flex justify-content-between">
-          <span>Lịch sử thanh toán</span>
-          <fa-icon [icon]="faArrowAltCircleRight"></fa-icon>
-        </div>
-      </div>
-      <div class="card p-2 mt-2 cursor-pointer card-action-right">
-        <div class="d-flex justify-content-between">
-          <span>Bảng giá dịch vụ</span>
           <fa-icon [icon]="faArrowAltCircleRight"></fa-icon>
         </div>
       </div>

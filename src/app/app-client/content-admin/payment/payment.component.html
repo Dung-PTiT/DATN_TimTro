@@ -10,7 +10,9 @@
 
       <ng-container matColumnDef="number">
         <mat-header-cell *matHeaderCellDef> STT</mat-header-cell>
-        <mat-cell *matCellDef="let row; let i = index;"> {{i + 1}} </mat-cell>
+        <mat-cell *matCellDef="let row; let i = index;">
+          {{ (paginatorRef.pageIndex * paginatorRef.pageSize) + (i + 1) }}
+        </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="price">
@@ -56,7 +58,7 @@
       <mat-header-row *matHeaderRowDef="displayedPayment" class="text-center"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedPayment;"></mat-row>
     </mat-table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
 </div>
 <ng-template #null_table>

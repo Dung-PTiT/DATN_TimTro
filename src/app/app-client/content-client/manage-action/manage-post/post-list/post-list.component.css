@@ -73,31 +73,38 @@
 }
 
 .mat-column-number2 {
-  flex: 0 0 3%;
+  flex: 0 0 5%;
 }
 
 .mat-column-image2 {
-  flex: 0 0 8%;
+  flex: 0 0 10%;
 }
 
 .mat-column-title2 {
-  flex: 0 0 20%;
+  flex: 0 0 25%;
 }
 
 .mat-column-price2 {
-  flex: 0 0 10%;
+  flex: 0 0 15%;
+}
+
+.mat-column-acerage2 {
+  flex: 0 0 15%;
 }
 
 .mat-column-createTime2 {
   flex: 0 0 10%;
 }
 
-.mat-column-startDate2 {
+.mat-column-status2 {
   flex: 0 0 10%;
 }
 
-.mat-column-endDate2 {
+.mat-column-action2 {
   flex: 0 0 10%;
 }
+
+
+
 
 

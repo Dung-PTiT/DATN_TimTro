@@ -19,7 +19,9 @@
             <mat-table matSort #sort="matSort" [dataSource]="dataSource" class="box-shadow text-center w-100">
               <ng-container matColumnDef="number">
                 <mat-header-cell class="pl-0" *matHeaderCellDef> STT</mat-header-cell>
-                <mat-cell class="pl-0" *matCellDef="let post; let i = index"> {{i + 1}} </mat-cell>
+                <mat-cell class="pl-0" *matCellDef="let post; let i = index">
+                  {{ (paginatorAll.pageIndex * paginatorAll.pageSize) + (i + 1) }}
+                </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="image">
@@ -154,10 +156,13 @@
             </div>
           </div>
           <div class="mt-1">
-            <mat-table matSort #sortPostEnable="matSort" [dataSource]="dataSourceEnable" class="box-shadow text-center w-100">
+            <mat-table matSort #sortPostEnable="matSort" [dataSource]="dataSourceEnable"
+                       class="box-shadow text-center w-100">
               <ng-container matColumnDef="number1">
                 <mat-header-cell class="pl-0" *matHeaderCellDef> STT</mat-header-cell>
-                <mat-cell class="pl-0" *matCellDef="let post; let i = index"> {{i + 1}} </mat-cell>
+                <mat-cell class="pl-0" *matCellDef="let post; let i = index">
+                  {{ (paginatorEnable.pageIndex * paginatorEnable.pageSize) + (i + 1) }}
+                </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="image1">
@@ -285,10 +290,13 @@
             </div>
           </div>
           <div class="mt-1">
-            <mat-table matSort #sortPostDisable="matSort" [dataSource]="dataSourceDisable" class="box-shadow text-center w-100">
+            <mat-table matSort #sortPostDisable="matSort" [dataSource]="dataSourceDisable"
+                       class="box-shadow text-center w-100">
               <ng-container matColumnDef="number2">
                 <mat-header-cell class="pl-0" *matHeaderCellDef> STT</mat-header-cell>
-                <mat-cell class="pl-0" *matCellDef="let post; let i = index"> {{i + 1}} </mat-cell>
+                <mat-cell class="pl-0" *matCellDef="let post; let i = index">
+                  {{ (paginatorDisable.pageIndex * paginatorDisable.pageSize) + (i + 1) }}
+                </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="image2">
@@ -310,51 +318,14 @@
                 <mat-cell *matCellDef="let post"> {{post?.price | number}} </mat-cell>
               </ng-container>
 
+              <ng-container matColumnDef="acreage2">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Diện tích(M2)</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post?.acreage}} </mat-cell>
+              </ng-container>
+
               <ng-container matColumnDef="createTime2">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày tạo</mat-header-cell>
                 <mat-cell *matCellDef="let post"> {{post?.createTime | date:'dd-MM-yyyy'}} </mat-cell>
-              </ng-container>
-
-              <ng-container matColumnDef="startDate2">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày bắt đầu</mat-header-cell>
-                <mat-cell *matCellDef="let post">
-                  <div class="ml-2">
-                    <div *ngFor="let payment of post.payments">
-                      <div>
-                        <span>-</span>
-                      </div>
-                    </div>
-                  </div>
-                </mat-cell>
-              </ng-container>
-
-              <ng-container matColumnDef="endDate2">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Ngày kết thúc</mat-header-cell>
-                <mat-cell *matCellDef="let post">
-                  <div class="ml-2">
-                    <div *ngFor="let payment of post.payments">
-                      <div>
-                        <span>-</span>
-                      </div>
-                    </div>
-                  </div>
-                </mat-cell>
-              </ng-container>
-
-              <ng-container matColumnDef="comment2">
-                <mat-header-cell *matHeaderCellDef> Bình luận</mat-header-cell>
-                <mat-cell *matCellDef="let post">
-                  {{post?.comments?.length != 0 ? post?.comments?.length : 0 }}
-                  <fa-icon [icon]="faComments" class="ml-1 text-info"></fa-icon>
-                </mat-cell>
-              </ng-container>
-
-              <ng-container matColumnDef="favorite2">
-                <mat-header-cell *matHeaderCellDef>Quan tâm</mat-header-cell>
-                <mat-cell *matCellDef="let post">
-                  {{post?.favorites?.length != 0 ? post?.favorites?.length : 0}}
-                  <fa-icon [icon]="faHeart" class="ml-1 text-danger"></fa-icon>
-                </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="status2">

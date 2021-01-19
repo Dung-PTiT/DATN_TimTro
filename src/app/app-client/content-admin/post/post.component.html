@@ -16,7 +16,9 @@
       <mat-table matSort #sort="matSort" [dataSource]="dataSource" class="box-shadow text-center w-100">
         <ng-container matColumnDef="number">
           <mat-header-cell *matHeaderCellDef> STT</mat-header-cell>
-          <mat-cell *matCellDef="let post; let i = index"> {{i + 1}} </mat-cell>
+          <mat-cell *matCellDef="let post; let i = index">
+            {{ (paginatorAll.pageIndex * paginatorAll.pageSize) + (i + 1) }}
+          </mat-cell>
         </ng-container>
 
         <ng-container matColumnDef="image">

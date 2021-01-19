@@ -18,7 +18,16 @@ export class PaypalService extends MainService {
     return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/paypal/make/payment?sum=' + sum, {});
   }
 
-  completePayment(paymentId: any, payerId: any) : Observable<any> {
-    return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/paypal/complete/payment?paymentId=' + paymentId + '&payerId=' + payerId , {});
+  completePayment(paymentId: any, payerId: any): Observable<any> {
+    return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/paypal/complete/payment?paymentId=' + paymentId + '&PayerID=' + payerId);
+  }
+
+  pay(price): Observable<any> {
+    return this.http.post(this.PREFIX_URL + this.CONTEXT_URL + '/pay', null,
+      {
+        params: {
+          price: price
+        }
+      });
   }
 }

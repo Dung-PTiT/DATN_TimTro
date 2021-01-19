@@ -15,10 +15,10 @@
                  class="form-control font-size-13" placeholder="Số tiền nạp"
                  [ngClass]="{ 'is-invalid': submitted && validator.balance?.errors}">
           <div *ngIf="submitted && validator.balance?.errors?.required" class="invalid-feedback">
-            <div *ngIf="validator.balanceConfirm.errors?.required">
+            <div *ngIf="validator.balance.errors?.required">
               Số tiền không được trống
             </div>
-            <div *ngIf="validator.balanceConfirm.errors?.pattern">
+            <div *ngIf="validator.balance.errors?.pattern">
               Số tiền chỉ có các kí từ 0 -> 9
             </div>
           </div>

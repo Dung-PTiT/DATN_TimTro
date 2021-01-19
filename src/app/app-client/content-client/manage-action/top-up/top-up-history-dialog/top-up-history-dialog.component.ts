@@ -1,9 +1,9 @@
 import {Component, Inject, OnInit, ViewChild} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {TopUpHistory} from "../../../../../model/topUpHistory";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
-import {TopUpHistory} from "../../../../model/topUpHistory";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-top-up-history-dialog',
@@ -30,5 +30,4 @@ export class TopUpHistoryDialogComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

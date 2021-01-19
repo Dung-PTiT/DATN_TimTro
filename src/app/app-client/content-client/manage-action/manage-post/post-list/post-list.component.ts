@@ -70,7 +70,7 @@ export class PostListComponent implements OnInit {
     ];
 
     this.displayedColumnsDisable = [
-      'number2', 'image2', 'title2', 'price2', 'createTime2', 'startDate2', 'endDate2', 'comment2', 'favorite2', 'status2', 'action2'
+      'number2', 'image2', 'title2', 'price2','acreage2', 'createTime2', 'status2', 'action2'
     ];
 
     if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
@@ -167,9 +167,9 @@ export class PostListComponent implements OnInit {
     filterValue = filterValue.toLowerCase();
     if (tabNumber == 1) {
       this.dataSource.filter = filterValue;
-    }else if(tabNumber ==2){
+    } else if (tabNumber == 2) {
       this.dataSourceEnable.filter = filterValue;
-    }else if(tabNumber == 3){
+    } else if (tabNumber == 3) {
       this.dataSourceDisable.filter = filterValue;
     }
 

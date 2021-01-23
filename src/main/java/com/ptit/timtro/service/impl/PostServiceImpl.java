@@ -168,17 +168,17 @@ public class PostServiceImpl implements PostService {
 
         post.setCategory(
                 new Category(postEntity.getCategoryEntity().getId(), postEntity.getCategoryEntity().getName(),
-                        postEntity.getCategoryEntity().getDescription(), null)
+                        postEntity.getCategoryEntity().getDescription())
         );
 
         post.setTags(postEntity.getTags().stream().map(
                 tagEntity ->
-                        new Tag(tagEntity.getId(), tagEntity.getName(), tagEntity.getDescription(), null))
+                        new Tag(tagEntity.getId(), tagEntity.getName(), tagEntity.getDescription()))
                 .collect(Collectors.toList()));
 
         post.setImages(postEntity.getImages().stream().map(
                 imageEntity ->
-                        new Image(imageEntity.getId(), imageEntity.getImageUrl(), null))
+                        new Image(imageEntity.getId(), imageEntity.getImageUrl()))
                 .collect(Collectors.toList()));
 
         UserEntity userEntity = postEntity.getUserEntity();
@@ -294,21 +294,18 @@ public class PostServiceImpl implements PostService {
                 post.setCategory(new Category(
                         postEntity.getCategoryEntity().getId(),
                         postEntity.getCategoryEntity().getName(),
-                        postEntity.getCategoryEntity().getDescription(),
-                        null
+                        postEntity.getCategoryEntity().getDescription()
                 ));
 
                 post.setTags(postEntity.getTags().stream().map(tagEntity ->
                         new Tag(tagEntity.getId(),
                                 tagEntity.getName(),
-                                tagEntity.getDescription(),
-                                null))
+                                tagEntity.getDescription()))
                         .collect(Collectors.toList()));
 
                 post.setImages(postEntity.getImages().stream().map(imageEntity ->
                         new Image(imageEntity.getId(),
-                                imageEntity.getImageUrl(),
-                                null)).collect(Collectors.toList()));
+                                imageEntity.getImageUrl())).collect(Collectors.toList()));
 
                 post.setFavorites(postEntity.getFavorites().stream().map(favoriteEntity -> {
                     Favorite favorite = new Favorite();
@@ -408,21 +405,18 @@ public class PostServiceImpl implements PostService {
                 post.setCategory(new Category(
                         postEntity.getCategoryEntity().getId(),
                         postEntity.getCategoryEntity().getName(),
-                        postEntity.getCategoryEntity().getDescription(),
-                        null
+                        postEntity.getCategoryEntity().getDescription()
                 ));
 
                 post.setTags(postEntity.getTags().stream().map(tagEntity ->
                         new Tag(tagEntity.getId(),
                                 tagEntity.getName(),
-                                tagEntity.getDescription(),
-                                null))
+                                tagEntity.getDescription()))
                         .collect(Collectors.toList()));
 
                 post.setImages(postEntity.getImages().stream().map(imageEntity ->
                         new Image(imageEntity.getId(),
-                                imageEntity.getImageUrl(),
-                                null)).collect(Collectors.toList()));
+                                imageEntity.getImageUrl())).collect(Collectors.toList()));
                 return post;
             }).collect(Collectors.toList());
         }

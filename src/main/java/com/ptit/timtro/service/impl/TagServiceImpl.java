@@ -48,15 +48,6 @@ public class TagServiceImpl implements TagService {
         tag.setId(tagEntity.getId());
         tag.setName(tagEntity.getName());
         tag.setDescription(tagEntity.getDescription());
-
-        List<PostEntity> postEntities = tagEntity.getPosts();
-        tag.setPosts(postEntities.stream().map(
-                postEntity -> {
-                    Post post = new Post();
-                    post.setId(postEntity.getId());
-                    return post;
-                }
-        ).collect(Collectors.toList()));
         return tag;
     }
 
@@ -65,7 +56,7 @@ public class TagServiceImpl implements TagService {
         List<TagEntity> tagEntities = tagDAO.getAll();
         if (tagEntities != null) {
             return tagEntities.stream().map(element ->
-                    new Tag(element.getId(), element.getName(), element.getDescription(), null))
+                    new Tag(element.getId(), element.getName(), element.getDescription()))
                     .collect(Collectors.toList());
         }
         return null;

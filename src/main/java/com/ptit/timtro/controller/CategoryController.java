@@ -1,5 +1,7 @@
 package com.ptit.timtro.controller;
 
+import com.ptit.timtro.dao.CategoryDAO;
+import com.ptit.timtro.entity.CategoryEntity;
 import com.ptit.timtro.model.Category;
 import com.ptit.timtro.service.CategorySerivce;
 import com.ptit.timtro.util.DataResponse;
@@ -13,6 +15,9 @@ public class CategoryController {
 
     @Autowired
     private CategorySerivce categorySerivce;
+
+    @Autowired
+    private CategoryDAO categoryDAO;
 
     @PostMapping("/category/create")
     public DataResponse<String> create(@RequestBody Category category) {
@@ -39,8 +44,8 @@ public class CategoryController {
     @PostMapping("/category/delete")
     public DataResponse<String> delete(@RequestParam("categoryId") Integer categoryId) {
         try {
-            Category category = categorySerivce.getById(categoryId);
-            if (category.getPosts().size() == 0) {
+            CategoryEntity categoryEntity = categoryDAO.getById(categoryId);
+            if (categoryEntity.getPosts().size() == 0) {
                 categorySerivce.delete(categoryId);
                 return new DataResponse<>(true, "Đã xóa");
             } else {

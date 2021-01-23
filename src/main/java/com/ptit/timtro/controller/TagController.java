@@ -1,5 +1,7 @@
 package com.ptit.timtro.controller;
 
+import com.ptit.timtro.dao.TagDAO;
+import com.ptit.timtro.entity.TagEntity;
 import com.ptit.timtro.model.Tag;
 import com.ptit.timtro.service.TagService;
 import com.ptit.timtro.util.DataResponse;
@@ -13,6 +15,9 @@ public class TagController {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private TagDAO tagDAO;
 
 
     @PostMapping("/tag/create")
@@ -40,8 +45,8 @@ public class TagController {
     @PostMapping("/tag/delete")
     public DataResponse<String> delete(@RequestParam("tagId") Integer tagId) {
         try {
-            Tag tag = tagService.getById(tagId);
-            if (tag.getPosts().size() == 0) {
+            TagEntity tagEntity = tagDAO.getById(tagId);
+            if (tagEntity.getPosts().size() == 0) {
                 tagService.delete(tagId);
                 return new DataResponse<>(true, "Đã xóa");
             } else {

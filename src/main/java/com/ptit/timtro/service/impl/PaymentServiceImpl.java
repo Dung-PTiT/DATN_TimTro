@@ -97,7 +97,6 @@ public class PaymentServiceImpl implements PaymentService {
                             Image image = new Image();
                             image.setId(imageEntity.getId());
                             image.setImageUrl(imageEntity.getImageUrl());
-                            image.setPost(null);
                             return image;
                         }
                 ).collect(Collectors.toList()));

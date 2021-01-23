@@ -13,5 +13,4 @@ public class Ward {
     private Integer id;
     private String name;
     private String prefix;
-    private District district;
 }

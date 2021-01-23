@@ -138,10 +138,7 @@ public class PostController {
                 //Insert to image table
                 Image image = new Image();
                 image.setImageUrl(file.getOriginalFilename());
-                Post post1 = new Post();
-                post1.setId(postID);
-                image.setPost(post1);
-                imageService.create(image);
+                imageService.create(image, postID);
 
                 //Save image in folder
                 File uploadDir = new File(fileDir.getFileDir() + postID + File.separator);
@@ -163,10 +160,7 @@ public class PostController {
                 //Insert to image table
                 Image image = new Image();
                 image.setImageUrl(file.getOriginalFilename());
-                Post post1 = new Post();
-                post1.setId(postID);
-                image.setPost(post1);
-                imageService.create(image);
+                imageService.create(image, postID);
 
                 String uploadFilePath = fileDir.getFileDir() + File.separator + postID + File.separator + file.getOriginalFilename();
                 byte[] bytes = file.getBytes();

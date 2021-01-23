@@ -4,7 +4,7 @@ import com.ptit.timtro.entity.ImageEntity;
 import com.ptit.timtro.model.Image;
 
 public interface ImageService {
-    ImageEntity create(Image image);
+    ImageEntity create(Image image, Integer postId);
 
     void delete(Integer id);
 

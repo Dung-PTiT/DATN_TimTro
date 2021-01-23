@@ -40,7 +40,7 @@ public class DistrictServiceImpl implements DistrictService {
                 districtEntity
                         .getWards()
                         .stream()
-                        .map(element -> new Ward(element.getId(), element.getName(), element.getPrefix(), null))
+                        .map(element -> new Ward(element.getId(), element.getName(), element.getPrefix()))
                         .collect(Collectors.toList())
         );
     }

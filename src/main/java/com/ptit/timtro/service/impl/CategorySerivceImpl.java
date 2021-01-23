@@ -48,15 +48,6 @@ public class CategorySerivceImpl implements CategorySerivce {
         category.setId(categoryEntity.getId());
         category.setName(categoryEntity.getName());
         category.setDescription(categoryEntity.getDescription());
-
-        List<PostEntity> postEntities = categoryEntity.getPosts();
-        category.setPosts(postEntities.stream().map(
-                postEntity -> {
-                    Post post = new Post();
-                    post.setId(postEntity.getId());
-                    return post;
-                }
-        ).collect(Collectors.toList()));
         return category;
     }
 
@@ -65,7 +56,7 @@ public class CategorySerivceImpl implements CategorySerivce {
         List<CategoryEntity> categoryEntities = categoryDAO.getAll();
         if (categoryEntities != null) {
             return categoryEntities.stream().map(element ->
-                    new Category(element.getId(), element.getName(), element.getDescription(), null))
+                    new Category(element.getId(), element.getName(), element.getDescription()))
                     .collect(Collectors.toList());
         }
         return null;

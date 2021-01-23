@@ -54,17 +54,24 @@ public class UserController {
 
     @PostMapping("/user/change-password")
     public DataResponse<String> changePassword(@RequestParam("id") Integer id,
-                                               @RequestParam("password") String newPassword) {
+                                               @RequestParam("currentPassword") String currentPassword,
+                                               @RequestParam("newPassword") String newPassword) {
         try {
-            User user = new User();
-            user.setId(id);
-            user.setPassword(newPassword);
-            userService.changePassword(user);
-            return new DataResponse<>(true, "OK");
+            UserPrincipal userPrincipal = AdvancedSecurityContextHolder.getUserPrincipal();
+            boolean resultCheck = passwordEncoder.matches(currentPassword, userPrincipal.getPassword());
+            if(!resultCheck){
+                return new DataResponse<>(false, "Mật khẩu hiện tại không đúng");
+            }else{
+                User user = new User();
+                user.setId(id);
+                user.setPassword(newPassword);
+                userService.changePassword(user);
+                return new DataResponse<>(true, "Đổi mật khẩu thành công");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new DataResponse<>(false, "Error");
+        return new DataResponse<>(false, "Không đổi được mật khẩu");
     }
 
     @PostMapping("/user/check-current-password")

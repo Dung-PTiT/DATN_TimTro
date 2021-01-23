@@ -17,12 +17,12 @@ public class ImageServiceImpl implements ImageService {
     private ImageDAO imageDAO;
 
     @Override
-    public ImageEntity create(Image image) {
+    public ImageEntity create(Image image, Integer postId) {
         ImageEntity imageEntity = new ImageEntity();
         imageEntity.setImageUrl(image.getImageUrl());
 
         PostEntity postEntity = new PostEntity();
-        postEntity.setId(image.getPost().getId());
+        postEntity.setId(postId);
         imageEntity.setPostEntity(postEntity);
 
         return imageDAO.create(imageEntity);
@@ -39,7 +39,6 @@ public class ImageServiceImpl implements ImageService {
         Image image = new Image();
         image.setId(imageEntity.getId());
         image.setImageUrl(imageEntity.getImageUrl());
-        image.setPost(null);
         return image;
     }
 }

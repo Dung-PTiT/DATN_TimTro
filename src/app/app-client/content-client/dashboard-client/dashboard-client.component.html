@@ -92,7 +92,7 @@
     <div class="col-12 mt-3">
       <div class="row" *ngIf="payments?.length >0; else null_result">
         <div class="col-sm-6 col-lg-3 mt-3"
-             *ngFor="let payment of payments | paginate: { itemsPerPage: 6, currentPage: currentPage}">
+             *ngFor="let payment of payments | paginate: { itemsPerPage: 8, currentPage: currentPage}">
           <div class="card" style="height: 325px">
             <div class="product-thumb">
               <a [routerLink]="['post', payment?.post?.id]">

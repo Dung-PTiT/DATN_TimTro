@@ -1,20 +1,38 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {
-  faComments, faHistory, faLaptopHouse, faListUl, faMoneyCheckAlt, faSignInAlt,
-  faSignOutAlt, faUpload, faUserCircle, faUserPlus
+  faComments,
+  faHistory,
+  faLaptopHouse,
+  faListUl,
+  faMoneyCheckAlt,
+  faSignInAlt,
+  faSignOutAlt,
+  faUpload,
+  faUserCircle,
+  faUserPlus
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  faHeart
-} from "@fortawesome/free-regular-svg-icons";
+import {faHeart} from "@fortawesome/free-regular-svg-icons";
 import {AuthenticationService} from "../../service/authentication.service";
 import {CookieService} from "ngx-cookie-service";
 import {AppConfig} from "../../util/app-config";
 import {User} from "../../model/user";
 import {HttpClient} from "@angular/common/http";
 import {MatDialog} from "@angular/material/dialog";
-import {SuccessLogoutDialogComponent} from "./success-logout-dialog/success-logout-dialog.component";
 import {PaypalService} from "../../service/paypal.service";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+
+const doSomething = (step = 1, result: boolean = true) => {
+  return new Promise<string>((resolve, reject) => {
+    if (result) {
+      setTimeout(() => {
+        resolve(`do something complete: step: ${step}`);
+      }, 1000)
+    } else {
+      reject('fail to do')
+    }
+  });
+}
 
 @Component({
   selector: 'app-header-client',
@@ -23,7 +41,7 @@ import {PaypalService} from "../../service/paypal.service";
 })
 export class HeaderClientComponent implements OnInit {
 
-  userLogined : boolean = false;
+  userLogined: boolean = false;
 
   constructor(private router: Router,
               private authenticationService: AuthenticationService,
@@ -63,17 +81,46 @@ export class HeaderClientComponent implements OnInit {
     }
   }
 
+  success = false;
+
   logout() {
-    this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
-    this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
-    localStorage.removeItem('userCurrent');
-    localStorage.removeItem('emailForgetAccount');
-
-    const dialogRef = this.matDialog.open(SuccessLogoutDialogComponent, {
-      width: 'auto',
-      height: 'auto'
+    Swal.fire({
+      title: 'Bạn muốn đăng xuất?',
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Hủy',
+      confirmButtonText: 'Đăng xuất',
+      customClass: 'swal-confirm-style',
+    }).then((result) => {
+      if (result.value) {
+        doSomething()
+          .then(x => {
+            this.append(x);
+            this.cookieService.delete(AppConfig.COOKIE_TOKEN_NAME);
+            this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
+            localStorage.removeItem('userCurrent');
+            localStorage.removeItem('emailForgetAccount');
+            return doSomething(2);
+          })
+          .then(x => {
+            this.append(x);
+            if (this.router.url == '/') {
+              location.reload();
+            } else {
+              location.reload();
+              location.replace('/');
+            }
+            return doSomething(3);
+          });
+      }
     });
+  }
 
+  content = '';
+
+  append(content: string) {
+    this.content += `${content}<br>`;
+    console.log(content);
   }
 
   faUpload = faUpload;

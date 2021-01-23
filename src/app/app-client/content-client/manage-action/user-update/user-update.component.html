@@ -48,15 +48,12 @@
                   <span class="text-danger ml-1">*</span>
                 </label>
                 <div style="width: 77%">
-                  <input mdbInput type="password" formControlName="inputCurrentPass" (keyup)="checkCurrentPass()"
+                  <input mdbInput type="password" formControlName="inputCurrentPass"
                          class="form-control font-size-13" placeholder="Mật khẩu hiện tại"
                          [ngClass]="{ 'is-invalid': submitted && validator.inputCurrentPass?.errors}">
                   <div *ngIf="submitted && validator.inputCurrentPass?.errors" class="invalid-feedback">
                     <div *ngIf="validator.inputCurrentPass.errors?.required">
                       Mật khẩu hiện tại không được trống
-                    </div>
-                    <div *ngIf="validator.inputCurrentPass.errors?.checkPass">
-                      Mật khẩu hiển tại không khớp
                     </div>
                   </div>
                 </div>

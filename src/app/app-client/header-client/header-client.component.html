@@ -34,40 +34,72 @@
                style="border-radius: 10px;">
           <div ngbDropdownMenu class="mt-2" style="font-size: 13px">
             <div *ngIf="(currentUser?.role == 'ROLE_ADMIN');else hide_admin_button">
-              <button ngbDropdownItem [routerLink]="['/admin']">
-                <fa-icon class="mr-2" [icon]="faLaptopHouse"></fa-icon>
-                Quản lý của admin
-              </button>
+              <div ngbDropdownItem [routerLink]="['/admin']" class="div-icon">
+                <div class="div-icon-width">
+                  <fa-icon class="mr-2" [icon]="faLaptopHouse"></fa-icon>
+                </div>
+                <div>
+                  <span>Quản lý của admin</span>
+                </div>
+              </div>
             </div>
             <ng-template #hide_admin_button></ng-template>
-            <button ngbDropdownItem [routerLink]="['/manage/user']">
-              <fa-icon class="mr-2" [icon]="faUserCircle"></fa-icon>
-              Thông tin cá nhân
-            </button>
-            <button ngbDropdownItem [routerLink]="['/manage/post/list']">
-              <fa-icon class="mr-2" [icon]="faListUl"></fa-icon>
-              Danh sách bài viết
-            </button>
-            <button ngbDropdownItem [routerLink]="['/manage/comment']">
-              <fa-icon class="mr-2" [icon]="faComments"></fa-icon>
-              Danh sách bình luận
-            </button>
-            <button ngbDropdownItem [routerLink]="['/manage/favorite']">
-              <fa-icon class="mr-2" [icon]="faHeart"></fa-icon>
-              Danh sách quan tâm
-            </button>
-            <button ngbDropdownItem [routerLink]="['/manage/top-up']">
-              <fa-icon class="mr-2" [icon]="faMoneyCheckAlt"></fa-icon>
-              Nạp tiền
-            </button>
-            <button ngbDropdownItem [routerLink]="['/manage/payment']">
-              <fa-icon class="mr-2" [icon]="faHistory"></fa-icon>
-              Lịch sử đăng bài
-            </button>
-            <button ngbDropdownItem (click)="logout()">
-              <fa-icon class="mr-2" [icon]="faSignOutAlt"></fa-icon>
-              Đăng xuất
-            </button>
+            <div ngbDropdownItem [routerLink]="['/manage/user']" class="div-icon">
+              <div class="div-icon-width">
+                <fa-icon class="mr-2" [icon]="faUserCircle"></fa-icon>
+              </div>
+              <div>
+                <span>Thông tin cá nhân</span>
+              </div>
+            </div>
+            <div ngbDropdownItem [routerLink]="['/manage/post/list']" class="div-icon">
+              <div class="div-icon-width">
+                <fa-icon class="mr-2" [icon]="faListUl"></fa-icon>
+              </div>
+              <div>
+                <span>Danh sách bài viết</span>
+              </div>
+            </div>
+            <div ngbDropdownItem [routerLink]="['/manage/comment']" class="div-icon">
+              <div class="div-icon-width">
+                <fa-icon class="mr-2" [icon]="faComments"></fa-icon>
+              </div>
+              <div>
+                <span>Danh sách bình luận</span>
+              </div>
+            </div>
+            <div ngbDropdownItem [routerLink]="['/manage/favorite']" class="div-icon">
+              <div class="div-icon-width">
+                <fa-icon class="mr-2" [icon]="faHeart"></fa-icon>
+              </div>
+              <div>
+                <span>Danh sách quan tâm</span>
+              </div>
+            </div>
+            <div ngbDropdownItem [routerLink]="['/manage/top-up']" class="div-icon">
+              <div class="div-icon-width">
+                <fa-icon class="mr-2" [icon]="faMoneyCheckAlt"></fa-icon>
+              </div>
+              <div>
+                <span>Nạp tiền</span>
+              </div>
+            </div>
+            <div ngbDropdownItem [routerLink]="['/manage/payment']" class="div-icon">
+              <div class="div-icon-width">
+                <fa-icon class="mr-2" [icon]="faHistory"></fa-icon>
+              </div>
+              <div>
+                <span>Lịch sử đăng bài</span>
+              </div>
+            </div>
+            <div ngbDropdownItem (click)="logout()" class="div-icon">
+              <div class="div-icon-width">
+                <fa-icon class="mr-2" [icon]="faSignOutAlt"></fa-icon>
+              </div>
+              <div>
+                <span>Đăng xuất</span>
+              </div>
+            </div>
           </div>
         </div>
       </mat-toolbar>

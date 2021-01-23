@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {FormControl} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ReplaySubject, Subject} from "rxjs";
 import {MatSelect} from "@angular/material/select";
 import {take, takeUntil} from "rxjs/operators";
@@ -44,16 +44,15 @@ export class PostCreateComponent implements OnInit {
   tagList: Tag[];
   imageList: File[] = [];
 
-
-  public villageCtrl: FormControl = new FormControl();
-  public addressCtrl: FormControl = new FormControl();
-  public titlePostCtrl: FormControl = new FormControl();
-  public tagCtrl: FormControl = new FormControl();
-  public categoryCtrl: FormControl = new FormControl();
-  public phoneNumberCtrl: FormControl = new FormControl();
-  public priceCtrl: FormControl = new FormControl();
-  public acreageCtrl: FormControl = new FormControl();
-  public imageCtrl: FormControl = new FormControl();
+  villageCtrl: FormControl = new FormControl('', Validators.required);
+  addressCtrl: FormControl = new FormControl('', Validators.required);
+  titlePostCtrl: FormControl = new FormControl('', Validators.required);
+  tagCtrl: FormControl = new FormControl('', Validators.required);
+  categoryCtrl: FormControl = new FormControl('', Validators.required);
+  phoneNumberCtrl: FormControl = new FormControl('', Validators.required);
+  priceCtrl: FormControl = new FormControl('', Validators.required);
+  acreageCtrl: FormControl = new FormControl('', Validators.required);
+  imageCtrl: FormControl = new FormControl();
 
   public provinceCtrl: FormControl = new FormControl();
   public provinceFilterCtrl: FormControl = new FormControl();
@@ -73,13 +72,16 @@ export class PostCreateComponent implements OnInit {
   @ViewChild('wardSelect') wardSelect: MatSelect;
   private _onDestroyWard = new Subject<void>();
 
+  form: FormGroup;
+
   constructor(private addressService: AddressService,
               private postService: PostService,
               private categoryService: CategoryService,
               private tagService: TagService,
               private apiloader: MapsAPILoader,
               private router: Router,
-              private toastService: ToastService) {
+              private toastService: ToastService,
+              private formBuilder: FormBuilder,) {
     ClassicEditor.defaultConfig = {
       toolbar: {
         items: [
@@ -99,6 +101,18 @@ export class PostCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.form = this.formBuilder.group(
+      {
+        villageCtrl: new FormControl('', Validators.required),
+        phoneNumberCtrl: new FormControl('', Validators.required),
+        addressCtrl: new FormControl('', Validators.required),
+        titlePostCtrl: new FormControl('', Validators.required),
+        tagCtrl: new FormControl('', Validators.required),
+        categoryCtrl: new FormControl('', Validators.required),
+        priceCtrl: new FormControl('', Validators.required),
+        acreageCtrl: new FormControl('', Validators.required)
+      });
+
     this.addressService.getAllProvinces().subscribe(resp => {
       this.provinceList = resp.data;
       this.provinceCtrl.setValue(this.provinceList[1]);
@@ -193,8 +207,14 @@ export class PostCreateComponent implements OnInit {
     this.editorData = editor.getData();
   }
 
+  get validator() {
+    return this.form.controls;
+  }
+
   // Create post
   createPost() {
+    console.log("1");
+
     let formData = new FormData();
     formData.append("title", this.titlePostCtrl.value);
     formData.append("content", this.editorData ? this.editorData : '');

@@ -25,9 +25,9 @@ export class StripeDialogComponent implements OnInit {
       base: {
         iconColor: '#484cff',
         color: '#0b135f',
-        lineHeight: '100px',
+        lineHeight: '10px',
         fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSize: '18px',
+        fontSize: '13px',
         '::placeholder': {
           color: '#0b135f'
         }

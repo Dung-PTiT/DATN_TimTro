@@ -90,6 +90,12 @@ export class CommentComponent implements OnInit {
     })
   }
 
+  searchTag(filterValue: string) {
+    filterValue = filterValue.trim();
+    filterValue = filterValue.toLowerCase();
+    this.dataSource.filter = filterValue;
+  }
+
   faEllipsisV = faEllipsisV;
   faTrashAlt = faTrashAlt;
 }

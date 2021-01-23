@@ -42,7 +42,7 @@ export class UserUpdateComponent implements OnInit {
         inputNewPassConfirm: ['', Validators.required]
       },
       {
-        validator: [MustMatch('inputNewPass', 'inputNewPassConfirm'), this.CheckPass('inputCurrentPass')]
+        validator: [MustMatch('inputNewPass', 'inputNewPassConfirm')]
       });
 
     if (JSON.parse(localStorage.getItem('userCurrent')) != null) {
@@ -72,10 +72,10 @@ export class UserUpdateComponent implements OnInit {
       return;
     }
     this.userService
-      .changePassword(this.user?.id, this.passwordForm.controls.inputNewPass.value)
+      .changePassword(this.user?.id,this.passwordForm.controls.inputCurrentPass.value, this.passwordForm.controls.inputNewPass.value)
       .subscribe(resp => {
         if (resp.success) {
-          this.toastService.showSuccess("Đổi mật khẩu thành công");
+          this.toastService.showSuccess(resp.data);
           this.submitted = false;
           this.passwordForm = this.formBuilder.group(
             {
@@ -84,10 +84,10 @@ export class UserUpdateComponent implements OnInit {
               inputNewPassConfirm: ['', Validators.required]
             },
             {
-              validator: [MustMatch('inputNewPass', 'inputNewPassConfirm'), this.CheckPass('inputCurrentPass')]
+              validator: [MustMatch('inputNewPass', 'inputNewPassConfirm')]
             });
         } else {
-          this.toastService.showError("Không đổi được mật khẩu");
+          this.toastService.showError(resp.data);
         }
       });
   }
@@ -121,28 +121,6 @@ export class UserUpdateComponent implements OnInit {
       } else if (resp.success == "none") {
       }
     });
-  }
-
-  checkCurrentPass() {
-    this.CheckPass('inputCurrentPass');
-  }
-
-
-  CheckPass(controlName: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      if (control.errors && !control.errors.checkPass) {
-        return;
-      }
-      this.userService.checkCurrentPassword(this.passwordForm.controls.inputCurrentPass.value).subscribe(resp => {
-        if (!resp.success) {
-          control.setErrors({checkPass: true});
-          console.log(resp.success);
-        } else {
-          control.setErrors(null);
-        }
-      });
-    }
   }
 
   faUpload = faUpload;

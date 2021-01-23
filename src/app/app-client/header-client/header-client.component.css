@@ -13,6 +13,21 @@
   border-bottom: 1px solid #feb800;
 }
 
+.div-icon {
+  display: flex;
+  color: #000000;
+  text-decoration: none;
+}
+
+.div-icon-width {
+  min-width: 25px;
+}
+
+.div-icon:hover {
+  background-color: rgba(249, 178, 0, 0.39);
+  cursor: pointer;
+}
+
 .div-header-client {
   display: flex;
   align-items: center;

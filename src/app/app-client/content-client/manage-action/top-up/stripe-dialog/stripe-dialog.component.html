@@ -9,13 +9,13 @@
       <div class="pt-2 col-12">
         <div class="mt-3 mb-3 align-items-center justify-content-between">
                 <span class="font-size-13">Số tiền nạp
-                    (<span class="text-danger">*</span>)
+                    <span class="text-danger">*</span>
                 </span>
           <div>
             <input mdbInput type="number" formControlName="balance"
                    class="form-control font-size-13" placeholder="Số tiền nạp"
                    [ngClass]="{ 'is-invalid': submitted && validator.balance?.errors}">
-            <div *ngIf="submitted && validator.balance?.errors?.required" class="invalid-feedback">
+            <div *ngIf="submitted && validator.balance?.errors" class="invalid-feedback">
               <div *ngIf="validator.balance.errors?.required">
                 Số tiền không được trống
               </div>
@@ -27,7 +27,7 @@
         </div>
         <div class="align-items-center justify-content-between">
                 <span class="font-size-13">Nhập lại số tiền nạp
-                 (<span class="text-danger">*</span>)
+                <span class="text-danger">*</span>
                 </span>
           <div>
             <input mdbInput type="number" formControlName="balanceConfirm"
@@ -46,7 +46,10 @@
             </div>
           </div>
         </div>
-        <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+        <div class="mt-3">
+          <p class="font-size-13">Nhập thông tin thẻ <span class="text-danger">*</span></p>
+          <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+        </div>
       </div>
       <div class="mt-3 float-right">
         <button mat-button class="text-white button-save line-height-25" type="submit">Nạp tiền</button>

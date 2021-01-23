@@ -16,12 +16,16 @@
   display: flex;
   color: #000000;
   text-decoration: none;
-  padding: 5px;
+  padding-left: 16px;
 }
 
 .side-bar-left-item:hover {
   background-color: rgba(249, 178, 0, 0.39);
   cursor: pointer;
+}
+
+.side-bar-left-item-icon {
+  min-width: 20px;
 }
 
 .post-menu {

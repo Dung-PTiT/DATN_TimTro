@@ -37,9 +37,7 @@ public class DistrictServiceImpl implements DistrictService {
                 districtEntity.getId(),
                 districtEntity.getName(),
                 districtEntity.getPrefix(),
-                districtEntity
-                        .getWards()
-                        .stream()
+                districtEntity.getWards().stream()
                         .map(element -> new Ward(element.getId(), element.getName(), element.getPrefix()))
                         .collect(Collectors.toList())
         );

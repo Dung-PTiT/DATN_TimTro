@@ -55,4 +55,16 @@ public class PostDAOImpl implements PostDAO {
         query.setParameter("id", id);
         query.executeUpdate();
     }
+
+    @Override
+    public List<PostEntity> getRecommendPost(double latitude, double longitude, Integer currentPostId) {
+
+        double latitudeStart = latitude - 0.009;
+        double latitudeEnd = latitude + 0.009;
+        double longitudeStart = longitude - 0.009;
+        double longitudeEnd = longitude + 0.009;
+
+        return entityManager.createQuery(
+                "SELECT p FROM PostEntity as p where p.id != " + currentPostId + " and (p.latitude between " + latitudeStart + " and " + latitudeEnd + ") and (p.longitude between " + longitudeStart + " and " + longitudeEnd + ") and p.status = true order by p.createTime DESC", PostEntity.class).setMaxResults(5).getResultList();
+    }
 }

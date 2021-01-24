@@ -8,6 +8,7 @@ import com.ptit.timtro.entity.*;
 import com.ptit.timtro.model.*;
 import com.ptit.timtro.security.AdvancedSecurityContextHolder;
 import com.ptit.timtro.service.PostService;
+import com.ptit.timtro.util.PostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,43 +26,43 @@ public class PostServiceImpl implements PostService {
     private PostDAO postDAO;
 
     @Override
-    public PostEntity create(Post post) {
+    public PostEntity create(PostRequest postRequest) {
         PostEntity postEntity = new PostEntity();
-        postEntity.setTitle(post.getTitle());
-        postEntity.setContent(post.getContent());
-        postEntity.setPrice(post.getPrice());
-        postEntity.setAcreage(post.getAcreage());
-        postEntity.setAddress(post.getAddress());
+        postEntity.setTitle(postRequest.getTitle());
+        postEntity.setContent(postRequest.getContent());
+        postEntity.setPrice(postRequest.getPrice());
+        postEntity.setAcreage(postRequest.getAcreage());
+        postEntity.setAddress(postRequest.getAddress());
         postEntity.setView(0);
         postEntity.setStatus(false);
-        postEntity.setLatitude(post.getLatitude());
-        postEntity.setLongitude(post.getLongitude());
-        postEntity.setPhoneNumber(post.getPhoneNumber());
+        postEntity.setLatitude(postRequest.getLatitude());
+        postEntity.setLongitude(postRequest.getLongitude());
+        postEntity.setPhoneNumber(postRequest.getPhoneNumber());
 
         Date date = new Date();
         postEntity.setCreateTime(date);
 
         try {
             postEntity.setWardEntity(new WardEntity(
-                    new ObjectMapper().readValue(post.getWardStr(), Ward.class).getId(),
+                    new ObjectMapper().readValue(postRequest.getWardStr(), Ward.class).getId(),
                     null, null, null, null)
             );
 
             postEntity.setDistrictEntity(new DistrictEntity(
-                    new ObjectMapper().readValue(post.getDistrictStr(), District.class).getId(),
+                    new ObjectMapper().readValue(postRequest.getDistrictStr(), District.class).getId(),
                     null, null, null, null, null)
             );
 
             postEntity.setProvinceEntity(new ProvinceEntity(
-                    new ObjectMapper().readValue(post.getProvinceStr(), Province.class).getId(),
+                    new ObjectMapper().readValue(postRequest.getProvinceStr(), Province.class).getId(),
                     null, null, null, null)
             );
 
             postEntity.setCategoryEntity(new CategoryEntity(
-                    new ObjectMapper().readValue(post.getCategoryStr(), Category.class).getId(),
+                    new ObjectMapper().readValue(postRequest.getCategoryStr(), Category.class).getId(),
                     null, null, null));
 
-            List<Tag> tags = new ObjectMapper().readValue(post.getTagsStr(), new TypeReference<List<Tag>>() {
+            List<Tag> tags = new ObjectMapper().readValue(postRequest.getTagsStr(), new TypeReference<List<Tag>>() {
             });
             List<TagEntity> tagEntities = new ArrayList<>();
             for (Tag tag : tags) {
@@ -80,38 +81,38 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void update(Post post) {
-        PostEntity postEntity = postDAO.getById(post.getId());
-        postEntity.setTitle(post.getTitle());
-        postEntity.setContent(post.getContent());
-        postEntity.setPrice(post.getPrice());
-        postEntity.setAcreage(post.getAcreage());
-        postEntity.setAddress(post.getAddress());
-        postEntity.setLatitude(post.getLatitude());
-        postEntity.setLongitude(post.getLongitude());
-        postEntity.setPhoneNumber(post.getPhoneNumber());
+    public void update(PostRequest postRequest) {
+        PostEntity postEntity = postDAO.getById(postRequest.getId());
+        postEntity.setTitle(postRequest.getTitle());
+        postEntity.setContent(postRequest.getContent());
+        postEntity.setPrice(postRequest.getPrice());
+        postEntity.setAcreage(postRequest.getAcreage());
+        postEntity.setAddress(postRequest.getAddress());
+        postEntity.setLatitude(postRequest.getLatitude());
+        postEntity.setLongitude(postRequest.getLongitude());
+        postEntity.setPhoneNumber(postRequest.getPhoneNumber());
 
         try {
             postEntity.setWardEntity(new WardEntity(
-                    new ObjectMapper().readValue(post.getWardStr(), Ward.class).getId(),
+                    new ObjectMapper().readValue(postRequest.getWardStr(), Ward.class).getId(),
                     null, null, null, null)
             );
 
             postEntity.setDistrictEntity(new DistrictEntity(
-                    new ObjectMapper().readValue(post.getDistrictStr(), District.class).getId(),
+                    new ObjectMapper().readValue(postRequest.getDistrictStr(), District.class).getId(),
                     null, null, null, null, null)
             );
 
             postEntity.setProvinceEntity(new ProvinceEntity(
-                    new ObjectMapper().readValue(post.getProvinceStr(), Province.class).getId(),
+                    new ObjectMapper().readValue(postRequest.getProvinceStr(), Province.class).getId(),
                     null, null, null, null)
             );
 
             postEntity.setCategoryEntity(new CategoryEntity(
-                    new ObjectMapper().readValue(post.getCategoryStr(), Category.class).getId(),
+                    new ObjectMapper().readValue(postRequest.getCategoryStr(), Category.class).getId(),
                     null, null, null));
 
-            List<Tag> tags = new ObjectMapper().readValue(post.getTagsStr(), new TypeReference<List<Tag>>() {
+            List<Tag> tags = new ObjectMapper().readValue(postRequest.getTagsStr(), new TypeReference<List<Tag>>() {
             });
             List<TagEntity> tagEntities = new ArrayList<>();
             for (Tag tag : tags) {
@@ -131,52 +132,52 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post getById(Integer id) {
         PostEntity postEntity = postDAO.getById(id);
-        Post post = new Post();
-        post.setId(postEntity.getId());
-        post.setTitle(postEntity.getTitle());
-        post.setContent(postEntity.getContent());
-        post.setPrice(postEntity.getPrice());
-        post.setAcreage(postEntity.getAcreage());
-        post.setView(postEntity.getView());
-        post.setAddress(postEntity.getAddress());
-        post.setStatus(postEntity.getStatus());
-        post.setLatitude(postEntity.getLatitude());
-        post.setLongitude(postEntity.getLongitude());
-        post.setCreateTime(postEntity.getCreateTime());
-        post.setPhoneNumber(postEntity.getPhoneNumber());
+        PostRequest postRequest = new PostRequest();
+        postRequest.setId(postEntity.getId());
+        postRequest.setTitle(postEntity.getTitle());
+        postRequest.setContent(postEntity.getContent());
+        postRequest.setPrice(postEntity.getPrice());
+        postRequest.setAcreage(postEntity.getAcreage());
+        postRequest.setView(postEntity.getView());
+        postRequest.setAddress(postEntity.getAddress());
+        postRequest.setStatus(postEntity.getStatus());
+        postRequest.setLatitude(postEntity.getLatitude());
+        postRequest.setLongitude(postEntity.getLongitude());
+        postRequest.setCreateTime(postEntity.getCreateTime());
+        postRequest.setPhoneNumber(postEntity.getPhoneNumber());
 
         WardEntity wardEntity = postEntity.getWardEntity();
         Ward ward = new Ward();
         ward.setId(wardEntity.getId());
         ward.setPrefix(wardEntity.getPrefix());
         ward.setName(wardEntity.getName());
-        post.setWard(ward);
+        postRequest.setWard(ward);
 
         DistrictEntity districtEntity = postEntity.getDistrictEntity();
         District district = new District();
         district.setId(districtEntity.getId());
         district.setPrefix(districtEntity.getPrefix());
         district.setName(districtEntity.getName());
-        post.setDistrict(district);
+        postRequest.setDistrict(district);
 
         ProvinceEntity provinceEntity = postEntity.getProvinceEntity();
         Province province = new Province();
         province.setId(provinceEntity.getId());
         province.setCode(provinceEntity.getCode());
         province.setName(provinceEntity.getName());
-        post.setProvince(province);
+        postRequest.setProvince(province);
 
-        post.setCategory(
+        postRequest.setCategory(
                 new Category(postEntity.getCategoryEntity().getId(), postEntity.getCategoryEntity().getName(),
                         postEntity.getCategoryEntity().getDescription())
         );
 
-        post.setTags(postEntity.getTags().stream().map(
+        postRequest.setTags(postEntity.getTags().stream().map(
                 tagEntity ->
                         new Tag(tagEntity.getId(), tagEntity.getName(), tagEntity.getDescription()))
                 .collect(Collectors.toList()));
 
-        post.setImages(postEntity.getImages().stream().map(
+        postRequest.setImages(postEntity.getImages().stream().map(
                 imageEntity ->
                         new Image(imageEntity.getId(), imageEntity.getImageUrl()))
                 .collect(Collectors.toList()));
@@ -188,10 +189,10 @@ public class PostServiceImpl implements PostService {
         user.setEmail(userEntity.getEmail());
         user.setPhoneNumber(userEntity.getPhoneNumber());
         user.setImageUrl(userEntity.getImageUrl());
-        post.setUser(user);
+        postRequest.setUser(user);
 
         List<CommentEntity> commentEntities = postEntity.getComments();
-        post.setComments(commentEntities.stream().map(
+        postRequest.setComments(commentEntities.stream().map(
                 commentEntity -> {
                     Comment comment = new Comment();
                     comment.setId(commentEntity.getId());
@@ -211,7 +212,7 @@ public class PostServiceImpl implements PostService {
         ).collect(Collectors.toList()));
 
         List<FavoriteEntity> favoriteEntities = postEntity.getFavorites();
-        post.setFavorites(favoriteEntities.stream().map(favoriteEntity -> {
+        postRequest.setFavorites(favoriteEntities.stream().map(favoriteEntity -> {
             Favorite favorite = new Favorite();
             favorite.setId(favoriteEntity.getId());
             favorite.setCreateTime(favoriteEntity.getCreateTime());
@@ -224,7 +225,7 @@ public class PostServiceImpl implements PostService {
             return favorite;
         }).collect(Collectors.toList()));
 
-        post.setPayments(postEntity.getPayments().stream().map(paymentEntity -> {
+        postRequest.setPayments(postEntity.getPayments().stream().map(paymentEntity -> {
             Payment payment = new Payment();
             payment.setId(paymentEntity.getId());
             payment.setDescription(paymentEntity.getDescription());
@@ -247,67 +248,67 @@ public class PostServiceImpl implements PostService {
 
             return payment;
         }).collect(Collectors.toList()));
-        return post;
+        return postRequest;
     }
 
     @Override
-    public List<Post> getByUserId(Integer id) {
+    public List<PostRequest> getByUserId(Integer id) {
         List<PostEntity> postEntities = postDAO.getByUserId(id);
         if (postEntities != null) {
             return postEntities.stream().map(postEntity ->
             {
-                Post post = new Post();
-                post.setId(postEntity.getId());
-                post.setTitle(postEntity.getTitle());
-                post.setContent(postEntity.getContent());
-                post.setPrice(postEntity.getPrice());
-                post.setAcreage(postEntity.getAcreage());
-                post.setView(postEntity.getView());
-                post.setAddress(postEntity.getAddress());
-                post.setStatus(postEntity.getStatus());
-                post.setLatitude(postEntity.getLatitude());
-                post.setLongitude(postEntity.getLongitude());
-                post.setCreateTime(postEntity.getCreateTime());
-                post.setPhoneNumber(postEntity.getPhoneNumber());
+                PostRequest postRequest = new PostRequest();
+                postRequest.setId(postEntity.getId());
+                postRequest.setTitle(postEntity.getTitle());
+                postRequest.setContent(postEntity.getContent());
+                postRequest.setPrice(postEntity.getPrice());
+                postRequest.setAcreage(postEntity.getAcreage());
+                postRequest.setView(postEntity.getView());
+                postRequest.setAddress(postEntity.getAddress());
+                postRequest.setStatus(postEntity.getStatus());
+                postRequest.setLatitude(postEntity.getLatitude());
+                postRequest.setLongitude(postEntity.getLongitude());
+                postRequest.setCreateTime(postEntity.getCreateTime());
+                postRequest.setPhoneNumber(postEntity.getPhoneNumber());
 
                 WardEntity wardEntity = postEntity.getWardEntity();
                 Ward ward = new Ward();
                 ward.setId(wardEntity.getId());
                 ward.setPrefix(wardEntity.getPrefix());
                 ward.setName(wardEntity.getName());
-                post.setWard(ward);
+                postRequest.setWard(ward);
 
                 DistrictEntity districtEntity = postEntity.getDistrictEntity();
                 District district = new District();
                 district.setId(districtEntity.getId());
                 district.setPrefix(districtEntity.getPrefix());
                 district.setName(districtEntity.getName());
-                post.setDistrict(district);
+                postRequest.setDistrict(district);
 
                 ProvinceEntity provinceEntity = postEntity.getProvinceEntity();
                 Province province = new Province();
                 province.setId(provinceEntity.getId());
                 province.setCode(provinceEntity.getCode());
                 province.setName(provinceEntity.getName());
-                post.setProvince(province);
+                postRequest.setProvince(province);
 
-                post.setCategory(new Category(
+                postRequest.setCategory(new Category(
                         postEntity.getCategoryEntity().getId(),
                         postEntity.getCategoryEntity().getName(),
                         postEntity.getCategoryEntity().getDescription()
                 ));
 
-                post.setTags(postEntity.getTags().stream().map(tagEntity ->
+                postRequest.setTags(postEntity.getTags().stream().map(tagEntity ->
                         new Tag(tagEntity.getId(),
                                 tagEntity.getName(),
                                 tagEntity.getDescription()))
                         .collect(Collectors.toList()));
 
-                post.setImages(postEntity.getImages().stream().map(imageEntity ->
+                postRequest.setImages(postEntity.getImages().stream().map(imageEntity ->
                         new Image(imageEntity.getId(),
                                 imageEntity.getImageUrl())).collect(Collectors.toList()));
 
-                post.setFavorites(postEntity.getFavorites().stream().map(favoriteEntity -> {
+                postRequest.setFavorites(postEntity.getFavorites().stream().map(favoriteEntity -> {
                     Favorite favorite = new Favorite();
                     favorite.setId(favoriteEntity.getId());
                     favorite.setCreateTime(favoriteEntity.getCreateTime());
@@ -325,14 +326,14 @@ public class PostServiceImpl implements PostService {
                     return favorite;
                 }).collect(Collectors.toList()));
 
-                post.setComments(postEntity.getComments().stream().map(commentEntity ->
+                postRequest.setComments(postEntity.getComments().stream().map(commentEntity ->
                         new Comment(commentEntity.getId(),
                                 commentEntity.getContent(),
                                 commentEntity.getCreateTime(),
                                 null, null)
                 ).collect(Collectors.toList()));
 
-                post.setPayments(postEntity.getPayments().stream().map(paymentEntity -> {
+                postRequest.setPayments(postEntity.getPayments().stream().map(paymentEntity -> {
                     Payment payment = new Payment();
                     payment.setId(paymentEntity.getId());
                     payment.setDescription(paymentEntity.getDescription());
@@ -355,69 +356,69 @@ public class PostServiceImpl implements PostService {
 
                     return payment;
                 }).collect(Collectors.toList()));
-                return post;
+                return postRequest;
             }).collect(Collectors.toList());
         }
         return null;
     }
 
     @Override
-    public List<Post> getAll() {
+    public List<PostRequest> getAll() {
         List<PostEntity> postEntities = postDAO.getAll();
         if (postEntities != null) {
             return postEntities.stream().map(postEntity ->
             {
-                Post post = new Post();
-                post.setId(postEntity.getId());
-                post.setTitle(postEntity.getTitle());
-                post.setContent(postEntity.getContent());
-                post.setPrice(postEntity.getPrice());
-                post.setAcreage(postEntity.getAcreage());
-                post.setView(postEntity.getView());
-                post.setAddress(postEntity.getAddress());
-                post.setStatus(postEntity.getStatus());
-                post.setLatitude(postEntity.getLatitude());
-                post.setLongitude(postEntity.getLongitude());
-                post.setCreateTime(postEntity.getCreateTime());
-                post.setPhoneNumber(postEntity.getPhoneNumber());
+                PostRequest postRequest = new PostRequest();
+                postRequest.setId(postEntity.getId());
+                postRequest.setTitle(postEntity.getTitle());
+                postRequest.setContent(postEntity.getContent());
+                postRequest.setPrice(postEntity.getPrice());
+                postRequest.setAcreage(postEntity.getAcreage());
+                postRequest.setView(postEntity.getView());
+                postRequest.setAddress(postEntity.getAddress());
+                postRequest.setStatus(postEntity.getStatus());
+                postRequest.setLatitude(postEntity.getLatitude());
+                postRequest.setLongitude(postEntity.getLongitude());
+                postRequest.setCreateTime(postEntity.getCreateTime());
+                postRequest.setPhoneNumber(postEntity.getPhoneNumber());
 
                 WardEntity wardEntity = postEntity.getWardEntity();
                 Ward ward = new Ward();
                 ward.setId(wardEntity.getId());
                 ward.setPrefix(wardEntity.getPrefix());
                 ward.setName(wardEntity.getName());
-                post.setWard(ward);
+                postRequest.setWard(ward);
 
                 DistrictEntity districtEntity = postEntity.getDistrictEntity();
                 District district = new District();
                 district.setId(districtEntity.getId());
                 district.setPrefix(districtEntity.getPrefix());
                 district.setName(districtEntity.getName());
-                post.setDistrict(district);
+                postRequest.setDistrict(district);
 
                 ProvinceEntity provinceEntity = postEntity.getProvinceEntity();
                 Province province = new Province();
                 province.setId(provinceEntity.getId());
                 province.setCode(provinceEntity.getCode());
                 province.setName(provinceEntity.getName());
-                post.setProvince(province);
+                postRequest.setProvince(province);
 
-                post.setCategory(new Category(
+                postRequest.setCategory(new Category(
                         postEntity.getCategoryEntity().getId(),
                         postEntity.getCategoryEntity().getName(),
                         postEntity.getCategoryEntity().getDescription()
                 ));
 
-                post.setTags(postEntity.getTags().stream().map(tagEntity ->
+                postRequest.setTags(postEntity.getTags().stream().map(tagEntity ->
                         new Tag(tagEntity.getId(),
                                 tagEntity.getName(),
                                 tagEntity.getDescription()))
                         .collect(Collectors.toList()));
 
-                post.setImages(postEntity.getImages().stream().map(imageEntity ->
+                postRequest.setImages(postEntity.getImages().stream().map(imageEntity ->
                         new Image(imageEntity.getId(),
                                 imageEntity.getImageUrl())).collect(Collectors.toList()));
-                return post;
+                return postRequest;
             }).collect(Collectors.toList());
         }
         return null;
@@ -426,5 +427,29 @@ public class PostServiceImpl implements PostService {
     @Override
     public void updateStatus(Integer id, Boolean status) {
         postDAO.updateStatus(id, status);
+    }
+
+    @Override
+    public List<PostRequest> getRecommendPost(double latitude, double longitude, Integer currentPostId) {
+        List<PostEntity> postEntities = postDAO.getRecommendPost(latitude, longitude, currentPostId);
+        if (postEntities != null) {
+            return postEntities.stream().map(postEntity ->
+            {
+                PostRequest postRequest = new PostRequest();
+                postRequest.setId(postEntity.getId());
+                postRequest.setTitle(postEntity.getTitle());
+                postRequest.setPrice(postEntity.getPrice());
+                postRequest.setAcreage(postEntity.getAcreage());
+                postRequest.setAddress(postEntity.getAddress());
+
+                postRequest.setCategory(new Category(
+                        postEntity.getCategoryEntity().getId(),
+                        postEntity.getCategoryEntity().getName(),
+                        postEntity.getCategoryEntity().getDescription()
+                ));
+                return postRequest;
+            }).collect(Collectors.toList());
+        }
+        return null;
     }
 }

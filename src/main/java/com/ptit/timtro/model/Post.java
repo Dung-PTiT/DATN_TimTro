@@ -28,18 +28,9 @@ public class Post {
     private String phoneNumber;
     private List<Image> images;
     private User user;
-    private String wardStr;
     private Ward ward;
-    private String districtStr;
     private District district;
-    private String provinceStr;
     private Province province;
-    private List<Comment> comments;
-    private List<Favorite> favorites;
-    private String categoryStr;
     private Category category;
-    private String tagsStr;
     private List<Tag> tags;
-    private List<Payment> payments;
-    private MultipartFile[] files;
 }

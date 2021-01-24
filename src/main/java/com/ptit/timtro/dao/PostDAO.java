@@ -18,4 +18,6 @@ public interface PostDAO {
     List<PostEntity> getAll();
 
     void updateStatus(Integer id, Boolean status);
+
+    List<PostEntity> getRecommendPost(double latitude, double longitude, Integer currentPostId);
 }

@@ -80,7 +80,7 @@ public class ServerSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/v2/api-docs/**", "/auth/login", "/auth/create-password", "/auth/register", "/auth/check-account-active",
                         "/oauth/**", "/oauth2/**", "/auth/gen-pass", "/auth/email-verify", "/auth/gen-code-email-verify", "/auth/get-account-forget",
                         "/address/**", "/post/get-all", "/post/get-by-id", "/post/get-by-user-id", "/category/get-all", "/tag/get-all",
-                        "/image/**", "/comment/**", "/favorite/**", "/user/get-by-id", "/post-vip/get-all", "/payment/get-all-enable-post").permitAll()
+                        "/image/**", "/comment/**", "/favorite/**", "/user/get-by-id", "/post-vip/get-all", "/post/get-recommend-post", "/payment/get-all-enable-post").permitAll()
                 .antMatchers("/user/update", "/payment/get-by-user-id", "/post/remove",
                         "/user/check-current-password", "/wallet/get-by-wallet-id", "/wallet/update").hasAnyRole("ADMIN", "MEMBER")
                 .antMatchers("/tag/**", "/category/**", "/post-vip/**", "/user/get-all", "/user/delete", "/payment/get-all",

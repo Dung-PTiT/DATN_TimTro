@@ -10,6 +10,7 @@ import com.ptit.timtro.service.PaymentService;
 import com.ptit.timtro.service.PostService;
 import com.ptit.timtro.util.DataResponse;
 import com.ptit.timtro.util.FileDir;
+import com.ptit.timtro.util.PostRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -40,11 +41,11 @@ public class PostController {
     private FileDir fileDir;
 
     @PostMapping("/post/create")
-    public DataResponse<String> create(@ModelAttribute Post post) {
+    public DataResponse<String> create(@ModelAttribute PostRequest postRequest) {
         try {
-            PostEntity postEntity = postService.create(post);
-            if (post.getFiles() != null) {
-                saveImage(post.getFiles(), postEntity.getId());
+            PostEntity postEntity = postService.create(postRequest);
+            if (postRequest.getFiles() != null) {
+                saveImage(postRequest.getFiles(), postEntity.getId());
             }
             return new DataResponse<>(true, "Tạo bài viết thành công");
         } catch (Exception e) {
@@ -54,11 +55,11 @@ public class PostController {
     }
 
     @PostMapping("/post/update")
-    public DataResponse<String> update(@ModelAttribute Post post) {
+    public DataResponse<String> update(@ModelAttribute PostRequest postRequest) {
         try {
-            postService.update(post);
-            if (post.getFiles() != null) {
-                updateImage(post.getFiles(), post.getId());
+            postService.update(postRequest);
+            if (postRequest.getFiles() != null) {
+                updateImage(postRequest.getFiles(), postRequest.getId());
             }
             return new DataResponse<>(true, "Cập nhật bài viết thành công");
         } catch (Exception e) {
@@ -112,7 +113,7 @@ public class PostController {
     }
 
     @GetMapping("/post/get-by-user-id")
-    public DataResponse<List<Post>> getPostUserId(@RequestParam("userId") Integer userId) {
+    public DataResponse<List<PostRequest>> getPostUserId(@RequestParam("userId") Integer userId) {
         try {
             return new DataResponse<>(true, postService.getByUserId(userId));
         } catch (Exception e) {
@@ -122,9 +123,21 @@ public class PostController {
     }
 
     @GetMapping("/post/get-all")
-    public DataResponse<List<Post>> getAllProvinces() {
+    public DataResponse<List<PostRequest>> getAllPost() {
         try {
             return new DataResponse<>(true, postService.getAll());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new DataResponse<>(false, null);
+    }
+
+    @GetMapping("/post/get-recommend-post")
+    public DataResponse<List<PostRequest>> getRecommendPost(@RequestParam("latitude") double latitude,
+                                                            @RequestParam("longitude") double longitude,
+                                                            @RequestParam("currentPostId") Integer currentPostId) {
+        try {
+            return new DataResponse<>(true, postService.getRecommendPost(latitude, longitude, currentPostId));
         } catch (Exception e) {
             e.printStackTrace();
         }

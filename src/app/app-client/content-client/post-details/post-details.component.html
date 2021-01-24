@@ -1,7 +1,7 @@
 <div class="container mt-4">
   <div class="row mt-2 mb-2">
-    <div class="col-12" style="display: flex;">
-      <div class="ml-4 post-menu cursor-pointer" (click)="scrollToElement(anh)">
+    <div class="col-12 pl-0" style="display: flex;">
+      <div class="post-menu cursor-pointer" (click)="scrollToElement(anh)">
         <span class="post-menu-text">
           <fa-icon class="ml-1 mr-1" [icon]="faImages"></fa-icon>
           Hình ảnh
@@ -71,12 +71,6 @@
           </h6>
         </div>
         <div class="col-4" style="display: flex; justify-content: flex-end; align-items: center">
-<!--          <div>-->
-<!--            <button class="btn-action" matTooltip="Chia sẻ bài đăng">-->
-<!--              <span class="p-1 pb-0">Chia sẻ</span>-->
-<!--              <fa-icon class="ml-1 text-primary" [icon]="faShare"></fa-icon>-->
-<!--            </button>-->
-<!--          </div>-->
           <div>
             <div *ngIf="(favoriteStatus == false);else remove_favorite">
               <button class="btn-action" matTooltip="Thêm quan tâm" (click)="createFavorite()">
@@ -135,25 +129,25 @@
               {{post?.district?.prefix}} {{post?.district?.name}}, {{post?.province.name}}
             </span>
           </p>
-          <agm-map [latitude]="post?.latitude ? post.latitude : 0"
-                   [longitude]="post?.longitude ? post.longitude : 0"
-                   [zoom]="zoom" [fullscreenControl]="true">
-            <agm-direction
-              [origin]="origin"
-              [destination]="destination"
-              [renderOptions]="renderOptions"
-              [markerOptions]="markerOptions">
-            </agm-direction>
-            <agm-marker [latitude]="post?.latitude ? post.latitude : 0"
-                        [longitude]="post?.longitude ? post.longitude : 0"
-                        [iconUrl]="markerAddress">
-              <agm-info-window
-                [latitude]="post?.latitude ? post.latitude : 0"
-                [longitude]="post?.longitude ? post.longitude : 0">
-                Địa chỉ: <span class="font-weight-bold text-primary">{{post?.address ? post.address : ''}}</span>
-              </agm-info-window>
-            </agm-marker>
-          </agm-map>
+          <!--          <agm-map [latitude]="post?.latitude ? post.latitude : 0"-->
+          <!--                   [longitude]="post?.longitude ? post.longitude : 0"-->
+          <!--                   [zoom]="zoom" [fullscreenControl]="true">-->
+          <!--            <agm-direction-->
+          <!--              [origin]="origin"-->
+          <!--              [destination]="destination"-->
+          <!--              [renderOptions]="renderOptions"-->
+          <!--              [markerOptions]="markerOptions">-->
+          <!--            </agm-direction>-->
+          <!--            <agm-marker [latitude]="post?.latitude ? post.latitude : 0"-->
+          <!--                        [longitude]="post?.longitude ? post.longitude : 0"-->
+          <!--                        [iconUrl]="markerAddress">-->
+          <!--              <agm-info-window-->
+          <!--                [latitude]="post?.latitude ? post.latitude : 0"-->
+          <!--                [longitude]="post?.longitude ? post.longitude : 0">-->
+          <!--                Địa chỉ: <span class="font-weight-bold text-primary">{{post?.address ? post.address : ''}}</span>-->
+          <!--              </agm-info-window>-->
+          <!--            </agm-marker>-->
+          <!--          </agm-map>-->
         </div>
       </div>
 
@@ -274,7 +268,7 @@
         </ng-template>
       </div>
     </div>
-    <div style="position: relative; display: block; vertical-align: baseline; float: left;}">
+    <div style="position: relative; display: block; vertical-align: baseline; float: left;">
       <div class="col-12 col-lg-3" style="position:fixed; float: left; max-width: 22%">
         <div class="profile-user">
           <div class="profile-info">
@@ -283,40 +277,62 @@
             </div>
             <div>
               <div>
-                <div class="profile-image">
-                  <img width="50" [src]="post?.user?.imageUrl" (click)="viewUserPage(post?.user?.id)" referrerpolicy="no-referrer"
-                       class="cursor-pointer" matTooltip="Bấm xem trang cá nhân"
-                       style="border-radius: 30px"/>
-                </div>
                 <div class="profile-more">
-                  <div class="profile-name cursor-pointer" (click)="viewUserPage(post?.user?.id)"
-                       matTooltip="Bấm xem trang cá nhân">
-                    <b>{{post?.user ? post?.user?.name : 'User'}}</b>
+                  <div class="profile-name cursor-pointer" (click)="viewUserPage(post?.user?.id)">
+                    <div class="profile-image">
+                      <img width="50" [src]="post?.user?.imageUrl" (click)="viewUserPage(post?.user?.id)"
+                           referrerpolicy="no-referrer"
+                           class="cursor-pointer" matTooltip="Bấm xem trang cá nhân"
+                           style="border-radius: 30px"/>
+                    </div>
+                    <div>
+                      <span>{{post?.user ? post?.user?.name : 'User'}}</span>
+                    </div>
+                    <div>
+                      <fa-icon class="mr-2 text-info" [icon]="faPhone"></fa-icon>
+                      <span class="font-weight-bold">{{post?.user ? post?.user?.phoneNumber : 0}}</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div>
-              <div>
-                  <span class="font-weight-bold">
-                  <fa-icon class="mr-2 text-info" [icon]="faPhone"></fa-icon>
-                    {{post?.user ? post?.user?.phoneNumber : 0}}
-                </span>
-              </div>
-              <div class="mt-2">
-                  <span>
-                  <fa-icon class="mr-2 text-danger" [icon]="faEnvelope"></fa-icon>
-                    <a href="mailto:someone@example.com">
-                      {{post?.user ? post?.user?.email : 'No email'}}
-                    </a>
-                  </span>
-              </div>
-            </div>
-          </div>
-          <div>
           </div>
         </div>
-        <div>
+        <div class="profile-user" style="background-color: lavender">
+          <div class="profile-info">
+            <div>
+              <span>Có thể bạn quan tâm</span>
+            </div>
+            <div>
+              <mdb-carousel *ngIf="recommendPost?.length != 0; else default_post"
+                            class="carousel slide carousel-fade" [animation]="'fade'">
+                <mdb-carousel-item *ngFor="let post of recommendPost">
+                  <div class="d-flex mt-3 text-dark">
+                    <div class="d-flex w-100 justify-content-between">
+                      <div class="p-1 ml-2"
+                           style="display: flex;flex-direction: column;justify-content: space-between;">
+                        <div>
+                          <span matTooltip="Xem ngay" matTooltipPosition="right" (click)="viewPost(post?.id)"
+                                class="font-weight-bolder cursor-pointer">{{post?.title}}</span>
+                        </div>
+                        <div class="mt-2">
+                          <label>Giá:
+                            <span class="font-weight-bold">{{post?.price | number}} triệu/tháng</span>
+                          </label>
+                          <label class="ml-3">Diện tích:
+                            <span class="font-weight-bold">{{post?.acreage}} m2</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </mdb-carousel-item>
+              </mdb-carousel>
+              <ng-template #default_post>
+                <span class="text-secondary">Không có phòng cho thuê gần đây</span>
+              </ng-template>
+            </div>
+          </div>
         </div>
       </div>
     </div>

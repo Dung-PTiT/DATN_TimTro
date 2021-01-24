@@ -45,4 +45,9 @@ export class PostService extends MainService {
   getAll(): Observable<any> {
     return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/post/get-all');
   }
+
+  getRecommendPost(latitude: any, longitude: any, currentPostId: any): Observable<any> {
+    return this.http.get(this.PREFIX_URL + this.CONTEXT_URL + '/post/get-recommend-post',
+      {params: {latitude: latitude, longitude: longitude, currentPostId: currentPostId}});
+  }
 }

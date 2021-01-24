@@ -2,7 +2,7 @@ import {Component, NgZone, OnInit} from '@angular/core';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {MarkerInfo} from "../dashboard-client/dashboard-client.component";
 import {
-  faAlignRight, faBuilding, faCalendarAlt, faComment, faEnvelope,
+  faAlignRight, faBuilding, faCalendarAlt, faComment, faEllipsisV, faEnvelope,
   faHandPointRight, faImages, faMapMarkedAlt, faMapMarkerAlt,
   faPaperPlane, faPencilAlt, faPhone, faReply, faShare, faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
@@ -31,6 +31,7 @@ export class PostDetailsComponent implements OnInit {
   id: number;
   markerInfo: MarkerInfo;
   post: Post;
+  recommendPost: Array<Post>;
   images: Array<Image>;
   comments: Array<Comment>;
   favotites: Array<Favorite>;
@@ -101,6 +102,7 @@ export class PostDetailsComponent implements OnInit {
 
         this.images = this.post.images;
         this.favotites = this.post.favorites;
+        this.getRecommendPost(this.post.latitude, this.post.longitude, this.post.id);
         this.checkStatusFavorite(this.favotites);
         this.getCommentByPostId(this.post.id);
         this.setCurrentLocation(this.post);
@@ -256,12 +258,22 @@ export class PostDetailsComponent implements OnInit {
     }
   }
 
+  getRecommendPost(latitude: any, longitude: any, currentPostId: any) {
+    this.postService.getRecommendPost(latitude, longitude, currentPostId).subscribe(resp => {
+      this.recommendPost = resp.data;
+    });
+  }
+
   viewUserPage(userId: any) {
     this.router.navigate(["/user/" + userId]);
   }
 
   timespan(time: Date) {
     return moment(time).startOf("second").fromNow();
+  }
+
+  viewPost(postId: any) {
+    this.router.navigate(["/post/" + postId]);
   }
 
   checkLogin() {
@@ -285,6 +297,7 @@ export class PostDetailsComponent implements OnInit {
   faReply = faReply;
   faPencilAlt = faPencilAlt;
   faTrashAlt = faTrashAlt;
+  faEllipsisV = faEllipsisV;
 }
 
 

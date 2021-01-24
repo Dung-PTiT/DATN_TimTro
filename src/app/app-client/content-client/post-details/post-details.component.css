@@ -53,7 +53,7 @@
 }
 
 .profile-image {
-  margin: 15px 0 15px 0;
+  margin: 10px 0 10px 0;
 }
 
 .profile-more {
@@ -65,14 +65,16 @@ agm-map {
 }
 
 .profile-name {
+  align-items: center;
   font-size: 13px;
   flex: 1;
-  line-height: 18px;
+  line-height: 12px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  margin: 15px 0 15px 0;
+  display: flex;
+  justify-content: space-around;
 }
 
 .btn-more {
@@ -188,4 +190,5 @@ agm-map {
   color: #000000;
   border:1px solid #feb800;
 }
+
 

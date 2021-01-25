@@ -32,7 +32,7 @@ const doSomething = (step = 1, result: boolean = true) => {
       reject('fail to do')
     }
   });
-}
+};
 
 @Component({
   selector: 'app-header-client',
@@ -100,7 +100,12 @@ export class HeaderClientComponent implements OnInit {
             this.cookieService.delete(AppConfig.COOKIE_ROLE_ACCOUNT);
             localStorage.removeItem('userCurrent');
             localStorage.removeItem('emailForgetAccount');
-            return doSomething(2);
+            if (this.cookieService.get(AppConfig.COOKIE_TOKEN_NAME) == null
+              && this.cookieService.get(AppConfig.COOKIE_ROLE_ACCOUNT) == null) {
+              return doSomething(2);
+            } else {
+              doSomething();
+            }
           })
           .then(x => {
             this.append(x);

@@ -18,7 +18,7 @@ const routes: Routes = [
     path: "",
     component: ContentAdminComponent,
     children: [
-      {path: "", component: DashboardAdminComponent},
+      {path: "", component: UserComponent},
       {path: "category", component: CategoryComponent},
       {path: "favorite", component: Favorite},
       {path: "payment", component: PaymentComponent},

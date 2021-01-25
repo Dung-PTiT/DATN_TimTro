@@ -1,7 +1,6 @@
 <div style="margin: 10px 10px 0 10px">
   <div class="d-flex align-items-center justify-content-between">
     <div><h6>Quản lý bài đăng</h6></div>
-    <div><span>Sô lần đăng bài: {{payments?.length}}</span></div>
   </div>
   <mat-divider></mat-divider>
   <div *ngIf="payments?.length != 0;else null_table">
@@ -58,6 +57,9 @@
         <mat-row *matRowDef="let row; columns: displayedPayment;"></mat-row>
       </mat-table>
       <mat-paginator #paginatorRef [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+      <div>
+        <span>Số tiền đã dùng: <span class="font-weight-bold">{{totalPrice | number}}</span> đ</span>
+      </div>
     </div>
   </div>
   <ng-template #null_table>

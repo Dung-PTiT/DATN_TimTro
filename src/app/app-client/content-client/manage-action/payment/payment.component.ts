@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {User} from "../../../../model/user";
 import {MatTableDataSource} from "@angular/material/table";
 import {AppConfig} from "../../../../util/app-config";
@@ -16,7 +16,7 @@ import {faTrashAlt} from "@fortawesome/free-regular-svg-icons";
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.css']
 })
-export class PaymentComponent implements OnInit {
+export class PaymentComponent implements OnInit,AfterViewInit {
 
   user: User;
   payments: Array<Payment>;
@@ -25,6 +25,7 @@ export class PaymentComponent implements OnInit {
 
   IMAGE_URL = AppConfig.IMAGE_URL;
   DEFAULT_IMAGE_USER = AppConfig.DEFAULT_IMAGE_USER;
+  totalPrice: number = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -46,7 +47,14 @@ export class PaymentComponent implements OnInit {
         this.dataSource = new MatTableDataSource(resp.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.ngAfterViewInit();
       });
+    }
+  }
+
+  ngAfterViewInit() {
+    for (let i = 0; i < this.payments.length; i++) {
+      this.totalPrice += this.payments[i].price;
     }
   }
 

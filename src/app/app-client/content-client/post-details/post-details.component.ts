@@ -102,7 +102,7 @@ export class PostDetailsComponent implements OnInit {
 
         this.images = this.post.images;
         this.favotites = this.post.favorites;
-        this.getRecommendPost(this.post.latitude, this.post.longitude, this.post.id);
+        this.getRecommendPost(this.post.latitude, this.post.longitude, this.post.category.id, this.post.id);
         this.checkStatusFavorite(this.favotites);
         this.getCommentByPostId(this.post.id);
         this.setCurrentLocation(this.post);
@@ -258,8 +258,8 @@ export class PostDetailsComponent implements OnInit {
     }
   }
 
-  getRecommendPost(latitude: any, longitude: any, currentPostId: any) {
-    this.postService.getRecommendPost(latitude, longitude, currentPostId).subscribe(resp => {
+  getRecommendPost(latitude: any, longitude: any, categoryId: any, currentPostId: any) {
+    this.postService.getRecommendPost(latitude, longitude, categoryId, currentPostId).subscribe(resp => {
       this.recommendPost = resp.data;
     });
   }

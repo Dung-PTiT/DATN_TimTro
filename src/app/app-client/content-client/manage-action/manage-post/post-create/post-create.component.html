@@ -120,23 +120,23 @@
               </div>
             </div>
           </div>
-          <div class="mt-4">
-            <h6>Tọa độ nơi cho thuê</h6>
-            <div class="row mt-3">
-              <div class="col-6">
-                <span>Vĩ độ</span>
-                <div class="mt-2">
-                  <p class="p-2 bg-light">{{markerInfo.latitude}}</p>
-                </div>
-              </div>
-              <div class="col-6">
-                <span>Kinh độ</span>
-                <div class="mt-2">
-                  <p class="p-2 bg-light">{{markerInfo.longitude}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
+<!--          <div class="mt-4">-->
+<!--            <h6>Tọa độ nơi cho thuê</h6>-->
+<!--            <div class="row mt-3">-->
+<!--              <div class="col-6">-->
+<!--                <span>Vĩ độ</span>-->
+<!--                <div class="mt-2">-->
+<!--                  <p class="p-2 bg-light">{{markerInfo.latitude}}</p>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--              <div class="col-6">-->
+<!--                <span>Kinh độ</span>-->
+<!--                <div class="mt-2">-->
+<!--                  <p class="p-2 bg-light">{{markerInfo.longitude}}</p>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
         </div>
         <div class="mt-4">
           <h6>Tiện ích<span class="text-danger ml-1">*</span></h6>
@@ -169,7 +169,7 @@
           </div>
         </div>
         <div class="mt-4" style="text-align: end">
-          <button mat-button class="text-white font-weight-bold button-save" type="submit">Lưu bài</button>
+          <button mat-button class="text-white font-weight-bold button-save" type="submit">Lưu</button>
         </div>
       </div>
       <div class="col-4">
@@ -185,12 +185,12 @@
             </div>
           </div>
         </div>
-        <!--      <agm-map #agmMap [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude" [zoom]="13"-->
-        <!--               (mapClick)="getLocation($event)" [fullscreenControl]="true">-->
-        <!--        <agm-marker [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude"-->
-        <!--                    [iconUrl]="markerInfo.icon">-->
-        <!--        </agm-marker>-->
-        <!--      </agm-map>-->
+        <agm-map #agmMap [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude" [zoom]="13"
+                 (mapClick)="getLocation($event)" [fullscreenControl]="true">
+          <agm-marker [latitude]="markerInfo.latitude" [longitude]="markerInfo.longitude"
+                      [iconUrl]="markerInfo.icon">
+          </agm-marker>
+        </agm-map>
       </div>
     </div>
   </form>

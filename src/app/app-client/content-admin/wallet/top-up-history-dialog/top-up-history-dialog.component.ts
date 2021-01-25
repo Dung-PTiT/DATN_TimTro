@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
@@ -10,11 +10,12 @@ import {TopUpHistory} from "../../../../model/topUpHistory";
   templateUrl: './top-up-history-dialog.component.html',
   styleUrls: ['./top-up-history-dialog.component.css']
 })
-export class TopUpHistoryDialogComponent implements OnInit {
+export class TopUpHistoryDialogComponent implements OnInit, AfterViewInit {
 
   topUpHistoryList: TopUpHistory[] = [];
   displayedTopUpHistory: string[] = [];
   dataSource: MatTableDataSource<TopUpHistory>;
+  totalPrice: number = 0;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -31,4 +32,9 @@ export class TopUpHistoryDialogComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngAfterViewInit() {
+    for (let i = 0; i < this.topUpHistoryList.length; i++) {
+      this.totalPrice += this.topUpHistoryList[i].balance;
+    }
+  }
 }

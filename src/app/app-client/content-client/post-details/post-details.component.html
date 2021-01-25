@@ -129,25 +129,25 @@
               {{post?.district?.prefix}} {{post?.district?.name}}, {{post?.province.name}}
             </span>
           </p>
-          <!--          <agm-map [latitude]="post?.latitude ? post.latitude : 0"-->
-          <!--                   [longitude]="post?.longitude ? post.longitude : 0"-->
-          <!--                   [zoom]="zoom" [fullscreenControl]="true">-->
-          <!--            <agm-direction-->
-          <!--              [origin]="origin"-->
-          <!--              [destination]="destination"-->
-          <!--              [renderOptions]="renderOptions"-->
-          <!--              [markerOptions]="markerOptions">-->
-          <!--            </agm-direction>-->
-          <!--            <agm-marker [latitude]="post?.latitude ? post.latitude : 0"-->
-          <!--                        [longitude]="post?.longitude ? post.longitude : 0"-->
-          <!--                        [iconUrl]="markerAddress">-->
-          <!--              <agm-info-window-->
-          <!--                [latitude]="post?.latitude ? post.latitude : 0"-->
-          <!--                [longitude]="post?.longitude ? post.longitude : 0">-->
-          <!--                Địa chỉ: <span class="font-weight-bold text-primary">{{post?.address ? post.address : ''}}</span>-->
-          <!--              </agm-info-window>-->
-          <!--            </agm-marker>-->
-          <!--          </agm-map>-->
+          <agm-map [latitude]="post?.latitude ? post.latitude : 0"
+                   [longitude]="post?.longitude ? post.longitude : 0"
+                   [zoom]="zoom" [fullscreenControl]="true">
+            <agm-direction
+              [origin]="origin"
+              [destination]="destination"
+              [renderOptions]="renderOptions"
+              [markerOptions]="markerOptions">
+            </agm-direction>
+            <agm-marker [latitude]="post?.latitude ? post.latitude : 0"
+                        [longitude]="post?.longitude ? post.longitude : 0"
+                        [iconUrl]="markerAddress">
+              <agm-info-window
+                [latitude]="post?.latitude ? post.latitude : 0"
+                [longitude]="post?.longitude ? post.longitude : 0">
+                Địa chỉ: <span class="font-weight-bold text-primary">{{post?.address ? post.address : ''}}</span>
+              </agm-info-window>
+            </agm-marker>
+          </agm-map>
         </div>
       </div>
 
@@ -236,7 +236,8 @@
             <div class="content-comment">
               <div class="content-comment-full d-flex justify-content-between">
                 <div class="font-size-12">
-                  <span class="user-name">
+                  <span class="user-name cursor-pointer" (click)="viewUserPage(comment?.user?.id)"
+                        matTooltip="Xem trang cá nhân">
                     {{comment?.user?.name}}
                   </span>
                   {{comment?.content}}
@@ -301,7 +302,7 @@
         <div class="profile-user" style="background-color: lavender">
           <div class="profile-info">
             <div>
-              <span>Có thể bạn quan tâm</span>
+              <span>Quanh đây 1km</span>
             </div>
             <div>
               <mdb-carousel *ngIf="recommendPost?.length != 0; else default_post"

@@ -430,8 +430,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<PostRequest> getRecommendPost(double latitude, double longitude, Integer currentPostId) {
-        List<PostEntity> postEntities = postDAO.getRecommendPost(latitude, longitude, currentPostId);
+    public List<PostRequest> getRecommendPost(double latitude, double longitude, Integer categoryId, Integer currentPostId) {
+        List<PostEntity> postEntities = postDAO.getRecommendPost(latitude, longitude, categoryId, currentPostId);
         if (postEntities != null) {
             return postEntities.stream().map(postEntity ->
             {

@@ -22,5 +22,5 @@ public interface PostService {
 
     void updateStatus(Integer id, Boolean status);
 
-    List<PostRequest> getRecommendPost(double latitude, double longitude, Integer currentPostId);
+    List<PostRequest> getRecommendPost(double latitude, double longitude, Integer categoryId, Integer currentPostId);
 }

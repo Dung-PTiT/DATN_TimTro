@@ -19,5 +19,5 @@ public interface PostDAO {
 
     void updateStatus(Integer id, Boolean status);
 
-    List<PostEntity> getRecommendPost(double latitude, double longitude, Integer currentPostId);
+    List<PostEntity> getRecommendPost(double latitude, double longitude, Integer categoryId, Integer currentPostId);
 }

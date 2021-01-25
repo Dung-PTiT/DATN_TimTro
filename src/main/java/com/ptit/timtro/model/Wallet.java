@@ -18,5 +18,4 @@ public class Wallet {
     private Integer balance;
     private Date createTime;
     private User user;
-    private List<TopUpHistory> topUpHistoryList;
 }

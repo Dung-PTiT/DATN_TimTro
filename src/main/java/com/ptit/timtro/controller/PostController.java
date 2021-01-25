@@ -135,9 +135,10 @@ public class PostController {
     @GetMapping("/post/get-recommend-post")
     public DataResponse<List<PostRequest>> getRecommendPost(@RequestParam("latitude") double latitude,
                                                             @RequestParam("longitude") double longitude,
+                                                            @RequestParam("categoryId") Integer categoryId,
                                                             @RequestParam("currentPostId") Integer currentPostId) {
         try {
-            return new DataResponse<>(true, postService.getRecommendPost(latitude, longitude, currentPostId));
+            return new DataResponse<>(true, postService.getRecommendPost(latitude, longitude, categoryId, currentPostId));
         } catch (Exception e) {
             e.printStackTrace();
         }
